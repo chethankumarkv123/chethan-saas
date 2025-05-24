@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compare Texts - chethan-saas.com</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600 animate-fade-in">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="./index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+          <img style="height: 60px" src="./chethan-saas.png" alt="EasyResize Logo" class="h-12 w-auto">
+        </a>
+        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <button id="darkModeToggle" class="text-gray-500 dark:text-gray-400 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+          <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+              <a href="./index.html" class="nav-link block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-blue-500 nav-transition" aria-current="page">Home</a>
+            </li>
+            <li>
+              <a href="./about.html" class="nav-link block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-blue-500 nav-transition">About</a>
+            </li>
+            <li>
+              <a href="./contact.html" class="nav-link block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:text-blue-500 nav-transition">Contact</a>
+            </li>
+            <li>
+              <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="nav-link flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white dark:hover:text-blue-500 nav-transition">
+                ALL PDF TOOLS
+                <svg style="margin-top: 5px" class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                </svg>
+              </button>
+              <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 pt-24 pb-12">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8">Compare Texts Online</h1>
+        
+        <!-- Text Input Areas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <!-- Source Text -->
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <h2 class="text-lg font-semibold">Source Text</h2>
+              <div class="space-x-2">
+                <button onclick="loadSourceFile()" class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">Load Source</button>
+                <button onclick="clearSource()" class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">Clear</button>
+                <button onclick="toggleCase('source')" class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">Toggle Case</button>
+              </div>
+            </div>
+            <textarea id="sourceText" class="w-full h-64 p-4 border rounded-lg resize-none" placeholder="Paste your source text here..."></textarea>
+            <div class="text-sm text-gray-600">
+              Words: <span id="sourceWordCount">0</span>, Characters: <span id="sourceCharCount">0</span>
+            </div>
+          </div>
+
+          <!-- Target Text -->
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <h2 class="text-lg font-semibold">Target Text</h2>
+              <div class="space-x-2">
+                <button onclick="loadTargetFile()" class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">Load Target</button>
+                <button onclick="clearTarget()" class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">Clear</button>
+                <button onclick="toggleCase('target')" class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">Toggle Case</button>
+              </div>
+            </div>
+            <textarea id="targetText" class="w-full h-64 p-4 border rounded-lg resize-none" placeholder="Paste your target text here..."></textarea>
+            <div class="text-sm text-gray-600">
+              Words: <span id="targetWordCount">0</span>, Characters: <span id="targetCharCount">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compare Options -->
+        <div class="bg-white p-6 rounded-lg shadow mb-8">
+          <h3 class="text-lg font-semibold mb-4">Comparison Options</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" id="ignoreCase" class="rounded text-blue-600" checked>
+                <span>Ignore Case</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" id="ignoreWhitespace" class="rounded text-blue-600" checked>
+                <span>Ignore Whitespace</span>
+              </label>
+            </div>
+            <div class="space-y-2">
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" id="ignorePunctuation" class="rounded text-blue-600">
+                <span>Ignore Punctuation</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" id="ignoreNumbers" class="rounded text-blue-600">
+                <span>Ignore Numbers</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compare Button -->
+        <div class="text-center mb-8">
+          <button onclick="compareTexts()" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            Compare Texts
+          </button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="hidden space-y-6">
+          <!-- Statistics -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-xl font-semibold mb-4">Comparison Statistics</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="text-center p-4 bg-gray-50 rounded">
+                <div class="text-sm text-gray-600">Common (%)</div>
+                <div id="commonPercent" class="text-2xl font-bold text-blue-600">0%</div>
+              </div>
+              <div class="text-center p-4 bg-gray-50 rounded">
+                <div class="text-sm text-gray-600">Difference (%)</div>
+                <div id="diffPercent" class="text-2xl font-bold text-red-600">0%</div>
+              </div>
+              <div class="text-center p-4 bg-gray-50 rounded">
+                <div class="text-sm text-gray-600">Common (symbols)</div>
+                <div id="commonSymbols" class="text-2xl font-bold text-blue-600">0</div>
+              </div>
+              <div class="text-center p-4 bg-gray-50 rounded">
+                <div class="text-sm text-gray-600">Difference (symbols)</div>
+                <div id="diffSymbols" class="text-2xl font-bold text-red-600">0</div>
+              </div>
+            </div>
+            <div class="mt-4 text-center">
+              <div class="text-sm text-gray-600">Levenshtein Distance</div>
+              <div id="levenshteinDistance" class="text-2xl font-bold text-purple-600">0</div>
+            </div>
+          </div>
+
+          <!-- Comparison View -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-semibold">Comparison View</h3>
+              <div class="space-x-2">
+                <button onclick="toggleView('single')" class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">Single Column</button>
+                <button onclick="toggleView('double')" class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">Double Column</button>
+                <button onclick="downloadResults()" class="px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 rounded">Download Results</button>
+              </div>
+            </div>
+            <div id="comparisonView" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold mb-2">Removed</h4>
+                <div id="removedText" class="text-gray-700"></div>
+              </div>
+              <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold mb-2">Added</h4>
+                <div id="addedText" class="text-gray-700"></div>
+              </div>
+            </div>
+            <!-- New Inline Comparison View -->
+            <div class="mt-6 p-4 bg-gray-50 rounded">
+              <h4 class="font-semibold mb-2">Inline Comparison</h4>
+              <div id="inlineComparison" class="text-gray-700 leading-relaxed"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 mt-12">
+      <div class="max-w-screen-xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Menu Section -->
+          <div class="space-y-4">
+            <h3 class="text-lg font-semibold text-[#e5322d]">Menu</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="./index.html" class="text-gray-600 hover:text-[#e5322d] transition-colors duration-200">Home</a>
+              </li>
+              <li>
+                <a href="./about.html" class="text-gray-600 hover:text-[#e5322d] transition-colors duration-200">About</a>
+              </li>
+              <li>
+                <a href="./contact.html" class="text-gray-600 hover:text-[#e5322d] transition-colors duration-200">Contact</a>
+              </li>
+              <li>
+                <a href="./privacy-policy.html" class="text-gray-600 hover:text-[#e5322d] transition-colors duration-200">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="./disclaimer.html" class="text-gray-600 hover:text-[#e5322d] transition-colors duration-200">Disclaimer</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- About Section -->
+          <div class="space-y-4">
+            <div class="flex justify-center md:justify-start">
+              <img src="./chethan-saas.png" alt="Logo" class="h-12 mix-blend-multiply" />
+            </div>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Compare texts easily with our powerful online text comparison tool. Find differences, track changes, and analyze content with precision. Perfect for writers, editors, and content creators.
+            </p>
+          </div>
+
+          <!-- Contact Section -->
+          <div class="space-y-4">
+            <h3 class="text-lg font-semibold text-[#e5322d]">Contact Us</h3>
+            <div class="space-y-2">
+              <p class="text-gray-600">
+                <span class="font-medium">Address:</span><br>
+                Kamasamudram - 563129
+              </p>
+              <p class="text-gray-600">
+                <span class="font-medium">Email:</span><br>
+                <a href="mailto:Chethankumarkv123@gmail.com" class="hover:text-[#e5322d] transition-colors duration-200">
+                  Chethankumarkv123@gmail.com
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="mt-8 text-center text-gray-500 text-sm">
+          © Copyright 2025. All Rights Reserved Created By Nitin Pukale.
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script>
+      // Word and character count
+      function updateCounts(textareaId, wordCountId, charCountId) {
+        const text = document.getElementById(textareaId).value;
+        const words = text.trim() ? text.trim().split(/\s+/) : [];
+        const chars = text.length;
+        
+        document.getElementById(wordCountId).textContent = words.length;
+        document.getElementById(charCountId).textContent = chars;
+      }
+
+      // Add event listeners for text areas
+      ['sourceText', 'targetText'].forEach(id => {
+        document.getElementById(id).addEventListener('input', function() {
+          const isSource = id === 'sourceText';
+          updateCounts(id, 
+            isSource ? 'sourceWordCount' : 'targetWordCount',
+            isSource ? 'sourceCharCount' : 'targetCharCount'
+          );
+        });
+      });
+
+      // File loading functions
+      function loadSourceFile() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.txt,.doc,.docx,.pdf';
+        input.onchange = e => {
+          const file = e.target.files[0];
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            document.getElementById('sourceText').value = e.target.result;
+            updateCounts('sourceText', 'sourceWordCount', 'sourceCharCount');
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+      }
+
+      function loadTargetFile() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.txt,.doc,.docx,.pdf';
+        input.onchange = e => {
+          const file = e.target.files[0];
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            document.getElementById('targetText').value = e.target.result;
+            updateCounts('targetText', 'targetWordCount', 'targetCharCount');
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+      }
+
+      // Clear functions
+      function clearSource() {
+        document.getElementById('sourceText').value = '';
+        updateCounts('sourceText', 'sourceWordCount', 'sourceCharCount');
+      }
+
+      function clearTarget() {
+        document.getElementById('targetText').value = '';
+        updateCounts('targetText', 'targetWordCount', 'targetCharCount');
+      }
+
+      // Toggle case
+      function toggleCase(textareaId) {
+        const textarea = document.getElementById(textareaId);
+        const text = textarea.value;
+        textarea.value = text === text.toUpperCase() ? text.toLowerCase() : text.toUpperCase();
+        updateCounts(textareaId, 
+          textareaId === 'sourceText' ? 'sourceWordCount' : 'targetWordCount',
+          textareaId === 'sourceText' ? 'sourceCharCount' : 'targetCharCount'
+        );
+      }
+
+      // Levenshtein distance calculation
+      function levenshteinDistance(a, b) {
+        if (a.length === 0) return b.length;
+        if (b.length === 0) return a.length;
+
+        const matrix = [];
+
+        for (let i = 0; i <= b.length; i++) {
+          matrix[i] = [i];
+        }
+
+        for (let j = 0; j <= a.length; j++) {
+          matrix[0][j] = j;
+        }
+
+        for (let i = 1; i <= b.length; i++) {
+          for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+              matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+              matrix[i][j] = Math.min(
+                matrix[i - 1][j - 1] + 1,
+                matrix[i][j - 1] + 1,
+                matrix[i - 1][j] + 1
+              );
+            }
+          }
+        }
+
+        return matrix[b.length][a.length];
+      }
+
+      // Process text based on options
+      function processText(text) {
+        if (document.getElementById('ignoreCase').checked) {
+          text = text.toLowerCase();
+        }
+        if (document.getElementById('ignoreWhitespace').checked) {
+          text = text.replace(/\s+/g, ' ').trim();
+        }
+        if (document.getElementById('ignorePunctuation').checked) {
+          text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
+        }
+        if (document.getElementById('ignoreNumbers').checked) {
+          text = text.replace(/[0-9]/g, '');
+        }
+        return text;
+      }
+
+      // Compare texts
+      function compareTexts() {
+        let sourceText = document.getElementById('sourceText').value;
+        let targetText = document.getElementById('targetText').value;
+
+        if (!sourceText || !targetText) {
+          alert('Please enter both source and target texts to compare.');
+          return;
+        }
+
+        // Process texts based on options
+        sourceText = processText(sourceText);
+        targetText = processText(targetText);
+
+        // Show results section
+        document.getElementById('results').classList.remove('hidden');
+
+        // Calculate statistics
+        const sourceWords = sourceText.trim().split(/\s+/);
+        const targetWords = targetText.trim().split(/\s+/);
+        
+        const commonWords = sourceWords.filter(word => targetWords.includes(word));
+        const removedWords = sourceWords.filter(word => !targetWords.includes(word));
+        const addedWords = targetWords.filter(word => !sourceWords.includes(word));
+
+        // Update statistics
+        const totalWords = Math.max(sourceWords.length, targetWords.length);
+        const commonPercent = Math.round((commonWords.length / totalWords) * 100);
+        const diffPercent = 100 - commonPercent;
+
+        document.getElementById('commonPercent').textContent = `${commonPercent}%`;
+        document.getElementById('diffPercent').textContent = `${diffPercent}%`;
+        document.getElementById('commonSymbols').textContent = commonWords.length;
+        document.getElementById('diffSymbols').textContent = Math.abs(sourceWords.length - targetWords.length);
+
+        // Calculate and display Levenshtein distance
+        const distance = levenshteinDistance(sourceText, targetText);
+        document.getElementById('levenshteinDistance').textContent = distance;
+
+        // Update comparison view with enhanced styling
+        document.getElementById('removedText').innerHTML = removedWords.map(word => 
+          `<span class="inline-block px-1 py-0.5 bg-red-100 text-red-700 rounded border border-red-200">${word}</span>`
+        ).join(' ');
+        
+        document.getElementById('addedText').innerHTML = addedWords.map(word => 
+          `<span class="inline-block px-1 py-0.5 bg-green-100 text-green-700 rounded border border-green-200">${word}</span>`
+        ).join(' ');
+
+        // Create inline comparison view
+        const inlineComparison = document.getElementById('inlineComparison');
+        let inlineHtml = '';
+        let sourceIndex = 0;
+        let targetIndex = 0;
+
+        while (sourceIndex < sourceWords.length || targetIndex < targetWords.length) {
+          if (sourceIndex < sourceWords.length && targetIndex < targetWords.length && 
+              sourceWords[sourceIndex] === targetWords[targetIndex]) {
+            // Common word
+            inlineHtml += `<span class="inline-block px-1 py-0.5">${sourceWords[sourceIndex]}</span> `;
+            sourceIndex++;
+            targetIndex++;
+          } else if (sourceIndex < sourceWords.length && 
+                    (targetIndex >= targetWords.length || 
+                     !targetWords.slice(targetIndex).includes(sourceWords[sourceIndex]))) {
+            // Removed word
+            inlineHtml += `<span class="inline-block px-1 py-0.5 bg-red-100 text-red-700 rounded border border-red-200">${sourceWords[sourceIndex]}</span> `;
+            sourceIndex++;
+          } else if (targetIndex < targetWords.length && 
+                    (sourceIndex >= sourceWords.length || 
+                     !sourceWords.slice(sourceIndex).includes(targetWords[targetIndex]))) {
+            // Added word
+            inlineHtml += `<span class="inline-block px-1 py-0.5 bg-green-100 text-green-700 rounded border border-green-200">${targetWords[targetIndex]}</span> `;
+            targetIndex++;
+          } else {
+            // Find next common word
+            const nextCommonIndex = targetWords.slice(targetIndex).findIndex(word => 
+              sourceWords.slice(sourceIndex).includes(word)
+            );
+            if (nextCommonIndex === -1) {
+              // No more common words, add remaining words
+              while (sourceIndex < sourceWords.length) {
+                inlineHtml += `<span class="inline-block px-1 py-0.5 bg-red-100 text-red-700 rounded border border-red-200">${sourceWords[sourceIndex]}</span> `;
+                sourceIndex++;
+              }
+              while (targetIndex < targetWords.length) {
+                inlineHtml += `<span class="inline-block px-1 py-0.5 bg-green-100 text-green-700 rounded border border-green-200">${targetWords[targetIndex]}</span> `;
+                targetIndex++;
+              }
+            } else {
+              // Add words up to the next common word
+              while (sourceIndex < sourceWords.length && sourceWords[sourceIndex] !== targetWords[targetIndex + nextCommonIndex]) {
+                inlineHtml += `<span class="inline-block px-1 py-0.5 bg-red-100 text-red-700 rounded border border-red-200">${sourceWords[sourceIndex]}</span> `;
+                sourceIndex++;
+              }
+              while (targetIndex < targetIndex + nextCommonIndex) {
+                inlineHtml += `<span class="inline-block px-1 py-0.5 bg-green-100 text-green-700 rounded border border-green-200">${targetWords[targetIndex]}</span> `;
+                targetIndex++;
+              }
+            }
+          }
+        }
+        inlineComparison.innerHTML = inlineHtml;
+      }
+
+      // Toggle view
+      function toggleView(view) {
+        const comparisonView = document.getElementById('comparisonView');
+        if (view === 'single') {
+          comparisonView.classList.remove('md:grid-cols-2');
+          comparisonView.classList.add('md:grid-cols-1');
+        } else {
+          comparisonView.classList.remove('md:grid-cols-1');
+          comparisonView.classList.add('md:grid-cols-2');
+        }
+      }
+
+      // Download results
+      function downloadResults() {
+        const sourceText = document.getElementById('sourceText').value;
+        const targetText = document.getElementById('targetText').value;
+        const commonPercent = document.getElementById('commonPercent').textContent;
+        const diffPercent = document.getElementById('diffPercent').textContent;
+        const levenshteinDistance = document.getElementById('levenshteinDistance').textContent;
+        const removedText = document.getElementById('removedText').textContent;
+        const addedText = document.getElementById('addedText').textContent;
+
+        const content = `Text Comparison Results
+
+Source Text:
+${sourceText}
+
+Target Text:
+${targetText}
+
+Statistics:
+Common: ${commonPercent}
+Difference: ${diffPercent}
+Levenshtein Distance: ${levenshteinDistance}
+
+Removed Words:
+${removedText}
+
+Added Words:
+${addedText}
+
+Generated by chethan-saas.com`;
+
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'text-comparison-results.txt';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+    </script>
+  </body>
+</html> 
