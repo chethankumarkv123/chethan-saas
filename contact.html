@@ -1,73 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Title -->
-    <title>Contact Us | chethan-saas.com - Get in Touch</title>
-
-    <!-- Meta Description -->
-    <meta name="description" content="Contact chethan-saas.com for any questions, feedback, or support. We're here to help you with all your PDF conversion needs.">
-
-    <!-- SEO Keywords -->
-    <meta name="keywords" content="contact chethan-saas, PDF converter support, help desk, customer service, feedback form">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://chethan-saas.com/contact">
-
-    <!-- Open Graph for Social Sharing -->
-    <meta property="og:title" content="Contact Us | chethan-saas.com">
-    <meta property="og:description" content="Get in touch with our team for any questions or support. We're here to help you with all your PDF conversion needs.">
-    <meta property="og:url" content="https://chethan-saas.com/contact">
-    <meta property="og:type" content="website">
-
-    <!-- Robots Meta Tag -->
-    <meta name="robots" content="index, follow">
-
-    <!-- Favicon -->
-    <link rel="icon" href="./chethan-saas.png" type="image/x-icon">
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us || PDF to All Converter</title>
     <link rel="stylesheet" href="./css/style.css" />
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+      
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .feature-card {
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .profile-section {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .profile-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+      }
+
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+      }
+
+      .glow {
+        box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+      }
+
+      .hover-glow:hover {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.7);
+      }
+
+      .text-gradient {
+        background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    </style>
   </head>
-  <body>
-    <!-- Navigation Bar -->
-    <nav class="bg-white :bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 :border-gray-600">
-      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="https://onepagetools.com" class="flex items-center space-x-3 rtl:space-x-reverse">
-          <img style="height: 60px;" src="./One_Page-removebg-preview.png" alt="">
+  <body class="bg-gray-50">
+    <nav
+      class="bg-white/80 backdrop-blur-md fixed w-full z-20 top-0 start-0 border-b border-gray-200"
+    >
+      <div
+        class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+      >
+        <a href="./index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+         <img style="height: 60px;" src="./chethan-saas.png" alt="" class="hover-glow transition-all duration-300">
         </a>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 :text-gray-400 :hover:bg-gray-700 :focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+         
+          <button
+            data-collapse-toggle="navbar-sticky"
+            type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            aria-controls="navbar-sticky"
+            aria-expanded="false"
+          >
             <span class="sr-only">Open main menu</span>
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+            <svg
+              class="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15"
+              ></path>
             </svg>
           </button>
         </div>
-        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-          <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white :bg-gray-800 md: :bg-gray-900 :border-gray-700">
+        <div
+          class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          id="navbar-sticky"
+        >
+          <ul
+            class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent"
+          >
             <li>
-              <a href="./index.html" class="block py-2 px-3 text-black rounded md:bg-transparent md:text-black md:p-0 md: :text-blue-500" aria-current="page">Home</a>
+              <a
+                href="./index.html"
+                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 transition-colors duration-300"
+                >Home</a
+              >
             </li>
             <li>
-              <a href="./about.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md: :hover:text-blue-500 :text-white :hover:bg-gray-700 :hover:text-white md: :hover:bg-transparent :border-gray-700">About</a>
+              <a
+                href="./about.html"
+                class="block py-2 px-3 text-white bg-blue-600 rounded md:bg-transparent md:text-blue-600 md:p-0 font-semibold"
+                aria-current="page"
+                >About</a
+              >
+            </li>
+
+            <li>
+              <a
+                href="./contact.html"
+                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 transition-colors duration-300"
+                >Contact</a
+              >
             </li>
             <li>
-              <a href="./contact.html" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0" aria-current="page">Contact</a>
-            </li>
-            <li>
-              <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto -:text-white md:-:hover:text-blue-500 -:focus:text-white -:border-gray-700 -:hover:bg-gray-700 md:-:hover:bg-transparent">
+              <button
+                id="dropdownNavbarLink"
+                data-dropdown-toggle="dropdownNavbar"
+                class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto transition-colors duration-300"
+              >
                 ALL PDF TOOLS
-                <svg style="margin-top: 5px" class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                <svg
+                  class="w-2.5 h-2.5 ms-2.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 1 4 4 4-4"
+                  />
                 </svg>
               </button>
               <!-- Dropdown menu -->
-              <div id="dropdownNavbar" class="z-10 flex hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 -:bg-gray-700 -:divide-gray-600 mydrop">
-                <ul class="py-2 text-sm text-gray-700 -:text-gray-400" aria-labelledby="dropdownLargeButton">
+              <div
+                id="dropdownNavbar"
+                class="z-10 hidden font-normal bg-white/80 backdrop-blur-md divide-y divide-gray-100 rounded-lg shadow-lg w-44"
+              >
+                <ul
+                  class="py-2 text-sm text-gray-700"
+                  aria-labelledby="dropdownLargeButton"
+                >
                    <li>
                   <a
                     href="./imageresizer.html"
@@ -242,168 +353,152 @@
       </div>
     </nav>
 
-    <!-- Contact Section -->
-    <div class="max-w-screen-xl mx-auto px-4 py-16 sm:px-6 lg:px-8 mt-20">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Contact Information -->
-        <div class="bg-white rounded-lg shadow-lg p-8">
-          <h2 class="text-3xl font-bold text-gray-900 mb-6">Get in Touch</h2>
-          <p class="text-gray-600 mb-8">
-            Have questions about our PDF conversion tools? We're here to help! Reach out to us through any of the following channels or fill out the contact form.
-          </p>
-          
-          <div class="space-y-6">
-            <div class="flex items-start space-x-4">
-              <div class="flex-shrink-0">
-                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900">Address</h3>
-                <p class="text-gray-600">Kamasamudram - 563129</p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-4">
-              <div class="flex-shrink-0">
-                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900">Phone</h3>
-                <a href="tel:+916361959543" class="text-blue-600 hover:text-blue-800">+91 6361959543</a>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-4">
-              <div class="flex-shrink-0">
-                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900">Email</h3>
-                <a href="mailto:Chethankumarkv123@gmail.com" class="text-blue-600 hover:text-blue-800">Chethankumarkv123@gmail.com</a>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-4">
-              <div class="flex-shrink-0">
-                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900">Response Time</h3>
-                <p class="text-gray-600">We typically respond within 24 hours</p>
-              </div>
-            </div>
-
-            <!-- Business Hours -->
-            <div class="flex items-start space-x-4">
-              <div class="flex-shrink-0">
-                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900">Business Hours</h3>
-                <p class="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                <p class="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
-                <p class="text-gray-600">Sunday: Closed</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Social Media Links -->
-          <div class="mt-8">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Follow Us</h3>
+    <!-- Hero Section -->
+    <div class="profile-section text-white pt-32 pb-20">
+      <div class="max-w-screen-xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+          <div class="md:w-1/2 mb-10 md:mb-0">
+            <h1 class="text-5xl font-bold mb-6 text-gradient">Transforming PDF Solutions</h1>
+            <p class="text-xl mb-8 text-gray-300">Empowering users with innovative document conversion tools that make work easier, faster, and more efficient.</p>
             <div class="flex space-x-4">
-              <a href="#" class="text-gray-600 hover:text-blue-600">
-                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
+              <a href="mailto:Chethankumarkv123@gmail.com" class="glass-card px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition duration-300">
+                Contact Us
               </a>
-              <a href="#" class="text-gray-600 hover:text-blue-600">
-                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                </svg>
-              </a>
-              <a href="#" class="text-gray-600 hover:text-blue-600">
-                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
+              <a href="tel:+916361959543" class="glass-card px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition duration-300">
+                Call Now
               </a>
             </div>
           </div>
-        </div>
-
-        <!-- Contact Form -->
-        <div class="bg-white rounded-lg shadow-lg p-8">
-          <h2 class="text-3xl font-bold text-gray-900 mb-6">Send us a Message</h2>
-          <form id="contactForm" class="space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
-                <input type="text" id="firstName" name="firstName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-              </div>
-              <div>
-                <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
-                <input type="text" id="lastName" name="lastName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                <input type="email" id="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-              </div>
-              <div>
-                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Enter your phone number">
-              </div>
-            </div>
-
-            <div>
-              <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
-              <select id="subject" name="subject" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                <option value="">Select a subject</option>
-                <option value="general">General Inquiry</option>
-                <option value="support">Technical Support</option>
-                <option value="billing">Billing Question</option>
-                <option value="feedback">Feedback</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-              <textarea id="message" name="message" rows="4" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
-            </div>
-
-            <div class="flex items-center">
-              <input type="checkbox" id="newsletter" name="newsletter" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-              <label for="newsletter" class="ml-2 block text-sm text-gray-700">
-                Subscribe to our newsletter
-              </label>
-            </div>
-
-            <div>
-              <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                Send Message
-              </button>
-            </div>
-          </form>
+          <div class="md:w-1/2 flex justify-center">
+            <img src="./chethan-saas.png" alt="Chethan Kumar" class="w-64 h-64 rounded-full border-4 border-white/20 shadow-xl animate-float">
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-100">
-      <div class="max-w-screen-lg py-10 px-4 sm:px-6 text-gray-800 sm:flex justify-between mx-auto">
+    <!-- Features Grid -->
+    <div class="max-w-screen-xl mx-auto px-4 py-20">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4 text-gradient">Our Features</h2>
+        <p class="text-xl text-gray-600">Discover what makes us different</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="feature-card p-8 rounded-xl">
+          <div class="text-blue-600 mb-4">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4 text-gradient">Lightning Fast Conversion</h3>
+          <p class="text-gray-600">Experience rapid file conversions with our optimized processing engine, saving you valuable time.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card p-8 rounded-xl">
+          <div class="text-blue-600 mb-4">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4 text-gradient">Advanced Security</h3>
+          <p class="text-gray-600">Your files are automatically deleted after processing, ensuring maximum security and privacy.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card p-8 rounded-xl">
+          <div class="text-blue-600 mb-4">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4 text-gradient">Free to Use</h3>
+          <p class="text-gray-600">Access all basic features completely free, with premium options available for advanced needs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="bg-gray-100 py-20">
+      <div class="max-w-screen-xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-4xl font-bold text-gray-900 mb-6 text-gradient">About OnePageTools</h2>
+            <p class="text-lg text-gray-600 mb-6">
+              Founded by Chethan Kumar, OnePageTools.com is dedicated to making document conversion simple, fast, and accessible to everyone. Our mission is to provide high-quality PDF conversion tools that help users work more efficiently and effectively.
+            </p>
+            <div class="flex items-center space-x-4">
+              <div class="flex items-center">
+                <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>24/7 Customer Support</span>
+              </div>
+              <div class="flex items-center">
+                <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>Secure Processing</span>
+              </div>
+            </div>
+          </div>
+          <div class="relative">
+            <img src="./images/giiiiiiiiiiiiiifs_ Photo.gif" alt="About Us" class="rounded-lg shadow-xl hover-glow transition-all duration-300">
+            <div class="absolute -bottom-6 -left-6 bg-blue-600 text-white p-6 rounded-lg glass-card">
+              <p class="text-2xl font-bold">5+</p>
+              <p>Years of Experience</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="max-w-screen-xl mx-auto px-4 py-20">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4 text-gradient">Get in Touch</h2>
+        <p class="text-xl text-gray-600">We'd love to hear from you</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass-card p-8 rounded-xl text-center hover-glow transition-all duration-300">
+          <div class="text-blue-600 mb-4">
+            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-gradient">Email Us</h3>
+          <a href="mailto:Chethankumarkv123@gmail.com" class="text-blue-600 hover:text-blue-800 transition-colors duration-300">Chethankumarkv123@gmail.com</a>
+        </div>
+
+        <div class="glass-card p-8 rounded-xl text-center hover-glow transition-all duration-300">
+          <div class="text-blue-600 mb-4">
+            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-gradient">Call Us</h3>
+          <a href="tel:+916361959543" class="text-blue-600 hover:text-blue-800 transition-colors duration-300">+91 6361959543</a>
+        </div>
+
+        <div class="glass-card p-8 rounded-xl text-center hover-glow transition-all duration-300">
+          <div class="text-blue-600 mb-4">
+            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-gradient">Location</h3>
+          <p class="text-gray-600">Kamasamudram - 563129</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-100">
+      <div
+        class="max-w-screen-lg py-10 px-4 sm:px-6 text-gray-800 sm:flex justify-between mx-auto"
+      >
         <div class="p-5 sm:w-2/12 border-r">
           <div class="text-sm uppercase text-[#e5322d] font-bold">Menu</div>
           <ul>
@@ -425,26 +520,32 @@
           </ul>
         </div>
         <div class="p-5 sm:w-7/12 border-r text-center">
-          <img style="height: 60px;margin: auto;margin-bottom: 20px;mix-blend-mode: multiply;" src="./One_Page-removebg-preview.png" alt="">
+          <img style="height: 60px;margin: auto;margin-bottom: 20px;mix-blend-mode: multiply;"  src="./One_Page-removebg-preview.png" alt="">
           <p class="text-gray-500 text-sm mb-10">
-            Easily convert documents to PDF with OnePageTools.com – your all-in-one online PDF converter. Whether it's text files, images, or spreadsheets, our free PDF-to-All Converter supports multiple formats and ensures fast, high-quality conversions. With just a few clicks, you can turn any file into a professional PDF, perfect for sharing, printing, or storing.
-            <br>
-            <br>Start using OnePageTools.com today and experience the easiest way to manage your documents. Simplify your workflow with our fast, secure, and user-friendly PDF converter online – no sign-up required!
+            Convert your documents to PDF in seconds using the powerful and free PDF-to-All Converter at OnePageTools.com. Our tool supports all major file formats—text, images (JPG, PNG), spreadsheets (XLS, XLSX), and more—allowing for fast, high-quality PDF conversions without losing formatting. Whether you're managing office documents or personal files, our online PDF converter makes your work easier, faster, and more efficient.
+<br>
+<b>Try OnePageTools.com today – the trusted choice for millions to convert files to PDF online for free.</b>
           </p>
         </div>
         <div class="p-5 sm:w-3/12">
-          <div class="text-sm uppercase text-[#e5322d] font-bold">Contact Us</div>
+          <div class="text-sm uppercase text-[#e5322d] font-bold">
+            Contact Us
+          </div>
           <ul>
             <li class="my-2">
-              <a class="hover:text-[#e5322d]" href="#">Kamasamudram - 563129</a>
+              <a class="hover:text-[#e5322d]" href="#"
+                >kamasamudram-563129</a
+              >
             </li>
             <li class="my-2">
-              <a class="hover:text-[#e5322d]" href="mailto:Chethankumarkv123@gmail.com">chethankumarkv123@gmail.com</a>
+              <a class="hover:text-[#e5322d]" href="#">chethankumarkv123@gmail.com</a>
             </li>
           </ul>
         </div>
       </div>
-      <div class="flex py-5 m-auto text-gray-800 text-sm flex-col items-center border-t max-w-screen-xl">
+      <div
+        class="flex py-5 m-auto text-gray-800 text-sm flex-col items-center border-t max-w-screen-xl"
+      >
         <div class="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">
           <a href="#" class="w-6 mx-1">
             <svg
@@ -619,59 +720,68 @@
             </svg>
           </a>
         </div>
-        <div class="my-5">© Copyright 2024. All Rights Reserved.</div>
+        <div class="my-5">© Copyright 2025. All Rights Reserved Created By Nitin Pukale.</div>
       </div>
-    </footer>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
     <script>
-      // Form submission handling
-      document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-        
-        // Validate phone number if provided
-        const phone = data.phone;
-        if (phone && !/^[0-9]{10}$/.test(phone)) {
-          alert('Please enter a valid 10-digit phone number');
-          return;
+      const fileInput = document.getElementById("fileInput");
+      const convertButton = document.getElementById("convertButton");
+      const output = document.getElementById("output");
+
+      let pdfDoc = null;
+
+      fileInput.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (file && file.type === "application/pdf") {
+          const fileReader = new FileReader();
+          fileReader.onload = async function () {
+            const typedarray = new Uint8Array(this.result);
+            pdfDoc = await pdfjsLib.getDocument(typedarray).promise;
+            convertButton.disabled = false;
+          };
+          fileReader.readAsArrayBuffer(file);
         }
-        
-        // Here you would typically send the data to your server
-        console.log('Form submitted:', data);
-        
-        // Show success message
-        alert('Thank you for your message! We will get back to you soon.');
-        this.reset();
       });
 
-      // Phone number formatting
-      const phoneInput = document.getElementById('phone');
-      phoneInput.addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 10) {
-          value = value.slice(0, 10);
+      convertButton.addEventListener("click", async () => {
+        if (pdfDoc) {
+          output.innerHTML = "";
+          let excelData = [];
+
+          for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+            const page = await pdfDoc.getPage(pageNum);
+            const textContent = await page.getTextContent();
+            const pageText = textContent.items
+              .map((item) => item.str)
+              .join("\n");
+            excelData.push([`Page ${pageNum}`, pageText]);
+          }
+
+          const ws = XLSX.utils.aoa_to_sheet(excelData);
+          const wb = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, "PDF to Excel");
+
+          // Export the Excel file
+          const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+          const blob = new Blob([wbout], { type: "application/octet-stream" });
+          const url = URL.createObjectURL(blob);
+
+          // Create a link to download the Excel file
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "converted.xlsx";
+          link.click();
+
+          // Clean up
+          URL.revokeObjectURL(url);
         }
-        e.target.value = value;
       });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+
+    <script src="./js/pdftocsv.js"></script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
