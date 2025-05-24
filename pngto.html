@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PNG to PDF Converter Online - Free Tool to Convert PNG to PDF</title>
+  <meta name="description" content="Convert PNG to PDF online for free with our advanced PNG to PDF converter. Transform images into professional PDF documents with customizable layouts and compression.">
+  <meta name="keywords" content="PNG to PDF converter, convert PNG to PDF online, free PNG to PDF tool, PNG to PDF creator, PNG to PDF free, PNG to PDF generator">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="PDF Converter Team">
+  <meta property="og:title" content="PNG to PDF Converter Online - Free Tool">
+  <meta property="og:description" content="Easily convert PNG images to PDF documents with our free online tool. Customize page size, margins, and compression, and download as PDFs or ZIP archives.">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630?text=PNG+to+PDF+Converter">
+  <meta property="og:url" content="https://onepagetools.com/pngto.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .fade-in { animation: fadeIn 0.5s ease-out; }
+    .scale-in { animation: scaleIn 0.3s ease-out; }
+    .hover-scale { transition: transform 0.2s; }
+    .hover-scale:hover { transform: scale(1.05); }
+    .progress-bar { background: linear-gradient(to right, #4f46e5, #7c3aed); }
+    .drop-zone { transition: all 0.3s ease; }
+    .drop-zone.dragover { border-color: #4f46e5; background-color: rgba(79, 70, 229, 0.1); }
+    .btn { transition: all 0.3s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .article-section { max-width: 800px; margin: 0 auto; padding: 2rem 0; }
+    .article-section h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .article-section h3 { font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
+    .article-section p { margin-bottom: 1rem; line-height: 1.6; }
+    .article-section ul, .article-section ol { list-style-type: disc; margin-left: 2rem; margin-bottom: 1rem; }
+    .article-section ol { list-style-type: decimal; }
+    .preview-img { max-height: 200px; object-fit: contain; }
+    .gradient-bg { background: linear-gradient(135deg, #f3f4f6, #e0e7ff); }
+  </style>
+</head>
+<body class="gradient-bg">
+  <!-- Navigation -->
+  <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="https://onepagetools.com/" class="flex items-center space-x-3">
+        <img src="oye tools.png" alt="PDF Converter Logo" style="height: 60px" />
+      </a>
+      <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"></path>
+        </svg>
+      </button>
+      <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-white">
+          <li><a href="./index.html" class="block py-2 px-3 text-black rounded md:bg-transparent md:p-0">Home</a></li>
+          <li><a href="./about.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">About</a></li>
+          <li><a href="./contact.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Contact</a></li>
+          <li>
+            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto">
+              ALL PDF TOOLS
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
+            <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+              <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
+                <li><a href="./imageresizer.html" class="block px-4 py-2 hover:bg-gray-100">Image Resizer</a></li>
+                <li><a href="./imagecompression.html" class="block px-4 py-2 hover:bg-gray-100">Image Compressor</a></li>
+                <li><a href="./pdftocsv.html" class="block px-4 py-2 hover:bg-gray-100">PDF to CSV</a></li>
+                <li><a href="./pdftoexcel.html" class="block px-4 py-2 hover:bg-gray-100">PDF to Excel</a></li>
+                <li><a href="./pdftohtml.html" class="block px-4 py-2 hover:bg-gray-100">PDF to HTML</a></li>
+                <li><a href="./pdftojpg.html" class="block px-4 py-2 hover:bg-gray-100">PDF to JPG</a></li>
+                <li><a href="./pdftojson.html" class="block px-4 py-2 hover:bg-gray-100">PDF to JSON</a></li>
+                <li><a href="./pdftopng.html" class="block px-4 py-2 hover:bg-gray-100">PDF to PNG</a></li>
+                <li><a href="./pdftoword.html" class="block px-4 py-2 hover:bg-gray-100">PDF to Word</a></li>
+                <li><a href="./pdftoxml.html" class="block px-4 py-2 hover:bg-gray-100">PDF to XML</a></li>
+                <li><a href="./pdftozip.html" class="block px-4 py-2 hover:bg-gray-100">PDF to ZIP</a></li>
+                <li><a href="./pdftowebp.html" class="block px-4 py-2 hover:bg-gray-100">PDF to WEBP</a></li>
+                <li><a href="./pdftotext.html" class="block px-4 py-2 hover:bg-gray-100">PDF to Text</a></li>
+                <li><a href="./csvto.html" class="block px-4 py-2 hover:bg-gray-100">CSV to PDF</a></li>
+                <li><a href="./excelto.html" class="block px-4 py-2 hover:bg-gray-100">Excel to PDF</a></li>
+                <li><a href="./htmlto.html" class="block px-4 py-2 hover:bg-gray-100">HTML to PDF</a></li>
+                <li><a href="./jpgto.html" class="block px-4 py-2 hover:bg-gray-100">JPG to PDF</a></li>
+                <li><a href="./jsonto.html" class="block px-4 py-2 hover:bg-gray-100">JSON to PDF</a></li>
+                <li><a href="./pngto.html" class="block px-4 py-2 hover:bg-gray-100">PNG to PDF</a></li>
+                <li><a href="./speechto.html" class="block px-4 py-2 hover:bg-gray-100">Speech to PDF</a></li>
+                <li><a href="./textto.html" class="block px-4 py-2 hover:bg-gray-100">Text to PDF</a></li>
+                <li><a href="./webpto.html" class="block px-4 py-2 hover:bg-gray-100">WEBP to PDF</a></li>
+                <li><a href="./xmlto.html" class="block px-4 py-2 hover:bg-gray-100">XML to PDF</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="flex justify-center items-center min-h-screen pt-20">
+    <div class="container max-w-4xl p-6 bg-white rounded-lg shadow-lg fade-in">
+      <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">PNG to PDF Converter</h1>
+      <p class="text-center text-gray-500 mb-6">Convert PNG images to professional PDF documents with customizable layouts, compression, and alignment, perfect for portfolios, reports, and sharing.</p>
+
+      <!-- File Upload Section -->
+      <div class="drop-zone border-4 border-dashed border-gray-200 rounded-xl p-12 text-center mb-8 transition-colors duration-300 hover:border-blue-400" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="handleDragLeave(event)">
+        <label for="pngFiles" class="inline-block w-full py-3 px-5 bg-indigo-600 text-white font-semibold rounded-full cursor-pointer hover:bg-indigo-700 btn hover-scale">
+          Choose PNG Files
+        </label>
+        <input type="file" id="pngFiles" accept="image/png" multiple class="hidden" onchange="previewFiles()">
+        <p class="text-gray-500 mt-2">or drag and drop PNG files here (supports multiple files, max 10MB each)</p>
+      </div>
+
+      <!-- Conversion Settings -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h3 class="text-lg font-semibold mb-3">Conversion Settings</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Page Size</label>
+              <select id="pageSize" class="w-full p-2 border rounded-lg">
+                <option value="A4">A4</option>
+                <option value="Letter">Letter</option>
+                <option value="Legal">Legal</option>
+                <option value="Auto">Auto (Image Size)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Orientation</label>
+              <select id="orientation" class="w-full p-2 border rounded-lg">
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Margin (mm)</label>
+              <input type="number" id="margin" class="w-full p-2 border rounded-lg" min="0" max="50" value="10">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Image Scale</label>
+              <input type="number" id="scale" class="w-full p-2 border rounded-lg" min="0.1" max="2" step="0.1" value="1">
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h3 class="text-lg font-semibold mb-3">PDF Options</h3>
+          <div class="space-y-4">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="combinePDF">
+              <label class="text-gray-600">Combine into Single PDF</label>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="previewImages">
+              <label class="text-gray-600">Preview Images Before Conversion</label>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="downloadZip">
+              <label class="text-gray-600">Download as ZIP Archive</label>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Alignment</label>
+              <select id="alignment" class="w-full p-2 border rounded-lg">
+                <option value="center">Center</option>
+                <option value="fit">Fit to Page</option>
+                <option value="stretch">Stretch to Page</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Compression Level</label>
+              <select id="compression" class="w-full p-2 border rounded-lg">
+                <option value="low">Low (Smaller Size)</option>
+                <option value="medium">Medium (Balanced)</option>
+                <option value="high">High (Best Quality)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">PDF Title</label>
+              <input type="text" id="pdfTitle" class="w-full p-2 border rounded-lg" placeholder="Document Title">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Section -->
+      <div id="previewContainer" class="mb-6"></div>
+      <div id="imagePreview" class="hidden bg-gray-50 p-4 rounded-lg mb-6 overflow-x-auto flex flex-wrap gap-4"></div>
+
+      <!-- Progress Bar -->
+      <div id="progressBar" class="hidden bg-gray-200 rounded-full h-2.5 mb-4">
+        <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-300 progress-bar" style="width: 0%"></div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap gap-4 justify-center">
+        <button onclick="convertPNGs()" class="py-3 px-5 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 btn hover-scale" id="convertButton" disabled>
+          Convert to PDF
+        </button>
+        <a id="downloadZipButton" href="#" download class="hidden py-3 px-5 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 btn hover-scale">
+          Download ZIP
+        </a>
+        <button onclick="resetAll()" class="py-3 px-5 bg-red-500 text-white font-semibold rounded-full hover:bg-red-600 btn hover-scale">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO-Friendly Article -->
+  <div class="article-section">
+    <h2>Ultimate Guide to Using a PNG to PDF Converter Online</h2>
+    <p>PNG images are widely used for high-quality graphics, screenshots, and transparent images, but sharing or archiving them often requires a more universal format like PDF. A <strong>PNG to PDF converter</strong> transforms PNG images into professional PDF documents, ideal for portfolios, reports, or presentations. Our <a href="#pngFiles">free PNG to PDF tool</a> provides a fast, user-friendly solution to <strong>convert PNG to PDF online</strong>. This comprehensive guide explores the benefits of using a <strong>PNG to PDF converter online</strong>, how to use it effectively, and tips to optimize your PDF creation for various purposes.</p>
+
+    <h3>Why Use a PNG to PDF Converter?</h3>
+    <p>Converting PNG images to PDFs offers numerous advantages for individuals and businesses. Here’s why you should use a <strong>free PNG to PDF tool</strong>:</p>
+    <ul>
+      <li><strong>Professional Presentation</strong>: PDFs provide a polished, shareable format for images, suitable for reports or portfolios.</li>
+      <li><strong>Cross-Platform Compatibility</strong>: PDFs can be viewed on any device without compatibility issues.</li>
+      <li><strong>Batch Processing</strong>: Convert multiple PNG images to PDFs simultaneously, saving time for large projects.</li>
+      <li><strong>No Software Installation</strong>: Our <strong>PNG to PDF converter online</strong> works in your browser, requiring no downloads.</li>
+      <li><strong>Customizable Layouts</strong>: Adjust page sizes, margins, scaling, and compression for tailored outputs.</li>
+      <li><strong>Secure Sharing</strong>: PDFs are less editable, ensuring content integrity when shared.</li>
+    </ul>
+    <p>By using our <strong>PNG to PDF converter</strong>, you can create professional documents from images effortlessly.</p>
+
+    <h3>How to Use Our Free PNG to PDF Converter</h3>
+    <p>Our <strong>PNG to PDF tool</strong> is designed for simplicity and flexibility. Follow these steps to <strong>convert PNG to PDF online</strong>:</p>
+    <ol>
+      <li><strong>Upload PNG Files</strong>: Click “Choose PNG Files” or drag and drop files into the upload area. Supports multiple files (PNG), each up to 10MB.</li>
+      <li><strong>Configure Settings</strong>: Specify page size, orientation, margins, scaling, alignment, compression, and PDF metadata.</li>
+      <li><strong>Preview Images</strong>: Enable the preview option to review uploaded images.</li>
+      <li><strong>Convert and Download</strong>: Click “Convert to PDF” to process the files. Download individual PDFs, a combined PDF, or a ZIP archive.</li>
+      <li><strong>Reset as Needed</strong>: Use the “Reset” button to clear inputs and start over.</li>
+    </ol>
+    <p>With these steps, you can <strong>convert PNG to PDF free</strong> in minutes, making our tool a top choice for <strong>PNG to PDF creation</strong>.</p>
+
+    <h3>Who Benefits from a PNG to PDF Converter?</h3>
+    <p>Our <strong>PNG to PDF converter online</strong> serves a wide range of users:</p>
+    <ul>
+      <li><strong>Graphic Designers</strong>: Convert design mockups or artwork to PDFs for client presentations.</li>
+      <li><strong>Business Professionals</strong>: Create reports, proposals, or marketing materials from PNG images.</li>
+      <li><strong>Students</strong>: Compile screenshots or diagrams into PDFs for assignments.</li>
+      <li><strong>Administrators</strong>: Convert scanned documents to PDFs for archiving or sharing.</li>
+      <li><strong>Marketers</strong>: Generate PDF brochures or flyers from PNG designs.</li>
+      <li><strong>Archivists</strong>: Preserve historical images in PDF format for long-term storage.</li>
+    </ul>
+    <p>Our <strong>free PNG to PDF tool</strong> simplifies document creation for all users, regardless of technical expertise.</p>
+
+    <h3>Key Features of Our PNG to PDF Converter</h3>
+    <p>Our <strong>PNG to PDF converter online</strong> offers robust features to meet diverse needs:</p>
+    <ul>
+      <li><strong>Batch Conversion</strong>: Process multiple PNG files at once and download as individual PDFs or a ZIP archive.</li>
+      <li><strong>Combine PDFs</strong>: Merge all images into a single PDF with customizable page order.</li>
+      <li><strong>Customizable Output</strong>: Adjust page size, orientation, margins, scaling, alignment, and compression for professional results.</li>
+      <li><strong>Image Preview</strong>: Review uploaded images before conversion to ensure accuracy.</li>
+      <li><strong>Drag-and-Drop Interface</strong>: Streamline uploads with an intuitive design.</li>
+      <li><strong>Compression Options</strong>: Choose low, medium, or high compression to balance quality and file size.</li>
+      <li><strong>Metadata Support</strong>: Add PDF metadata like title and author.</li>
+      <li><strong>Secure Processing</strong>: Files are processed in the browser for data privacy.</li>
+    </ul>
+    <p>These features make our tool ideal for anyone looking to <strong>convert PNG to PDF online</strong> efficiently.</p>
+
+    <h3>Tips for Optimizing PNG to PDF Conversion</h3>
+    <p>To maximize the effectiveness of our <strong>PNG to PDF converter</strong>, consider these tips:</p>
+    <ul>
+      <li><strong>Validate Image Quality</strong>: Ensure PNG files are high-resolution to avoid pixelation in PDFs.</li>
+      <li><strong>Choose Compression</strong>: Use low compression for smaller files or high compression for print-quality PDFs.</li>
+      <li><strong>Adjust Margins</strong>: Use smaller margins (e.g., 5mm) for full-page images or larger (e.g., 20mm) for framed layouts.</li>
+      <li><strong>Select Page Size</strong>: Use "Auto" for image-based sizing or A4 for standard documents.</li>
+      <li><strong>Preview Images</strong>: Verify images in the preview to catch any issues before conversion.</li>
+      <li><strong>Combine Strategically</strong>: Merge images into a single PDF for presentations or portfolios.</li>
+      <li><strong>Combine with Other Tools</strong>: Use our <a href="./pdftopng.html">PDF to PNG</a> converter for reverse conversions.</li>
+    </ul>
+
+    <h3>Why PDF is Ideal for PNG Conversion</h3>
+    <p>PDF is a versatile format for presenting PNG images. Here’s why it’s ideal:</p>
+    <ul>
+      <li><strong>Universal Compatibility</strong>: PDFs can be opened on any device or platform.</li>
+      <li><strong>Fixed Formatting</strong>: Maintains image quality and layout across devices.</li>
+      <li><strong>Professional Appearance</strong>: PDFs look polished for client-facing documents.</li>
+      <li><strong>Security</strong>: PDFs are less editable, protecting content integrity.</li>
+      <li><strong>Archival Quality</strong>: PDFs are suitable for long-term document storage.</li>
+    </ul>
+    <p>Our <strong>PNG to PDF converter online</strong> leverages PDF’s strengths to deliver high-quality documents.</p>
+
+    <h3>Comparing PNG to PDF Converters</h3>
+    <p>Not all <strong>PNG to PDF converters</strong> offer the same functionality. Here’s how our tool stands out:</p>
+    <ul>
+      <li><strong>Free Access</strong>: No subscriptions or hidden fees, unlike some premium tools.</li>
+      <li><strong>Browser-Based</strong>: No software installation required, unlike desktop applications.</li>
+      <li><strong>Batch Processing</strong>: Convert multiple PNG files at once, a feature not always available in free tools.</li>
+      <li><strong>Customizable Output</strong>: Options for page size, margins, scaling, alignment, and compression provide flexibility.</li>
+      <li><strong>Preview Feature</strong>: Preview images, unlike basic converters.</li>
+      <li><strong>User-Friendly Interface</strong>: Intuitive design with drag-and-drop, previews, and bulk downloads.</li>
+      <li><strong>Secure Processing</strong>: Local browser processing ensures data privacy.</li>
+    </ul>
+    <p>Our <strong>free PNG to PDF tool</strong> offers a balance of functionality, ease of use, and performance, making it ideal for all users.</p>
+
+    <h3>Frequently Asked Questions (FAQs)</h3>
+    <p>Here are answers to common questions about using a <strong>PNG to PDF converter online</strong>:</p>
+    <h4>1. Is the PNG to PDF converter free?</h4>
+    <p>Yes, our <strong>PNG to PDF free</strong> tool has no subscriptions or hidden costs.</p>
+    <h4>2. Can I convert multiple PNG files at once?</h4>
+    <p>Absolutely! Upload multiple PNG files and convert them to PDFs in one go.</p>
+    <h4>3. Can I combine images into a single PDF?</h4>
+    <p>Yes, enable the "Combine into Single PDF" option for a unified document.</p>
+    <h4>4. Does the converter support large PNG files?</h4>
+    <p>Yes, it supports files up to 10MB, with compression options for larger images.</p>
+    <h4>5. Is my data secure?</h4>
+    <p>All processing is done in your browser, ensuring your files remain private.</p>
+    <h4>6. What if I need a different format?</h4>
+    <p>Try our <a href="./jpgto.html">JPG to PDF</a> or <a href="./pdftopng.html">PDF to PNG</a> converters for alternative conversions.</p>
+
+    <h3>Advanced Use Cases for PNG to PDF Conversion</h3>
+    <p>Our <strong>PNG to PDF converter</strong> supports a variety of advanced scenarios:</p>
+    <ul>
+      <li><strong>Portfolio Creation</strong>: Compile graphic designs or artwork into PDFs for client portfolios.</li>
+      <li><strong>Document Archiving</strong>: Convert scanned documents to PDFs for digital storage.</li>
+      <li><strong>Presentations</strong>: Create PDF slideshows from PNG images.</li>
+      <li><strong>Marketing</strong>: Generate PDF brochures or flyers from PNG designs.</li>
+      <li><strong>Education</strong>: Compile screenshots or diagrams into PDFs for study materials.</li>
+    </ul>
+
+    <h3>How PNG to PDF Conversion Enhances Productivity</h3>
+    <p>Productivity is a priority for professionals handling images. Our <strong>PNG to PDF converter online</strong> boosts efficiency by:</p>
+    <ul>
+      <li>Automating PNG-to-PDF conversion for multiple files.</li>
+      <li>Enabling batch processing for high-volume tasks.</li>
+      <li>Providing customizable outputs for specific needs.</li>
+      <li>Offering previews to ensure accuracy before conversion.</li>
+      <li>Supporting ZIP downloads for bulk PDF management.</li>
+    </ul>
+    <p>With our tool, you can focus on content presentation rather than conversion.</p>
+
+    <h3>Best Practices for PNG to PDF Conversion</h3>
+    <p>To achieve optimal results, follow these best practices:</p>
+    <ul>
+      <li><strong>Ensure High-Resolution Images</strong>: Use high-quality PNGs to avoid pixelation.</li>
+      <li><strong>Test Compression</strong>: Balance file size and quality with compression settings.</li>
+      <li><strong>Optimize Layout</strong>: Use "Fit to Page" for consistent sizing or "Center" for framed images.</li>
+      <li><strong>Choose Page Size</strong>: Select "Auto" for image-based sizing or standard sizes for documents.</li>
+      <li><strong>Test Outputs</strong>: Verify PDFs for image quality and formatting accuracy.</li>
+    </ul>
+
+    <h3>Conclusion</h3>
+    <p>Converting PNG images to PDFs doesn’t have to be a complex task. With our <strong>PNG to PDF converter online</strong>, you can <strong>convert PNG to PDF free</strong>, customize your output, and create professional documents for any purpose. Whether you’re a designer, business professional, or student, our <strong>free PNG to PDF tool</strong> offers the features and flexibility you need. Try it now and elevate your image presentation!</p>
+    <p><a href="https://onepagetools.com/pngto.html" class="text-indigo-600 hover:underline">Start converting your PNG files to PDFs today</a> and streamline your document workflow.</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script>
+    let files = [];
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('dragover');
+    }
+
+    function handleDragLeave(e) {
+      e.currentTarget.classList.remove('dragover');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('dragover');
+      const uploadedFiles = e.dataTransfer.files;
+      if (uploadedFiles.length) {
+        document.getElementById('pngFiles').files = uploadedFiles;
+        previewFiles();
+      }
+    }
+
+    function previewFiles() {
+      const fileInput = document.getElementById('pngFiles');
+      const previewContainer = document.getElementById('previewContainer');
+      const imagePreview = document.getElementById('imagePreview');
+      const downloadZipButton = document.getElementById('downloadZipButton');
+      files = [];
+      previewContainer.innerHTML = '';
+      imagePreview.classList.add('hidden');
+      downloadZipButton.classList.add('hidden');
+
+      if (fileInput.files.length) {
+        Array.from(fileInput.files).forEach((file, index) => {
+          if (!file.type.match('image/png')) {
+            Swal.fire('Invalid File', `${file.name} is not a PNG file.`, 'error');
+            return;
+          }
+          if (file.size > 10 * 1024 * 1024) {
+            Swal.fire('File Too Large', `${file.name} exceeds 10MB.`, 'error');
+            return;
+          }
+          const fileData = {
+            file,
+            name: file.name,
+            id: `file-${index}`,
+            status: 'Pending',
+            dataUrl: null
+          };
+          files.push(fileData);
+          renderPreview(fileData);
+          parseImage(fileData);
+        });
+      }
+      document.getElementById('convertButton').disabled = files.length === 0;
+    }
+
+    function renderPreview(fileData) {
+      const previewContainer = document.getElementById('previewContainer');
+      const div = document.createElement('div');
+      div.className = 'flex justify-between items-center bg-gray-50 p-4 rounded-lg mb-2 scale-in';
+      div.innerHTML = `
+        <p class="text-gray-600">${fileData.name} (${(fileData.file.size / 1024 / 1024).toFixed(2)}MB)</p>
+        <div class="flex items-center gap-2">
+          <p id="${fileData.id}-status" class="text-gray-500">${fileData.status}</p>
+        </div>
+      `;
+      previewContainer.appendChild(div);
+    }
+
+    function parseImage(fileData) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        try {
+          fileData.dataUrl = event.target.result;
+          if (document.getElementById('previewImages').checked) {
+            renderImagePreview();
+          }
+        } catch (error) {
+          Swal.fire('Parsing Error', `Failed to parse ${fileData.name}: ${error.message}`, 'error');
+          document.getElementById(`${fileData.id}-status`).textContent = 'Error';
+        }
+      };
+      reader.readAsDataURL(fileData.file);
+    }
+
+    function renderImagePreview() {
+      const imagePreview = document.getElementById('imagePreview');
+      imagePreview.innerHTML = '';
+      imagePreview.classList.remove('hidden');
+      files.forEach(fileData => {
+        if (fileData.dataUrl) {
+          const img = document.createElement('img');
+          img.src = fileData.dataUrl;
+          img.className = 'preview-img';
+          img.alt = fileData.name;
+          const div = document.createElement('div');
+          div.className = 'flex flex-col items-center';
+          div.innerHTML = `<p class="text-gray-600 mb-2">${fileData.name}</p>`;
+          div.appendChild(img);
+          imagePreview.appendChild(div);
+        }
+      });
+    }
+
+    async function convertPNGs() {
+      if (!files.length) {
+        Swal.fire('No Files', 'Please upload at least one PNG file.', 'error');
+        return;
+      }
+
+      const progressBar = document.getElementById('progressBar');
+      const progressFill = progressBar.querySelector('div');
+      const downloadZipButton = document.getElementById('downloadZipButton');
+      const pageSize = document.getElementById('pageSize').value;
+      const orientation = document.getElementById('orientation').value;
+      const margin = parseInt(document.getElementById('margin').value);
+      const scale = parseFloat(document.getElementById('scale').value);
+      const combinePDF = document.getElementById('combinePDF').checked;
+      const downloadZip = document.getElementById('downloadZip').checked;
+      const alignment = document.getElementById('alignment').value;
+      const compression = document.getElementById('compression').value;
+      const pdfTitle = document.getElementById('pdfTitle').value || 'Document';
+      const zip = new JSZip();
+      let progress = 0;
+      let hasValidOutputs = false;
+      progressBar.classList.remove('hidden');
+      progressFill.style.width = '0%';
+
+      function updateProgress() {
+        progress += 100 / files.length / 10;
+        progressFill.style.width = `${Math.min(progress, 100)}%`;
+        if (progress < 100) {
+          requestAnimationFrame(updateProgress);
+        }
+      }
+
+      requestAnimationFrame(updateProgress);
+
+      const pdfDoc = combinePDF ? await PDFLib.PDFDocument.create() : null;
+
+      for (let i = 0; i < files.length; i++) {
+        const fileData = files[i];
+        try {
+          document.getElementById(`${fileData.id}-status`).textContent = 'Processing...';
+          if (!fileData.dataUrl) {
+            throw new Error('Image data not parsed.');
+          }
+
+          const currentPdfDoc = combinePDF ? pdfDoc : await PDFLib.PDFDocument.create();
+          const page = currentPdfDoc.addPage();
+          const pngImageBytes = await fetch(fileData.dataUrl).then(res => res.arrayBuffer());
+          const pngImage = await currentPdfDoc.embedPng(pngImageBytes);
+          let { width: imgWidth, height: imgHeight } = pngImage.scale(scale);
+
+          const pageDimensions = pageSize === 'A4' ? [595, 842] : pageSize === 'Letter' ? [612, 792] : pageSize === 'Legal' ? [612, 1008] : [imgWidth, imgHeight];
+          if (orientation === 'landscape') {
+            [pageDimensions[0], pageDimensions[1]] = [pageDimensions[1], pageDimensions[0]];
+          }
+          page.setSize(pageDimensions[0], pageDimensions[1]);
+
+          let x, y, drawWidth, drawHeight;
+          if (alignment === 'fit') {
+            const pageWidth = pageDimensions[0] - 2 * margin;
+            const pageHeight = pageDimensions[1] - 2 * margin;
+            const scaleFactor = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+            drawWidth = imgWidth * scaleFactor;
+            drawHeight = imgHeight * scaleFactor;
+            x = margin + (pageWidth - drawWidth) / 2;
+            y = margin + (pageHeight - drawHeight) / 2;
+          } else if (alignment === 'stretch') {
+            drawWidth = pageDimensions[0] - 2 * margin;
+            drawHeight = pageDimensions[1] - 2 * margin;
+            x = margin;
+            y = margin;
+          } else {
+            drawWidth = imgWidth;
+            drawHeight = imgHeight;
+            x = margin + (pageDimensions[0] - 2 * margin - drawWidth) / 2;
+            y = margin + (pageDimensions[1] - 2 * margin - drawHeight) / 2;
+          }
+
+          page.drawImage(pngImage, { x, y, width: drawWidth, height: drawHeight });
+
+          if (!combinePDF) {
+            currentPdfDoc.setTitle(pdfTitle);
+            currentPdfDoc.setAuthor('PNG to PDF Converter');
+            currentPdfDoc.setSubject('Converted PNG Document');
+            const pdfBytes = await currentPdfDoc.save({ useObjectStreams: compression === 'low' });
+            const fileName = `${fileData.name.replace(/\.png$/i, '')}.pdf`;
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+            if (downloadZip) {
+              zip.file(fileName, blob);
+            } else {
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(blob);
+              link.download = fileName;
+              link.click();
+            }
+
+            const statusDiv = document.getElementById(`${fileData.id}-status`).parentElement;
+            statusDiv.innerHTML = `<p id="${fileData.id}-status" class="text-gray-500">Converted</p>`;
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName;
+            link.className = 'text-blue-600 hover:underline';
+            link.textContent = fileName;
+            statusDiv.appendChild(link);
+          }
+
+          document.getElementById(`${fileData.id}-status`).textContent = combinePDF ? 'Processed' : 'Converted';
+          hasValidOutputs = true;
+        } catch (error) {
+          console.error(`Error processing ${fileData.name}:`, error);
+          document.getElementById(`${fileData.id}-status`).textContent = 'Error';
+          Swal.fire('Error', `Failed to process ${fileData.name}.`, 'error');
+        }
+      }
+
+      if (combinePDF && hasValidOutputs) {
+        pdfDoc.setTitle(pdfTitle);
+        pdfDoc.setAuthor('PNG to PDF Converter');
+        pdfDoc.setSubject('Converted PNG Document');
+        const pdfBytes = await pdfDoc.save({ useObjectStreams: compression === 'low' });
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const fileName = `${pdfTitle || 'Combined'}.pdf`;
+
+        if (downloadZip) {
+          zip.file(fileName, blob);
+        } else {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = fileName;
+          link.click();
+        }
+
+        files.forEach(fileData => {
+          const statusDiv = document.getElementById(`${fileData.id}-status`).parentElement;
+          statusDiv.innerHTML = `<p id="${fileData.id}-status" class="text-gray-500">Converted</p>`;
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = fileName;
+          link.className = 'text-blue-600 hover:underline';
+          link.textContent = fileName;
+          statusDiv.appendChild(link);
+        });
+      }
+
+      if (hasValidOutputs && downloadZip) {
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        downloadZipButton.href = URL.createObjectURL(zipBlob);
+        downloadZipButton.download = 'pdf_files.zip';
+        downloadZipButton.classList.remove('hidden');
+        Swal.fire('Success!', 'All files converted successfully.', 'success');
+      } else if (hasValidOutputs) {
+        Swal.fire('Success!', 'All files converted successfully.', 'success');
+      }
+
+      progressBar.classList.add('hidden');
+      progressFill.style.width = '0%';
+    }
+
+    function resetAll() {
+      files = [];
+      document.getElementById('previewContainer').innerHTML = '';
+      document.getElementById('pngFiles').value = '';
+      document.getElementById('pageSize').value = 'A4';
+      document.getElementById('orientation').value = 'portrait';
+      document.getElementById('margin').value = '10';
+      document.getElementById('scale').value = '1';
+      document.getElementById('combinePDF').checked = false;
+      document.getElementById('previewImages').checked = false;
+      document.getElementById('downloadZip').checked = false;
+      document.getElementById('alignment').value = 'center';
+      document.getElementById('compression').value = 'medium';
+      document.getElementById('pdfTitle').value = '';
+      document.getElementById('imagePreview').innerHTML = '';
+      document.getElementById('imagePreview').classList.add('hidden');
+      document.getElementById('downloadZipButton').classList.add('hidden');
+      document.getElementById('progressBar').classList.add('hidden');
+      document.getElementById('convertButton').disabled = true;
+    }
+  </script>
+</body>
+</html>

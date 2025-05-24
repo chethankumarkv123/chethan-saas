@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XML to PDF Converter Online - Free Tool to Convert XML to PDF</title>
+  <meta name="description" content="Convert XML files to PDF online for free with our advanced XML to PDF converter. Create professional PDF documents with customizable layouts, fonts, margins, and watermarks.">
+  <meta name="keywords" content="XML to PDF converter, convert XML to PDF online, free XML to PDF tool, XML to PDF creator, XML to PDF free, XML to PDF generator">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="PDF Converter Team">
+  <meta property="og:title" content="XML to PDF Converter Online - Free Tool">
+  <meta property="og:description" content="Easily convert XML files to PDF documents with our free online tool. Customize page sizes, fonts, margins, and add watermarks for professional outputs.">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630?text=XML+to+PDF+Converter">
+  <meta property="og:url" content="https://onepagetools.com/xmlto.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .fade-in { animation: fadeIn 0.5s ease-out; }
+    .scale-in { animation: scaleIn 0.3s ease-out; }
+    .hover-scale { transition: transform 0.2s; }
+    .hover-scale:hover { transform: scale(1.05); }
+    .btn { transition: all 0.3s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .loading-spinner { display: none; border: 4px solid #f3f3f3; border-top: 4px solid #4f46e5; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
+    .file-preview { border: 2px dashed #d1d5db; padding: 1rem; border-radius: 0.5rem; }
+    .file-preview.dragging { border-color: #4f46e5; background: #e0e7ff; }
+    .article-section { max-width: 800px; margin: 0 auto; padding: 2rem 0; }
+    .article-section h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .article-section h3 { font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
+    .article-section p { margin-bottom: 1rem; line-height: 1.6; }
+    .article-section ul, .article-section ol { list-style-type: disc; margin-left: 2rem; margin-bottom: 1rem; }
+    .article-section ol { list-style-type: decimal; }
+    .gradient-bg { background: linear-gradient(135deg, #f3f4f6, #e0e7ff); }
+    pre.prism-code { max-height: 300px; overflow-y: auto; }
+  </style>
+</head>
+<body class="gradient-bg">
+  <!-- Navigation -->
+  <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="https://onepagetools.com/" class="flex items-center space-x-3">
+        <img src="oye tools.png" alt="PDF Converter Logo" style="height: 60px" />
+      </a>
+      <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"></path>
+        </svg>
+      </button>
+      <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-white">
+          <li><a href="./index.html" class="block py-2 px-3 text-black rounded md:bg-transparent md:p-0">Home</a></li>
+          <li><a href="./about.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">About</a></li>
+          <li><a href="./contact.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Contact</a></li>
+          <li>
+            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto">
+              ALL PDF TOOLS
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
+            <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+              <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
+                <li><a href="./imageresizer.html" class="block px-4 py-2 hover:bg-gray-100">Image Resizer</a></li>
+                <li><a href="./imagecompression.html" class="block px-4 py-2 hover:bg-gray-100">Image Compressor</a></li>
+                <li><a href="./pdftocsv.html" class="block px-4 py-2 hover:bg-gray-100">PDF to CSV</a></li>
+                <li><a href="./pdftoexcel.html" class="block px-4 py-2 hover:bg-gray-100">PDF to Excel</a></li>
+                <li><a href="./pdftohtml.html" class="block px-4 py-2 hover:bg-gray-100">PDF to HTML</a></li>
+                <li><a href="./pdftojpg.html" class="block px-4 py-2 hover:bg-gray-100">PDF to JPG</a></li>
+                <li><a href="./pdftojson.html" class="block px-4 py-2 hover:bg-gray-100">PDF to JSON</a></li>
+                <li><a href="./pdftopng.html" class="block px-4 py-2 hover:bg-gray-100">PDF to PNG</a></li>
+                <li><a href="./pdftoword.html" class="block px-4 py-2 hover:bg-gray-100">PDF to Word</a></li>
+                <li><a href="./pdftoxml.html" class="block px-4 py-2 hover:bg-gray-100">PDF to XML</a></li>
+                <li><a href="./pdftozip.html" class="block px-4 py-2 hover:bg-gray-100">PDF to ZIP</a></li>
+                <li><a href="./pdftowebp.html" class="block px-4 py-2 hover:bg-gray-100">PDF to WEBP</a></li>
+                <li><a href="./pdftotext.html" class="block px-4 py-2 hover:bg-gray-100">PDF to Text</a></li>
+                <li><a href="./csvto.html" class="block px-4 py-2 hover:bg-gray-100">CSV to PDF</a></li>
+                <li><a href="./excelto.html" class="block px-4 py-2 hover:bg-gray-100">Excel to PDF</a></li>
+                <li><a href="./htmlto.html" class="block px-4 py-2 hover:bg-gray-100">HTML to PDF</a></li>
+                <li><a href="./jpgto.html" class="block px-4 py-2 hover:bg-gray-100">JPG to PDF</a></li>
+                <li><a href="./jsonto.html" class="block px-4 py-2 hover:bg-gray-100">JSON to PDF</a></li>
+                <li><a href="./pngto.html" class="block px-4 py-2 hover:bg-gray-100">PNG to PDF</a></li>
+                <li><a href="./speechto.html" class="block px-4 py-2 hover:bg-gray-100">Speech to PDF</a></li>
+                <li><a href="./textto.html" class="block px-4 py-2 hover:bg-gray-100">Text to PDF</a></li>
+                <li><a href="./webpto.html" class="block px-4 py-2 hover:bg-gray-100">WEBP to PDF</a></li>
+                <li><a href="./xmlto.html" class="block px-4 py-2 hover:bg-gray-100">XML to PDF</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="flex justify-center items-center min-h-screen pt-20">
+    <div class="container max-w-4xl p-6 bg-white rounded-lg shadow-lg fade-in">
+      <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">XML to PDF Converter</h1>
+      <p class="text-center text-gray-600 mb-6">Convert XML files into professional PDF documents with customizable page sizes, fonts, margins, and watermarks. Perfect for reports, data visualization, and structured documentation.</p>
+
+      <!-- Input and Preview -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h3 class="text-lg font-semibold mb-3">Upload XML Files</h3>
+          <div class="file-preview" id="dropZone">
+            <p class="text-gray-500 text-center">Drag & Drop XML files here or click to upload</p>
+            <input type="file" id="fileInput" accept=".xml" multiple style="display: none;" aria-label="Upload XML files">
+          </div>
+          <div id="previewContainer" class="mt-4"></div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h3 class="text-lg font-semibold mb-3">PDF Settings</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Output Mode</label>
+              <select id="outputMode" class="w-full p-2 border rounded-lg">
+                <option value="raw">Raw Text</option>
+                <option value="formatted">Formatted with Indentation</option>
+                <option value="table">Table (if applicable)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Page Size</label>
+              <select id="pageSize" class="w-full p-2 border rounded-lg">
+                <option value="A4">A4</option>
+                <option value="Letter">Letter</option>
+                <option value="Legal">Legal</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Orientation</label>
+              <select id="orientation" class="w-full p-2 border rounded-lg">
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Margin (mm)</label>
+              <input type="number" id="margin" class="w-full p-2 border rounded-lg" min="0" max="50" value="10">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Font</label>
+              <select id="font" class="w-full p-2 border rounded-lg">
+                <option value="Helvetica">Helvetica</option>
+                <option value="TimesRoman">Times Roman</option>
+                <option value="Courier">Courier</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Font Size</label>
+              <input type="number" id="fontSize" class="w-full p-2 border rounded-lg" min="8" max="24" value="12">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Line Spacing</label>
+              <input type="number" id="lineSpacing" class="w-full p-2 border rounded-lg" min="1" max="3" step="0.1" value="1.2">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Page Background Color</label>
+              <input type="color" id="bgColor" class="w-full p-1 border rounded-lg" value="#FFFFFF">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Watermark Text</label>
+              <input type="text" id="watermark" class="w-full p-2 border rounded-lg" placeholder="Optional watermark">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">PDF Title</label>
+              <input type="text" id="pdfTitle" class="w-full p-2 border rounded-lg" placeholder="Document Title">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Author</label>
+              <input type="text" id="author" class="w-full p-2 border rounded-lg" placeholder="Author Name">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Custom XSLT (optional)</label>
+              <textarea id="xsltInput" class="w-full p-2 border rounded-lg" rows="4" placeholder="Paste XSLT for custom styling"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-wrap gap-4 justify-center">
+        <button onclick="generatePDF()" class="py-3 px-5 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 btn hover-scale flex items-center gap-2" id="convertButton">
+          <span id="convertText">Download PDF</span>
+          <span id="loadingSpinner" class="loading-spinner"></span>
+        </button>
+        <button onclick="downloadText()" class="py-3 px-5 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 btn hover-scale">Download Text</button>
+        <button onclick="resetAll()" class="py-3 px-5 bg-red-500 text-white font-semibold rounded-full hover:bg-red-600 btn hover-scale">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO-Friendly Article -->
+  <div class="article-section">
+    <h2>Ultimate Guide to Using an XML to PDF Converter Online</h2>
+    <p>Converting XML files to PDF is a powerful way to transform structured data into professional, shareable documents. An <strong>XML to PDF converter</strong> enables you to create polished PDFs from XML files, ideal for reports, data visualization, or archival purposes. Our <a href="#convertButton">free XML to PDF tool</a> offers a fast, user-friendly solution to <strong>convert XML to PDF online</strong>. This comprehensive guide explores the benefits of using an <strong>XML to PDF converter online</strong>, how to use it effectively, and tips to optimize your PDF creation for various purposes.</p>
+
+    <h3>Why Use an XML to PDF Converter?</h3>
+    <p>Converting XML files to PDF offers numerous advantages for developers, data analysts, and professionals. Here’s why you should use a <strong>free XML to PDF tool</strong>:</p>
+    <ul>
+      <li><strong>Efficiency</strong>: Quickly transform XML data into readable PDFs, saving time over manual document creation.</li>
+      <li><strong>Professional Documentation</strong>: Create structured PDFs for reports, technical documentation, or presentations.</li>
+      <li><strong>Universal Compatibility</strong>: PDFs ensure consistent formatting across devices and platforms.</li>
+      <li><strong>No Software Installation</strong>: Our <strong>XML to PDF converter online</strong> works in your browser, requiring no downloads.</li>
+      <li><strong>Customizable Outputs</strong>: Adjust page sizes, fonts, margins, line spacing, and watermarks for tailored documents.</li>
+      <li><strong>Accessibility</strong>: Ideal for users who need accessible tools for document creation.</li>
+    </ul>
+    <p>By using our <strong>XML to PDF converter</strong>, you can streamline data presentation and enhance productivity.</p>
+
+    <h3>How to Use Our Free XML to PDF Converter</h3>
+    <p>Our <strong>XML to PDF tool</strong> is designed for simplicity and flexibility. Follow these steps to <strong>convert XML to PDF online</strong>:</p>
+    <ol>
+      <li><strong>Upload XML Files</strong>: Drag and drop XML files or click to upload multiple files.</li>
+      <li><strong>Preview Content</strong>: View a syntax-highlighted preview of the XML content.</li>
+      <li><strong>Configure PDF Settings</strong>: Choose output mode (raw text, formatted, or table), page size, orientation, font, margins, line spacing, background color, watermark, metadata, and optional XSLT.</li>
+      <li><strong>Generate PDF</strong>: Click “Download PDF” to create and download the PDF.</li>
+      <li><strong>Export Options</strong>: Use “Download Text” to save XML content as text or “Reset” to clear all inputs.</li>
+    </ol>
+    <p>With these steps, you can <strong>convert XML to PDF free</strong> in minutes, making our tool a top choice for <strong>XML to PDF creation</strong>.</p>
+
+    <h3>Who Benefits from an XML to PDF Converter?</h3>
+    <p>Our <strong>XML to PDF converter online</strong> serves a wide range of users:</p>
+    <ul>
+      <li><strong>Developers</strong>: Convert XML data into PDFs for technical documentation or API outputs.</li>
+      <li><strong>Data Analysts</strong>: Create reports from structured XML datasets.</li>
+      <li><strong>Business Professionals</strong>: Generate professional documents from XML-based workflows.</li>
+      <li><strong>Educators</strong>: Create teaching materials or research papers from XML data.</li>
+      <li><strong>Students</strong>: Compile XML-based project data into PDFs for submissions.</li>
+      <li><strong>Archivists</strong>: Convert XML files to PDFs for long-term storage.</li>
+    </ul>
+    <p>Our <strong>free XML to PDF tool</strong> simplifies XML-to-PDF conversion for all users, regardless of technical expertise.</p>
+
+    <h3>Key Features of Our XML to PDF Converter</h3>
+    <p>Our <strong>XML to PDF converter online</strong> offers robust features to meet diverse needs:</p>
+    <ul>
+      <li><strong>Multiple File Upload</strong>: Upload and convert multiple XML files at once.</li>
+      <li><strong>XML Preview</strong>: View syntax-highlighted XML content before conversion.</li>
+      <li><strong>Output Modes</strong>: Choose raw text, formatted with indentation, or table output for structured data.</li>
+      <li><strong>Customizable PDFs</strong>: Adjust page size, orientation, font, margins, line spacing, background color, watermarks, and metadata.</li>
+      <li><strong>XSLT Support</strong>: Apply custom XSLT for advanced styling.</li>
+      <li><strong>Export Options</strong>: Download as PDF or save XML content as text.</li>
+      <li><strong>Auto-Save</strong>: Save settings locally to prevent data loss.</li>
+      <li><strong>Syntax Highlighting</strong>: Preview XML with color-coded formatting.</li>
+      <li><strong>Watermark Support</strong>: Add optional text watermarks for branding or security.</li>
+      <li><strong>Accessibility</strong>: ARIA labels and keyboard navigation for inclusive use.</li>
+      <li><strong>Secure Processing</strong>: All processing is done in the browser for data privacy.</li>
+    </ul>
+    <p>These features make our tool ideal for anyone looking to <strong>convert XML to PDF online</strong> efficiently.</p>
+
+    <h3>Tips for Optimizing XML to PDF Conversion</h3>
+    <p>To maximize the effectiveness of our <strong>XML to PDF converter</strong>, consider these tips:</p>
+    <ul>
+      <li><strong>Validate XML</strong>: Ensure XML files are well-formed to avoid parsing errors.</li>
+      <li><strong>Choose Output Mode</strong>: Use “Table” for structured data or “Formatted” for readable layouts.</li>
+      <li><strong>Use XSLT for Styling</strong>: Apply XSLT for custom formatting of complex XML data.</li>
+      <li><strong>Adjust Fonts and Spacing</strong>: Choose appropriate fonts and line spacing for readability.</li>
+      <li><strong>Add Watermarks</strong>: Include watermarks for branding or to protect documents.</li>
+      <li><strong>Test Margins</strong>: Use margins to ensure content is well-placed on the page.</li>
+      <li><strong>Use Metadata</strong>: Add a title and author for professional documentation.</li>
+      <li><strong>Combine with Other Tools</strong>: Use our <a href="./pdftoxml.html">PDF to XML</a> converter for reverse conversions.</li>
+    </ul>
+
+    <h3>Why PDF is Ideal for XML Conversion</h3>
+    <p>PDF is a versatile format for presenting XML data. Here’s why it’s ideal:</p>
+    <ul>
+      <li><strong>Universal Compatibility</strong>: PDFs can be opened on any device or platform.</li>
+      <li><strong>Fixed Formatting</strong>: Maintains data structure and formatting across devices.</li>
+      <li><strong>Professional Appearance</strong>: PDFs look polished for reports or technical documents.</li>
+      <li><strong>Security</strong>: PDFs are less editable, protecting data integrity.</li>
+      <li><strong>Archival Quality</strong>: PDFs are suitable for long-term data storage.</li>
+    </ul>
+    <p>Our <strong>XML to PDF converter online</strong> leverages PDF’s strengths to deliver high-quality documents.</p>
+
+    <h3>Comparing XML to PDF Converters</h3>
+    <p>Not all <strong>XML to PDF converters</strong> offer the same functionality. Here’s how our tool stands out:</p>
+    <ul>
+      <li><strong>Free Access</strong>: No subscriptions or hidden fees, unlike some premium tools.</li>
+      <li><strong>Browser-Based</strong>: No software installation required, unlike desktop applications.</li>
+      <li><strong>Multiple File Support</strong>: Convert multiple XML files at once, unlike basic converters.</li>
+      <li><strong>Customizable Output</strong>: Options for output modes, page sizes, fonts, margins, and watermarks provide flexibility.</li>
+      <li><strong>XSLT Support</strong>: Apply custom styling, unlike most online tools.</li>
+      <li><strong>User-Friendly Interface</strong>: Intuitive design with real-time previews and controls.</li>
+      <li><strong>Secure Processing</strong>: Local browser processing ensures data privacy.</li>
+    </ul>
+    <p>Our <strong>free XML to PDF tool</strong> offers a balance of functionality, ease of use, and performance, making it ideal for all users.</p>
+
+    <h3>Frequently Asked Questions (FAQs)</h3>
+    <p>Here are answers to common questions about using an <strong>XML to PDF converter online</strong>:</p>
+    <h4>1. Is the XML to PDF converter free?</h4>
+    <p>Yes, our <strong>XML to PDF free</strong> tool has no subscriptions or hidden costs.</p>
+    <h4>2. Can I upload multiple XML files?</h4>
+    <p>Yes, you can upload multiple XML files and convert them into a single or separate PDFs.</p>
+    <h4>3. Does it support complex XML structures?</h4>
+    <p>Yes, the tool supports raw text, formatted output, and table layouts, with optional XSLT for custom styling.</p>
+    <h4>4. Is my data secure?</h4>
+    <p>All processing is done in your browser, ensuring your data remains private.</p>
+    <h4>5. Can I customize the PDF output?</h4>
+    <p>Yes, you can adjust page sizes, fonts, margins, line spacing, watermarks, and metadata.</p>
+    <h4>6. What if I need a different format?</h4>
+    <p>Try our <a href="./pdftoxml.html">PDF to XML</a> or <a href="./jsonto.html">JSON to PDF</a> converters for alternative conversions.</p>
+
+    <h3>Advanced Use Cases for XML to PDF Conversion</h3>
+    <p>Our <strong>XML to PDF converter</strong> supports a variety of advanced scenarios:</p>
+    <ul>
+      <li><strong>Technical Documentation</strong>: Convert XML-based API outputs into PDFs for developer guides.</li>
+      <li><strong>Data Reporting</strong>: Create PDF reports from XML datasets for business analytics.</li>
+      <li><strong>Business Workflows</strong>: Generate professional documents from XML-based processes.</li>
+      <li><strong>Educational Materials</strong>: Convert XML data into PDFs for research papers or teaching aids.</li>
+      <li><strong>Digital Archiving</strong>: Store XML data as PDFs for long-term preservation.</li>
+    </ul>
+
+    <h3>How XML to PDF Conversion Enhances Productivity</h3>
+    <p>Productivity is a priority for professionals handling XML data. Our <strong>XML to PDF converter online</strong> boosts efficiency by:</p>
+    <ul>
+      <li>Automating XML-to-PDF conversion for quick document creation.</li>
+      <li>Supporting multiple file uploads for batch processing.</li>
+      <li>Providing customizable PDF settings for specific needs.</li>
+      <li>Offering syntax-highlighted previews for easy validation.</li>
+      <li>Supporting auto-save to prevent data loss.</li>
+    </ul>
+    <p>With our tool, you can focus on data analysis rather than manual formatting.</p>
+
+    <h3>Best Practices for XML to PDF Conversion</h3>
+    <p>To achieve optimal results, follow these best practices:</p>
+    <ul>
+      <li><strong>Validate XML</strong>: Ensure XML files are well-formed to avoid errors.</li>
+      <li><strong>Use Appropriate Output Mode</strong>: Choose “Table” for structured data or “Formatted” for readability.</li>
+      <li><strong>Apply XSLT</strong>: Use XSLT for custom styling of complex XML.</li>
+      <li><strong>Optimize Fonts</strong>: Select readable fonts and appropriate sizes.</li>
+      <li><strong>Add Watermarks</strong>: Use watermarks for branding or security.</li>
+      <li><strong>Save Regularly</strong>: Rely on auto-save to preserve your work.</li>
+    </ul>
+
+    <h3>Conclusion</h3>
+    <p>Converting XML files to PDFs has never been easier. With our <strong>XML to PDF converter online</strong>, you can <strong>convert XML to PDF free</strong>, customize your output, and create professional documents for any purpose. Whether you’re a developer, analyst, or professional, our <strong>free XML to PDF tool</strong> offers the features and flexibility you need. Try it now and transform your XML data into polished PDFs!</p>
+    <p><a href="https://onepagetools.com/xmlto.html" class="text-indigo-600 hover:underline">Start converting your XML files to PDFs today</a> and streamline your documentation workflow.</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-xml-doc.min.js"></script>
+  <script>
+    let files = [];
+
+    // File upload handler
+    document.getElementById('fileInput').addEventListener('change', handleFiles);
+    const dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('click', () => document.getElementById('fileInput').click());
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragging');
+    });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragging'));
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragging');
+      handleFiles({ target: { files: e.dataTransfer.files } });
+    });
+
+    function handleFiles(event) {
+      const newFiles = Array.from(event.target.files).filter(file => file.type === 'text/xml' || file.name.endsWith('.xml'));
+      if (newFiles.length !== event.target.files.length) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid File',
+          text: 'Please upload only XML files.',
+        });
+      }
+      newFiles.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(e.target.result, 'text/xml');
+            if (xmlDoc.getElementsByTagName('parsererror').length) {
+              throw new Error('Invalid XML');
+            }
+            files.push({ file, content: e.target.result });
+            updatePreview();
+            saveProgress();
+          } catch (error) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Invalid XML',
+              text: `The file ${file.name} is not a valid XML file.`,
+            });
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    // Update preview
+    function updatePreview() {
+      const previewContainer = document.getElementById('previewContainer');
+      previewContainer.innerHTML = '';
+      files.forEach((file, index) => {
+        const div = document.createElement('div');
+        div.className = 'bg-white p-4 rounded-lg shadow mb-4';
+        div.innerHTML = `
+          <div class="flex justify-between items-center mb-2">
+            <h4 class="text-sm font-medium text-gray-700">${file.file.name}</h4>
+            <button class="text-red-500 hover:text-red-700" onclick="removeFile(${index})" aria-label="Remove ${file.file.name}">×</button>
+          </div>
+          <pre class="prism-code"><code class="language-xml">${escapeHtml(file.content)}</code></pre>
+        `;
+        previewContainer.appendChild(div);
+      });
+      Prism.highlightAll();
+    }
+
+    // Remove file
+    function removeFile(index) {
+      files.splice(index, 1);
+      updatePreview();
+      saveProgress();
+    }
+
+    // Escape HTML for safe display
+    function escapeHtml(unsafe) {
+      return unsafe
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Generate PDF
+    async function generatePDF() {
+      if (!files.length) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'No Files',
+          text: 'Please upload at least one XML file to convert.',
+        });
+        return;
+      }
+
+      const convertButton = document.getElementById('convertButton');
+      const convertText = document.getElementById('convertText');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      convertButton.disabled = true;
+      convertText.textContent = 'Generating PDF...';
+      loadingSpinner.style.display = 'inline-block';
+
+      try {
+        const pdfDoc = await PDFLib.PDFDocument.create();
+        const outputMode = document.getElementById('outputMode').value;
+        const pageSize = document.getElementById('pageSize').value.toUpperCase();
+        const orientation = document.getElementById('orientation').value;
+        const margin = parseInt(document.getElementById('margin').value);
+        const fontName = document.getElementById('font').value;
+        const fontSize = parseInt(document.getElementById('fontSize').value);
+        const lineSpacing = parseFloat(document.getElementById('lineSpacing').value);
+        const bgColor = hexToRgb(document.getElementById('bgColor').value);
+        const watermark = document.getElementById('watermark').value;
+        const pdfTitle = document.getElementById('pdfTitle').value || 'Document';
+        const author = document.getElementById('author').value || 'XML to PDF Converter';
+        const xslt = document.getElementById('xsltInput').value;
+
+        const pageDimensions = PDFLib.PageSizes[pageSize];
+        const isLandscape = orientation === 'landscape';
+        const pageWidth = isLandscape ? pageDimensions[1] : pageDimensions[0];
+        const pageHeight = isLandscape ? pageDimensions[0] : pageDimensions[1];
+        const font = await pdfDoc.embedFont(PDFLib.StandardFonts[fontName]);
+
+        for (const file of files) {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(file.content, 'text/xml');
+          let content = '';
+
+          if (outputMode === 'raw') {
+            content = extractTextFromXML(xmlDoc.documentElement);
+          } else if (outputMode === 'formatted') {
+            content = formatXML(file.content);
+          } else if (outputMode === 'table') {
+            content = xmlToTable(xmlDoc);
+          }
+
+          if (xslt) {
+            content = applyXSLT(file.content, xslt);
+          }
+
+          const lines = splitTextIntoLines(content, Math.floor((pageWidth - 2 * margin) / (fontSize * 0.6)));
+          let page = pdfDoc.addPage([pageWidth, pageHeight]);
+          let y = pageHeight - margin - fontSize;
+
+          page.drawRectangle({
+            x: 0,
+            y: 0,
+            width: pageWidth,
+            height: pageHeight,
+            color: PDFLib.rgb(bgColor.r / 255, bgColor.g / 255, bgColor.b / 255),
+          });
+
+          for (const line of lines) {
+            if (y - fontSize < margin) {
+              page = pdfDoc.addPage([pageWidth, pageHeight]);
+              y = pageHeight - margin - fontSize;
+              page.drawRectangle({
+                x: 0,
+                y: 0,
+                width: pageWidth,
+                height: pageHeight,
+                color: PDFLib.rgb(bgColor.r / 255, bgColor.g / 255, bgColor.b / 255),
+              });
+            }
+            page.drawText(line, {
+              x: margin,
+              y: y,
+              size: fontSize,
+              font: font,
+            });
+            y -= fontSize * lineSpacing;
+          }
+
+          if (watermark) {
+            page.drawText(watermark, {
+              x: pageWidth / 2,
+              y: pageHeight / 2,
+              size: 50,
+              font: font,
+              color: PDFLib.rgb(0.5, 0.5, 0.5),
+              opacity: 0.3,
+              rotate: PDFLib.degrees(45),
+            });
+          }
+        }
+
+        pdfDoc.setTitle(pdfTitle);
+        pdfDoc.setAuthor(author);
+        pdfDoc.setSubject('XML to PDF Document');
+        pdfDoc.setKeywords(['xml to pdf', 'converter', 'online']);
+
+        const pdfBytes = await pdfDoc.save();
+        download(pdfBytes, `${pdfTitle || 'converted'}.pdf`, 'application/pdf');
+        Swal.fire({
+          icon: 'success',
+          title: 'PDF Generated',
+          text: 'Your PDF has been downloaded successfully.',
+        });
+      } catch (error) {
+        console.error('PDF generation error:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Generation Failed',
+          text: 'An error occurred while generating the PDF. Please try again.',
+        });
+      } finally {
+        convertButton.disabled = false;
+        convertText.textContent = 'Download PDF';
+        loadingSpinner.style.display = 'none';
+      }
+    }
+
+    // Download text
+    function downloadText() {
+      if (!files.length) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'No Files',
+          text: 'Please upload at least one XML file to download.',
+        });
+        return;
+      }
+      files.forEach((file, index) => {
+        const blob = new Blob([file.content], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `xml-${index + 1}.txt`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+      Swal.fire({
+        icon: 'success',
+        title: 'Text Downloaded',
+        text: 'Your XML content has been downloaded as text files.',
+      });
+    }
+
+    // Reset all
+    function resetAll() {
+      files = [];
+      document.getElementById('fileInput').value = '';
+      document.getElementById('previewContainer').innerHTML = '';
+      document.getElementById('outputMode').value = 'raw';
+      document.getElementById('pageSize').value = 'A4';
+      document.getElementById('orientation').value = 'portrait';
+      document.getElementById('margin').value = '10';
+      document.getElementById('font').value = 'Helvetica';
+      document.getElementById('fontSize').value = '12';
+      document.getElementById('lineSpacing').value = '1.2';
+      document.getElementById('bgColor').value = '#FFFFFF';
+      document.getElementById('watermark').value = '';
+      document.getElementById('pdfTitle').value = '';
+      document.getElementById('author').value = '';
+      document.getElementById('xsltInput').value = '';
+      localStorage.removeItem('xmlToPDFSettings');
+      Swal.fire({
+        icon: 'info',
+        title: 'Reset',
+        text: 'All uploads and settings have been reset.',
+      });
+    }
+
+    // Save progress
+    function saveProgress() {
+      const settings = {
+        outputMode: document.getElementById('outputMode').value,
+        pageSize: document.getElementById('pageSize').value,
+        orientation: document.getElementById('orientation').value,
+        margin: document.getElementById('margin').value,
+        font: document.getElementById('font').value,
+        fontSize: document.getElementById('fontSize').value,
+        lineSpacing: document.getElementById('lineSpacing').value,
+        bgColor: document.getElementById('bgColor').value,
+        watermark: document.getElementById('watermark').value,
+        pdfTitle: document.getElementById('pdfTitle').value,
+        author: document.getElementById('author').value,
+        xsltInput: document.getElementById('xsltInput').value,
+      };
+      localStorage.setItem('xmlToPDFSettings', JSON.stringify(settings));
+    }
+
+    // Load progress
+    function loadProgress() {
+      const savedSettings = localStorage.getItem('xmlToPDFSettings');
+      if (savedSettings) {
+        const settings = JSON.parse(savedSettings);
+        document.getElementById('outputMode').value = settings.outputMode || 'raw';
+        document.getElementById('pageSize').value = settings.pageSize || 'A4';
+        document.getElementById('orientation').value = settings.orientation || 'portrait';
+        document.getElementById('margin').value = settings.margin || '10';
+        document.getElementById('font').value = settings.font || 'Helvetica';
+        document.getElementById('fontSize').value = settings.fontSize || '12';
+        document.getElementById('lineSpacing').value = settings.lineSpacing || '1.2';
+        document.getElementById('bgColor').value = settings.bgColor || '#FFFFFF';
+        document.getElementById('watermark').value = settings.watermark || '';
+        document.getElementById('pdfTitle').value = settings.pdfTitle || '';
+        document.getElementById('author').value = settings.author || '';
+        document.getElementById('xsltInput').value = settings.xsltInput || '';
+      }
+    }
+
+    // Extract text from XML
+    function extractTextFromXML(node) {
+      let textContent = '';
+      if (node.nodeType === Node.TEXT_NODE) {
+        textContent += node.textContent.trim();
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        if (node.childNodes.length > 0) {
+          node.childNodes.forEach(child => {
+            textContent += extractTextFromXML(child) + '\n';
+          });
+        }
+      }
+      return textContent.trim();
+    }
+
+    // Format XML with indentation
+    function formatXML(xml) {
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xml, 'text/xml');
+      const xslt = `
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+          <xsl:output method="text"/>
+          <xsl:strip-space elements="*"/>
+          <xsl:template match="node()">
+            <xsl:for-each select="ancestor::*">
+              <xsl:text>  </xsl:text>
+            </xsl:for-each>
+            <xsl:value-of select="name()"/>
+            <xsl:if test="text()[normalize-space()]">
+              <xsl:text>: </xsl:text>
+              <xsl:value-of select="normalize-space(text())"/>
+            </xsl:if>
+            <xsl:text>\n</xsl:text>
+            <xsl:apply-templates select="node()"/>
+          </xsl:template>
+        </xsl:stylesheet>
+      `;
+      return applyXSLT(xml, xslt);
+    }
+
+    // Convert XML to table (basic implementation)
+    function xmlToTable(xmlDoc) {
+      const rows = xmlDoc.getElementsByTagName('row') || xmlDoc.getElementsByTagName('item');
+      if (!rows.length) return extractTextFromXML(xmlDoc.documentElement);
+      let table = 'Table:\n';
+      for (const row of rows) {
+        const cells = row.children;
+        const rowData = Array.from(cells).map(cell => cell.textContent.trim()).join(' | ');
+        table += rowData + '\n';
+      }
+      return table;
+    }
+
+    // Apply XSLT (basic client-side transformation)
+    function applyXSLT(xml, xslt) {
+      try {
+        const xmlDoc = new DOMParser().parseFromString(xml, 'text/xml');
+        const xsltDoc = new DOMParser().parseFromString(xslt, 'text/xml');
+        const processor = new XSLTProcessor();
+        processor.importStylesheet(xsltDoc);
+        const result = processor.transformToDocument(xmlDoc);
+        return result.documentElement.textContent || extractTextFromXML(xmlDoc.documentElement);
+      } catch (error) {
+        console.error('XSLT error:', error);
+        return extractTextFromXML(new DOMParser().parseFromString(xml, 'text/xml').documentElement);
+      }
+    }
+
+    // Split text into lines
+    function splitTextIntoLines(text, maxLineLength) {
+      const words = text.split(' ');
+      const lines = [];
+      let currentLine = '';
+      words.forEach(word => {
+        if ((currentLine + word).length > maxLineLength) {
+          lines.push(currentLine);
+          currentLine = word;
+        } else {
+          currentLine += (currentLine.length > 0 ? ' ' : '') + word;
+        }
+      });
+      if (currentLine.length > 0) {
+        lines.push(currentLine);
+      }
+      return lines;
+    }
+
+    // Hex to RGB
+    function hexToRgb(hex) {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return { r, g, b };
+    }
+
+    // Download function
+    function download(data, filename, type) {
+      const blob = new Blob([data], { type: type });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+
+    // Initialize on load
+    window.onload = loadProgress;
+  </script>
+</body>
+</html>

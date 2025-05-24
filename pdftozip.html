@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to ZIP Converter Online - Free Tool to Compress PDFs into ZIP</title>
+  <meta name="description" content="Convert PDF to ZIP online for free with our advanced PDF to ZIP converter. Compress PDFs into ZIP archives, split pages, or organize files for easy storage and sharing.">
+  <meta name="keywords" content="PDF to ZIP converter, convert PDF to ZIP online, free PDF to ZIP tool, compress PDF to ZIP, PDF to ZIP free, PDF compression tool">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="PDF Converter Team">
+  <meta property="og:title" content="PDF to ZIP Converter Online - Free Tool">
+  <meta property="og:description" content="Easily compress PDF files into ZIP archives with our free online tool. Split pages, customize compression, and organize files for efficient storage and transfer.">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630?text=PDF+to+ZIP+Converter">
+  <meta property="og:url" content="https://onepagetools.com/pdftozip.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .fade-in { animation: fadeIn 0.5s ease-out; }
+    .scale-in { animation: scaleIn 0.3s ease-out; }
+    .hover-scale { transition: transform 0.2s; }
+    .hover-scale:hover { transform: scale(1.05); }
+    .progress-bar { background: linear-gradient(to right, #4f46e5, #7c3aed); }
+    .drop-zone { transition: all 0.3s ease; }
+    .drop-zone.dragover { border-color: #4f46e5; background-color: rgba(79, 70, 229, 0.1); }
+    .btn { transition: all 0.3s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .article-section { max-width: 800px; margin: 0 auto; padding: 2rem 0; }
+    .article-section h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .article-section h3 { font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
+    .article-section p { margin-bottom: 1rem; line-height: 1.6; }
+    .article-section ul, .article-section ol { list-style-type: disc; margin-left: 2rem; margin-bottom: 1rem; }
+    .article-section ol { list-style-type: decimal; }
+    .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .preview-grid img { max-width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 8px; }
+    .gradient-bg { background: linear-gradient(135deg, #f3f4f6, #e0e7ff); }
+  </style>
+</head>
+<body class="gradient-bg">
+  <!-- Navigation -->
+  <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="https://onepagetools.com/" class="flex items-center space-x-3">
+        <img src="oye tools.png" alt="PDF Converter Logo" style="height: 60px" />
+      </a>
+      <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"></path>
+        </svg>
+      </button>
+      <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-white">
+          <li><a href="./index.html" class="block py-2 px-3 text-black rounded md:bg-transparent md:p-0">Home</a></li>
+          <li><a href="./about.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">About</a></li>
+          <li><a href="./contact.html" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Contact</a></li>
+          <li>
+            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto">
+              ALL PDF TOOLS
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
+            <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+              <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
+                <li><a href="./imageresizer.html" class="block px-4 py-2 hover:bg-gray-100">Image Resizer</a></li>
+                <li><a href="./imagecompression.html" class="block px-4 py-2 hover:bg-gray-100">Image Compressor</a></li>
+                <li><a href="./pdftocsv.html" class="block px-4 py-2 hover:bg-gray-100">PDF to CSV</a></li>
+                <li><a href="./pdftoexcel.html" class="block px-4 py-2 hover:bg-gray-100">PDF to Excel</a></li>
+                <li><a href="./pdftohtml.html" class="block px-4 py-2 hover:bg-gray-100">PDF to HTML</a></li>
+                <li><a href="./pdftojpg.html" class="block px-4 py-2 hover:bg-gray-100">PDF to JPG</a></li>
+                <li><a href="./pdftojson.html" class="block px-4 py-2 hover:bg-gray-100">PDF to JSON</a></li>
+                <li><a href="./pdftopng.html" class="block px-4 py-2 hover:bg-gray-100">PDF to PNG</a></li>
+                <li><a href="./pdftoword.html" class="block px-4 py-2 hover:bg-gray-100">PDF to Word</a></li>
+                <li><a href="./pdftoxml.html" class="block px-4 py-2 hover:bg-gray-100">PDF to XML</a></li>
+                <li><a href="./pdftozip.html" class="block px-4 py-2 hover:bg-gray-100">PDF to ZIP</a></li>
+                <li><a href="./pdftowebp.html" class="block px-4 py-2 hover:bg-gray-100">PDF to WEBP</a></li>
+                <li><a href="./pdftotext.html" class="block px-4 py-2 hover:bg-gray-100">PDF to Text</a></li>
+                <li><a href="./csvto.html" class="block px-4 py-2 hover:bg-gray-100">CSV to PDF</a></li>
+                <li><a href="./excelto.html" class="block px-4 py-2 hover:bg-gray-100">Excel to PDF</a></li>
+                <li><a href="./htmlto.html" class="block px-4 py-2 hover:bg-gray-100">HTML to PDF</a></li>
+                <li><a href="./jpgto.html" class="block px-4 py-2 hover:bg-gray-100">JPG to PDF</a></li>
+                <li><a href="./jsonto.html" class="block px-4 py-2 hover:bg-gray-100">JSON to PDF</a></li>
+                <li><a href="./pngto.html" class="block px-4 py-2 hover:bg-gray-100">PNG to PDF</a></li>
+                <li><a href="./speechto.html" class="block px-4 py-2 hover:bg-gray-100">Speech to PDF</a></li>
+                <li><a href="./textto.html" class="block px-4 py-2 hover:bg-gray-100">Text to PDF</a></li>
+                <li><a href="./webpto.html" class="block px-4 py-2 hover:bg-gray-100">WEBP to PDF</a></li>
+                <li><a href="./xmlto.html" class="block px-4 py-2 hover:bg-gray-100">XML to PDF</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="flex justify-center items-center min-h-screen pt-20">
+    <div class="container max-w-4xl p-6 bg-white rounded-lg shadow-lg fade-in">
+      <h1 class="text-4xl font-bold text-gray-800 mb-4 text-center">PDF to ZIP Converter</h1>
+      <p class="text-center text-gray-500 mb-6">Compress PDF files into ZIP archives, split pages into individual PDFs, or organize multiple PDFs for efficient storage and sharing without quality loss.</p>
+
+      <!-- File Upload Section -->
+      <div class="drop-zone border-4 border-dashed border-gray-200 rounded-xl p-12 text-center mb-8 transition-colors duration-300 hover:border-blue-400" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="handleDragLeave(event)">
+        <label for="pdfFiles" class="inline-block w-full py-3 px-5 bg-indigo-600 text-white font-semibold rounded-full cursor-pointer hover:bg-indigo-700 btn hover-scale">
+          Choose PDFs
+        </label>
+        <input type="file" id="pdfFiles" accept="application/pdf" multiple class="hidden" onchange="previewFiles()">
+        <p class="text-gray-500 mt-2">or drag and drop PDF files here (supports multiple files, max 25MB each)</p>
+      </div>
+
+      <!-- Conversion Settings -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h3 class="text-lg font-semibold mb-3">Conversion Settings</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Folder Name</label>
+              <input type="text" id="folderName" class="w-full p-2 border rounded-lg" placeholder="e.g., Converted_PDFs">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Page Range (e.g., 1-3, 5)</label>
+              <input type="text" id="pageRange" class="w-full p-2 border rounded-lg" placeholder="All pages">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Output Mode</label>
+              <select id="outputMode" class="w-full p-2 border rounded-lg">
+                <option value="split">Split Pages into Individual PDFs</option>
+                <option value="whole">Keep PDFs Whole</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h3 class="text-lg font-semibold mb-3">ZIP Options</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Compression Level</label>
+              <select id="compressionLevel" class="w-full p-2 border rounded-lg">
+                <option value="0">No Compression</option>
+                <option value="6">Medium (Default)</option>
+                <option value="9">Maximum</option>
+              </select>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="previewPages">
+              <label class="text-gray-600">Preview Pages Before Conversion</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Section -->
+      <div id="previewContainer" class="mb-6"></div>
+      <div id="pagePreview" class="hidden preview-grid bg-gray-50 p-4 rounded-lg mb-6"></div>
+
+      <!-- Progress Bar -->
+      <div id="progressBar" class="hidden bg-gray-200 rounded-full h-2.5 mb-4">
+        <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-300 progress-bar" style="width: 0%"></div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap gap-4 justify-center">
+        <button onclick="convertPDFs()" class="py-3 px-5 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 btn hover-scale" id="convertButton" disabled>
+          Convert to ZIP
+        </button>
+        <a id="downloadZipButton" href="#" download class="hidden py-3 px-5 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 btn hover-scale">
+          Download ZIP
+        </a>
+        <button onclick="resetAll()" class="py-3 px-5 bg-red-500 text-white font-semibold rounded-full hover:bg-red-600 btn hover-scale">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO-Friendly Article -->
+  <div class="article-section">
+    <h2>Ultimate Guide to Using a PDF to ZIP Converter Online</h2>
+    <p>PDF files are widely used for sharing documents, but their size and organization can pose challenges for storage and transfer. A <strong>PDF to ZIP converter</strong> compresses PDF files into ZIP archives, reducing file size and enabling efficient handling of multiple documents. Our <a href="#pdfFiles">free PDF to ZIP tool</a> offers a fast, user-friendly solution to <strong>convert PDF to ZIP online</strong>. This comprehensive guide explores the benefits of using a <strong>PDF to ZIP converter online</strong>, how to use it effectively, and tips to optimize your file compression for various purposes.</p>
+
+    <h3>Why Use a PDF to ZIP Converter?</h3>
+    <p>Converting PDFs to ZIP archives provides numerous advantages for professionals, students, and businesses. Here’s why you should use a <strong>free PDF to ZIP tool</strong>:</p>
+    <ul>
+      <li><strong>Reduced File Size</strong>: Compress PDFs to save storage space and speed up file transfers.</li>
+      <li><strong>Organized Storage</strong>: Bundle multiple PDFs or split pages into a single ZIP archive for easy management.</li>
+      <li><strong>Batch Processing</strong>: Handle multiple PDFs simultaneously, saving time for large projects.</li>
+      <li><strong>No Software Installation</strong>: Our <strong>PDF to ZIP converter online</strong> works in your browser, requiring no downloads.</li>
+      <li><strong>Preserved Quality</strong>: Maintain original PDF quality during compression.</li>
+      <li><strong>Versatile Use Cases</strong>: Ideal for archiving, emailing, or sharing large document sets.</li>
+    </ul>
+    <p>By using our <strong>PDF to ZIP converter</strong>, you can streamline document management for any use case.</p>
+
+    <h3>How to Use Our Free PDF to ZIP Converter</h3>
+    <p>Our <strong>PDF to ZIP tool</strong> is designed for simplicity and flexibility. Follow these steps to <strong>compress PDF to ZIP</strong>:</p>
+    <ol>
+      <li><strong>Upload PDFs</strong>: Click “Choose PDFs” or drag and drop files into the upload area. Supports multiple PDFs, each up to 25MB.</li>
+      <li><strong>Configure Settings</strong>: Specify folder name, page ranges, output mode (split pages or whole PDFs), and compression level.</li>
+      <li><strong>Preview Pages</strong>: Enable the preview option to review PDF pages before conversion.</li>
+      <li><strong>Convert and Download</strong>: Click “Convert to ZIP” to process the files. Download the ZIP archive or individual PDFs.</li>
+      <li><strong>Reset as Needed</strong>: Use the “Reset” button to clear inputs and start over.</li>
+    </ol>
+    <p>With these steps, you can <strong>convert PDF to ZIP free</strong> in minutes, making our tool a top choice for <strong>PDF to ZIP conversion</strong>.</p>
+
+    <h3>Who Benefits from a PDF to ZIP Converter?</h3>
+    <p>Our <strong>PDF to ZIP converter online</strong> serves a wide range of users:</p>
+    <ul>
+      <li><strong>Business Professionals</strong>: Compress reports, contracts, or presentations for efficient sharing.</li>
+      <li><strong>Students</strong>: Archive study materials or assignments in compact ZIP files.</li>
+      <li><strong>Educators</strong>: Share teaching resources or handouts as organized ZIP archives.</li>
+      <li><strong>Archivists</strong>: Store scanned documents or records in compressed formats.</li>
+      <li><strong>IT Administrators</strong>: Manage large document sets for backups or transfers.</li>
+      <li><strong>Freelancers</strong>: Deliver multiple project files to clients in a single ZIP file.</li>
+    </ul>
+    <p>Our <strong>free PDF to ZIP tool</strong> simplifies file compression for all users, regardless of technical expertise.</p>
+
+    <h3>Key Features of Our PDF to ZIP Converter</h3>
+    <p>Our <strong>PDF to ZIP converter online</strong> offers robust features to meet diverse needs:</p>
+    <ul>
+      <li><strong>Batch Conversion</strong>: Process multiple PDFs at once and download as a ZIP file.</li>
+      <li><strong>Customizable Output</strong>: Choose to split pages, keep PDFs whole, and set compression levels.</li>
+      <li><strong>Page Range Selection</strong>: Convert specific pages or ranges to focus on relevant content.</li>
+      <li><strong>Page Preview</strong>: Review PDF pages before finalizing the conversion.</li>
+      <li><strong>Drag-and-Drop Interface</strong>: Streamline uploads with an intuitive design.</li>
+      <li><strong>Flexible Folder Naming</strong>: Customize folder names for organized ZIP archives.</li>
+      <li><strong>Secure Processing</strong>: Files are processed in the browser for data privacy.</li>
+    </ul>
+    <p>These features make our tool ideal for anyone looking to <strong>compress PDF to ZIP</strong> efficiently.</p>
+
+    <h3>Tips for Optimizing PDF to ZIP Conversion</h3>
+    <p>To maximize the effectiveness of our <strong>PDF to ZIP converter</strong>, consider these tips:</p>
+    <ul>
+      <li><strong>Choose Compression Level</strong>: Use maximum compression for smaller files or no compression for faster processing.</li>
+      <li><strong>Split Pages When Needed</strong>: Split large PDFs into individual pages for easier access to specific content.</li>
+      <li><strong>Specify Page Ranges</strong>: Focus on relevant pages to reduce processing time and ZIP size.</li>
+      <li><strong>Preview Pages</strong>: Verify page content before conversion to ensure accuracy.</li>
+      <li><strong>Use Descriptive Folder Names</strong>: Name folders clearly for better organization.</li>
+      <li><strong>Combine with Other Tools</strong>: Use our <a href="./imagecompression.html">Image Compressor</a> to reduce image-based PDFs before zipping.</li>
+    </ul>
+
+    <h3>Why ZIP is Ideal for PDF Compression</h3>
+    <p>ZIP is a widely used archive format for compressing files. Here’s why it’s ideal for PDF conversion:</p>
+    <ul>
+      <li><strong>File Size Reduction</strong>: Compresses PDFs to save storage and bandwidth.</li>
+      <li><strong>Multi-File Support</strong>: Combines multiple PDFs into a single archive.</li>
+      <li><strong>Universal Compatibility</strong>: Supported by all major operating systems.</li>
+      <li><strong>Organized Structure</strong>: Maintains folder hierarchies for easy file management.</li>
+      <li><strong>Lossless Compression</strong>: Preserves PDF quality during compression.</li>
+    </ul>
+    <p>Our <strong>PDF to ZIP converter online</strong> leverages ZIP’s strengths to deliver compact, organized archives.</p>
+
+    <h3>Comparing PDF to ZIP Converters</h3>
+    <p>Not all <strong>PDF to ZIP converters</strong> offer the same functionality. Here’s how our tool stands out:</p>
+    <ul>
+      <li><strong>Free Access</strong>: No subscriptions or hidden fees, unlike some premium tools.</li>
+      <li><strong>Browser-Based</strong>: No software installation required, unlike desktop applications.</li>
+      <li><strong>Batch Processing</strong>: Compress multiple PDFs at once, a feature not always available in free tools.</li>
+      <li><strong>Customizable Output</strong>: Options for page splitting, compression levels, and folder naming provide flexibility.</li>
+      <li><strong>User-Friendly Interface</strong>: Intuitive design with drag-and-drop, previews, and ZIP downloads.</li>
+      <li><strong>Secure Processing</strong>: Local browser processing ensures data privacy.</li>
+    </ul>
+    <p>Our <strong>free PDF to ZIP tool</strong> offers a balance of functionality, ease of use, and performance, making it ideal for all users.</p>
+
+    <h3>Frequently Asked Questions (FAQs)</h3>
+    <p>Here are answers to common questions about using a <strong>PDF to ZIP converter online</strong>:</p>
+    <h4>1. Is the PDF to ZIP converter free?</h4>
+    <p>Yes, our <strong>PDF to ZIP free</strong> tool has no subscriptions or hidden costs.</p>
+    <h4>2. Can I compress multiple PDFs at once?</h4>
+    <p>Absolutely! Upload multiple PDFs and download them as a single ZIP file.</p>
+    <h4>3. Does compression affect PDF quality?</h4>
+    <p>No, our tool uses lossless compression to preserve PDF quality.</p>
+    <h4>4. Can I split PDF pages?</h4>
+    <p>Yes, choose the split pages option to create individual PDFs for each page.</p>
+    <h4>5. Is my data secure?</h4>
+    <p>All processing is done in your browser, ensuring your files remain private.</p>
+    <h4>6. What if I need a different format?</h4>
+    <p>Try our <a href="./pdftopng.html">PDF to PNG</a> or <a href="./pdftoword.html">PDF to Word</a> converters for alternative outputs.</p>
+
+    <h3>Advanced Use Cases for PDF to ZIP Conversion</h3>
+    <p>Our <strong>PDF to ZIP converter</strong> supports a variety of advanced scenarios:</p>
+    <ul>
+      <li><strong>Document Archiving</strong>: Compress large sets of PDFs for long-term storage.</li>
+      <li><strong>File Sharing</strong>: Share multiple PDFs via email or cloud services in a single ZIP file.</li>
+      <li><strong>Project Management</strong>: Organize project documents into compact archives for client delivery.</li>
+      <li><strong>Backup Solutions</strong>: Create compressed backups of critical PDFs.</li>
+      <li><strong>Educational Resources</strong>: Distribute course materials or assignments in ZIP format.</li>
+    </ul>
+
+    <h3>How PDF to ZIP Conversion Enhances Productivity</h3>
+    <p>Productivity is a priority for professionals handling documents. Our <strong>PDF to ZIP converter online</strong> boosts efficiency by:</p>
+    <ul>
+      <li>Reducing file sizes for faster uploads and downloads.</li>
+      <li>Enabling batch processing for high-volume tasks.</li>
+      <li>Providing customizable outputs for specific needs.</li>
+      <li>Organizing files into structured archives.</li>
+      <li>Ensuring lossless compression for quality retention.</li>
+    </ul>
+    <p>With our tool, you can focus on document management rather than file handling.</p>
+
+    <h3>Best Practices for PDF to ZIP Conversion</h3>
+    <p>To achieve optimal results, follow these best practices:</p>
+    <ul>
+      <li><strong>Ensure Valid PDFs</strong>: Use high-quality PDFs to avoid processing errors.</li>
+      <li><strong>Validate Pages</strong>: Use the preview feature to check page content before conversion.</li>
+      <li><strong>Choose Appropriate Compression</strong>: Select maximum compression for large files or no compression for quick processing.</li>
+      <li><strong>Organize Outputs</strong>: Use clear folder names and split pages for better file management.</li>
+      <li><strong>Test ZIP Files</strong>: Extract the ZIP archive to verify all PDFs are included.</li>
+    </ul>
+
+    <h3>Conclusion</h3>
+    <p>Compressing and organizing PDF files doesn’t have to be a complex task. With our <strong>PDF to ZIP converter online</strong>, you can <strong>convert PDF to ZIP free</strong>, customize your output, and create compact archives for any purpose. Whether you’re archiving documents, sharing files, or managing projects, our <strong>free PDF to ZIP tool</strong> offers the features and flexibility you need. Try it now and simplify your document compression!</p>
+    <p><a href="https://onepagetools.com/pdftozip.html" class="text-indigo-600 hover:underline">Start converting your PDFs to ZIP today</a> and optimize your file management.</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+    let files = [];
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('dragover');
+    }
+
+    function handleDragLeave(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('dragover');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('dragover');
+      const uploadedFiles = e.dataTransfer.files;
+      if (uploadedFiles.length) {
+        document.getElementById('pdfFiles').files = uploadedFiles;
+        previewFiles();
+      }
+    }
+
+    function previewFiles() {
+      const fileInput = document.getElementById('pdfFiles');
+      const previewContainer = document.getElementById('previewContainer');
+      const downloadZipButton = document.getElementById('downloadZipButton');
+      files = [];
+      previewContainer.innerHTML = '';
+      downloadZipButton.classList.add('hidden');
+
+      if (fileInput.files.length) {
+        Array.from(fileInput.files).forEach((file, index) => {
+          if (file.type !== 'application/pdf') {
+            Swal.fire('Invalid File', `${file.name} is not a PDF file.`, 'error');
+            return;
+          }
+          if (file.size > 25 * 1024 * 1024) {
+            Swal.fire('File Too Large', `${file.name} exceeds 25MB.`, 'error');
+            return;
+          }
+          const fileData = {
+            file,
+            name: file.name,
+            id: `file-${index}`,
+            status: 'Pending',
+            pages: []
+          };
+          files.push(fileData);
+          renderPreview(fileData);
+        });
+      }
+      document.getElementById('convertButton').disabled = files.length === 0;
+    }
+
+    function renderPreview(fileData) {
+      const previewContainer = document.getElementById('previewContainer');
+      const div = document.createElement('div');
+      div.className = 'flex justify-between items-center bg-gray-50 p-4 rounded-lg mb-2 scale-in';
+      div.innerHTML = `
+        <p class="text-gray-600">${fileData.name} (${(fileData.file.size / 1024 / 1024).toFixed(2)}MB)</p>
+        <div class="flex items-center gap-2">
+          <p id="${fileData.id}-status" class="text-gray-500">${fileData.status}</p>
+        </div>
+      `;
+      previewContainer.appendChild(div);
+    }
+
+    async function convertPDFs() {
+      if (!files.length) {
+        Swal.fire('No Files', 'Please upload at least one PDF file.', 'error');
+        return;
+      }
+
+      const progressBar = document.getElementById('progressBar');
+      const progressFill = progressBar.querySelector('div');
+      const downloadZipButton = document.getElementById('downloadZipButton');
+      const folderName = document.getElementById('folderName').value.trim() || `PDFs_${new Date().toISOString().replace(/[:.]/g, '-')}`;
+      const pageRange = document.getElementById('pageRange').value;
+      const outputMode = document.getElementById('outputMode').value;
+      const compressionLevel = parseInt(document.getElementById('compressionLevel').value);
+      const previewPages = document.getElementById('previewPages').checked;
+      const zip = new JSZip();
+      let progress = 0;
+      let hasValidOutputs = false;
+      progressBar.classList.remove('hidden');
+      progressFill.style.width = '0%';
+
+      function updateProgress() {
+        progress += 100 / files.length / 10;
+        progressFill.style.width = `${Math.min(progress, 100)}%`;
+        if (progress < 100) {
+          requestAnimationFrame(updateProgress);
+        }
+      }
+
+      requestAnimationFrame(updateProgress);
+
+      for (let i = 0; i < files.length; i++) {
+        const fileData = files[i];
+        try {
+          document.getElementById(`${fileData.id}-status`).textContent = 'Processing...';
+          const fileReader = new FileReader();
+          fileReader.onload = async function () {
+            const uint8Array = new Uint8Array(this.result);
+            const pdfDoc = await PDFLib.PDFDocument.load(uint8Array);
+            const pdfJsDoc = await pdfjsLib.getDocument(uint8Array).promise;
+            const totalPages = pdfDoc.getPageCount();
+            const pagesToProcess = pageRange ? parsePageRange(pageRange, totalPages) : Array.from({ length: totalPages }, (_, i) => i + 1);
+            fileData.pages = [];
+
+            const pagePreview = document.getElementById('pagePreview');
+            if (previewPages && i === 0) {
+              pagePreview.innerHTML = '';
+              pagePreview.classList.remove('hidden');
+            }
+
+            if (outputMode === 'split') {
+              for (const pageNum of pagesToProcess) {
+                const newPdf = await PDFLib.PDFDocument.create();
+                const [copiedPage] = await newPdf.copyPages(pdfDoc, [pageNum - 1]);
+                newPdf.addPage(copiedPage);
+                const pdfBytes = await newPdf.save();
+                const fileName = `${fileData.name.replace('.pdf', '')}_page${pageNum}.pdf`;
+                zip.file(`${folderName}/${fileName}`, pdfBytes, { compression: compressionLevel > 0 ? 'DEFLATE' : 'STORE', compressionOptions: { level: compressionLevel } });
+                fileData.pages.push({ name: fileName, data: pdfBytes });
+
+                if (previewPages && i === 0) {
+                  const page = await pdfJsDoc.getPage(pageNum);
+                  const viewport = page.getViewport({ scale: 0.5 });
+                  const canvas = document.createElement('canvas');
+                  const context = canvas.getContext('2d');
+                  canvas.height = viewport.height;
+                  canvas.width = viewport.width;
+                  await page.render({ canvasContext: context, viewport }).promise;
+                  const img = document.createElement('img');
+                  img.src = canvas.toDataURL('image/jpeg');
+                  img.alt = `Page ${pageNum} Preview`;
+                  pagePreview.appendChild(img);
+                }
+              }
+            } else {
+              const pdfBytes = await pdfDoc.save();
+              zip.file(`${folderName}/${fileData.name}`, pdfBytes, { compression: compressionLevel > 0 ? 'DEFLATE' : 'STORE', compressionOptions: { level: compressionLevel } });
+              fileData.pages.push({ name: fileData.name, data: pdfBytes });
+
+              if (previewPages && i === 0) {
+                const page = await pdfJsDoc.getPage(1);
+                const viewport = page.getViewport({ scale: 0.5 });
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                await page.render({ canvasContext: context, viewport }).promise;
+                const img = document.createElement('img');
+                img.src = canvas.toDataURL('image/jpeg');
+                img.alt = `Page 1 Preview`;
+                pagePreview.appendChild(img);
+              }
+            }
+
+            const statusDiv = document.getElementById(`${fileData.id}-status`).parentElement;
+            statusDiv.innerHTML = `<p id="${fileData.id}-status" class="text-gray-500">Converted</p>`;
+            fileData.pages.forEach(({ name, data }) => {
+              const link = document.createElement('a');
+              link.href = URL.createObjectURL(new Blob([data], { type: 'application/pdf' }));
+              link.download = name;
+              link.className = 'text-blue-600 hover:underline';
+              link.textContent = name;
+              statusDiv.appendChild(link);
+              statusDiv.appendChild(document.createTextNode(' '));
+            });
+
+            document.getElementById(`${fileData.id}-status`).textContent = 'Converted';
+            hasValidOutputs = true;
+
+            if (i === files.length - 1 && hasValidOutputs) {
+              const zipBlob = await zip.generateAsync({ type: 'blob' });
+              downloadZipButton.href = URL.createObjectURL(zipBlob);
+              downloadZipButton.download = `${folderName}.zip`;
+              downloadZipButton.classList.remove('hidden');
+              Swal.fire('Success!', 'All files converted successfully.', 'success');
+            }
+          };
+          fileReader.readAsArrayBuffer(fileData.file);
+        } catch (error) {
+          console.error(`Error processing ${fileData.name}:`, error);
+          document.getElementById(`${fileData.id}-status`).textContent = 'Error';
+          Swal.fire('Error', `Failed to process ${fileData.name}.`, 'error');
+        }
+      }
+
+      progressBar.classList.add('hidden');
+      progressFill.style.width = '0%';
+    }
+
+    function parsePageRange(range, totalPages) {
+      const pages = new Set();
+      const parts = range.split(',');
+      for (const part of parts) {
+        if (part.includes('-')) {
+          const [start, end] = part.split('-').map(Number);
+          for (let i = Math.max(1, start); i <= Math.min(totalPages, end); i++) {
+            pages.add(i);
+          }
+        } else {
+          const page = Number(part);
+          if (page >= 1 && page <= totalPages) {
+            pages.add(page);
+          }
+        }
+      }
+      return Array.from(pages).sort((a, b) => a - b);
+    }
+
+    function resetAll() {
+      files = [];
+      document.getElementById('previewContainer').innerHTML = '';
+      document.getElementById('pdfFiles').value = '';
+      document.getElementById('folderName').value = '';
+      document.getElementById('pageRange').value = '';
+      document.getElementById('outputMode').value = 'split';
+      document.getElementById('compressionLevel').value = '6';
+      document.getElementById('previewPages').checked = false;
+      document.getElementById('pagePreview').innerHTML = '';
+      document.getElementById('pagePreview').classList.add('hidden');
+      document.getElementById('downloadZipButton').classList.add('hidden');
+      document.getElementById('progressBar').classList.add('hidden');
+      document.getElementById('convertButton').disabled = true;
+    }
+  </script>
+</body>
+</html>
