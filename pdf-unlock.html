@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Unlock - Remove PDF Password Protection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="./js/menu.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .drop-zone {
+            border: 2px dashed #e5322d;
+            transition: all 0.3s ease;
+        }
+        .drop-zone:hover {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-3xl font-bold text-center mb-8">PDF Unlock</h1>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="drop-zone rounded-lg p-8 text-center cursor-pointer" id="dropZone">
+                    <i class="fas fa-lock text-4xl text-red-500 mb-4"></i>
+                    <p class="text-lg mb-2">Drag & Drop your password-protected PDF here</p>
+                    <p class="text-sm text-gray-500 mb-4">or</p>
+                    <input type="file" id="fileInput" accept=".pdf" class="hidden">
+                    <button class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors" onclick="document.getElementById('fileInput').click()">
+                        Choose File
+                    </button>
+                </div>
+
+                <div id="passwordSection" class="mt-6 hidden">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">PDF Password</label>
+                            <input type="password" id="pdfPassword" class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Enter PDF password">
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="showPassword" class="mr-2">
+                            <label for="showPassword" class="text-sm">Show password</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="fileInfo" class="mt-6 hidden">
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                            <p class="font-medium" id="fileName">filename.pdf</p>
+                            <p class="text-sm text-gray-500" id="fileSize">0 MB</p>
+                        </div>
+                        <button class="text-red-500 hover:text-red-600" onclick="removeFile()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button id="unlockBtn" class="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Unlock PDF
+                    </button>
+                </div>
+
+                <div id="progressBar" class="mt-6 hidden">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-red-500 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <p class="text-sm text-center mt-2" id="progressText">Unlocking...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const unlockBtn = document.getElementById('unlockBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const passwordSection = document.getElementById('passwordSection');
+        const pdfPassword = document.getElementById('pdfPassword');
+        const showPassword = document.getElementById('showPassword');
+        let currentFile = null;
+
+        // Show/hide password
+        showPassword.addEventListener('change', () => {
+            pdfPassword.type = showPassword.checked ? 'text' : 'password';
+        });
+
+        // Drag and drop handlers
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-red-500', 'bg-red-50');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-red-500', 'bg-red-50');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-red-500', 'bg-red-50');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (file.type !== 'application/pdf') {
+                alert('Please upload a PDF file');
+                return;
+            }
+
+            currentFile = file;
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            fileInfo.classList.remove('hidden');
+            passwordSection.classList.remove('hidden');
+            unlockBtn.disabled = false;
+        }
+
+        function removeFile() {
+            currentFile = null;
+            fileInput.value = '';
+            fileInfo.classList.add('hidden');
+            passwordSection.classList.add('hidden');
+            unlockBtn.disabled = true;
+            pdfPassword.value = '';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        unlockBtn.addEventListener('click', async () => {
+            if (!currentFile || !pdfPassword.value) return;
+
+            progressBar.classList.remove('hidden');
+            unlockBtn.disabled = true;
+
+            try {
+                // Simulate unlocking process
+                for (let i = 0; i <= 100; i += 10) {
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                    progressBar.querySelector('div').style.width = `${i}%`;
+                    progressText.textContent = `Unlocking... ${i}%`;
+                }
+
+                // Create download link
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(currentFile); // In real implementation, this would be the unlocked file
+                link.download = `unlocked_${currentFile.name}`;
+                link.click();
+
+                // Reset UI
+                progressBar.classList.add('hidden');
+                unlockBtn.disabled = false;
+                removeFile();
+            } catch (error) {
+                console.error('Unlocking failed:', error);
+                alert('Failed to unlock PDF. Please check your password and try again.');
+                progressBar.classList.add('hidden');
+                unlockBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html> 
