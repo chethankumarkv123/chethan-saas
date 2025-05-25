@@ -236,8 +236,14 @@
         [...document.querySelectorAll('.explode-btn')].forEach(btn => btn.onclick = () => { settings.explode = btn.dataset.value; openSettingsBtn.onclick(); });
         [...document.querySelectorAll('.quotes-btn')].forEach(btn => btn.onclick = () => { settings.quotes = btn.dataset.value; openSettingsBtn.onclick(); });
 
+        // Sync dropdown to settings
+        delimiter.addEventListener('change', () => {
+            settings.delimiter = delimiter.value;
+        });
+
         applySettingsBtn.onclick = () => {
             settings.delimiter = document.getElementById('modalDelimiter').value || ',';
+            delimiter.value = settings.delimiter; // sync dropdown
             settings.openTag = document.getElementById('openTag').value;
             settings.closeTag = document.getElementById('closeTag').value;
             settings.interval = parseInt(document.getElementById('interval').value) || 0;
@@ -269,12 +275,12 @@
                 for (let i = 0; i < values.length; i += settings.interval) {
                     let group = values.slice(i, i + settings.interval);
                     if (settings.intervalOpenTag && settings.intervalCloseTag) output += settings.intervalOpenTag;
-                    output += group.join(settings.delimiter);
+                    output += group.join(settings.delimiter === '\\n' ? '\n' : settings.delimiter);
                     if (settings.intervalOpenTag && settings.intervalCloseTag) output += settings.intervalCloseTag;
                     if (i + settings.interval < values.length) output += '\n';
                 }
             } else {
-                output = values.join(settings.delimiter);
+                output = values.join(settings.delimiter === '\\n' ? '\n' : settings.delimiter);
             }
             outputText.value = output;
             if (values.length > 0) {
