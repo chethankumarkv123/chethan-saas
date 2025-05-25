@@ -32,6 +32,10 @@
         padding: 0 20px;
         justify-content: center;
       }
+      body {
+        background: #F4F5FB;
+        color: #222;
+      }
       .singletools {
         min-width: 240px;
         min-height: 180px;
@@ -118,6 +122,35 @@
         .text-center p {
           color: #bdbdbd !important;
           font-size: 1rem !important;
+        }
+        /* Navbar mobile adjustments */
+        nav .max-w-screen-xl {
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+        }
+        nav .flex.md\:order-2 {
+          order: 3;
+          flex: 0 0 auto;
+          margin-left: auto;
+          margin-right: 0;
+        }
+        nav .flex.items-center.space-x-3 {
+          order: 2;
+          flex: 1 1 0%;
+          justify-content: center !important;
+          margin: 0 auto !important;
+        }
+        #themeToggle {
+          left: 18px !important;
+          right: auto !important;
+        }
+      }
+      @media (min-width: 901px) {
+        #themeToggle {
+          right: 18px !important;
+          left: auto !important;
         }
       }
       /* Dark theme styles */
@@ -1638,6 +1671,85 @@
         setTheme(!document.body.classList.contains(dark));
       });
     })();
+    // ... existing code ...
+    </script>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2000;background:rgba(24,23,28,0.98);color:#fff;overflow-y:auto;transition:all 0.3s;">
+      <div style="padding:28px 20px 12px 20px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:1.5rem;font-weight:700;">Menu</span>
+        <button id="closeMobileMenu" style="background:none;border:none;color:#fff;font-size:2rem;line-height:1;cursor:pointer;">&times;</button>
+      </div>
+      <ul style="list-style:none;padding:0 20px 0 20px;margin:0;">
+        <li style="margin-bottom:18px;"><a href="./index.html" style="color:#fff;font-size:1.15rem;text-decoration:none;display:block;padding:10px 0;">Home</a></li>
+        <li style="margin-bottom:18px;"><a href="./about.html" style="color:#fff;font-size:1.15rem;text-decoration:none;display:block;padding:10px 0;">About</a></li>
+        <li style="margin-bottom:18px;"><a href="./contact.html" style="color:#fff;font-size:1.15rem;text-decoration:none;display:block;padding:10px 0;">Contact</a></li>
+        <li style="margin-bottom:10px;">
+          <details>
+            <summary style="color:#fff;font-size:1.15rem;cursor:pointer;outline:none;padding:10px 0;">ALL PDF TOOLS</summary>
+            <ul style="list-style:none;padding-left:10px;margin:0;">
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-csv" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to CSV</a></li>
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-excel" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to Excel</a></li>
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-html" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to HTML</a></li>
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-jpg" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to JPG</a></li>
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-json" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to JSON</a></li>
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-png" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to PNG</a></li>
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-word" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to Word</a></li>
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-xml" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to XML</a></li>
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-zip" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to ZIP</a></li>
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-webp" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to WebP</a></li>
+              <li><a href="https://chethan-saas.netlify.app/pdf-to-text" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PDF to Text</a></li>
+              <li><a href="https://chethan-saas.netlify.app/csv-to-pdf" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">CSV to PDF</a></li>
+              <li><a href="https://chethan-saas.netlify.app/excel-to-pdf" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">Excel to PDF</a></li>
+              <li><a href="https://chethan-saas.netlify.app/html-to-pdf" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">HTML to PDF</a></li>
+              <li><a href="https://chethan-saas.netlify.app/jpg-to-pdf" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">JPG to PDF</a></li>
+              <li><a href="https://chethan-saas.netlify.app/json-to-pdf" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">JSON to PDF</a></li>
+              <li><a href="https://chethan-saas.netlify.app/png-to-pdf" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">PNG to PDF</a></li>
+              <li><a href="https://chethan-saas.netlify.app/text-to-pdf" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">Text to PDF</a></li>
+              <li><a href="https://chethan-saas.netlify.app/webp-to-pdf" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">WebP to PDF</a></li>
+              <li><a href="https://chethan-saas.netlify.app/xml-to-pdf" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">XML to PDF</a></li>
+              <li><a href="https://chethan-saas.netlify.app/image-resizer" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">Image Resizer</a></li>
+              <li><a href="https://chethan-saas.netlify.app/image-compressor" style="color:#fff;text-decoration:none;display:block;padding:8px 0;">Image Compressor</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+    // ... existing code ...
+    document.addEventListener('DOMContentLoaded', function() {
+      // ... existing code ...
+      // Mobile menu logic
+      const mobileMenu = document.getElementById('mobileMenu');
+      const openBtn = document.querySelector('[data-collapse-toggle="navbar-sticky"]');
+      const closeBtn = document.getElementById('closeMobileMenu');
+      // Open mobile menu
+      openBtn && openBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        mobileMenu.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      });
+      // Close mobile menu
+      closeBtn && closeBtn.addEventListener('click', function() {
+        mobileMenu.style.display = 'none';
+        document.body.style.overflow = '';
+      });
+      // Close on click outside
+      mobileMenu && mobileMenu.addEventListener('click', function(e) {
+        if (e.target === mobileMenu) {
+          mobileMenu.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      });
+      // Close on link click
+      mobileMenu && mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenu.style.display = 'none';
+          document.body.style.overflow = '';
+        });
+      });
+    });
     // ... existing code ...
     </script>
   </body>
