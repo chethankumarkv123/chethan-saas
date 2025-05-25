@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Split Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Custom styles for Inter font and general body styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-2xl">
+        <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-8">
+            <i class="fas fa-cut text-indigo-600 mr-2"></i>
+            <span class="text-indigo-600">PDF</span> Split Service
+        </h1>
+
+        <div id="upload-view">
+            <div class="mb-6">
+                <label for="pdfFile" class="block text-lg font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-file-pdf text-indigo-600 mr-2"></i>
+                    Select PDF File to Split:
+                </label>
+                <input
+                    type="file"
+                    id="pdfFile"
+                    name="pdfFile"
+                    accept=".pdf"
+                    class="block w-full text-sm text-gray-500
+                           file:mr-4 file:py-2 file:px-4
+                           file:rounded-full file:border-0
+                           file:text-sm file:font-semibold
+                           file:bg-indigo-50 file:text-indigo-700
+                           hover:file:bg-indigo-100 cursor-pointer rounded-lg border border-gray-300 p-2"
+                />
+                <p class="text-sm text-gray-500 mt-2">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Please select a single PDF file to split.
+                </p>
+            </div>
+            <button
+                id="proceedToSplitBtn"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg
+                       shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled
+            >
+                <i class="fas fa-arrow-right mr-2"></i>
+                Proceed to Split Options
+            </button>
+        </div>
+
+        <div id="split-options-view" class="hidden">
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-cog text-indigo-600 mr-2"></i>
+                    Split Options
+                </h2>
+
+                <div class="mb-4">
+                    <p class="text-md text-gray-700">
+                        <i class="fas fa-file-pdf text-indigo-600 mr-2"></i>
+                        <span class="font-semibold">Selected PDF:</span> <span id="selectedPdfName" class="text-indigo-600"></span>
+                    </p>
+                    <p class="text-md text-gray-700">
+                        <i class="fas fa-copy text-indigo-600 mr-2"></i>
+                        <span class="font-semibold">Total Pages:</span> <span id="totalPages" class="text-indigo-600"></span>
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <label for="splitMethod" class="block text-md font-medium text-gray-700 mb-2">
+                        <i class="fas fa-tasks text-indigo-600 mr-2"></i>
+                        Choose Split Method:
+                    </label>
+                    <select id="splitMethod" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="individual">Split into Individual Pages</option>
+                        <option value="ranges">Split by Custom Page Ranges</option>
+                        <option value="every_n">Split after Every N Pages</option>
+                    </select>
+                </div>
+
+                <div id="rangesInput" class="mb-4 hidden">
+                    <label for="pageRanges" class="block text-md font-medium text-gray-700 mb-2">
+                        <i class="fas fa-keyboard text-indigo-600 mr-2"></i>
+                        Page Ranges (e.g., 1-5, 8, 10-12):
+                    </label>
+                    <input
+                        type="text"
+                        id="pageRanges"
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="e.g., 1-5, 8, 10-12"
+                    />
+                    <p class="text-sm text-gray-500 mt-1">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Each range will create a separate PDF file.
+                    </p>
+                </div>
+
+                <div id="everyNInput" class="mb-4 hidden">
+                    <label for="splitEveryN" class="block text-md font-medium text-gray-700 mb-2">
+                        <i class="fas fa-layer-group text-indigo-600 mr-2"></i>
+                        Split after Every N Pages:
+                    </label>
+                    <input
+                        type="number"
+                        id="splitEveryN"
+                        min="1"
+                        value="1"
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="e.g., 2 for every 2 pages"
+                    />
+                    <p class="text-sm text-gray-500 mt-1">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        A new PDF will be created after every N pages. Set to 1 for individual pages.
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <label for="outputFilenamePrefix" class="block text-md font-medium text-gray-700 mb-2">
+                        <i class="fas fa-file-signature text-indigo-600 mr-2"></i>
+                        Output Filename Prefix:
+                    </label>
+                    <input
+                        type="text"
+                        id="outputFilenamePrefix"
+                        value="split_doc"
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="e.g., my_document_part"
+                    />
+                    <p class="text-sm text-gray-500 mt-1">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Files will be named like "prefix_1.pdf", "prefix_2.pdf", etc.
+                    </p>
+                </div>
+
+                <div class="flex items-center mb-4">
+                    <input
+                        type="checkbox"
+                        id="passwordProtect"
+                        class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    />
+                    <label for="passwordProtect" class="ml-2 block text-md font-medium text-gray-700">
+                        <i class="fas fa-lock text-indigo-600 mr-2"></i>
+                        Add Password Protection to Split PDFs
+                    </label>
+                </div>
+                <div id="passwordFields" class="ml-6 mb-4 hidden">
+                    <label for="ownerPassword" class="block text-sm font-medium text-gray-700 mb-1">
+                        <i class="fas fa-user-shield text-indigo-600 mr-2"></i>
+                        Owner Password:
+                    </label>
+                    <input type="password" id="ownerPassword" class="mt-1 block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Optional" />
+                    <label for="userPassword" class="block text-sm font-medium text-gray-700 mt-2 mb-1">
+                        <i class="fas fa-key text-indigo-600 mr-2"></i>
+                        User Password:
+                    </label>
+                    <input type="password" id="userPassword" class="mt-1 block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Required for user access" />
+                </div>
+            </div>
+
+            <button
+                id="splitPdfBtn"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg
+                       shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                <i class="fas fa-cut mr-2"></i>
+                Split PDF
+            </button>
+            <button
+                id="backToUploadBtn"
+                class="w-full mt-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-4 rounded-lg
+                       shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+            >
+                <i class="fas fa-arrow-left mr-2"></i>
+                Back to Upload
+            </button>
+        </div>
+
+        <div id="messageArea" class="mt-6 p-4 bg-blue-100 text-blue-800 rounded-lg hidden">
+        </div>
+    </div>
+
+    <script>
+        const { PDFDocument, rgb, StandardFonts } = PDFLib;
+
+        let uploadedPdf = null; // Stores: { file: File, name: string, pdfDoc: PDFDocumentInstance, pageCount: number }
+
+        const pdfFile = document.getElementById('pdfFile');
+        const proceedToSplitBtn = document.getElementById('proceedToSplitBtn');
+        const uploadView = document.getElementById('upload-view');
+        const splitOptionsView = document.getElementById('split-options-view');
+        const selectedPdfName = document.getElementById('selectedPdfName');
+        const totalPages = document.getElementById('totalPages');
+        const splitMethod = document.getElementById('splitMethod');
+        const rangesInput = document.getElementById('rangesInput');
+        const pageRanges = document.getElementById('pageRanges');
+        const everyNInput = document.getElementById('everyNInput');
+        const splitEveryN = document.getElementById('splitEveryN');
+        const outputFilenamePrefix = document.getElementById('outputFilenamePrefix');
+        const passwordProtectCheckbox = document.getElementById('passwordProtect');
+        const passwordFields = document.getElementById('passwordFields');
+        const ownerPasswordInput = document.getElementById('ownerPassword');
+        const userPasswordInput = document.getElementById('userPassword');
+        const splitPdfBtn = document.getElementById('splitPdfBtn');
+        const backToUploadBtn = document.getElementById('backToUploadBtn');
+        const messageArea = document.getElementById('messageArea');
+
+        let messageTimeoutId = null; // To store the timeout ID for messages
+
+        // Function to display messages
+        function displayMessage(message, type = 'info', autoHide = true) {
+            // Clear any existing timeout
+            if (messageTimeoutId) {
+                clearTimeout(messageTimeoutId);
+            }
+
+            messageArea.textContent = message;
+            messageArea.classList.remove('hidden', 'bg-red-100', 'text-red-800', 'bg-green-100', 'text-green-800', 'bg-blue-100', 'text-blue-800', 'border-red-400', 'border-green-400', 'border-blue-400');
+            messageArea.classList.add('border'); // Ensure border is always there for consistency
+
+            if (type === 'error') {
+                messageArea.classList.add('bg-red-100', 'text-red-800', 'border-red-400');
+            } else if (type === 'success') {
+                messageArea.classList.add('bg-green-100', 'text-green-800', 'border-green-400');
+            } else { // info
+                messageArea.classList.add('bg-blue-100', 'text-blue-800', 'border-blue-400');
+            }
+            messageArea.classList.remove('hidden');
+
+            if (autoHide && type !== 'error') { // Auto-hide info and success messages
+                messageTimeoutId = setTimeout(() => {
+                    messageArea.classList.add('hidden');
+                }, 5000); // Hide after 5 seconds
+            }
+        }
+
+        // Function to parse page ranges string (e.g., "1-5, 8, 10-12")
+        function parsePageRanges(rangeString, totalPages) {
+            const ranges = [];
+            const parts = rangeString.split(',').map(p => p.trim()).filter(p => p !== '');
+
+            for (const part of parts) {
+                if (part.includes('-')) {
+                    const [start, end] = part.split('-').map(Number);
+                    if (isNaN(start) || isNaN(end) || start < 1 || end > totalPages || start > end) {
+                        throw new Error(`Invalid range: ${part}. Pages must be within 1-${totalPages} and start <= end.`);
+                    }
+                    ranges.push({ start: start - 1, end: end - 1 }); // Convert to 0-indexed
+                } else {
+                    const pageNum = Number(part);
+                    if (isNaN(pageNum) || pageNum < 1 || pageNum > totalPages) {
+                        throw new Error(`Invalid page number: ${part}. Page must be within 1-${totalPages}.`);
+                    }
+                    ranges.push({ start: pageNum - 1, end: pageNum - 1 }); // Convert to 0-indexed
+                }
+            }
+            return ranges;
+        }
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial state: hide split options view
+            splitOptionsView.classList.add('hidden');
+            uploadView.classList.remove('hidden');
+            proceedToSplitBtn.disabled = true; // Disable until file is selected
+
+            // Enable/disable proceed button based on file selection
+            pdfFile.addEventListener('change', () => {
+                if (pdfFile.files.length > 0) {
+                    proceedToSplitBtn.disabled = false;
+                    displayMessage(`Selected 1 PDF file. Click 'Proceed to Split Options'.`, 'info');
+                } else {
+                    proceedToSplitBtn.disabled = true;
+                    displayMessage('Please select a PDF file to begin.', 'info');
+                }
+            });
+
+            // Proceed to Split Options View
+            proceedToSplitBtn.addEventListener('click', async () => {
+                const file = pdfFile.files[0];
+                if (!file) {
+                    displayMessage('Please select a PDF file before proceeding.', 'error');
+                    return;
+                }
+
+                displayMessage('Loading PDF document...', 'info', false); // Do not auto-hide loading message
+                proceedToSplitBtn.disabled = true;
+                pdfFile.disabled = true;
+
+                uploadedPdf = null; // Clear previous selection
+
+                try {
+                    const arrayBuffer = await file.arrayBuffer();
+                    const pdfDoc = await PDFDocument.load(arrayBuffer);
+                    const pageCount = pdfDoc.getPageCount();
+
+                    uploadedPdf = {
+                        file: file,
+                        name: file.name,
+                        pdfDoc: pdfDoc,
+                        pageCount: pageCount
+                    };
+
+                    // Update UI with PDF info
+                    selectedPdfName.textContent = uploadedPdf.name;
+                    totalPages.textContent = uploadedPdf.pageCount;
+
+                    // Show split options view
+                    uploadView.classList.add('hidden');
+                    splitOptionsView.classList.remove('hidden');
+                    displayMessage('PDF loaded. Choose your splitting method and options.', 'info');
+
+                    // Initialize split method display
+                    splitMethod.dispatchEvent(new Event('change'));
+
+                } catch (error) {
+                    console.error('Error loading PDF file:', file.name, error);
+                    displayMessage(`Failed to load file: ${file.name}. Ensure it's a valid PDF.`, 'error', false); // Keep error message
+                    uploadedPdf = null;
+                } finally {
+                    proceedToSplitBtn.disabled = false;
+                    pdfFile.disabled = false;
+                }
+            });
+
+            // Back to Upload View
+            backToUploadBtn.addEventListener('click', () => {
+                uploadView.classList.remove('hidden');
+                splitOptionsView.classList.add('hidden');
+                pdfFile.value = ''; // Clear selected file in the input
+                uploadedPdf = null; // Clear uploaded PDF data
+                proceedToSplitBtn.disabled = true; // Disable proceed button
+                displayMessage('Ready to upload a new PDF file.', 'info');
+            });
+
+            // Toggle password fields visibility
+            passwordProtectCheckbox.addEventListener('change', () => {
+                if (passwordProtectCheckbox.checked) {
+                    passwordFields.classList.remove('hidden');
+                } else {
+                    passwordFields.classList.add('hidden');
+                    ownerPasswordInput.value = '';
+                    userPasswordInput.value = '';
+                }
+            });
+
+            // Handle split method change
+            splitMethod.addEventListener('change', () => {
+                rangesInput.classList.add('hidden');
+                everyNInput.classList.add('hidden');
+
+                const selected = splitMethod.value;
+                if (selected === 'ranges') {
+                    rangesInput.classList.remove('hidden');
+                } else if (selected === 'every_n') {
+                    everyNInput.classList.remove('hidden');
+                }
+            });
+
+            // Split PDF Button Click
+            splitPdfBtn.addEventListener('click', async () => {
+                if (!uploadedPdf) {
+                    displayMessage('No PDF loaded. Please upload a PDF first.', 'error', false);
+                    return;
+                }
+
+                const prefix = outputFilenamePrefix.value.trim();
+                if (!prefix) {
+                    displayMessage('Please enter an output filename prefix.', 'error', false);
+                    return;
+                }
+
+                displayMessage('Splitting PDF...', 'info', false); // Do not auto-hide loading message
+                splitPdfBtn.disabled = true;
+                backToUploadBtn.disabled = true;
+
+                try {
+                    const sourcePdfDoc = uploadedPdf.pdfDoc;
+                    const totalPagesCount = uploadedPdf.pageCount;
+                    const splitPdfs = []; // Array to hold { doc: PDFDocument, name: string } for download
+
+                    const selectedSplitMethod = splitMethod.value;
+
+                    const encryptionOptions = {};
+                    if (passwordProtectCheckbox.checked) {
+                        const ownerPassword = ownerPasswordInput.value;
+                        const userPassword = userPasswordInput.value;
+
+                        if (!userPassword) {
+                            displayMessage('User Password is required for password protection.', 'error', false);
+                            splitPdfBtn.disabled = false;
+                            backToUploadBtn.disabled = false;
+                            return;
+                        }
+                        encryptionOptions.userPassword = userPassword;
+                        if (ownerPassword) {
+                            encryptionOptions.ownerPassword = ownerPassword;
+                        }
+                        encryptionOptions.permissions = {
+                            printing: PDFLib.PrintPermissions.HighResolution,
+                            modifying: true,
+                            copying: true,
+                            annotating: true,
+                            fillingForms: true,
+                            assembling: true,
+                            extracting: true,
+                        };
+                    }
+
+                    const saveOptions = {
+                        compress: true, // Always compress split PDFs for smaller size
+                        ...(passwordProtectCheckbox.checked ? { encryption: encryptionOptions } : {})
+                    };
+
+                    if (selectedSplitMethod === 'individual') {
+                        for (let i = 0; i < totalPagesCount; i++) {
+                            const newPdfDoc = await PDFDocument.create();
+                            const [copiedPage] = await newPdfDoc.copyPages(sourcePdfDoc, [i]);
+                            newPdfDoc.addPage(copiedPage);
+                            const bytes = await newPdfDoc.save(saveOptions);
+                            splitPdfs.push({ bytes: bytes, name: `${prefix}_page_${i + 1}.pdf` });
+                        }
+                    } else if (selectedSplitMethod === 'ranges') {
+                        const rangesString = pageRanges.value.trim();
+                        if (!rangesString) {
+                            displayMessage('Please enter page ranges for splitting.', 'error', false);
+                            splitPdfBtn.disabled = false;
+                            backToUploadBtn.disabled = false;
+                            return;
+                        }
+                        let parsedRanges;
+                        try {
+                            parsedRanges = parsePageRanges(rangesString, totalPagesCount);
+                        } catch (e) {
+                            displayMessage(`Error parsing ranges: ${e.message}`, 'error', false);
+                            splitPdfBtn.disabled = false;
+                            backToUploadBtn.disabled = false;
+                            return;
+                        }
+
+                        for (let i = 0; i < parsedRanges.length; i++) {
+                            const range = parsedRanges[i];
+                            const newPdfDoc = await PDFDocument.create();
+                            // Copy pages from start to end (inclusive)
+                            for (let p = range.start; p <= range.end; p++) {
+                                const [copiedPage] = await newPdfDoc.copyPages(sourcePdfDoc, [p]);
+                                newPdfDoc.addPage(copiedPage);
+                            }
+                            const bytes = await newPdfDoc.save(saveOptions);
+                            splitPdfs.push({ bytes: bytes, name: `${prefix}_range_${i + 1}.pdf` });
+                        }
+
+                    } else if (selectedSplitMethod === 'every_n') {
+                        const n = parseInt(splitEveryN.value, 10);
+                        if (isNaN(n) || n < 1) {
+                            displayMessage('Please enter a valid number (N >= 1) for splitting.', 'error', false);
+                            splitPdfBtn.disabled = false;
+                            backToUploadBtn.disabled = false;
+                            return;
+                        }
+
+                        for (let i = 0; i < totalPagesCount; i += n) {
+                            const newPdfDoc = await PDFDocument.create();
+                            const pagesToCopy = [];
+                            for (let j = 0; j < n && (i + j) < totalPagesCount; j++) {
+                                pagesToCopy.push(i + j);
+                            }
+                            const copiedPages = await newPdfDoc.copyPages(sourcePdfDoc, pagesToCopy);
+                            copiedPages.forEach(page => newPdfDoc.addPage(page));
+                            const bytes = await newPdfDoc.save(saveOptions);
+                            splitPdfs.push({ bytes: bytes, name: `${prefix}_part_${(i / n) + 1}.pdf` });
+                        }
+                    }
+
+                    // Trigger downloads for each split PDF
+                    if (splitPdfs.length > 0) {
+                        displayMessage(`Initiating download for ${splitPdfs.length} split PDF(s).`, 'success');
+                        for (const splitPdf of splitPdfs) {
+                            const blob = new Blob([splitPdf.bytes], { type: 'application/pdf' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = splitPdf.name;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                        }
+                        displayMessage('PDF splitting complete! Your downloads should start shortly.', 'success');
+                        // Note: For a large number of files, a ZIP download would be better.
+                        // This would require a client-side ZIP library (e.g., JSZip) or server-side processing.
+                    } else {
+                        displayMessage('No PDFs were generated based on the splitting options. Please check your input.', 'error', false);
+                    }
+
+                } catch (error) {
+                    console.error('Error during PDF split:', error);
+                    displayMessage(`Error splitting PDF: ${error.message}. Please try again.`, 'error', false);
+                } finally {
+                    splitPdfBtn.disabled = false;
+                    backToUploadBtn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

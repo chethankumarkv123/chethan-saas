@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Merge Service - Arrange Pages</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Custom styles for Inter font and general body styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        /* Style for draggable items */
+        .draggable-item {
+            cursor: grab;
+            transition: transform 0.2s ease-in-out;
+            position: relative; /* Needed for absolute positioning of insertion line */
+        }
+        .draggable-item.dragging {
+            opacity: 0.5;
+            transform: scale(1.02);
+        }
+        /* Insertion line for drag and drop feedback */
+        .insertion-line-top::before {
+            content: '';
+            position: absolute;
+            top: -2px; /* Adjust to be exactly on the border */
+            left: 0;
+            right: 0;
+            height: 4px; /* Thickness of the line */
+            background-color: #6366f1; /* Indigo-500 */
+            border-radius: 2px;
+            z-index: 10;
+        }
+        .insertion-line-bottom::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; /* Adjust to be exactly on the border */
+            left: 0;
+            right: 0;
+            height: 4px; /* Thickness of the line */
+            background-color: #6366f1; /* Indigo-500 */
+            border-radius: 2px;
+            z-index: 10;
+        }
+        /* The .pdf-thumbnail style is no longer directly used for individual pages, but kept for reference if needed elsewhere */
+        .pdf-thumbnail {
+            width: 80px; /* Smaller width for thumbnail */
+            height: 100px; /* Adjusted height for thumbnail */
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #555;
+            text-align: center;
+            border-radius: 0.5rem;
+            flex-shrink: 0; /* Prevent shrinking when text is long */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-2xl">
+        <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-8">
+            <i class="fas fa-object-group text-indigo-600 mr-2"></i>
+            <span class="text-indigo-600">PDF</span> Merge Service
+        </h1>
+
+        <div id="upload-view">
+            <div class="mb-6">
+                <label for="pdfFiles" class="block text-lg font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-file-pdf text-indigo-600 mr-2"></i>
+                    Select PDF Files to Merge:
+                </label>
+                <input
+                    type="file"
+                    id="pdfFiles"
+                    name="pdfFiles"
+                    accept=".pdf"
+                    multiple
+                    class="block w-full text-sm text-gray-500
+                           file:mr-4 file:py-2 file:px-4
+                           file:rounded-full file:border-0
+                           file:text-sm file:font-semibold
+                           file:bg-indigo-50 file:text-indigo-700
+                           hover:file:bg-indigo-100 cursor-pointer rounded-lg border border-gray-300 p-2"
+                />
+                <p class="text-sm text-gray-500 mt-2">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    You can select multiple PDF files. All their pages will be loaded for arrangement.
+                </p>
+            </div>
+            <button
+                id="proceedToArrangeBtn"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg
+                       shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled
+            >
+                <i class="fas fa-arrow-right mr-2"></i>
+                Proceed to Arrange Pages
+            </button>
+        </div>
+
+        <div id="arrange-merge-view" class="hidden">
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-grip-vertical text-indigo-600 mr-2"></i>
+                    Arrange Pages (Drag & Drop)
+                </h2>
+                <ul id="pageList" class="space-y-2 max-h-96 overflow-y-auto pr-2">
+                </ul>
+                <p class="text-sm text-gray-500 mt-2">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Drag and drop individual pages to change their order in the final merged PDF. Click 'X' to remove a page.
+                </p>
+            </div>
+
+            <div class="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-cog text-indigo-600 mr-2"></i>
+                    Merge Options
+                </h2>
+
+                <div class="mb-4">
+                    <label for="outputFilename" class="block text-md font-medium text-gray-700 mb-2">
+                        <i class="fas fa-file-signature text-indigo-600 mr-2"></i>
+                        Output Filename:
+                    </label>
+                    <input
+                        type="text"
+                        id="outputFilename"
+                        value="merged_document.pdf"
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        placeholder="e.g., my_merged_file.pdf"
+                    />
+                </div>
+
+                <div class="mb-4">
+                    <label for="pageRange" class="block text-md font-medium text-gray-700 mb-2">
+                        <i class="fas fa-list-ol text-indigo-600 mr-2"></i>
+                        Specific Page Ranges (Optional, from the final merged document):
+                    </label>
+                    <input
+                        type="text"
+                        id="pageRange"
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed"
+                        placeholder="e.g., 1-5, 8, 10-12 (Feature not yet implemented for merged output)"
+                        disabled
+                    />
+                    <p class="text-sm text-gray-500 mt-1">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        This feature would allow you to select specific pages from the *final merged PDF* after arrangement.
+                    </p>
+                </div>
+
+                <div class="flex items-center mb-4">
+                    <input
+                        type="checkbox"
+                        id="passwordProtect"
+                        class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    />
+                    <label for="passwordProtect" class="ml-2 block text-md font-medium text-gray-700">
+                        <i class="fas fa-lock text-indigo-600 mr-2"></i>
+                        Add Password Protection
+                    </label>
+                </div>
+                <div id="passwordFields" class="ml-6 mb-4 hidden">
+                    <label for="ownerPassword" class="block text-sm font-medium text-gray-700 mb-1">
+                        <i class="fas fa-user-shield text-indigo-600 mr-2"></i>
+                        Owner Password:
+                    </label>
+                    <input type="password" id="ownerPassword" class="mt-1 block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Optional" />
+                    <label for="userPassword" class="block text-sm font-medium text-gray-700 mt-2 mb-1">
+                        <i class="fas fa-key text-indigo-600 mr-2"></i>
+                        User Password:
+                    </label>
+                    <input type="password" id="userPassword" class="mt-1 block w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Required for user access" />
+                </div>
+
+                <div class="flex items-center">
+                    <input
+                        type="checkbox"
+                        id="optimizeWeb"
+                        class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    />
+                    <label for="optimizeWeb" class="ml-2 block text-md font-medium text-gray-700">
+                        <i class="fas fa-tachometer-alt text-indigo-600 mr-2"></i>
+                        Optimize for Web Viewing (Fast Web View)
+                    </label>
+                </div>
+            </div>
+
+            <button
+                id="mergePdfBtn"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg
+                       shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                <i class="fas fa-object-group mr-2"></i>
+                Merge PDFs
+            </button>
+            <button
+                id="backToUploadBtn"
+                class="w-full mt-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-4 rounded-lg
+                       shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+            >
+                <i class="fas fa-arrow-left mr-2"></i>
+                Back to Upload
+            </button>
+        </div>
+
+        <div id="messageArea" class="mt-6 p-4 bg-blue-100 text-blue-800 rounded-lg hidden">
+        </div>
+    </div>
+
+    <script>
+        const { PDFDocument, rgb, StandardFonts } = PDFLib;
+
+        // Stores information about each uploaded PDF file, including its loaded PDFDocument instance
+        let uploadedPdfs = []; // [{ file: File, name: string, pdfDoc: PDFDocumentInstance, pageCount: number }]
+
+        // Stores the final order of pages to be merged
+        let mergedPageOrder = []; // [{ uploadedPdfIndex: number, originalPageIndex: number }]
+
+        let dragSrcEl = null; // For drag and drop
+
+        const pdfFilesInput = document.getElementById('pdfFiles');
+        const proceedToArrangeBtn = document.getElementById('proceedToArrangeBtn');
+        const uploadView = document.getElementById('upload-view');
+        const arrangeMergeView = document.getElementById('arrange-merge-view');
+        const pageList = document.getElementById('pageList');
+        const outputFilenameInput = document.getElementById('outputFilename');
+        const pageRangeInput = document.getElementById('pageRange');
+        const passwordProtectCheckbox = document.getElementById('passwordProtect');
+        const passwordFields = document.getElementById('passwordFields');
+        const ownerPasswordInput = document.getElementById('ownerPassword');
+        const userPasswordInput = document.getElementById('userPassword');
+        const optimizeWebCheckbox = document.getElementById('optimizeWeb');
+        const mergePdfBtn = document.getElementById('mergePdfBtn');
+        const backToUploadBtn = document.getElementById('backToUploadBtn');
+        const messageArea = document.getElementById('messageArea');
+
+        let messageTimeoutId = null; // To store the timeout ID for messages
+
+        // Function to display messages
+        function displayMessage(message, type = 'info', autoHide = true) {
+            // Clear any existing timeout
+            if (messageTimeoutId) {
+                clearTimeout(messageTimeoutId);
+            }
+
+            messageArea.textContent = message;
+            messageArea.classList.remove('hidden', 'bg-red-100', 'text-red-800', 'bg-green-100', 'text-green-800', 'bg-blue-100', 'text-blue-800', 'border-red-400', 'border-green-400', 'border-blue-400');
+            messageArea.classList.add('border'); // Ensure border is always there for consistency
+
+            if (type === 'error') {
+                messageArea.classList.add('bg-red-100', 'text-red-800', 'border-red-400');
+            } else if (type === 'success') {
+                messageArea.classList.add('bg-green-100', 'text-green-800', 'border-green-400');
+            } else { // info
+                messageArea.classList.add('bg-blue-100', 'text-blue-800', 'border-blue-400');
+            }
+            messageArea.classList.remove('hidden');
+
+            if (autoHide && type !== 'error') { // Auto-hide info and success messages
+                messageTimeoutId = setTimeout(() => {
+                    messageArea.classList.add('hidden');
+                }, 5000); // Hide after 5 seconds
+            }
+        }
+
+        // Function to render the list of individual pages
+        function renderPageList() {
+            pageList.innerHTML = ''; // Clear existing list
+            if (mergedPageOrder.length === 0) {
+                pageList.innerHTML = '<li class="text-gray-500 p-3">No pages selected. Upload PDFs to add pages.</li>';
+                mergePdfBtn.disabled = true;
+                return;
+            }
+
+            mergedPageOrder.forEach((pageRef, globalIndex) => {
+                const docInfo = uploadedPdfs[pageRef.uploadedPdfIndex];
+                const li = document.createElement('li');
+                li.className = 'flex items-center justify-between p-3 bg-white rounded-md shadow-sm border border-gray-200 draggable-item';
+                li.draggable = true;
+                li.dataset.globalIndex = globalIndex; // Store global index for reordering
+
+                li.innerHTML = `
+                    <span class="text-gray-700 font-medium flex-grow">
+                        ${globalIndex + 1}. <span class="text-indigo-600 font-semibold">${docInfo.name}</span> - Page ${pageRef.originalPageIndex + 1}
+                    </span>
+                    <button class="remove-page-btn ml-4 text-red-500 hover:text-red-700 focus:outline-none" data-global-index="${globalIndex}">
+                        &times;
+                    </button>
+                `;
+                pageList.appendChild(li);
+            });
+            addDragAndDropListeners();
+            mergePdfBtn.disabled = false;
+        }
+
+        // --- Drag and Drop Logic ---
+        function handleDragStart(e) {
+            dragSrcEl = this;
+            e.dataTransfer.effectAllowed = 'move';
+            // Create a custom drag image for better UX
+            const dragImage = this.cloneNode(true);
+            dragImage.style.position = 'absolute';
+            dragImage.style.top = '-1000px'; // Off-screen
+            dragImage.style.width = this.offsetWidth + 'px';
+            document.body.appendChild(dragImage);
+            e.dataTransfer.setDragImage(dragImage, e.offsetX, e.offsetY);
+            setTimeout(() => { // Remove after drag image is set
+                document.body.removeChild(dragImage);
+            }, 0);
+
+            this.classList.add('dragging');
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault(); // Necessary to allow dropping
+            e.dataTransfer.dropEffect = 'move';
+
+            // Remove previous insertion lines from all items
+            document.querySelectorAll('.draggable-item').forEach(item => {
+                item.classList.remove('insertion-line-top', 'insertion-line-bottom');
+            });
+
+            if (this !== dragSrcEl && this.classList.contains('draggable-item')) {
+                const rect = this.getBoundingClientRect();
+                const midY = rect.top + rect.height / 2;
+                if (e.clientY < midY) {
+                    this.classList.add('insertion-line-top');
+                } else {
+                    this.classList.add('insertion-line-bottom');
+                }
+            }
+        }
+
+        function handleDragLeave() {
+            // No need to remove classes here, as handleDragOver cleans up
+        }
+
+        function handleDrop(e) {
+            e.stopPropagation(); // Stops some browsers from redirecting
+            // Clean up insertion lines
+            document.querySelectorAll('.draggable-item').forEach(item => {
+                item.classList.remove('insertion-line-top', 'insertion-line-bottom');
+            });
+
+            if (dragSrcEl !== this) {
+                const fromIndex = parseInt(dragSrcEl.dataset.globalIndex);
+                const toIndex = parseInt(this.dataset.globalIndex);
+
+                // Reorder the mergedPageOrder array
+                const [movedItem] = mergedPageOrder.splice(fromIndex, 1);
+                mergedPageOrder.splice(toIndex, 0, movedItem);
+
+                // Re-render the list to reflect the new order and update data-global-index
+                renderPageList();
+            }
+            return false;
+        }
+
+        function handleDragEnd() {
+            this.classList.remove('dragging');
+            // Ensure all insertion lines are removed in case drop didn't happen on a valid target
+            document.querySelectorAll('.draggable-item').forEach(item => {
+                item.classList.remove('insertion-line-top', 'insertion-line-bottom');
+            });
+        }
+
+        function addDragAndDropListeners() {
+            const items = document.querySelectorAll('#pageList .draggable-item');
+            items.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragover', handleDragOver);
+                item.addEventListener('dragleave', handleDragLeave);
+                item.addEventListener('drop', handleDrop);
+                item.addEventListener('dragend', handleDragEnd);
+            });
+
+            // Add event listeners for remove page buttons
+            document.querySelectorAll('.remove-page-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const globalIndexToRemove = parseInt(e.target.dataset.globalIndex);
+                    mergedPageOrder.splice(globalIndexToRemove, 1);
+                    renderPageList(); // Re-render the list
+                    if (mergedPageOrder.length === 0) {
+                        displayMessage('All pages removed. Upload new PDFs or go back.', 'info');
+                        // Optionally, go back to upload view if all pages are removed
+                        // backToUploadBtn.click();
+                    }
+                });
+            });
+        }
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial state: hide arrange/merge view
+            arrangeMergeView.classList.add('hidden');
+            uploadView.classList.remove('hidden');
+            proceedToArrangeBtn.disabled = true; // Disable until files are selected
+
+            // Enable/disable proceed button based on file selection
+            pdfFilesInput.addEventListener('change', () => {
+                if (pdfFilesInput.files.length > 0) {
+                    proceedToArrangeBtn.disabled = false;
+                    displayMessage(`Selected ${pdfFilesInput.files.length} PDF file(s). Click 'Proceed to Arrange Pages'.`, 'info');
+                } else {
+                    proceedToArrangeBtn.disabled = true;
+                    displayMessage('Please select PDF files to begin.', 'info');
+                }
+            });
+
+            // Proceed to Arrange Pages View
+            proceedToArrangeBtn.addEventListener('click', async () => {
+                const files = pdfFilesInput.files;
+                if (files.length === 0) {
+                    displayMessage('Please select at least one PDF file before proceeding.', 'error');
+                    return;
+                }
+
+                displayMessage('Loading PDF documents and their pages...', 'info', false); // Do not auto-hide loading message
+                proceedToArrangeBtn.disabled = true;
+                pdfFilesInput.disabled = true;
+
+                uploadedPdfs = []; // Clear previous selections
+                mergedPageOrder = []; // Clear previous page order
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    try {
+                        const arrayBuffer = await file.arrayBuffer();
+                        const pdfDoc = await PDFDocument.load(arrayBuffer);
+                        const pageCount = pdfDoc.getPageCount();
+
+                        uploadedPdfs.push({
+                            file: file,
+                            name: file.name,
+                            pdfDoc: pdfDoc,
+                            pageCount: pageCount
+                        });
+
+                        // Add all pages from this PDF to the initial mergedPageOrder
+                        for (let j = 0; j < pageCount; j++) {
+                            mergedPageOrder.push({ uploadedPdfIndex: i, originalPageIndex: j });
+                        }
+
+                    } catch (error) {
+                        console.error('Error loading PDF file:', file.name, error);
+                        displayMessage(`Failed to load file: ${file.name}. Ensure it's a valid PDF.`, 'error', false); // Keep error message
+                        // Restore state or handle error appropriately
+                        uploadedPdfs = [];
+                        mergedPageOrder = [];
+                        proceedToArrangeBtn.disabled = false;
+                        pdfFilesInput.disabled = false;
+                        return;
+                    }
+                }
+
+                // Show arrange/merge view and render the page list
+                uploadView.classList.add('hidden');
+                arrangeMergeView.classList.remove('hidden');
+                renderPageList();
+                displayMessage('PDF pages loaded. Arrange them by dragging, and configure merge options.', 'info');
+                proceedToArrangeBtn.disabled = false;
+                pdfFilesInput.disabled = false;
+            });
+
+            // Back to Upload View
+            backToUploadBtn.addEventListener('click', () => {
+                uploadView.classList.remove('hidden');
+                arrangeMergeView.classList.add('hidden');
+                pdfFilesInput.value = ''; // Clear selected files in the input
+                uploadedPdfs = []; // Clear uploaded PDF data
+                mergedPageOrder = []; // Clear page order
+                proceedToArrangeBtn.disabled = true; // Disable proceed button
+                displayMessage('Ready to upload new PDF files.', 'info');
+            });
+
+            // Toggle password fields visibility
+            passwordProtectCheckbox.addEventListener('change', () => {
+                if (passwordProtectCheckbox.checked) {
+                    passwordFields.classList.remove('hidden');
+                } else {
+                    passwordFields.classList.add('hidden');
+                    ownerPasswordInput.value = '';
+                    userPasswordInput.value = '';
+                }
+            });
+
+            // Merge PDF Button Click
+            mergePdfBtn.addEventListener('click', async () => {
+                if (mergedPageOrder.length === 0) {
+                    displayMessage('No pages selected to merge. Please upload PDFs first.', 'error', false);
+                    return;
+                }
+
+                const outputFilename = outputFilenameInput.value.trim();
+                if (!outputFilename) {
+                    displayMessage('Please enter an output filename.', 'error', false);
+                    return;
+                }
+
+                displayMessage('Merging PDFs and arranging pages...', 'info', false); // Do not auto-hide loading message
+                mergePdfBtn.disabled = true;
+                backToUploadBtn.disabled = true;
+
+                try {
+                    const finalPdfDoc = await PDFDocument.create();
+
+                    for (const pageRef of mergedPageOrder) {
+                        const originalPdfDoc = uploadedPdfs[pageRef.uploadedPdfIndex].pdfDoc;
+                        const [copiedPage] = await finalPdfDoc.copyPages(originalPdfDoc, [pageRef.originalPageIndex]);
+                        finalPdfDoc.addPage(copiedPage);
+                    }
+
+                    const encryptionOptions = {};
+                    if (passwordProtectCheckbox.checked) {
+                        const ownerPassword = ownerPasswordInput.value;
+                        const userPassword = userPasswordInput.value;
+
+                        if (!userPassword) {
+                            displayMessage('User Password is required for password protection.', 'error', false);
+                            mergePdfBtn.disabled = false;
+                            backToUploadBtn.disabled = false;
+                            return;
+                        }
+                        encryptionOptions.userPassword = userPassword;
+                        if (ownerPassword) {
+                            encryptionOptions.ownerPassword = ownerPassword;
+                        }
+                        encryptionOptions.permissions = {
+                            printing: PDFLib.PrintPermissions.HighResolution,
+                            modifying: true,
+                            copying: true,
+                            annotating: true,
+                            fillingForms: true,
+                            assembling: true,
+                            extracting: true,
+                        };
+                    }
+
+                    const saveOptions = {
+                        compress: optimizeWebCheckbox.checked,
+                        ...(passwordProtectCheckbox.checked ? { encryption: encryptionOptions } : {})
+                    };
+
+                    const pdfBytes = await finalPdfDoc.save(saveOptions);
+
+                    // Create a Blob and a download link
+                    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = outputFilename.endsWith('.pdf') ? outputFilename : `${outputFilename}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url); // Clean up the URL object
+
+                    displayMessage('PDFs merged successfully! Your download should start shortly.', 'success');
+
+                } catch (error) {
+                    console.error('Error during PDF merge:', error);
+                    displayMessage(`Error merging PDFs: ${error.message}. Please try again.`, 'error', false);
+                } finally {
+                    mergePdfBtn.disabled = false;
+                    backToUploadBtn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
