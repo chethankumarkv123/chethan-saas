@@ -69,7 +69,7 @@ export function JsonTools({ mode = 'formatter' }) {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-slate-900 pt-20">
+        <div className="min-h-screen bg-gray-50 dark:bg-slate-900 pt-24">
             <SEO
                 title={feature.seoTitle}
                 description={feature.seoDesc}
