@@ -88,7 +88,7 @@ export function CommaSeparator() {
     const feature = FEATURES.commaSeparator;
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-slate-900 pt-16 md:pt-20 pb-32 md:pb-8">
+        <div className="min-h-screen bg-gray-50 dark:bg-slate-900 pt-24 md:pt-28 pb-32 md:pb-8">
             <SEO
                 title={feature.seoTitle}
                 description={feature.seoDesc}
