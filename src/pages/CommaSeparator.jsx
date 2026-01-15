@@ -7,6 +7,14 @@ import { SeoContent } from '../components/SeoContent';
 import { FEATURES } from '../config/FEATURE_CONFIG';
 import { toast } from '../components/Toast';
 
+const QUICK_DELIMITERS = [
+    { label: ',', value: ',' },
+    { label: ';', value: ';' },
+    { label: '|', value: '|' },
+    { label: 'Space', value: ' ' },
+    { label: 'New Line', value: '\n' },
+];
+
 export function CommaSeparator() {
     const { showModal } = useUI();
     const [input, setInput] = useState('');
@@ -114,10 +122,10 @@ export function CommaSeparator() {
 
                         <button
                             onClick={() => setIsSettingsOpen(true)}
-                            className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 font-bold py-2 px-2.5 md:px-4 rounded-lg md:rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 dark:border-slate-700 min-h-[44px]"
+                            className="flex items-center gap-2 text-[#008eb0] dark:text-sky-400 font-medium hover:opacity-80 transition-all transition-all underline underline-offset-4 decoration-1"
                         >
-                            <i className="fa-solid fa-sliders"></i>
-                            <span className="hidden md:inline">Settings</span>
+                            <i className="fa-solid fa-gear text-lg"></i>
+                            <span className="text-sm md:text-base font-semibold">Converter Settings</span>
                         </button>
                     </div>
 
@@ -177,12 +185,12 @@ export function CommaSeparator() {
                     </div>
 
                     {/* Desktop Toolbar */}
-                    <div className="hidden md:flex bg-white dark:bg-slate-800 p-3 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 shrink-0 flex-wrap items-center justify-between gap-4">
-                        <div className="flex items-center gap-4 overflow-x-auto">
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs font-bold text-gray-500 uppercase">Delimiter</span>
+                    <div className="hidden md:flex bg-slate-900/90 dark:bg-slate-800/90 backdrop-blur-md p-3 rounded-2xl shadow-xl border border-slate-700/50 shrink-0 items-center justify-between gap-6 px-6">
+                        <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-3">
+                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.15em]">Delimiter</span>
                                 <select
-                                    className="border border-gray-300 dark:border-slate-600 rounded-lg px-2 py-1.5 text-sm dark:bg-slate-900 dark:text-white outline-none focus:border-blue-500"
+                                    className="bg-slate-800 dark:bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-blue-500/50 transition-all cursor-pointer hover:border-slate-600 font-medium min-w-[140px]"
                                     value={settings.delimiter}
                                     onChange={handleDelimiterChange}
                                 >
@@ -194,54 +202,89 @@ export function CommaSeparator() {
                                 </select>
                             </div>
 
-                            <label className="flex items-center gap-2 cursor-pointer text-sm bg-gray-50 dark:bg-slate-700/50 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition">
-                                <input type="checkbox" checked={settings.tidy} onChange={() => { }} onClick={() => setSettings(s => ({ ...s, tidy: !s.tidy }))} className="hidden" />
-                                <i className={`fa-solid ${settings.tidy ? 'fa-check-square text-blue-600' : 'fa-square text-gray-400'}`}></i>
-                                <span className="text-gray-700 dark:text-gray-300">Trim</span>
-                            </label>
+                            <div className="h-6 w-px bg-slate-700/50"></div>
 
-                            <label className="flex items-center gap-2 cursor-pointer text-sm bg-gray-50 dark:bg-slate-700/50 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition">
-                                <input type="checkbox" className="hidden" checked={settings.dedup} onChange={() => { }} onClick={() => setSettings(s => ({ ...s, dedup: !s.dedup }))} />
-                                <i className={`fa-solid ${settings.dedup ? 'fa-check-square text-blue-600' : 'fa-square text-gray-400'}`}></i>
-                                <span className="text-gray-700 dark:text-gray-300">Dedup</span>
-                            </label>
+                            <div className="flex items-center gap-2">
+                                <label className="group flex items-center gap-2.5 cursor-pointer text-sm bg-slate-800/50 dark:bg-slate-900/50 px-4 py-2 rounded-xl border border-slate-700/50 hover:bg-slate-800 hover:border-slate-600 transition-all active:scale-95 select-none">
+                                    <input type="checkbox" checked={settings.tidy} onChange={() => { }} onClick={() => setSettings(s => ({ ...s, tidy: !s.tidy }))} className="hidden" />
+                                    <div className={`w-5 h-5 rounded-md flex items-center justify-center transition-all ${settings.tidy ? 'bg-blue-600 shadow-[0_0_12px_rgba(37,99,235,0.4)]' : 'bg-slate-700'}`}>
+                                        <i className={`fa-solid fa-check text-[10px] text-white transition-opacity ${settings.tidy ? 'opacity-100' : 'opacity-0'}`}></i>
+                                    </div>
+                                    <span className="text-slate-300 font-bold tracking-tight">Trim</span>
+                                </label>
+
+                                <label className="group flex items-center gap-2.5 cursor-pointer text-sm bg-slate-800/50 dark:bg-slate-900/50 px-4 py-2 rounded-xl border border-slate-700/50 hover:bg-slate-800 hover:border-slate-600 transition-all active:scale-95 select-none">
+                                    <input type="checkbox" className="hidden" checked={settings.dedup} onChange={() => { }} onClick={() => setSettings(s => ({ ...s, dedup: !s.dedup }))} />
+                                    <div className={`w-5 h-5 rounded-md flex items-center justify-center transition-all ${settings.dedup ? 'bg-blue-600 shadow-[0_0_12px_rgba(37,99,235,0.4)]' : 'bg-slate-700'}`}>
+                                        <i className={`fa-solid fa-check text-[10px] text-white transition-opacity ${settings.dedup ? 'opacity-100' : 'opacity-0'}`}></i>
+                                    </div>
+                                    <span className="text-slate-300 font-bold tracking-tight">Dedup</span>
+                                </label>
+                            </div>
                         </div>
 
                         <button
                             onClick={convert}
-                            className="px-8 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg shadow-md transition-transform active:scale-95 flex items-center gap-2 text-sm"
+                            className="px-10 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black rounded-xl shadow-[0_4px_20px_rgba(37,99,235,0.3)] hover:shadow-[0_6px_25px_rgba(37,99,235,0.4)] transition-all active:scale-[0.97] flex items-center gap-3 text-sm"
                         >
-                            <i className="fa-solid fa-arrow-right-arrow-left"></i> Convert
+                            <i className="fa-solid fa-bolt-lightning text-yellow-400"></i>
+                            CONVERT NOW
                         </button>
                     </div>
 
                     {/* Mobile Sticky Action Bar */}
-                    <div className="md:hidden fixed bottom-0 left-0 right-0 p-3 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 z-40 safe-area-bottom flex flex-col gap-2.5 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+                    <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-slate-900 border-t border-slate-800 z-40 safe-area-bottom flex flex-col gap-4 shadow-[0_-8px_20px_-4px_rgba(0,0,0,0.3)]">
 
-                        {/* Mini Settings Preview */}
-                        <div className="flex justify-between items-center px-0.5">
-                            <div className="text-xs font-semibold text-gray-600 dark:text-gray-400">
-                                Delimiter: <span className="text-blue-600 dark:text-blue-400">{settings.delimiter === '\n' ? 'New Line' : settings.delimiter}</span>
+                        {/* Quick Selection Options */}
+                        <div className="flex flex-col gap-3">
+                            <div className="flex items-center justify-between px-1">
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Quick Config</span>
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => setSettings(s => ({ ...s, tidy: !s.tidy }))}
+                                        className={`text-[10px] font-black px-3 py-1.5 rounded-lg transition-all border ${settings.tidy ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_10px_rgba(37,99,235,0.4)]' : 'bg-slate-800 border-slate-700 text-slate-400'}`}
+                                    >
+                                        TRIM {settings.tidy ? 'ON' : 'OFF'}
+                                    </button>
+                                    <button
+                                        onClick={() => setSettings(s => ({ ...s, dedup: !s.dedup }))}
+                                        className={`text-[10px] font-black px-3 py-1.5 rounded-lg transition-all border ${settings.dedup ? 'bg-blue-600 border-blue-500 text-white shadow-[0_0_10px_rgba(37,99,235,0.4)]' : 'bg-slate-800 border-slate-700 text-slate-400'}`}
+                                    >
+                                        DEDUP {settings.dedup ? 'ON' : 'OFF'}
+                                    </button>
+                                </div>
                             </div>
-                            <div className="text-xs text-gray-500 dark:text-gray-500 flex gap-2">
-                                {settings.dedup && <span><i className="fa-solid fa-check mr-0.5"></i>Dedup</span>}
-                                {settings.tidy && <span><i className="fa-solid fa-check mr-0.5"></i>Trim</span>}
+
+                            <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar scroll-smooth">
+                                {QUICK_DELIMITERS.map(d => (
+                                    <button
+                                        key={d.value}
+                                        onClick={() => setSettings(s => ({ ...s, delimiter: d.value }))}
+                                        className={`px-5 py-2.5 rounded-xl text-xs font-black whitespace-nowrap transition-all border min-h-[42px] flex items-center justify-center tracking-tight ${settings.delimiter === d.value
+                                            ? 'bg-blue-600 border-blue-500 text-white shadow-lg scale-105'
+                                            : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-600'
+                                            }`}
+                                    >
+                                        {d.label}
+                                    </button>
+                                ))}
                             </div>
                         </div>
 
-                        <div className="flex gap-2.5">
+                        <div className="flex gap-3">
                             <button
                                 onClick={() => setIsSettingsOpen(true)}
-                                className="px-4 py-3.5 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-xl font-bold min-h-[52px] min-w-[52px] hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors"
+                                className="w-14 h-14 bg-slate-800 text-blue-400 rounded-2xl font-black border border-slate-700 active:scale-90 transition-all flex items-center justify-center shadow-lg"
                             >
-                                <i className="fa-solid fa-sliders text-lg"></i>
+                                <i className="fa-solid fa-sliders-h text-xl"></i>
                             </button>
                             <button
                                 onClick={convert}
                                 disabled={!input}
-                                className="flex-1 py-3.5 bg-blue-600 active:bg-blue-700 disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:text-gray-500 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2 text-base min-h-[52px] transition-all disabled:cursor-not-allowed"
+                                className="flex-1 h-14 bg-gradient-to-r from-blue-600 to-indigo-600 active:scale-[0.98] disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-600 text-white font-black rounded-2xl shadow-[0_4px_15px_rgba(37,99,235,0.3)] flex items-center justify-center gap-2 text-base transition-all"
                             >
-                                Convert
+                                <i className="fa-solid fa-bolt-lightning text-yellow-400"></i>
+                                CONVERT NOW
                             </button>
                         </div>
                     </div>
@@ -260,13 +303,12 @@ export function CommaSeparator() {
             {isSettingsOpen && (
                 <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
                     <div className="bg-white dark:bg-slate-800 w-full md:max-w-3xl rounded-t-3xl md:rounded-2xl shadow-2xl overflow-hidden animate-slide-up md:animate-scale-up max-h-[85vh] flex flex-col">
-                        {/* Header */}
-                        <div className="flex justify-between items-center px-6 py-4 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-900/20 shrink-0">
-                            <h2 className="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
-                                <i className="fa-solid fa-cog text-blue-600"></i> Converter Settings
+                        <div className="flex justify-between items-center px-6 py-5 border-b border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shrink-0">
+                            <h2 className="text-xl font-medium text-[#008eb0] dark:text-sky-400 flex items-center gap-3">
+                                <i className="fa-solid fa-gear"></i> Converter Settings
                             </h2>
-                            <button onClick={() => setIsSettingsOpen(false)} className="bg-gray-200 dark:bg-slate-700 text-gray-500 rounded-full p-1 w-8 h-8 flex items-center justify-center hover:bg-gray-300 transition">
-                                <i className="fa-solid fa-times"></i>
+                            <button onClick={() => setIsSettingsOpen(false)} className="text-gray-400 hover:text-gray-600 transition p-2">
+                                <i className="fa-solid fa-times text-xl"></i>
                             </button>
                         </div>
 

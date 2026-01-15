@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X, ShieldCheck } from 'lucide-react';
+import { Moon, Sun, Menu, X, ShieldCheck, Coffee } from 'lucide-react';
 
 export function Navbar() {
     const [isDark, setIsDark] = useState(() => {
@@ -73,6 +73,16 @@ export function Navbar() {
                         >
                             {isDark ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} />}
                         </button>
+
+                        <a
+                            href="https://www.buymeacoffee.com/chethan"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-bold transition-all shadow-md hover:shadow-lg active:scale-95 text-sm"
+                        >
+                            <Coffee size={18} />
+                            <span>Donate</span>
+                        </a>
                     </div>
 
                     {/* Mobile Menu Btn */}
@@ -98,6 +108,15 @@ export function Navbar() {
                             <ShieldCheck size={16} className="text-green-600 dark:text-green-400" />
                             <span className="text-sm font-medium text-green-700 dark:text-green-400">Files processed locally. 100% Private.</span>
                         </div>
+                        <a
+                            href="https://www.buymeacoffee.com/chethan"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mx-3 flex items-center justify-center gap-2 p-3 bg-amber-500 text-white rounded-xl font-bold"
+                        >
+                            <Coffee size={20} />
+                            Buy me a coffee
+                        </a>
                     </div>
                 </div>
             )}

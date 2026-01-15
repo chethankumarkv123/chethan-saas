@@ -6,12 +6,16 @@ export function FileUploader({
     onFilesSelected,
     onFileSelect, // Support single file callback
     accept,
-    multiple = true,
+    multiple,
+    label = "Drag & drop files here",
     maxFiles = 10,
     disabled = false,
     helperText = "Files are processed locally.",
     className = ""
 }) {
+    // If not explicitly set, multiple is true if onFilesSelected is provided, 
+    // or false if only onFileSelect is provided. Default to true if neither or both.
+    const isMultiple = multiple !== undefined ? multiple : (onFilesSelected ? true : !onFileSelect);
     const inputRef = useRef(null);
     const [isDragOver, setIsDragOver] = useState(false);
 
@@ -31,7 +35,7 @@ export function FileUploader({
         if (disabled) return;
 
         if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-            if (onFileSelect && !multiple) {
+            if (onFileSelect && !isMultiple) {
                 onFileSelect(e.dataTransfer.files[0]);
             } else if (onFilesSelected) {
                 onFilesSelected(e.dataTransfer.files);
@@ -45,7 +49,7 @@ export function FileUploader({
 
     const handleChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            if (onFileSelect && !multiple) {
+            if (onFileSelect && !isMultiple) {
                 onFileSelect(e.target.files[0]);
             } else if (onFilesSelected) {
                 onFilesSelected(e.target.files);
@@ -87,7 +91,7 @@ export function FileUploader({
                             <CloudUpload size={20} />
                         </div>
                         <h3 className="text-lg font-bold text-slate-900 dark:text-white hidden sm:block">
-                            Drag & drop files here
+                            {label}
                         </h3>
                     </div>
 
@@ -105,7 +109,7 @@ export function FileUploader({
 
                     {/* Clear Limits & Info - Very Compact */}
                     <div className="text-xs text-gray-400 dark:text-slate-500">
-                        {multiple ? `Up to ${maxFiles} files` : 'Select a file'} {accept ? `(${accept.replace(/,\s*/g, ', ').replace(/application\//g, '.')})` : ''} • Max {LIMITS.PDF_MAX_SIZE_MB}MB
+                        {isMultiple ? `Up to ${maxFiles} files` : 'Select a file'} {accept ? `(${accept.replace(/,\s*/g, ', ').replace(/application\//g, '.')})` : ''} • Max {LIMITS.PDF_MAX_SIZE_MB}MB
                     </div>
                 </div>
 
@@ -129,7 +133,7 @@ export function FileUploader({
                 <input
                     ref={inputRef}
                     type="file"
-                    multiple={multiple}
+                    multiple={isMultiple}
                     accept={accept}
                     className="hidden"
                     onChange={handleChange}

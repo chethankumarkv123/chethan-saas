@@ -1,10 +1,13 @@
 export const LIMITS = {
-    // Limits
-    PDF_MAX_SIZE_MB: 10,
+    // PDF Limits
+    PDF_MAX_SIZE_MB: 20,
+    PDF_MAX_MERGE_FILES: 10,
     PDF_RECOMMENDED_PAGES: 50,
+
+    // Image Limits
     IMAGE_MAX_SIZE_MB: 10,
 
-    // Configs
+    // General
     RECENT_TOOLS_COUNT: 4
 };
 

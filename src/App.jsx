@@ -10,6 +10,8 @@ import { ProcessingOverlay } from './components/ProcessingOverlay';
 import { MobileDisclaimer } from './components/MobileDisclaimer';
 import { ToastProvider } from './components/Toast';
 import { ScrollToTop } from './components/ScrollToTop';
+import { BackLink } from './components/BackLink';
+import { CoffeeBadge } from './components/CoffeeBadge';
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home').then(module => ({ default: module.Home })));
@@ -132,6 +134,8 @@ function App() {
         <div className="min-h-screen bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans flex flex-col">
           <Navbar />
           <MobileDisclaimer />
+          <CoffeeBadge />
+          <BackLink />
           <main className="flex-grow">
             <Suspense fallback={<div className="h-screen flex items-center justify-center"><ProcessingOverlay isProcessing={true} message="Loading..." /></div>}>
               <Routes>

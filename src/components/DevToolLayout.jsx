@@ -21,14 +21,6 @@ export function DevToolLayout({ children, featureKey, title, description }) {
     return (
         <div className="min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
 
-            {/* Breadcrumb / Back */}
-            <button
-                onClick={() => navigate('/')}
-                className="mb-8 flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors group text-sm font-medium"
-            >
-                <i className="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i>
-                Back to Tools
-            </button>
 
             {/* Header */}
             <div className="text-center mb-12 animate-fade-in-up">

@@ -5,8 +5,10 @@ import { DevToolLayout } from '../components/DevToolLayout';
 import { FileUploader } from '../components/FileUploader';
 import { toast } from '../components/Toast';
 import { ProcessingOverlay } from '../components/ProcessingOverlay';
+import { LIMITS } from '../config/LIMITS_CONFIG';
+import { ChevronLeft, ChevronRight, Download, Trash2, ShieldAlert } from 'lucide-react';
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
 
 export function PdfHighlight() {
     const [file, setFile] = useState(null);
@@ -28,12 +30,15 @@ export function PdfHighlight() {
 
     // 1. Load
     const handleFile = async (f) => {
-        if (f.size > 10 * 1024 * 1024) { toast.error("File limit 10MB"); return; }
+        if (f.size > LIMITS.PDF_MAX_SIZE_MB * 1024 * 1024) {
+            toast.error(`File limit ${LIMITS.PDF_MAX_SIZE_MB}MB`);
+            return;
+        }
         setFile(f);
         setIsProcessing(true);
         try {
             const buffer = await f.arrayBuffer();
-            const loadedPdf = await pdfjsLib.getDocument(buffer).promise;
+            const loadedPdf = await pdfjsLib.getDocument({ data: new Uint8Array(buffer) }).promise;
             setPdfDoc(loadedPdf);
             setPageNum(1);
         } catch (e) { toast.error("Failed to load PDF"); }
@@ -147,16 +152,28 @@ export function PdfHighlight() {
 
                 {!file ? (
                     <div className="max-w-xl mx-auto text-center">
-                        <FileUploader onFileSelect={handleFile} accept=".pdf" label="Upload PDF to Highlight" />
+                        <FileUploader onFileSelect={handleFile} accept="application/pdf,.pdf" label="Upload PDF to Highlight" />
                         <p className="mt-4 text-gray-400">Click and drag on the PDF to highlight areas.</p>
                     </div>
                 ) : (
                     <div className="flex flex-col gap-6">
                         <div className="flex justify-between items-center bg-white dark:bg-slate-800 p-4 rounded-xl shadow">
                             <div className="flex gap-4 items-center">
-                                <button disabled={pageNum <= 1} onClick={() => setPageNum(p => p - 1)} className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 disabled:opacity-50"><i className="fa-solid fa-chevron-left"></i></button>
-                                <span className="font-bold">Page {pageNum}</span>
-                                <button disabled={pdfDoc && pageNum >= pdfDoc.numPages} onClick={() => setPageNum(p => p + 1)} className="p-2 bg-gray-100 rounded-full hover:bg-gray-200 disabled:opacity-50"><i className="fa-solid fa-chevron-right"></i></button>
+                                <button
+                                    disabled={pageNum <= 1}
+                                    onClick={() => setPageNum(p => p - 1)}
+                                    className="p-2 w-10 h-10 bg-gray-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600 disabled:opacity-50 flex items-center justify-center transition-colors"
+                                >
+                                    <ChevronLeft size={20} />
+                                </button>
+                                <span className="font-bold dark:text-white">Page {pageNum}</span>
+                                <button
+                                    disabled={pdfDoc && pageNum >= pdfDoc.numPages}
+                                    onClick={() => setPageNum(p => p + 1)}
+                                    className="p-2 w-10 h-10 bg-gray-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600 disabled:opacity-50 flex items-center justify-center transition-colors"
+                                >
+                                    <ChevronRight size={20} />
+                                </button>
                             </div>
                             <div className="flex gap-4">
                                 <button
@@ -167,9 +184,9 @@ export function PdfHighlight() {
                                 </button>
                                 <button
                                     onClick={downloadPdf}
-                                    className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-bold rounded-lg shadow"
+                                    className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-bold rounded-lg shadow-md flex items-center gap-2 transition-all active:scale-95"
                                 >
-                                    <i className="fa-solid fa-download mr-2"></i> Download PDF
+                                    <Download size={18} /> Download PDF
                                 </button>
                             </div>
                         </div>

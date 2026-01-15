@@ -16,7 +16,7 @@ import { SeoContent } from '../components/SeoContent';
 import { FEATURES } from '../config/FEATURE_CONFIG';
 
 // Worker setup
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
 
 export function PdfToImage({ defaultFormat = 'jpg' }) {
     const [files, setFiles] = useState([]);
@@ -53,7 +53,7 @@ export function PdfToImage({ defaultFormat = 'jpg' }) {
             for (let i = 0; i < files.length; i++) {
                 const fileData = files[i];
                 const arrayBuffer = await fileData.file.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+                const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
 
                 for (let p = 1; p <= pdf.numPages; p++) {
                     const page = await pdf.getPage(p);
@@ -114,7 +114,7 @@ export function PdfToImage({ defaultFormat = 'jpg' }) {
                     <ErrorBanner errors={validationErrors} onClear={() => setErrors([])} />
 
                     {files.length === 0 ? (
-                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf" />
+                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf,.pdf" />
                     ) : (
                         <div className="space-y-6">
                             <div className="bg-purple-50 dark:bg-purple-900/10 p-4 rounded-xl">

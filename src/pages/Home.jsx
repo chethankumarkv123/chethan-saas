@@ -145,7 +145,7 @@ export function Home() {
                         if (features.length === 0) return null;
 
                         return (
-                            <div key={category.id} className="mb-8 last:mb-0">
+                            <div key={category.id} id={category.id} className="mb-8 last:mb-0">
                                 <div className="flex items-center gap-3 mb-4">
                                     <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                                         {category.label.split('–')[0].trim()}

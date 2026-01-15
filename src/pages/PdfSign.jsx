@@ -5,9 +5,11 @@ import { DevToolLayout } from '../components/DevToolLayout';
 import { FileUploader } from '../components/FileUploader';
 import { toast } from '../components/Toast';
 import { ProcessingOverlay } from '../components/ProcessingOverlay';
+import { LIMITS } from '../config/LIMITS_CONFIG';
+import { ChevronLeft, ChevronRight, Download, PenTool, Type, Upload, Trash2, Plus, X, ShieldAlert, FileSignature } from 'lucide-react';
 
 // Worker Setup
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
 
 export function PdfSign() {
     const [file, setFile] = useState(null);
@@ -30,12 +32,15 @@ export function PdfSign() {
 
     // 1. Load PDF
     const handleFile = async (f) => {
-        if (f.size > 10 * 1024 * 1024) { toast.error("File excessively large. Limit 10MB"); return; }
+        if (f.size > LIMITS.PDF_MAX_SIZE_MB * 1024 * 1024) {
+            toast.error(`File too large. Limit ${LIMITS.PDF_MAX_SIZE_MB}MB`);
+            return;
+        }
         setFile(f);
         setIsProcessing(true);
         try {
             const buffer = await f.arrayBuffer();
-            const loadedPdf = await pdfjsLib.getDocument(buffer).promise;
+            const loadedPdf = await pdfjsLib.getDocument({ data: new Uint8Array(buffer) }).promise;
             setPdfDoc(loadedPdf);
             setPageNum(1);
         } catch (e) {
@@ -283,9 +288,9 @@ export function PdfSign() {
 
                 {!file && (
                     <div className="max-w-xl mx-auto">
-                        <FileUploader onFileSelect={handleFile} accept=".pdf" label="Upload PDF to Sign" />
-                        <p className="text-center text-xs text-gray-400 mt-4">
-                            <i className="fa-solid fa-shield-halved mr-1"></i>
+                        <FileUploader onFileSelect={handleFile} accept="application/pdf,.pdf" label="Upload PDF to Sign" />
+                        <p className="text-center text-xs text-gray-400 mt-4 flex items-center justify-center gap-1">
+                            <ShieldAlert size={14} />
                             Files processed locally. No server upload.
                         </p>
                     </div>
@@ -297,18 +302,24 @@ export function PdfSign() {
                         <div className="w-full lg:w-1/3 space-y-6">
                             {/* Add Signature Panel */}
                             <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow border border-gray-100 dark:border-slate-700">
-                                <h3 className="font-bold mb-4 flex items-center gap-2">
-                                    <i className="fa-solid fa-pen-nib text-blue-500"></i> Create Signature
+                                <h3 className="font-bold mb-4 flex items-center gap-2 dark:text-white">
+                                    <PenTool size={18} className="text-blue-500" /> Create Signature
                                 </h3>
 
                                 {/* Tabs */}
-                                <div className="flex bg-gray-100 dark:bg-slate-900 rounded-lg p-1 mb-4">
+                                <div className="flex bg-gray-50 dark:bg-slate-900/50 p-1.5 rounded-xl mb-6 border border-gray-100 dark:border-slate-800">
                                     {['draw', 'type', 'upload'].map(t => (
                                         <button
                                             key={t}
                                             onClick={() => setActiveTab(t)}
-                                            className={`flex-1 py-2 text-sm font-bold capitalize rounded-md transition-all ${activeTab === t ? 'bg-white shadow text-blue-600' : 'text-gray-500'}`}
+                                            className={`flex-1 py-2 text-sm font-bold capitalize rounded-lg transition-all flex items-center justify-center gap-2 ${activeTab === t
+                                                ? 'bg-white dark:bg-slate-700 shadow-sm text-blue-600 dark:text-blue-400'
+                                                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800'
+                                                }`}
                                         >
+                                            {t === 'draw' && <PenTool size={14} />}
+                                            {t === 'type' && <Type size={14} />}
+                                            {t === 'upload' && <Upload size={14} />}
                                             {t}
                                         </button>
                                     ))}
@@ -328,15 +339,19 @@ export function PdfSign() {
                                                 onMouseLeave={stopDrawing}
                                             />
                                             <div className="flex gap-2 mt-4 w-full">
-                                                <button onClick={clearDraw} className="flex-1 py-2 text-xs font-bold text-red-500 bg-red-50 rounded-lg"><i className="fa-solid fa-trash mr-1"></i> Clear</button>
-                                                <button onClick={saveDraw} className="flex-1 py-2 text-xs font-bold text-white bg-blue-600 rounded-lg shadow"><i className="fa-solid fa-plus mr-1"></i> Add to PDF</button>
+                                                <button onClick={clearDraw} className="flex-1 py-2 text-xs font-bold text-red-500 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center gap-1.5 hover:bg-red-100 transition-colors">
+                                                    <Trash2 size={14} /> Clear
+                                                </button>
+                                                <button onClick={saveDraw} className="flex-1 py-2 text-xs font-bold text-white bg-blue-600 rounded-lg shadow-md flex items-center justify-center gap-1.5 hover:bg-blue-700 transition-colors">
+                                                    <Plus size={14} /> Add to PDF
+                                                </button>
                                             </div>
                                         </>
                                     )}
 
                                     {activeTab === 'type' && (
                                         <div className="w-full space-y-4">
-                                            <input id="sig-input" type="text" placeholder="Type your name..." className="w-full p-3 border rounded-xl text-center font-[cursive] text-2xl italic" />
+                                            <input id="sig-input" type="text" placeholder="Type your name..." className="w-full p-3 border border-gray-300 rounded-xl text-center font-[cursive] text-3xl italic text-black bg-white" />
                                             <button
                                                 onClick={() => saveType(document.getElementById('sig-input').value)}
                                                 className="w-full py-3 bg-blue-600 text-white font-bold rounded-xl shadow"
@@ -349,8 +364,8 @@ export function PdfSign() {
                                     {activeTab === 'upload' && (
                                         <div className="text-center w-full">
                                             <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" id="sig-upload" />
-                                            <label htmlFor="sig-upload" className="cursor-pointer block py-8 hover:bg-gray-100 rounded-xl transition-colors">
-                                                <i className="fa-solid fa-cloud-arrow-up text-4xl text-gray-300 mb-2"></i>
+                                            <label htmlFor="sig-upload" className="cursor-pointer block py-8 hover:bg-gray-100 dark:hover:bg-slate-800/50 rounded-xl transition-colors">
+                                                <Upload size={40} className="mx-auto text-gray-300 dark:text-slate-600 mb-2" />
                                                 <div className="text-sm font-bold text-gray-500">Click to Upload Image</div>
                                             </label>
                                         </div>
@@ -360,13 +375,25 @@ export function PdfSign() {
 
                             {/* Page Controls */}
                             <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow border border-gray-100 dark:border-slate-700 flex justify-between items-center">
-                                <button disabled={pageNum <= 1} onClick={() => setPageNum(p => p - 1)} className="p-2 w-10 h-10 bg-gray-100 rounded-full hover:bg-gray-200 disabled:opacity-50"><i className="fa-solid fa-chevron-left"></i></button>
-                                <span className="font-bold text-sm">Page {pageNum}</span>
-                                <button disabled={pdfDoc && pageNum >= pdfDoc.numPages} onClick={() => setPageNum(p => p + 1)} className="p-2 w-10 h-10 bg-gray-100 rounded-full hover:bg-gray-200 disabled:opacity-50"><i className="fa-solid fa-chevron-right"></i></button>
+                                <button
+                                    disabled={pageNum <= 1}
+                                    onClick={() => setPageNum(p => p - 1)}
+                                    className="p-2 w-10 h-10 bg-gray-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600 disabled:opacity-50 flex items-center justify-center transition-colors shadow-sm"
+                                >
+                                    <ChevronLeft size={20} />
+                                </button>
+                                <span className="font-bold text-sm dark:text-white">Page {pageNum}</span>
+                                <button
+                                    disabled={pdfDoc && pageNum >= pdfDoc.numPages}
+                                    onClick={() => setPageNum(p => p + 1)}
+                                    className="p-2 w-10 h-10 bg-gray-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600 disabled:opacity-50 flex items-center justify-center transition-colors shadow-sm"
+                                >
+                                    <ChevronRight size={20} />
+                                </button>
                             </div>
 
-                            <button onClick={downloadPdf} disabled={!signature} className="w-full py-4 bg-green-600 text-white font-bold rounded-2xl shadow-xl hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-transform active:scale-95">
-                                <i className="fa-solid fa-file-signature mr-2"></i> Download Signed PDF
+                            <button onClick={downloadPdf} disabled={!signature} className="w-full py-4 bg-green-600 text-white font-bold rounded-2xl shadow-xl hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                <FileSignature size={20} /> Download Signed PDF
                             </button>
 
                             <div className="text-xs text-justify text-gray-400 leading-relaxed bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl border border-amber-100 dark:border-amber-800/30">
@@ -378,7 +405,10 @@ export function PdfSign() {
                         <div className="flex-1 bg-gray-200 dark:bg-slate-700 rounded-2xl p-4 overflow-auto flex justify-center min-h-[600px] relative">
                             <div className="relative shadow-2xl" id="pdf-wrapper">
                                 {/* The PDF Page */}
-                                <canvas ref={pdfCanvasRef} className="block" />
+                                <canvas
+                                    ref={pdfCanvasRef}
+                                    className="block bg-white shadow-2xl rounded-sm ring-1 ring-gray-200 dark:ring-slate-600"
+                                />
 
                                 {/* The Signature Overlay */}
                                 {signature && (
@@ -406,9 +436,9 @@ export function PdfSign() {
                                         {/* Remove Button */}
                                         <button
                                             onClick={() => setSignature(null)}
-                                            className="absolute -top-3 -right-3 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center shadow hover:bg-red-600"
+                                            className="absolute -top-3 -right-3 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition-transform active:scale-90"
                                         >
-                                            <i className="fa-solid fa-times text-xs"></i>
+                                            <X size={14} />
                                         </button>
                                     </div>
                                 )}

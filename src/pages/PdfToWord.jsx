@@ -16,7 +16,7 @@ import { FEATURES } from '../config/FEATURE_CONFIG';
 import { toast } from '../components/Toast';
 
 // Worker setup
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
 
 export function PdfToWord() {
     const [files, setFiles] = useState([]);
@@ -86,7 +86,7 @@ export function PdfToWord() {
                     fileReader.readAsArrayBuffer(fileData.file);
                 });
 
-                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
                 const pagesToProcess = pageRange ? parsePageRange(pageRange, pdf.numPages) : Array.from({ length: pdf.numPages }, (_, i) => i + 1);
 
                 // DOCX Generation Logic
@@ -220,7 +220,7 @@ export function PdfToWord() {
                     <ErrorBanner errors={validationErrors} onClear={() => setErrors([])} />
 
                     {files.length === 0 ? (
-                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf" key={uploadKey} />
+                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf,.pdf" key={uploadKey} />
                     ) : (
                         <div className="space-y-6">
                             <div className="bg-gray-50 dark:bg-slate-900/50 p-4 rounded-xl">

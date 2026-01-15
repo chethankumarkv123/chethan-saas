@@ -15,7 +15,7 @@ import { SeoContent } from '../components/SeoContent';
 import { FEATURES } from '../config/FEATURE_CONFIG';
 
 // Worker setup
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
 
 export function PdfToCsv() {
     const [files, setFiles] = useState([]);
@@ -58,7 +58,7 @@ export function PdfToCsv() {
                     fileReader.readAsArrayBuffer(fileData.file);
                 });
 
-                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
                 let tableData = [];
 
                 for (let p = 1; p <= pdf.numPages; p++) {
@@ -175,7 +175,7 @@ export function PdfToCsv() {
                     <ErrorBanner errors={validationErrors} onClear={() => setErrors([])} />
 
                     {files.length === 0 ? (
-                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf" />
+                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf,.pdf" />
                     ) : (
                         <div className="space-y-6">
                             <div className="bg-green-50 dark:bg-green-900/10 p-4 rounded-xl">
@@ -221,7 +221,7 @@ export function PdfToCsv() {
 
                             <div className="flex items-center gap-2">
                                 <input type="checkbox" id="clean" checked={removeCommas} onChange={e => setRemoveCommas(e.target.checked)} />
-                                <label htmlFor="clean" className="text-sm dark:text-gray-300">Remove 'Thousands' separators (e.g. 1,000 -> 1000)</label>
+                                <label htmlFor="clean" className="text-sm dark:text-gray-300">Remove 'Thousands' separators (e.g. 1,000 &rarr; 1000)</label>
                             </div>
 
                             <button

@@ -6,6 +6,9 @@ import { useUI } from '../context/UIContext';
 import { useFileValidation } from '../hooks/useFileValidation';
 import { ErrorBanner } from '../components/ErrorBanner';
 import { saveAs } from 'file-saver';
+import { toast } from '../components/Toast';
+import { LIMITS } from '../config/LIMITS_CONFIG';
+import { ArrowUp, ArrowDown, Trash2, Plus } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { TrustBar } from '../components/TrustBar';
 import { RelatedTools } from '../components/RelatedTools';
@@ -115,7 +118,7 @@ export function MergePdf() {
                     <ErrorBanner errors={validationErrors} onClear={() => setErrors([])} />
 
                     <div className="mb-6">
-                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf" multiple={true} />
+                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf,.pdf" multiple={true} />
                     </div>
 
                     {files.length > 0 && (
@@ -131,9 +134,26 @@ export function MergePdf() {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <button onClick={() => moveFile(i, -1)} disabled={i === 0} className="p-2 hover:bg-gray-200 dark:hover:bg-slate-700 rounded disabled:opacity-30"><i className="fa-solid fa-arrow-up dark:text-gray-300"></i></button>
-                                            <button onClick={() => moveFile(i, 1)} disabled={i === files.length - 1} className="p-2 hover:bg-gray-200 dark:hover:bg-slate-700 rounded disabled:opacity-30"><i className="fa-solid fa-arrow-down dark:text-gray-300"></i></button>
-                                            <button onClick={() => removeFile(i)} className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 rounded"><i className="fa-solid fa-trash"></i></button>
+                                            <button
+                                                onClick={() => moveFile(i, -1)}
+                                                disabled={i === 0}
+                                                className="p-2 hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg disabled:opacity-30 text-slate-600 dark:text-gray-300 transition-colors"
+                                            >
+                                                <ArrowUp size={18} />
+                                            </button>
+                                            <button
+                                                onClick={() => moveFile(i, 1)}
+                                                disabled={i === files.length - 1}
+                                                className="p-2 hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg disabled:opacity-30 text-slate-600 dark:text-gray-300 transition-colors"
+                                            >
+                                                <ArrowDown size={18} />
+                                            </button>
+                                            <button
+                                                onClick={() => removeFile(i)}
+                                                className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 rounded-lg transition-colors"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
                                         </div>
                                     </div>
                                 ))}

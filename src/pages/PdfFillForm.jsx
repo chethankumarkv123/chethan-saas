@@ -5,8 +5,10 @@ import { DevToolLayout } from '../components/DevToolLayout';
 import { FileUploader } from '../components/FileUploader';
 import { toast } from '../components/Toast';
 import { ProcessingOverlay } from '../components/ProcessingOverlay';
+import { LIMITS } from '../config/LIMITS_CONFIG';
+import { ChevronLeft, ChevronRight, FileOutput, Plus, X, Type } from 'lucide-react';
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
 
 export function PdfFillForm() {
     const [file, setFile] = useState(null);
@@ -25,12 +27,15 @@ export function PdfFillForm() {
 
     // 1. Load
     const handleFile = async (f) => {
-        if (f.size > 10 * 1024 * 1024) { toast.error("File limit 10MB"); return; }
+        if (f.size > LIMITS.PDF_MAX_SIZE_MB * 1024 * 1024) {
+            toast.error(`File limit ${LIMITS.PDF_MAX_SIZE_MB}MB`);
+            return;
+        }
         setFile(f);
         setIsProcessing(true);
         try {
             const buffer = await f.arrayBuffer();
-            const loadedPdf = await pdfjsLib.getDocument(buffer).promise;
+            const loadedPdf = await pdfjsLib.getDocument({ data: new Uint8Array(buffer) }).promise;
             setPdfDoc(loadedPdf);
             setPageNum(1);
         } catch (e) { toast.error("Failed to load PDF"); }
@@ -163,30 +168,42 @@ export function PdfFillForm() {
 
                 {!file ? (
                     <div className="max-w-xl mx-auto">
-                        <FileUploader onFileSelect={handleFile} accept=".pdf" label="Upload PDF to Fill" />
+                        <FileUploader onFileSelect={handleFile} accept="application/pdf,.pdf" label="Upload PDF to Fill" />
                     </div>
                 ) : (
                     <div className="flex flex-col gap-6">
                         {/* Toolbar */}
                         <div className="flex flex-wrap justify-between items-center bg-white dark:bg-slate-800 p-4 rounded-xl shadow border border-gray-100 dark:border-slate-700">
                             <div className="flex gap-4 items-center">
-                                <button disabled={pageNum <= 1} onClick={() => setPageNum(p => p - 1)} className="p-2 w-10 h-10 bg-gray-100 rounded-full hover:bg-gray-200 disabled:opacity-50"><i className="fa-solid fa-chevron-left"></i></button>
-                                <span className="font-bold text-sm">Page {pageNum}</span>
-                                <button disabled={pdfDoc && pageNum >= pdfDoc.numPages} onClick={() => setPageNum(p => p + 1)} className="p-2 w-10 h-10 bg-gray-100 rounded-full hover:bg-gray-200 disabled:opacity-50"><i className="fa-solid fa-chevron-right"></i></button>
+                                <button
+                                    disabled={pageNum <= 1}
+                                    onClick={() => setPageNum(p => p - 1)}
+                                    className="p-2 w-10 h-10 bg-gray-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600 disabled:opacity-50 flex items-center justify-center transition-colors shadow-sm"
+                                >
+                                    <ChevronLeft size={20} />
+                                </button>
+                                <span className="font-bold text-sm dark:text-white">Page {pageNum}</span>
+                                <button
+                                    disabled={pdfDoc && pageNum >= pdfDoc.numPages}
+                                    onClick={() => setPageNum(p => p + 1)}
+                                    className="p-2 w-10 h-10 bg-gray-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600 disabled:opacity-50 flex items-center justify-center transition-colors shadow-sm"
+                                >
+                                    <ChevronRight size={20} />
+                                </button>
                             </div>
 
                             <div className="flex gap-4">
                                 <button
                                     onClick={addField}
-                                    className="px-4 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg hover:bg-blue-200 transition-colors"
+                                    className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-bold rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors flex items-center gap-2"
                                 >
-                                    <i className="fa-solid fa-plus mr-2"></i> Add Text Field
+                                    <Plus size={18} /> Add Text Field
                                 </button>
                                 <button
                                     onClick={downloadPdf}
-                                    className="px-6 py-2 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 shadow"
+                                    className="px-6 py-2 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 shadow flex items-center gap-2 active:scale-95 transition-all"
                                 >
-                                    <i className="fa-solid fa-file-export mr-2"></i> Download
+                                    <FileOutput size={18} /> Download
                                 </button>
                             </div>
                         </div>
@@ -194,7 +211,11 @@ export function PdfFillForm() {
                         {/* Workspace */}
                         <div className="relative overflow-auto flex justify-center bg-gray-200 dark:bg-slate-700 p-8 rounded-xl min-h-[600px]">
                             <div className="relative shadow-2xl">
-                                <canvas ref={pdfCanvasRef} className="block" />
+                                {/* The PDF Page */}
+                                <canvas
+                                    ref={pdfCanvasRef}
+                                    className="block bg-white shadow-2xl rounded-sm ring-1 ring-gray-200 dark:ring-slate-600"
+                                />
 
                                 {fields.map(f => (
                                     <div
@@ -216,9 +237,9 @@ export function PdfFillForm() {
                                         />
                                         <button
                                             onClick={() => removeField(f.id)}
-                                            className="absolute -top-3 -right-3 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs shadow hover:bg-red-600 z-20"
+                                            className="absolute -top-3 -right-3 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 z-20 transition-transform active:scale-90"
                                         >
-                                            &times;
+                                            <X size={12} />
                                         </button>
                                     </div>
                                 ))}

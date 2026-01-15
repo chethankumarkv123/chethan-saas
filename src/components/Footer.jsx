@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Twitter, Github, Mail, Globe } from 'lucide-react';
+import { Twitter, Github, Mail, Globe, Coffee } from 'lucide-react';
 
 export function Footer() {
     return (
@@ -59,7 +59,16 @@ export function Footer() {
                         <ul className="space-y-3 text-sm">
                             <li><Link to="/faq" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">FAQ</Link></li>
                             <li><Link to="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Report Issue</Link></li>
-                            <li><Link to="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Status</Link></li>
+                            <li>
+                                <a
+                                    href="https://www.buymeacoffee.com/chethan"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-amber-600 dark:text-amber-500 font-bold hover:underline"
+                                >
+                                    <Coffee size={14} /> Buy me a coffee
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

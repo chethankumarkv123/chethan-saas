@@ -19,6 +19,7 @@ export function CompareText() {
         ignorePunctuation: false,
         ignoreNumbers: false
     });
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [result, setResult] = useState(null);
 
     const processText = (text) => {
@@ -82,10 +83,23 @@ export function CompareText() {
             <div className="h-[calc(100vh-100px)] px-4 pb-4 flex flex-col">
                 <div className="max-w-7xl mx-auto w-full flex-grow flex flex-col min-h-0">
                     {/* Header */}
-                    <div className="text-center mb-2 shrink-0">
-                        <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-600">
-                            {feature.title}
-                        </h1>
+                    <div className="flex justify-between items-center mb-4 shrink-0 px-1">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400">
+                                <i className="fa-solid fa-code-compare text-xl"></i>
+                            </div>
+                            <h1 className="text-xl font-bold text-gray-900 dark:text-white leading-tight">
+                                {feature.title}
+                            </h1>
+                        </div>
+
+                        <button
+                            onClick={() => setIsSettingsOpen(true)}
+                            className="group flex items-center gap-2.5 text-xs md:text-sm bg-slate-900 dark:bg-slate-800 text-white font-black py-2.5 px-4 md:px-6 rounded-xl shadow-lg hover:shadow-blue-500/20 hover:scale-[1.02] transition-all border border-slate-700 active:scale-[0.98] min-h-[44px]"
+                        >
+                            <i className="fa-solid fa-sliders-h text-blue-400 group-hover:rotate-180 transition-transform duration-500"></i>
+                            <span>Settings</span>
+                        </button>
                     </div>
 
                     {/* Main Content */}
@@ -176,24 +190,72 @@ export function CompareText() {
                         )}
                     </div>
 
-                    {/* Bottom Toolbar */}
-                    <div className="mt-4 bg-white dark:bg-slate-800 p-3 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 shrink-0 flex flex-wrap items-center justify-between gap-4">
-                        <div className="flex flex-wrap gap-4 text-sm">
+                    {/* Desktop Toolbar */}
+                    <div className="hidden md:flex mt-4 bg-slate-900/90 dark:bg-slate-800/90 backdrop-blur-md p-3 rounded-2xl shadow-xl border border-slate-700/50 shrink-0 items-center justify-between gap-6 px-6">
+                        <div className="flex flex-wrap gap-4">
                             {Object.keys(options).map(key => (
-                                <label key={key} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700 px-2 py-1 rounded transition">
+                                <label key={key} className="group flex items-center gap-2.5 cursor-pointer text-sm bg-slate-800/50 dark:bg-slate-900/50 px-4 py-2 rounded-xl border border-slate-700/50 hover:bg-slate-800 hover:border-slate-600 transition-all active:scale-95 select-none">
                                     <input
                                         type="checkbox"
                                         checked={options[key]}
                                         onChange={e => setOptions({ ...options, [key]: e.target.checked })}
-                                        className="rounded text-teal-600 focus:ring-teal-500"
+                                        className="hidden"
                                     />
-                                    <span className="capitalize text-gray-700 dark:text-gray-300">{key.replace(/([A-Z])/g, ' $1').replace('ignore', '').trim()}</span>
+                                    <div className={`w-5 h-5 rounded-md flex items-center justify-center transition-all ${options[key] ? 'bg-teal-600 shadow-[0_0_12px_rgba(20,184,166,0.4)]' : 'bg-slate-700'}`}>
+                                        <i className={`fa-solid fa-check text-[10px] text-white transition-opacity ${options[key] ? 'opacity-100' : 'opacity-0'}`}></i>
+                                    </div>
+                                    <span className="text-slate-300 font-bold tracking-tight capitalize">{key.replace(/([A-Z])/g, ' $1').replace('ignore', '').trim()}</span>
                                 </label>
                             ))}
                         </div>
-                        <button onClick={compare} className="px-8 py-2.5 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 transition shadow-md active:scale-95 text-sm flex items-center gap-2">
-                            <i className="fa-solid fa-code-compare"></i> Compare
+                        <button
+                            onClick={compare}
+                            className="px-10 py-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-black rounded-xl shadow-[0_4px_20px_rgba(20,184,166,0.3)] hover:shadow-[0_6px_25px_rgba(20,184,166,0.4)] transition-all active:scale-[0.97] flex items-center gap-3 text-sm"
+                        >
+                            <i className="fa-solid fa-code-compare"></i>
+                            COMPARE NOW
                         </button>
+                    </div>
+
+                    {/* Mobile Sticky Action Bar */}
+                    <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-slate-900 border-t border-slate-800 z-40 safe-area-bottom flex flex-col gap-4 shadow-[0_-8px_20px_-4px_rgba(0,0,0,0.3)]">
+                        {/* Quick Selection Options */}
+                        <div className="flex flex-col gap-3">
+                            <div className="flex items-center justify-between px-1">
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Quick Config</span>
+                            </div>
+                            <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar scroll-smooth">
+                                {Object.keys(options).map(key => (
+                                    <button
+                                        key={key}
+                                        onClick={() => setOptions(prev => ({ ...prev, [key]: !prev[key] }))}
+                                        className={`px-5 py-2.5 rounded-xl text-xs font-black whitespace-nowrap transition-all border min-h-[42px] flex items-center justify-center tracking-tight ${options[key]
+                                            ? 'bg-teal-600 border-teal-500 text-white shadow-lg scale-105'
+                                            : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-600'
+                                            }`}
+                                    >
+                                        {key.replace('ignore', '').toUpperCase()} {options[key] ? 'ON' : 'OFF'}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => setIsSettingsOpen(true)}
+                                className="w-14 h-14 bg-slate-800 text-teal-400 rounded-2xl font-black border border-slate-700 active:scale-90 transition-all flex items-center justify-center shadow-lg"
+                            >
+                                <i className="fa-solid fa-sliders-h text-xl"></i>
+                            </button>
+                            <button
+                                onClick={compare}
+                                disabled={!sourceText || !targetText}
+                                className="flex-1 h-14 bg-gradient-to-r from-teal-600 to-emerald-600 active:scale-[0.98] disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-600 text-white font-black rounded-2xl shadow-[0_4px_15px_rgba(20,184,166,0.3)] flex items-center justify-center gap-2 text-base transition-all"
+                            >
+                                <i className="fa-solid fa-code-compare"></i>
+                                COMPARE NOW
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -204,6 +266,55 @@ export function CompareText() {
                 <RelatedTools toolKeys={feature.related} />
                 <SeoContent feature={feature} />
             </div>
+
+            {/* Settings Modal */}
+            {isSettingsOpen && (
+                <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-white dark:bg-slate-800 w-full md:max-w-2xl rounded-t-3xl md:rounded-2xl shadow-2xl overflow-hidden animate-slide-up md:animate-scale-up max-h-[85vh] flex flex-col">
+                        <div className="flex justify-between items-center px-6 py-5 border-b border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shrink-0">
+                            <h2 className="text-xl font-medium text-[#008eb0] dark:text-sky-400 flex items-center gap-3">
+                                <i className="fa-solid fa-gear"></i> Converter Settings
+                            </h2>
+                            <button onClick={() => setIsSettingsOpen(false)} className="text-gray-400 hover:text-gray-600 transition p-2">
+                                <i className="fa-solid fa-times text-xl"></i>
+                            </button>
+                        </div>
+
+                        <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8 overflow-y-auto">
+                            {Object.keys(options).map(key => (
+                                <div key={key} className="space-y-3">
+                                    <label className="block font-bold text-sm text-gray-700 dark:text-gray-200">
+                                        Ignore {key.replace('ignore', '').replace(/([A-Z])/g, ' $1').trim()}
+                                    </label>
+                                    <div className="flex gap-2 p-1 bg-gray-100 dark:bg-slate-900/50 rounded-xl">
+                                        <button
+                                            onClick={() => setOptions(prev => ({ ...prev, [key]: true }))}
+                                            className={`flex-1 py-2.5 rounded-lg font-bold text-xs transition ${options[key] ? 'bg-white shadow text-blue-600 dark:bg-slate-700 dark:text-white' : 'text-gray-500 hover:text-gray-700'}`}
+                                        >
+                                            Yes
+                                        </button>
+                                        <button
+                                            onClick={() => setOptions(prev => ({ ...prev, [key]: false }))}
+                                            className={`flex-1 py-2.5 rounded-lg font-bold text-xs transition ${!options[key] ? 'bg-white shadow text-blue-600 dark:bg-slate-700 dark:text-white' : 'text-gray-500 hover:text-gray-700'}`}
+                                        >
+                                            No
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="px-6 py-4 border-t border-gray-100 dark:border-slate-700 flex justify-end bg-gray-50/50 dark:bg-slate-900/20 shrink-0 safe-area-bottom">
+                            <button
+                                onClick={() => setIsSettingsOpen(false)}
+                                className="w-full md:w-auto px-10 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl shadow-lg transition-transform active:scale-95 text-base"
+                            >
+                                Done
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

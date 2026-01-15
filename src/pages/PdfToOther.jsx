@@ -15,7 +15,7 @@ import { FEATURES } from '../config/FEATURE_CONFIG';
 import * as pdfjsLib from 'pdfjs-dist';
 
 // Worker setup
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
 
 export function PdfToOther({ mode }) { // json, text, html, zip
     const featureName = mode === 'text' ? 'pdfToText' :
@@ -44,7 +44,7 @@ export function PdfToOther({ mode }) { // json, text, html, zip
         try {
             for (const file of files) {
                 const arrayBuffer = await file.arrayBuffer();
-                const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+                const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
 
                 let content = "";
 
@@ -133,7 +133,7 @@ export function PdfToOther({ mode }) { // json, text, html, zip
                     <ErrorBanner errors={errors} onClear={() => setErrors([])} />
 
                     {files.length === 0 ? (
-                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf" />
+                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf,.pdf" />
                     ) : (
                         <div className="space-y-6">
                             <div className="bg-gray-50 dark:bg-slate-900/50 p-4 rounded-xl">

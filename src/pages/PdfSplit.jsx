@@ -128,7 +128,7 @@ export function PdfSplit() {
                     <ErrorBanner errors={errors} onClear={() => setErrors([])} />
 
                     {!file ? (
-                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf" />
+                        <FileUploader onFilesSelected={handleFilesSelected} accept="application/pdf,.pdf" />
                     ) : (
                         <div className="space-y-6">
                             <div className="bg-orange-50 dark:bg-orange-900/10 p-4 rounded-xl flex justify-between items-center">

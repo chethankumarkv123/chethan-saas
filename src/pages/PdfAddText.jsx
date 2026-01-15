@@ -5,9 +5,11 @@ import { DevToolLayout } from '../components/DevToolLayout';
 import { FileUploader } from '../components/FileUploader';
 import { toast } from '../components/Toast';
 import { ProcessingOverlay } from '../components/ProcessingOverlay';
+import { LIMITS } from '../config/LIMITS_CONFIG';
+import { ChevronLeft, ChevronRight, FileOutput, Plus, X, Type } from 'lucide-react';
 
 // Worker Setup
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
 
 export function PdfAddText() {
     const [file, setFile] = useState(null);
@@ -31,12 +33,15 @@ export function PdfAddText() {
 
     // 1. Load PDF
     const handleFile = async (f) => {
-        if (f.size > 10 * 1024 * 1024) { toast.error("File excessively large. Limit 10MB"); return; }
+        if (f.size > LIMITS.PDF_MAX_SIZE_MB * 1024 * 1024) {
+            toast.error(`File excessively large. Limit ${LIMITS.PDF_MAX_SIZE_MB}MB`);
+            return;
+        }
         setFile(f);
         setIsProcessing(true);
         try {
             const buffer = await f.arrayBuffer();
-            const loadedPdf = await pdfjsLib.getDocument(buffer).promise;
+            const loadedPdf = await pdfjsLib.getDocument({ data: new Uint8Array(buffer) }).promise;
             setPdfDoc(loadedPdf);
             setPageNum(1);
         } catch (e) {
@@ -196,7 +201,7 @@ export function PdfAddText() {
 
                 {!file && (
                     <div className="max-w-xl mx-auto">
-                        <FileUploader onFileSelect={handleFile} accept=".pdf" label="Upload PDF to Add Text" />
+                        <FileUploader onFileSelect={handleFile} accept="application/pdf,.pdf" label="Upload PDF to Add Text" />
                     </div>
                 )}
 
@@ -210,7 +215,7 @@ export function PdfAddText() {
                                     value={inputText}
                                     onChange={e => setInputText(e.target.value)}
                                     placeholder="Type text here..."
-                                    className="w-full p-3 border rounded-xl mb-4"
+                                    className="w-full p-3 border border-gray-200 dark:border-slate-600 rounded-xl mb-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-white outline-none focus:border-indigo-500 transition-colors"
                                 />
                                 <div className='flex gap-4 mb-4'>
                                     <div className='flex-1'>
@@ -247,20 +252,36 @@ export function PdfAddText() {
                             </div>
 
                             <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow border border-gray-100 dark:border-slate-700 flex justify-between items-center">
-                                <button disabled={pageNum <= 1} onClick={() => setPageNum(p => p - 1)} className="p-2 w-10 h-10 bg-gray-100 rounded-full hover:bg-gray-200 disabled:opacity-50"><i className="fa-solid fa-chevron-left"></i></button>
-                                <span className="font-bold text-sm">Page {pageNum}</span>
-                                <button disabled={pdfDoc && pageNum >= pdfDoc.numPages} onClick={() => setPageNum(p => p + 1)} className="p-2 w-10 h-10 bg-gray-100 rounded-full hover:bg-gray-200 disabled:opacity-50"><i className="fa-solid fa-chevron-right"></i></button>
+                                <button
+                                    disabled={pageNum <= 1}
+                                    onClick={() => setPageNum(p => p - 1)}
+                                    className="p-2 w-10 h-10 bg-gray-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600 disabled:opacity-50 flex items-center justify-center transition-colors shadow-sm"
+                                >
+                                    <ChevronLeft size={20} />
+                                </button>
+                                <span className="font-bold text-sm dark:text-white">Page {pageNum}</span>
+                                <button
+                                    disabled={pdfDoc && pageNum >= pdfDoc.numPages}
+                                    onClick={() => setPageNum(p => p + 1)}
+                                    className="p-2 w-10 h-10 bg-gray-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600 disabled:opacity-50 flex items-center justify-center transition-colors shadow-sm"
+                                >
+                                    <ChevronRight size={20} />
+                                </button>
                             </div>
 
-                            <button onClick={downloadPdf} disabled={texts.length === 0} className="w-full py-4 bg-green-600 text-white font-bold rounded-2xl shadow-xl hover:bg-green-700 disabled:opacity-50 transition-transform active:scale-95">
-                                <i className="fa-solid fa-file-export mr-2"></i> Download PDF
+                            <button onClick={downloadPdf} disabled={texts.length === 0} className="w-full py-4 bg-green-600 text-white font-bold rounded-2xl shadow-xl hover:bg-green-700 disabled:opacity-50 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                <FileOutput size={20} /> Download PDF
                             </button>
                         </div>
 
                         {/* Preview */}
                         <div className="flex-1 bg-gray-200 dark:bg-slate-700 rounded-2xl p-4 overflow-auto flex justify-center min-h-[600px] relative">
                             <div className="relative shadow-2xl">
-                                <canvas ref={pdfCanvasRef} className="block" />
+                                {/* The PDF Page */}
+                                <canvas
+                                    ref={pdfCanvasRef}
+                                    className="block bg-white shadow-2xl rounded-sm ring-1 ring-gray-200 dark:ring-slate-600"
+                                />
 
                                 {texts.map(t => (
                                     <div
@@ -284,9 +305,9 @@ export function PdfAddText() {
                                         {activeTextId === t.id && (
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); removeText(t.id); }}
-                                                className="absolute -top-3 -right-3 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs shadow"
+                                                className="absolute -top-3 -right-3 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-600 transition-transform active:scale-90"
                                             >
-                                                &times;
+                                                <X size={12} />
                                             </button>
                                         )}
                                     </div>
