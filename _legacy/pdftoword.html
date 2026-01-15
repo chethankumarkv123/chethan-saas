@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="robots" content="index, follow">
+  <title>PDF to Word Converter - Free Online Tool</title>
+  <meta name="description"
+    content="Convert PDF to Word online for free with our advanced PDF to Word converter. Transform PDFs into editable DOC or DOCX files while preserving formatting, text, and images.">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Libraries (Preserved) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx@7.8.2/build/index.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #c7d2fe;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #818cf8;
+    }
+
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .dark .glass-nav {
+      background: rgba(15, 23, 42, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .drop-zone {
+      transition: all 0.3s ease;
+      background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='16' ry='16' stroke='%236366F1FF' stroke-width='2' stroke-dasharray='12%2c 12' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    }
+
+    .drop-zone.dragover {
+      background-color: rgba(99, 102, 241, 0.1);
+      transform: scale(1.01);
+    }
+
+    .spinner {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 dark:bg-slate-900 dark:text-gray-100 transition-colors duration-300 font-sans">
+
+  <!-- Navigation -->
+  <nav class="glass-nav fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-20 items-center">
+        <!-- Logo -->
+        <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg">
+            <i class="fa-solid fa-file-pdf"></i>
+          </div>
+          <span
+            class="font-bold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-purple-600 dark:from-primary-400 dark:to-purple-400">
+            EasyConvert
+          </span>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="index.html#tools"
+            class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">Tools</a>
+          <a href="about.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">About</a>
+          <a href="contact.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors">Contact</a>
+
+          <!-- Theme Toggle -->
+          <button id="themeToggle"
+            class="w-10 h-10 rounded-full bg-gray-100 dark:bg-slate-800 flex items-center justify-center text-gray-600 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors focus:outline-none ring-2 ring-transparent focus:ring-primary-400">
+            <i class="fa-solid fa-sun text-xl hidden dark:block"></i>
+            <i class="fa-solid fa-moon text-xl block dark:hidden"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden flex items-center gap-4">
+          <button id="mobileThemeToggle" class="text-gray-600 dark:text-yellow-400 text-xl focus:outline-none">
+            <i class="fa-solid fa-adjust"></i>
+          </button>
+          <button id="mobileMenuBtn" class="text-gray-600 dark:text-white text-2xl focus:outline-none">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu"
+      class="hidden md:hidden bg-white dark:bg-slate-900 border-t dark:border-slate-800 absolute w-full shadow-xl">
+      <div class="px-4 pt-2 pb-6 space-y-2">
+        <a href="index.html#tools"
+          class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-800">All
+          Tools</a>
+        <a href="about.html"
+          class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-800">About
+          Us</a>
+        <a href="contact.html"
+          class="block px-3 py-3 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-800">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="pt-32 pb-20 px-4 min-h-screen relative overflow-hidden">
+    <!-- Background Shapes -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+      <div class="absolute top-[10%] left-[20%] w-[30%] h-[30%] bg-primary-400/10 rounded-full blur-[80px]"></div>
+      <div class="absolute bottom-[10%] right-[20%] w-[30%] h-[30%] bg-purple-500/10 rounded-full blur-[80px]"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-10">
+        <div
+          class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-400 to-indigo-600 text-white text-3xl shadow-lg mb-6">
+          <i class="fa-solid fa-file-word"></i>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">PDF to Word
+          Converter</h1>
+        <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          Transform PDF documents into editable Word files (DOCX) efficiently. Preserve formatting, text, and images.
+        </p>
+      </div>
+
+      <!-- Main Card -->
+      <div
+        class="bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-gray-100 dark:border-slate-700 p-6 md:p-10 animate-fade-in">
+
+        <!-- File Upload -->
+        <div
+          class="drop-zone border-2 border-dashed border-primary-200 dark:border-slate-600 rounded-2xl p-10 text-center mb-8 bg-gray-50 dark:bg-slate-900/50 cursor-pointer group"
+          ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="handleDragLeave(event)"
+          onclick="document.getElementById('pdfFiles').click()">
+
+          <div
+            class="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
+          </div>
+
+          <label for="pdfFiles" class="block text-xl font-bold text-gray-900 dark:text-white mb-2 cursor-pointer">
+            Click to upload or drag & drop
+          </label>
+          <p class="text-gray-500 dark:text-gray-400 text-sm">PDF files up to 25MB</p>
+          <input type="file" id="pdfFiles" accept="application/pdf" multiple class="hidden" onchange="previewFiles()">
+        </div>
+
+        <!-- Preview List -->
+        <div id="previewContainer" class="mb-8 space-y-3">
+          <!-- Preview items injected here -->
+        </div>
+
+        <!-- Progress Bar -->
+        <div id="progressBar" class="hidden w-full h-3 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden mb-8">
+          <div class="h-full bg-gradient-to-r from-primary-500 to-purple-600 transition-all duration-300"
+            style="width: 0%;"></div>
+        </div>
+
+        <!-- Settings -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-6 bg-gray-50 dark:bg-slate-900/50 rounded-2xl border border-gray-100 dark:border-slate-700">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Page Range</label>
+            <input type="text" id="pageRange"
+              class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 outline-none transition-all placeholder-gray-400"
+              placeholder="e.g., 1-3, 5 (Leave empty for all)">
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Output Format</label>
+              <select id="outputFormat"
+                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 outline-none transition-all">
+                <option value="docx">DOCX (Modern Word)</option>
+                <option value="doc">DOC (Legacy Word)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Content Type</label>
+              <select id="contentType"
+                class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 outline-none transition-all">
+                <option value="text">Text Only</option>
+                <option value="textImages">Text + Images</option>
+              </select>
+            </div>
+          </div>
+
+          <div
+            class="md:col-span-2 flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-600">
+            <input type="checkbox" id="previewContent"
+              class="w-5 h-5 text-primary-600 rounded focus:ring-primary-500 border-gray-300">
+            <label for="previewContent"
+              class="text-sm font-medium text-gray-700 dark:text-gray-200 cursor-pointer select-none">
+              Show text preview before downloading
+            </label>
+          </div>
+        </div>
+
+        <!-- Text Preview Area -->
+        <div id="textPreview"
+          class="hidden mb-8 p-4 bg-gray-50 dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-700 max-h-60 overflow-y-auto">
+          <h3 class="text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Extracted Text Preview:</h3>
+          <pre id="previewText" class="text-xs text-gray-600 dark:text-gray-400 whitespace-pre-wrap font-mono"></pre>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap gap-4 justify-center pt-4">
+          <button id="convertButton" onclick="convertPDFs()" disabled
+            class="disabled:opacity-50 disabled:cursor-not-allowed py-3 px-8 bg-gradient-to-r from-primary-600 to-purple-600 text-white font-bold rounded-xl shadow-lg hover:shadow-primary-500/30 hover:scale-[1.02] transition-all flex items-center gap-2">
+            <i class="fa-solid fa-file-word"></i> Convert to Word
+          </button>
+
+          <a id="downloadZipButton" href="#" download
+            class="hidden py-3 px-8 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl shadow-lg hover:shadow-green-500/30 hover:scale-[1.02] transition-all flex items-center gap-2">
+            <i class="fa-solid fa-file-zipper"></i> Download ZIP
+          </a>
+
+          <button onclick="resetAll()"
+            class="py-3 px-8 bg-gray-200 text-gray-700 dark:bg-slate-700 dark:text-gray-300 font-bold rounded-xl hover:bg-gray-300 dark:hover:bg-slate-600 transition-all">
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- SEO Content -->
+    </div>
+    <div class="bg-white dark:bg-slate-900 py-16 border-t border-gray-100 dark:border-slate-800 mt-20">
+      <div class="max-w-4xl mx-auto px-6 article-section text-gray-600 dark:text-gray-400">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">High Quality PDF to Word Conversion</h2>
+        <p class="mb-6">Convert your PDF documents to editable DOCX files in seconds. Our tool preserves your layout,
+          fonts, and images, making it easier than ever to edit your documents.</p>
+
+        <div class="grid md:grid-cols-2 gap-8 my-10">
+          <div class="bg-gray-50 dark:bg-slate-800 p-6 rounded-xl">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-3 text-lg">Features</h3>
+            <ul class="space-y-2 text-sm">
+              <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Layout Preservation (Smart
+                Sort)</li>
+              <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Extract Text & Images</li>
+              <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Batch Processing</li>
+              <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Free & Unlimited</li>
+            </ul>
+          </div>
+          <div class="bg-gray-50 dark:bg-slate-800 p-6 rounded-xl">
+            <h3 class="font-bold text-gray-900 dark:text-white mb-3 text-lg">Format Support</h3>
+            <ul class="space-y-2 text-sm">
+              <li class="flex gap-2"><i class="fa-solid fa-file-pdf text-red-500 mt-1"></i> Input: PDF (up to 25MB)</li>
+              <li class="flex gap-2"><i class="fa-solid fa-file-word text-blue-500 mt-1"></i> Output: DOCX / DOC</li>
+              <li class="flex gap-2"><i class="fa-solid fa-file-image text-purple-500 mt-1"></i> Image Extraction
+                Support</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+  <footer
+    class="bg-gray-50 dark:bg-slate-900 text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-slate-800 pt-16 pb-8 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div class="col-span-1 md:col-span-1">
+          <div class="flex items-center gap-2 mb-6">
+            <div
+              class="w-8 h-8 bg-gradient-to-br from-primary-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-sm shadow-lg">
+              <i class="fa-solid fa-file-pdf"></i>
+            </div>
+            <span class="font-bold text-xl text-gray-900 dark:text-white">EasyConvert</span>
+          </div>
+          <p class="text-sm leading-relaxed mb-6">
+            The ultimate free online PDF tool suite. We make document conversion simple, secure, and accessible to
+            everyone.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-primary-600 dark:hover:text-white transition-colors"><i
+                class="fa-brands fa-twitter text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-primary-600 dark:hover:text-white transition-colors"><i
+                class="fa-brands fa-facebook text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-primary-600 dark:hover:text-white transition-colors"><i
+                class="fa-brands fa-github text-xl"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-gray-900 dark:text-white mb-6 uppercase text-sm tracking-wider">Popular Tools</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="pdftoword.html"
+                class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">PDF to Word</a></li>
+            <li><a href="pdftoexcel.html"
+                class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">PDF to Excel</a></li>
+            <li><a href="pdfmerge.html"
+                class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Merge PDF</a></li>
+            <li><a href="imagecompression.html"
+                class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Image Compressor</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-gray-900 dark:text-white mb-6 uppercase text-sm tracking-wider">Company</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="about.html" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">About
+                Us</a></li>
+            <li><a href="contact.html"
+                class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Contact</a></li>
+            <li><a href="#" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Privacy
+                Policy</a></li>
+            <li><a href="#" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Terms of
+                Service</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-gray-900 dark:text-white mb-6 uppercase text-sm tracking-wider">Support</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Help Center</a>
+            </li>
+            <li><a href="#" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Report a
+                Bug</a></li>
+            <li><a href="#" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Status</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-200 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 dark:text-gray-500">
+        <p>&copy; 2026 EasyConvert. All rights reserved.</p>
+        <div class="mt-4 md:mt-0 flex gap-6">
+          <span class="flex items-center gap-1"><i class="fa-solid fa-earth-americas"></i> English</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Config
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+    const html = document.documentElement;
+
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
+
+    function toggleTheme() {
+      html.classList.toggle('dark');
+      if (html.classList.contains('dark')) {
+        localStorage.theme = 'dark';
+      } else {
+        localStorage.theme = 'light';
+      }
+    }
+
+    themeToggleBtn.addEventListener('click', toggleTheme);
+    mobileThemeToggle.addEventListener('click', toggleTheme);
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+
+    // --- PDF Logic Starts Here ---
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+    let files = [];
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.target.closest('.drop-zone').classList.add('dragover');
+    }
+
+    function handleDragLeave(e) {
+      e.preventDefault();
+      e.target.closest('.drop-zone').classList.remove('dragover');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      e.target.closest('.drop-zone').classList.remove('dragover');
+      const uploadedFiles = e.dataTransfer.files;
+      if (uploadedFiles.length) {
+        document.getElementById('pdfFiles').files = uploadedFiles;
+        previewFiles();
+      }
+    }
+
+    function previewFiles() {
+      const fileInput = document.getElementById('pdfFiles');
+      const previewContainer = document.getElementById('previewContainer');
+      const downloadZipButton = document.getElementById('downloadZipButton');
+      files = [];
+      previewContainer.innerHTML = '';
+      downloadZipButton.classList.add('hidden');
+
+      if (fileInput.files.length) {
+        Array.from(fileInput.files).forEach((file, index) => {
+          if (file.type !== 'application/pdf') {
+            Swal.fire('Invalid File', `${file.name} is not a PDF file.`, 'error');
+            return;
+          }
+          if (file.size > 25 * 1024 * 1024) {
+            Swal.fire('File Too Large', `${file.name} exceeds 25MB.`, 'error');
+            return;
+          }
+          const fileData = {
+            file,
+            name: file.name,
+            id: `file-${index}`,
+            status: 'Pending',
+            outputBlob: null
+          };
+          files.push(fileData);
+          renderPreview(fileData);
+        });
+      }
+      document.getElementById('convertButton').disabled = files.length === 0;
+    }
+
+    function renderPreview(fileData) {
+      const previewContainer = document.getElementById('previewContainer');
+      const div = document.createElement('div');
+      // Styled to match new UI
+      div.className = 'flex justify-between items-center bg-gray-50 dark:bg-slate-700/50 p-4 rounded-xl border border-gray-100 dark:border-slate-600 animate-fade-in';
+      div.innerHTML = `
+        <div class="flex items-center gap-3">
+             <div class="w-8 h-8 rounded bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500">
+               <i class="fa-solid fa-file-pdf"></i>
+             </div>
+             <div>
+                <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">${fileData.name}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">(${(fileData.file.size / 1024 / 1024).toFixed(2)}MB)</p>
+             </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="${fileData.id}-status" class="text-xs font-semibold px-2 py-1 rounded bg-gray-200 dark:bg-slate-600 text-gray-700 dark:text-gray-300 status-badge">${fileData.status}</span>
+          <a id="${fileData.id}-download" href="#" download="${fileData.name.replace('.pdf', '')}.docx" class="hidden text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-bold flex items-center gap-1">
+             <i class="fa-solid fa-download"></i> <span class="hidden sm:inline">Save</span>
+          </a>
+        </div>
+      `;
+      previewContainer.appendChild(div);
+    }
+
+    async function convertPDFs() {
+      if (!files.length) {
+        Swal.fire('No Files', 'Please upload at least one PDF file.', 'error');
+        return;
+      }
+
+      const progressBar = document.getElementById('progressBar');
+      const progressFill = progressBar.querySelector('div');
+      const downloadZipButton = document.getElementById('downloadZipButton');
+      const pageRange = document.getElementById('pageRange').value;
+      const outputFormat = document.getElementById('outputFormat').value;
+      const contentType = document.getElementById('contentType').value;
+      const previewContent = document.getElementById('previewContent').checked;
+      const zip = new JSZip();
+      let progress = 0;
+      let hasValidOutputs = false;
+      progressBar.classList.remove('hidden');
+      progressFill.style.width = '0%';
+
+      function updateProgress() {
+        progress += 100 / files.length / 10;
+        progressFill.style.width = `${Math.min(progress, 100)}%`;
+        if (progress < 100) {
+          requestAnimationFrame(updateProgress);
+        }
+      }
+
+      requestAnimationFrame(updateProgress);
+
+      for (let i = 0; i < files.length; i++) {
+        const fileData = files[i];
+        try {
+          document.getElementById(`${fileData.id}-status`).textContent = 'Processing...';
+          document.getElementById(`${fileData.id}-status`).className = "text-xs font-semibold px-2 py-1 rounded bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"; // Update badge style
+
+          const fileReader = new FileReader();
+          fileReader.onload = async function () {
+            const arrayBuffer = new Uint8Array(this.result);
+            const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+            const pagesToProcess = pageRange ? parsePageRange(pageRange, pdf.numPages) : Array.from({ length: pdf.numPages }, (_, i) => i + 1);
+            const doc = new docx.Document({ sections: [] });
+            let previewText = '';
+
+            const sectionChildren = [];
+
+            for (const pageNum of pagesToProcess) {
+              const page = await pdf.getPage(pageNum);
+              const textContent = await page.getTextContent();
+              const viewport = page.getViewport({ scale: 1.0 });
+
+              // 1. Sort items by Y (descending - top to bottom) then X (ascending - left to right)
+              const items = textContent.items.map(item => ({
+                str: item.str,
+                x: item.transform[4],
+                y: item.transform[5],
+                height: item.height,
+                width: item.width,
+                hasEOL: item.hasEOL
+              }));
+
+              // Group by lines
+              const lines = [];
+              items.sort((a, b) => b.y - a.y);
+
+              let currentLine = [];
+              let currentY = items.length > 0 ? items[0].y : 0;
+              const yTolerance = 5;
+
+              items.forEach(item => {
+                if (Math.abs(item.y - currentY) > yTolerance) {
+                  // New line
+                  if (currentLine.length > 0) {
+                    currentLine.sort((a, b) => a.x - b.x);
+                    lines.push(currentLine);
+                  }
+                  currentLine = [item];
+                  currentY = item.y;
+                } else {
+                  currentLine.push(item);
+                }
+              });
+              if (currentLine.length > 0) {
+                currentLine.sort((a, b) => a.x - b.x);
+                lines.push(currentLine);
+              }
+
+              // Build DOCX paragraphs from lines
+              let pageText = "";
+              lines.forEach(line => {
+                let lineStr = line.map(l => l.str).join(' ');
+                pageText += lineStr + "\n";
+
+                const paragraph = new docx.Paragraph({
+                  children: [new docx.TextRun(lineStr)],
+                  spacing: { after: 200 }
+                });
+                sectionChildren.push(paragraph);
+              });
+
+              previewText += `Page ${pageNum}:\n${pageText}\n\n`;
+
+              if (contentType === 'textImages') {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                await page.render({ canvasContext: context, viewport }).promise;
+                const imageData = canvas.toDataURL('image/jpeg', 0.8);
+                const image = await fetch(imageData).then(res => res.blob());
+                const imgBuffer = await image.arrayBuffer();
+
+                sectionChildren.push(new docx.Paragraph({
+                  children: [
+                    new docx.ImageRun({
+                      data: imgBuffer,
+                      transformation: {
+                        width: Math.min(viewport.width * 0.7, 600),
+                        height: Math.min(viewport.height * 0.7, 800),
+                      },
+                    }),
+                  ],
+                }));
+              }
+
+              if (pageNum < pagesToProcess[pagesToProcess.length - 1]) {
+                sectionChildren.push(new docx.Paragraph({
+                  children: [new docx.PageBreak()]
+                }));
+              }
+            }
+
+            doc.addSection({
+              children: sectionChildren
+            });
+
+            if (previewContent && i === 0) {
+              document.getElementById('previewText').textContent = previewText;
+              document.getElementById('textPreview').classList.remove('hidden');
+            }
+
+            const outputBlob = await docx.Packer.toBlob(doc);
+            fileData.outputBlob = outputBlob;
+            zip.file(`${fileData.name.replace('.pdf', '')}.${outputFormat}`, outputBlob);
+
+            const downloadLink = document.getElementById(`${fileData.id}-download`);
+            downloadLink.href = URL.createObjectURL(outputBlob);
+            downloadLink.download = `${fileData.name.replace('.pdf', '')}.${outputFormat}`;
+            downloadLink.classList.remove('hidden');
+
+            const statusBadge = document.getElementById(`${fileData.id}-status`);
+            statusBadge.textContent = 'Converted';
+            statusBadge.className = "text-xs font-semibold px-2 py-1 rounded bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
+
+            hasValidOutputs = true;
+
+            if (i === files.length - 1 && hasValidOutputs) {
+              const zipBlob = await zip.generateAsync({ type: 'blob' });
+              downloadZipButton.href = URL.createObjectURL(zipBlob);
+              downloadZipButton.download = 'converted-files.zip';
+              downloadZipButton.classList.remove('hidden');
+              Swal.fire('Success!', 'All files converted successfully.', 'success');
+            }
+          };
+          fileReader.readAsArrayBuffer(fileData.file);
+        } catch (error) {
+          console.error(`Error processing ${fileData.name}:`, error);
+          document.getElementById(`${fileData.id}-status`).textContent = 'Error';
+          document.getElementById(`${fileData.id}-status`).className = "text-xs font-semibold px-2 py-1 rounded bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
+          Swal.fire('Error', `Failed to process ${fileData.name}.`, 'error');
+        }
+      }
+
+      // progressBar.classList.add('hidden'); // Keep visible for satisfaction or hide with delay
+      setTimeout(() => {
+        progressFill.style.width = '0%';
+        progressBar.classList.add('hidden');
+      }, 2000);
+    }
+
+    function parsePageRange(range, totalPages) {
+      const pages = new Set();
+      const parts = range.split(',');
+      for (const part of parts) {
+        if (part.includes('-')) {
+          const [start, end] = part.split('-').map(Number);
+          for (let i = Math.max(1, start); i <= Math.min(totalPages, end); i++) {
+            pages.add(i);
+          }
+        } else {
+          const page = Number(part);
+          if (page >= 1 && page <= totalPages) {
+            pages.add(page);
+          }
+        }
+      }
+      return Array.from(pages).sort((a, b) => a - b);
+    }
+
+    function resetAll() {
+      files = [];
+      document.getElementById('previewContainer').innerHTML = '';
+      document.getElementById('pdfFiles').value = '';
+      document.getElementById('pageRange').value = '';
+      document.getElementById('outputFormat').value = 'docx';
+      document.getElementById('contentType').value = 'text';
+      document.getElementById('previewContent').checked = false;
+      document.getElementById('textPreview').classList.add('hidden');
+      document.getElementById('previewText').textContent = '';
+      document.getElementById('downloadZipButton').classList.add('hidden');
+      document.getElementById('progressBar').classList.add('hidden');
+      document.getElementById('convertButton').disabled = true;
+    }
+  </script>
+</body>
+
+</html>

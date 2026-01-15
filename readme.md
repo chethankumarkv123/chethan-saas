@@ -1,48 +1,16 @@
-# Chethan SaaS Platform
+# React + Vite
 
-A scalable, multi-tenant SaaS boilerplate built with **FastAPI**, **React**, and **Docker**. This project is designed to accelerate the development of AI-powered SaaS products with support for chatbot agents, file uploads, user authentication, billing, and more.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- **Multi-Agent RAG Chatbot System**
-  - Isolated knowledge bases per bot
-  - Excel/JSON file upload for training
-  - DeepSeek LLM integration via API
-  - Qdrant Vector DB for embedding storage
+## React Compiler
 
-- **Frontend (React + Tailwind)**
-  - Responsive Admin Dashboard
-  - Light/Dark theme support
-  - JWT-based Authentication
-  - Role-based Access Control
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- **Backend (FastAPI)**
-  - User & Tenant Management
-  - Chatbot API endpoints
-  - Stripe Integration for Billing
-  - Dockerized for easy deployment
+## Expanding the ESLint configuration
 
-- **Integrations**
-  - Stripe for billing tiers (Free, Pro, Enterprise)
-  - WhatsApp, Facebook, and Webchat-ready
-  - Cloudflare R2 for file storage
-
----
-
-## Demo Screenshots
-
-> *(Add screenshots/gif here once available to showcase UI and chatbot demo.)*
-
----
-
-## Quick Start
-
-```bash
-# Clone the repo
-git clone https://github.com/chethankumarkv123/chethan-saas.git
-cd chethan-saas
-
-# Spin up containers
-docker-compose up --build
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

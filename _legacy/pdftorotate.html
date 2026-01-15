@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Rotate Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .preview-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+        .preview-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .rotation-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .rotation-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #4f46e5;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 120px;
+            justify-content: center;
+        }
+        .rotation-btn:hover {
+            background: #4f46e5;
+            color: white;
+        }
+        .rotation-btn:active {
+            transform: scale(0.95);
+        }
+        .rotation-btn .shortcut {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-left: 0.5rem;
+        }
+        .page-navigation {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .page-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+        }
+        .page-btn:hover {
+            background: #f3f4f6;
+        }
+        .page-info {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        .thumbnails-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.5rem;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            margin: 1rem 0;
+        }
+        .thumbnail {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        .thumbnail:hover {
+            border-color: #4f46e5;
+        }
+        .thumbnail.active {
+            border-color: #4f46e5;
+            background: #eef2ff;
+        }
+        .thumbnail .rotation-indicator {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.75rem;
+            color: #4f46e5;
+        }
+        .keyboard-shortcuts {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+        .keyboard-shortcuts h3 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+        .key {
+            background: #e5e7eb;
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-7xl">
+        <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-8">
+            <span class="text-indigo-600">PDF</span> Rotate Service
+        </h1>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Panel: Controls -->
+            <div class="space-y-6">
+                <div class="mb-6">
+                    <label for="pdfFile" class="block text-lg font-semibold text-gray-700 mb-2">
+                        Select PDF File to Rotate:
+                    </label>
+                    <input
+                        type="file"
+                        id="pdfFile"
+                        name="pdfFile"
+                        accept=".pdf"
+                        class="block w-full text-sm text-gray-500
+                               file:mr-4 file:py-2 file:px-4
+                               file:rounded-full file:border-0
+                               file:text-sm file:font-semibold
+                               file:bg-indigo-50 file:text-indigo-700
+                               hover:file:bg-indigo-100 cursor-pointer rounded-lg border border-gray-300 p-2"
+                    />
+                </div>
+
+                <div id="rotationControls" class="hidden">
+                    <div class="rotation-controls">
+                        <button class="rotation-btn" onclick="rotatePage(-90)" title="Rotate Left (Left Arrow)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            Rotate Left
+                            <span class="shortcut">←</span>
+                        </button>
+                        <button class="rotation-btn" onclick="rotatePage(90)" title="Rotate Right (Right Arrow)">
+                            Rotate Right
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                            <span class="shortcut">→</span>
+                        </button>
+                        <button class="rotation-btn" onclick="rotatePage(180)" title="Rotate 180° (Up Arrow)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                            </svg>
+                            Rotate 180°
+                            <span class="shortcut">↑</span>
+                        </button>
+                        <button class="rotation-btn" onclick="resetRotation()" title="Reset Rotation (R)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Reset
+                            <span class="shortcut">R</span>
+                        </button>
+                    </div>
+
+                    <div class="page-navigation">
+                        <button class="page-btn" onclick="changePage(-1)" title="Previous Page (Up Arrow)">Previous</button>
+                        <span class="page-info">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+                        <button class="page-btn" onclick="changePage(1)" title="Next Page (Down Arrow)">Next</button>
+                    </div>
+
+                    <div class="thumbnails-container" id="thumbnailsContainer">
+                        <!-- Thumbnails will be added here dynamically -->
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="outputFilename" class="block text-md font-medium text-gray-700 mb-2">
+                            Output Filename:
+                        </label>
+                        <input
+                            type="text"
+                            id="outputFilename"
+                            value="rotated_document.pdf"
+                            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            placeholder="e.g., my_rotated_file.pdf"
+                        />
+                    </div>
+
+                    <div class="flex items-center mt-4">
+                        <input
+                            type="checkbox"
+                            id="optimizeWeb"
+                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        />
+                        <label for="optimizeWeb" class="ml-2 block text-md font-medium text-gray-700">
+                            Optimize for Web Viewing
+                        </label>
+                    </div>
+
+                    <button
+                        onclick="downloadRotatedPDF()"
+                        class="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg
+                               shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                        Download Rotated PDF
+                    </button>
+
+                    <div class="keyboard-shortcuts">
+                        <h3>Keyboard Shortcuts</h3>
+                        <div class="shortcut-item">
+                            <span>Rotate Left</span>
+                            <span class="key">←</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span>Rotate Right</span>
+                            <span class="key">→</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span>Rotate 180°</span>
+                            <span class="key">↑</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span>Reset Rotation</span>
+                            <span class="key">R</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span>Previous Page</span>
+                            <span class="key">PgUp</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span>Next Page</span>
+                            <span class="key">PgDn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Preview -->
+            <div class="lg:col-span-2">
+                <div class="preview-container">
+                    <iframe id="preview" class="preview-frame"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="messageArea" class="mt-6 p-4 bg-blue-100 text-blue-800 rounded-lg hidden"></div>
+    </div>
+
+    <script>
+        const { PDFDocument, degrees } = PDFLib;
+        let currentPdfDoc = null;
+        let currentPageIndex = 0;
+        let pageRotations = new Map(); // Store rotation for each page
+
+        async function loadPDF(file) {
+            try {
+                displayMessage('Loading PDF...', 'info');
+                const arrayBuffer = await file.arrayBuffer();
+                currentPdfDoc = await PDFDocument.load(arrayBuffer);
+                currentPageIndex = 0;
+                pageRotations.clear();
+                
+                document.getElementById('totalPages').textContent = currentPdfDoc.getPageCount();
+                document.getElementById('currentPage').textContent = '1';
+                document.getElementById('rotationControls').classList.remove('hidden');
+                
+                await updatePreview();
+                updateThumbnails();
+                displayMessage('PDF loaded successfully. Use the rotation controls to adjust pages.', 'success');
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+                displayMessage('Error loading PDF file. Please try again.', 'error');
+            }
+        }
+
+        function rotatePage(degrees) {
+            if (!currentPdfDoc) return;
+            
+            const currentRotation = pageRotations.get(currentPageIndex) || 0;
+            const newRotation = (currentRotation + degrees) % 360;
+            pageRotations.set(currentPageIndex, newRotation);
+            
+            updatePreview();
+            updateThumbnails();
+        }
+
+        function resetRotation() {
+            if (!currentPdfDoc) return;
+            
+            pageRotations.set(currentPageIndex, 0);
+            updatePreview();
+            updateThumbnails();
+        }
+
+        function changePage(delta) {
+            if (!currentPdfDoc) return;
+            
+            const newIndex = currentPageIndex + delta;
+            if (newIndex >= 0 && newIndex < currentPdfDoc.getPageCount()) {
+                currentPageIndex = newIndex;
+                document.getElementById('currentPage').textContent = (currentPageIndex + 1).toString();
+                updatePreview();
+                updateThumbnails();
+            }
+        }
+
+        async function updateThumbnails() {
+            if (!currentPdfDoc) return;
+
+            const container = document.getElementById('thumbnailsContainer');
+            container.innerHTML = '';
+
+            for (let i = 0; i < currentPdfDoc.getPageCount(); i++) {
+                const thumbnail = document.createElement('div');
+                thumbnail.className = `thumbnail ${i === currentPageIndex ? 'active' : ''}`;
+                thumbnail.innerHTML = `
+                    <span>Page ${i + 1}</span>
+                    ${pageRotations.get(i) ? `<span class="rotation-indicator">${pageRotations.get(i)}°</span>` : ''}
+                `;
+                thumbnail.onclick = () => {
+                    currentPageIndex = i;
+                    document.getElementById('currentPage').textContent = (i + 1).toString();
+                    updatePreview();
+                    updateThumbnails();
+                };
+                container.appendChild(thumbnail);
+            }
+        }
+
+        async function updatePreview() {
+            if (!currentPdfDoc) return;
+
+            try {
+                const previewDoc = await PDFDocument.create();
+                const [copiedPage] = await previewDoc.copyPages(currentPdfDoc, [currentPageIndex]);
+                
+                // Apply rotation
+                const rotation = pageRotations.get(currentPageIndex) || 0;
+                copiedPage.setRotation(degrees(rotation));
+                
+                previewDoc.addPage(copiedPage);
+                const pdfBytes = await previewDoc.save();
+                
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                document.getElementById('preview').src = url;
+            } catch (error) {
+                console.error('Error updating preview:', error);
+                displayMessage('Error updating preview. Please try again.', 'error');
+            }
+        }
+
+        async function downloadRotatedPDF() {
+            if (!currentPdfDoc) return;
+
+            try {
+                displayMessage('Creating final PDF...', 'info');
+                const finalDoc = await PDFDocument.create();
+                
+                // Copy all pages with their rotations
+                for (let i = 0; i < currentPdfDoc.getPageCount(); i++) {
+                    const [copiedPage] = await finalDoc.copyPages(currentPdfDoc, [i]);
+                    const rotation = pageRotations.get(i) || 0;
+                    copiedPage.setRotation(degrees(rotation));
+                    finalDoc.addPage(copiedPage);
+                }
+
+                const outputFilename = document.getElementById('outputFilename').value;
+                const optimizeWeb = document.getElementById('optimizeWeb').checked;
+
+                const pdfBytes = await finalDoc.save({
+                    compress: optimizeWeb
+                });
+
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = outputFilename.endsWith('.pdf') ? outputFilename : `${outputFilename}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                displayMessage('PDF downloaded successfully!', 'success');
+            } catch (error) {
+                console.error('Error creating final PDF:', error);
+                displayMessage('Error creating final PDF. Please try again.', 'error');
+            }
+        }
+
+        function displayMessage(message, type = 'info') {
+            const messageArea = document.getElementById('messageArea');
+            messageArea.textContent = message;
+            messageArea.classList.remove('hidden', 'bg-red-100', 'text-red-800', 'bg-green-100', 'text-green-800', 'bg-blue-100', 'text-blue-800');
+            
+            if (type === 'error') {
+                messageArea.classList.add('bg-red-100', 'text-red-800');
+            } else if (type === 'success') {
+                messageArea.classList.add('bg-green-100', 'text-green-800');
+            } else {
+                messageArea.classList.add('bg-blue-100', 'text-blue-800');
+            }
+            
+            messageArea.classList.remove('hidden');
+            
+            if (type !== 'error') {
+                setTimeout(() => {
+                    messageArea.classList.add('hidden');
+                }, 5000);
+            }
+        }
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (!currentPdfDoc) return;
+
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    rotatePage(-90);
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    rotatePage(90);
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    rotatePage(180);
+                    break;
+                case 'r':
+                case 'R':
+                    e.preventDefault();
+                    resetRotation();
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    changePage(-1);
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    changePage(1);
+                    break;
+            }
+        });
+
+        // Event Listeners
+        document.getElementById('pdfFile').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                loadPDF(file);
+            }
+        });
+    </script>
+</body>
+</html> 
