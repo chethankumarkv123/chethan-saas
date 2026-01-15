@@ -19,7 +19,7 @@ export function DevToolLayout({ children, featureKey, title, description }) {
     useSeo({ title: seoTitle, description: seoDesc });
 
     return (
-        <div className="min-h-screen pt-20 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
+        <div className="min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
 
             {/* Breadcrumb / Back */}
             <button
