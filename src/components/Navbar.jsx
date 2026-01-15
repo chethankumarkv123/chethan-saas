@@ -41,9 +41,11 @@ export function Navbar() {
                     {/* Logo & Privacy Badge */}
                     <div className="flex items-center gap-6">
                         <Link to="/" className="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
-                            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg shadow-blue-500/20 transition-transform group-hover:scale-105">
-                                <i className="fa-solid fa-file-pdf"></i>
-                            </div>
+                            <img
+                                src="/logo.png"
+                                alt="EasyConvert"
+                                className="h-10 w-auto transition-transform group-hover:scale-105"
+                            />
                             <span className="font-bold text-2xl text-slate-800 dark:text-white tracking-tight">
                                 EasyConvert
                             </span>

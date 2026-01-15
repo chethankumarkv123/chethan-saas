@@ -8,10 +8,12 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                     {/* Brand */}
                     <div className="col-span-1 md:col-span-1">
-                        <div className="flex items-center gap-2 mb-6">
-                            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center text-white text-sm shadow-md">
-                                <i className="fa-solid fa-file-pdf"></i>
-                            </div>
+                        <div className="flex items-center gap-3 mb-6">
+                            <img
+                                src="/logo.png"
+                                alt="EasyConvert"
+                                className="h-8 w-auto"
+                            />
                             <span className="font-bold text-xl text-slate-900 dark:text-white">EasyConvert</span>
                         </div>
                         <p className="text-sm leading-relaxed mb-6 text-gray-500 dark:text-gray-400">
