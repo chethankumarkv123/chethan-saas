@@ -8,6 +8,11 @@ export function MobileDisclaimer() {
         const checkMobile = () => {
             if (window.innerWidth < 768 && !sessionStorage.getItem('mobile_disclaimer_dismissed')) {
                 setIsVisible(true);
+
+                // Auto-dismiss after 5 seconds
+                setTimeout(() => {
+                    dismiss();
+                }, 5000);
             }
         };
 
@@ -37,9 +42,10 @@ export function MobileDisclaimer() {
                 </div>
                 <button
                     onClick={dismiss}
-                    className="p-1 hover:bg-white/10 dark:hover:bg-black/10 rounded-full transition-colors"
+                    className="p-2 hover:bg-white/10 dark:hover:bg-black/10 rounded-lg transition-colors shrink-0 min-h-[36px] min-w-[36px] flex items-center justify-center"
+                    aria-label="Close"
                 >
-                    <i className="fa-solid fa-xmark"></i>
+                    <i className="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
         </div>

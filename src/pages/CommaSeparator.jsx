@@ -98,14 +98,14 @@ export function CommaSeparator() {
             {/* Tool Area */}
             <div className="md:h-[calc(100vh-100px)] px-4 flex flex-col">
                 <div className="max-w-7xl mx-auto w-full md:h-full flex flex-col">
-                    {/* Header */}
-                    <div className="flex justify-between items-center mb-4 shrink-0">
-                        <div className="flex items-center gap-3">
-                            <div className={`p-2 rounded-lg bg-${feature.color}-100 dark:bg-${feature.color}-900/30 text-${feature.color}-600 dark:text-${feature.color}-400`}>
-                                <i className={`text-xl ${feature.icon}`}></i>
+                    {/* Header - Compact on Mobile */}
+                    <div className="flex justify-between items-center mb-3 md:mb-4 shrink-0">
+                        <div className="flex items-center gap-2 md:gap-3">
+                            <div className={`p-1.5 md:p-2 rounded-lg bg-${feature.color}-100 dark:bg-${feature.color}-900/30 text-${feature.color}-600 dark:text-${feature.color}-400`}>
+                                <i className={`text-base md:text-xl ${feature.icon}`}></i>
                             </div>
                             <div>
-                                <h1 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-tight">
+                                <h1 className="text-base md:text-xl font-bold text-gray-900 dark:text-white leading-tight">
                                     {feature.title}
                                 </h1>
                                 <p className="text-xs text-gray-500 hidden md:block">{feature.desc}</p>
@@ -114,7 +114,7 @@ export function CommaSeparator() {
 
                         <button
                             onClick={() => setIsSettingsOpen(true)}
-                            className="flex items-center gap-2 text-sm bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 font-bold py-2 px-3 md:px-4 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 dark:border-slate-700"
+                            className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 font-bold py-2 px-2.5 md:px-4 rounded-lg md:rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 dark:border-slate-700 min-h-[44px]"
                         >
                             <i className="fa-solid fa-sliders"></i>
                             <span className="hidden md:inline">Settings</span>
@@ -122,23 +122,34 @@ export function CommaSeparator() {
                     </div>
 
                     {/* Main Split View */}
-                    <div className="flex-grow grid md:grid-cols-2 gap-4 min-h-0 mb-4">
+                    <div className="flex-grow grid md:grid-cols-2 gap-3 md:gap-4 min-h-0 mb-3 md:mb-4">
                         {/* Input */}
-                        <div className="flex flex-col bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 h-[40vh] md:h-full overflow-hidden">
-                            <div className="p-3 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-gray-50 dark:bg-slate-900/50 shrink-0">
+                        <div className="flex flex-col bg-white dark:bg-slate-800 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 h-[45vh] md:h-full overflow-hidden">
+                            <div className="p-2.5 md:p-3 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-gray-50 dark:bg-slate-900/50 shrink-0">
                                 <h3 className="font-bold text-xs uppercase tracking-wide text-gray-500">Input Data</h3>
                                 <div className="flex gap-1">
-                                    <button onClick={() => setInput('')} className="text-xs text-red-500 hover:text-red-600 font-medium px-2 py-1.5 rounded hover:bg-red-50 dark:hover:bg-red-900/20">Clear</button>
-                                    <button onClick={async () => {
-                                        try {
-                                            const text = await navigator.clipboard.readText();
-                                            setInput(text);
-                                        } catch (e) { toast.error("Clipboard permission denied"); }
-                                    }} className="text-xs text-blue-500 hover:text-blue-600 font-medium px-2 py-1.5 rounded hover:bg-blue-50 dark:hover:bg-blue-900/20">Paste</button>
+                                    <button
+                                        onClick={() => setInput('')}
+                                        className="text-xs text-red-500 hover:text-red-600 font-medium px-2.5 py-1.5 rounded hover:bg-red-50 dark:hover:bg-red-900/20 min-h-[36px]"
+                                    >
+                                        Clear
+                                    </button>
+                                    <button
+                                        onClick={async () => {
+                                            try {
+                                                const text = await navigator.clipboard.readText();
+                                                setInput(text);
+                                                toast.success("Pasted!");
+                                            } catch (e) { toast.error("Clipboard permission denied"); }
+                                        }}
+                                        className="text-xs text-blue-500 hover:text-blue-600 font-medium px-2.5 py-1.5 rounded hover:bg-blue-50 dark:hover:bg-blue-900/20 min-h-[36px]"
+                                    >
+                                        Paste
+                                    </button>
                                 </div>
                             </div>
                             <textarea
-                                className="flex-grow p-4 resize-none outline-none dark:bg-slate-800 dark:text-gray-200 text-base md:text-sm font-google-sans leading-relaxed"
+                                className="flex-grow p-3 md:p-4 resize-none outline-none dark:bg-slate-800 dark:text-gray-200 text-base md:text-sm font-google-sans leading-relaxed"
                                 placeholder="Paste values here (one per line)"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
@@ -146,15 +157,18 @@ export function CommaSeparator() {
                         </div>
 
                         {/* Output */}
-                        <div ref={resultRef} className={`flex-col bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 h-[40vh] md:h-full overflow-hidden ${!hasConverted ? 'hidden md:flex' : 'flex animate-fade-in-up'}`}>
-                            <div className="p-3 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-green-50 dark:bg-green-900/10 shrink-0">
+                        <div ref={resultRef} className={`flex-col bg-white dark:bg-slate-800 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 h-[45vh] md:h-full overflow-hidden ${!hasConverted ? 'hidden md:flex' : 'flex animate-fade-in-up'}`}>
+                            <div className="p-2.5 md:p-3 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-green-50 dark:bg-green-900/10 shrink-0">
                                 <h3 className="font-bold text-xs uppercase tracking-wide text-green-700 dark:text-green-400">Result</h3>
-                                <button onClick={() => { navigator.clipboard.writeText(output); toast.success("Copied!"); }} className="text-xs bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 font-bold px-3 py-1.5 rounded-lg shadow-sm border border-gray-100 dark:border-slate-700">
+                                <button
+                                    onClick={() => { navigator.clipboard.writeText(output); toast.success("Copied!"); }}
+                                    className="text-xs bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 font-bold px-3 py-1.5 rounded-lg shadow-sm border border-gray-100 dark:border-slate-700 min-h-[36px]"
+                                >
                                     <i className="fa-regular fa-copy mr-1"></i> Copy
                                 </button>
                             </div>
                             <textarea
-                                className="flex-grow p-4 resize-none outline-none dark:bg-slate-800 dark:text-gray-200 bg-gray-50/30 text-base md:text-sm font-google-sans leading-relaxed"
+                                className="flex-grow p-3 md:p-4 resize-none outline-none dark:bg-slate-800 dark:text-gray-200 bg-gray-50/30 text-base md:text-sm font-google-sans leading-relaxed"
                                 placeholder="Result will appear here..."
                                 readOnly
                                 value={output}
@@ -202,29 +216,30 @@ export function CommaSeparator() {
                     </div>
 
                     {/* Mobile Sticky Action Bar */}
-                    <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 z-40 safe-area-bottom flex flex-col gap-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+                    <div className="md:hidden fixed bottom-0 left-0 right-0 p-3 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 z-40 safe-area-bottom flex flex-col gap-2.5 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
 
                         {/* Mini Settings Preview */}
-                        <div className="flex justify-between items-center px-1">
-                            <div className="text-xs font-bold text-gray-500">
-                                Delimiter: <span className="text-blue-600">{settings.delimiter === '\n' ? 'New Line' : settings.delimiter}</span>
+                        <div className="flex justify-between items-center px-0.5">
+                            <div className="text-xs font-semibold text-gray-600 dark:text-gray-400">
+                                Delimiter: <span className="text-blue-600 dark:text-blue-400">{settings.delimiter === '\n' ? 'New Line' : settings.delimiter}</span>
                             </div>
-                            <div className="text-xs text-gray-400">
-                                {settings.dedup && <span className="mr-2"><i className="fa-solid fa-check mr-1"></i>Dedup</span>}
-                                {settings.tidy && <span><i className="fa-solid fa-check mr-1"></i>Trim</span>}
+                            <div className="text-xs text-gray-500 dark:text-gray-500 flex gap-2">
+                                {settings.dedup && <span><i className="fa-solid fa-check mr-0.5"></i>Dedup</span>}
+                                {settings.tidy && <span><i className="fa-solid fa-check mr-0.5"></i>Trim</span>}
                             </div>
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex gap-2.5">
                             <button
                                 onClick={() => setIsSettingsOpen(true)}
-                                className="px-4 py-3 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-xl font-bold"
+                                className="px-4 py-3.5 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-xl font-bold min-h-[52px] min-w-[52px] hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors"
                             >
-                                <i className="fa-solid fa-sliders"></i>
+                                <i className="fa-solid fa-sliders text-lg"></i>
                             </button>
                             <button
                                 onClick={convert}
-                                className="flex-1 py-3 bg-blue-600 active:bg-blue-700 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2 text-lg"
+                                disabled={!input}
+                                className="flex-1 py-3.5 bg-blue-600 active:bg-blue-700 disabled:bg-gray-300 dark:disabled:bg-slate-700 disabled:text-gray-500 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2 text-base min-h-[52px] transition-all disabled:cursor-not-allowed"
                             >
                                 Convert
                             </button>
