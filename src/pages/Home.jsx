@@ -56,7 +56,7 @@ export function Home() {
                     <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 via-transparent to-transparent dark:from-slate-800/20 dark:to-transparent pointer-events-none" />
 
                     {/* Compact Padding */}
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8 lg:pt-24 lg:pb-10 relative z-10">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-8 lg:pt-32 lg:pb-10 relative z-10">
                         <div className="text-center max-w-3xl mx-auto">
 
                             {/* Trust Badge - Tight */}
