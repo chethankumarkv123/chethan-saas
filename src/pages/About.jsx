@@ -1,4 +1,4 @@
-// Test: Auto-deployment verification - 2026-02-01
+// Test: Auto-deployment verification - 2026-02-01 21:23 IST - Secrets configured!
 import { SEO } from '../components/SEO';
 
 export function About() {
