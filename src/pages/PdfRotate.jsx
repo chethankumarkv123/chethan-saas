@@ -111,7 +111,7 @@ export function PdfRotate() {
 
                 <div className="mt-12">
                     <RelatedTools toolKeys={feature.related} />
-                    <SeoContent feature={feature} />
+                    <SeoContent featureKey="pdfRotate" />
                 </div>
             </div>
         </div>

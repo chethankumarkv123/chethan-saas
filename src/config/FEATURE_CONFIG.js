@@ -7,6 +7,12 @@ export const FEATURE_CATEGORIES = [
         features: ["commaSeparator", "compareText", "jsonFormatter", "jsonValidator", "textCleaner", "qrCode", "imageResizer", "imageCompressor"]
     },
     {
+        id: "financial_tools",
+        label: "Finance & Wealth",
+        description: "Professional tools for loans, investments, tax, and wealth planning.",
+        features: ["loanPlanner", "sipCalculator", "fixedIncome", "taxPlanner", "retirementPlanner", "investmentPlanner", "inflationCalculator", "netWorthTracker"]
+    },
+    {
         id: "pdf_tools",
         label: "PDF Tools – Browser Optimized",
         description: "These tools run locally in your browser. Best for small to medium files.",
@@ -32,7 +38,8 @@ export const FEATURE_CATEGORIES = [
             "regexTester", "caseConverter", "envConverter",
             "curlConverter", "diffChecker", "cidrSplitter", "k8sConverter",
             "publicIp", "portLookup", "httpStatus",
-            "hashGenerator", "cronExplainer", "timezoneConverter"
+            "hashGenerator", "cronExplainer", "timezoneConverter",
+            "jwtDecoder", "sshGenerator", "sqlRunner"
         ]
     },
     {
@@ -153,6 +160,116 @@ export const FEATURES = {
         seoDesc: "Compress images to save space. Best for web use.",
         related: ["imageResizer", "pdfCompress", "pdfToJpg"]
     },
+    sqlRunner: {
+        title: "SQL Runner",
+        desc: "Run SQL on CSV files.",
+        icon: "fa-solid fa-database",
+        color: "blue",
+        category: "developer_tools",
+        mode: "enabled",
+        to: "/sql-runner",
+        seoTitle: "CSV SQL Runner in Browser",
+        seoDesc: "Import CSVs and run SQL queries locally.",
+        related: ["excelToSql", "csvCleaner"]
+    },
+
+    // FINANCIAL & WEALTH TOOLS (REFACTORED)
+    loanPlanner: {
+        title: "Loan Planner",
+        desc: "EMI, Prepayment & Analysis.",
+        icon: "fa-solid fa-calculator",
+        color: "blue",
+        category: "financial_tools",
+        mode: "enabled",
+        to: "/loan-calculator",
+        seoTitle: "Advanced Loan Planner & EMI Calculator",
+        seoDesc: "Unified tool for Loan EMI, Prepayment analysis, and Amortization schedules.",
+        related: ["taxPlanner", "fixedIncome"]
+    },
+    sipCalculator: {
+        title: "SIP Calculator",
+        desc: "Mutual Fund Returns.",
+        icon: "fa-solid fa-chart-line",
+        color: "purple",
+        category: "financial_tools",
+        mode: "enabled",
+        to: "/sip-calculator",
+        seoTitle: "SIP & Mutual Fund Return Calculator",
+        seoDesc: "Calculate SIP returns, inflation-adjusted wealth, and step-up SIPs.",
+        related: ["investmentPlanner", "fixedIncome"]
+    },
+    fixedIncome: {
+        title: "Fixed Income",
+        desc: "FD, RD, PPF Calculator.",
+        icon: "fa-solid fa-piggy-bank",
+        color: "teal",
+        category: "financial_tools",
+        mode: "enabled",
+        to: "/fixed-income-calculator",
+        seoTitle: "Fixed Income Calculator (FD, RD, PPF)",
+        seoDesc: "Calculate returns for Fixed Deposits, RDs, and PPF in one place.",
+        related: ["taxPlanner", "sipCalculator"]
+    },
+    taxPlanner: {
+        title: "Tax Planner",
+        desc: "Old vs New Regime.",
+        icon: "fa-solid fa-receipt",
+        color: "orange",
+        category: "financial_tools",
+        mode: "enabled",
+        to: "/tax-planner",
+        seoTitle: "Income Tax Planner India FY 2024-25",
+        seoDesc: "Compare tax regimes and plan deductions (80C, 80D, HRA).",
+        related: ["ppfCalculator", "sipCalculator"] // Using ppfCalculator keyword for SEO link though routed to Fixed Income
+    },
+    retirementPlanner: {
+        title: "Retirement Planner",
+        desc: "Fire & Corpus Planning.",
+        icon: "fa-solid fa-person-cane",
+        color: "indigo",
+        category: "financial_tools",
+        mode: "enabled",
+        to: "/retirement-planner",
+        seoTitle: "Retirement & FIRE Planner",
+        seoDesc: "Plan your retirement corpus with inflation and life expectancy.",
+        related: ["sipCalculator", "inflationCalculator"]
+    },
+    investmentPlanner: {
+        title: "Investment Planner",
+        desc: "Goal-based Investing.",
+        icon: "fa-solid fa-bullseye",
+        color: "rose",
+        category: "financial_tools",
+        mode: "enabled",
+        to: "/investment-planner",
+        seoTitle: "Goal Based Investment Planner",
+        seoDesc: "Plan investments for life goals like House, Education, and Wealth.",
+        related: ["sipCalculator", "netWorthTracker"]
+    },
+    inflationCalculator: {
+        title: "Inflation Calc",
+        desc: "Future Value of Money.",
+        icon: "fa-solid fa-money-bill-trend-up",
+        color: "red",
+        category: "financial_tools",
+        mode: "enabled",
+        to: "/inflation-calculator",
+        seoTitle: "Inflation Calculator India",
+        seoDesc: "Calculate the future value of money and impact of inflation.",
+        related: ["retirementPlanner", "fixedIncome"]
+    },
+    netWorthTracker: {
+        title: "Net Worth",
+        desc: "Track Assets & Debts.",
+        icon: "fa-solid fa-scale-balanced",
+        color: "emerald",
+        category: "financial_tools",
+        mode: "enabled",
+        to: "/net-worth-tracker",
+        seoTitle: "Personal Net Worth Tracker",
+        seoDesc: "Track your assets and liabilities to measure financial health.",
+        related: ["investmentPlanner", "loanPlanner"]
+    },
 
     // CATEGORY 2: PDF TOOLS
     pdfSplit: {
@@ -167,6 +284,18 @@ export const FEATURES = {
         seoTitle: "Split PDF Pages",
         seoDesc: "Split PDF files into pages. Works best with files under 10MB.",
         related: ["pdfMerge", "pdfCompress", "pdfRotate"]
+    },
+    loanCalculator: {
+        title: "Loan / EMI Calculator",
+        desc: "Calculate EMI & Prepayments.",
+        icon: "fa-solid fa-calculator",
+        color: "green",
+        category: "financial_tools",
+        mode: "enabled",
+        to: "/loan-calculator",
+        seoTitle: "Advanced Loan EMI Calculator",
+        seoDesc: "Calculate Loan EMI, amortization schedule, and prepayment savings.",
+        related: ["percentageCalc", "scientificCalc"]
     },
     pdfMerge: {
         title: "PDF Merge",
@@ -1162,7 +1291,32 @@ export const FEATURES = {
         seoTitle: "Excel Data Processor",
         seoDesc: "Filter, clean, and remove duplicates from Excel or CSV files online. Free, fast, and no signup.",
         related: ["csvCleaner", "excelToJson"]
+    },
+    jwtDecoder: {
+        title: "JWT Decoder",
+        desc: "Decode & Verify Tokens.",
+        icon: "fa-solid fa-shield-halved",
+        color: "red",
+        category: "developer_tools",
+        mode: "enabled",
+        to: "/jwt-decoder",
+        seoTitle: "JWT Decoder & Validator",
+        seoDesc: "Decode, verify, and inspect JWT tokens securely in your browser.",
+        related: ["base64", "timestampConverter"]
+    },
+    sshGenerator: {
+        title: "SSH Key Gen",
+        desc: "Generate RSA Key Pairs.",
+        icon: "fa-solid fa-key",
+        color: "green",
+        category: "developer_tools",
+        mode: "enabled",
+        to: "/ssh-generator",
+        seoTitle: "Online SSH Key Generator",
+        seoDesc: "Generate RSA SSH keys with passphrases in your browser.",
+        related: ["uuidGenerator", "jwtDecoder"]
     }
+
 };
 
 export const FEATURE_CONFIG = {

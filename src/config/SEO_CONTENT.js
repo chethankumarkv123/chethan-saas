@@ -1,482 +1,382 @@
+
 export const SEO_CONTENT = {
     // --- PDF TOOLS ---
-    mergePdf: {
+    pdfMerge: {
         toolName: "Merge PDF",
-        description: "Combine multiple PDF files into a single document instantly in your browser. Organize your PDFs quickly without software installation.",
-        useCases: [
-            "Combining scanned pages into one invoice.",
-            "Merging multiple chapters of a report.",
-            "Organizing study materials into a single file.",
-            "Consolidating work documents for sharing."
-        ],
-        steps: [
-            "Upload your PDF files.",
-            "Drag and drop to reorder pages if needed.",
-            "Click 'Merge' to combine the files.",
-            "Download your new single PDF document."
-        ],
-        limitsText: "Best for small to medium-sized PDF files to ensure fast processing directly in your browser."
+        description: "Combine multiple PDF files into a single document instantly in your browser.",
+        useCases: ["Merging chapters.", "Combining invoices.", "Consolidating reports.", "Organizing documents."],
+        steps: ["Upload PDFs.", "Reorder pages.", "Click Merge.", "Download."],
+        limitsText: "Best for files < 50MB."
     },
-    splitPdf: {
+    pdfSplit: {
         toolName: "Split PDF",
-        description: "Separate a PDF into individual pages or extract specific page ranges quickly and securely.",
-        useCases: [
-            "Extracting a single page from a large report.",
-            "Splitting a contract into separate sections.",
-            "Removing unwanted pages from a scanned document.",
-            "Breaking down a book into chapters."
-        ],
-        steps: [
-            "Upload the PDF you want to split.",
-            "Select the pages or ranges to extract.",
-            "Click 'Split' to process the file.",
-            "Download your selected pages as new PDFs."
-        ],
-        limitsText: "Processing speed depends on your browser capability for very large PDFs."
+        description: "Separate a PDF into individual pages or extract specific page ranges.",
+        useCases: ["Extracting pages.", "Removing pages.", "Splitting chapters.", "Isolating sections."],
+        steps: ["Upload PDF.", "Select pages.", "Click Split.", "Download."],
+        limitsText: "Local processing."
     },
     pdfRotate: {
         toolName: "Rotate PDF",
-        description: "Permanently rotate individual pages or the entire PDF document. Fix orientation issues instantly.",
-        useCases: [
-            "Fixing upside-down scanned pages.",
-            "Structuring standard documents.",
-            "Correcting landscape/portrait mix.",
-            "Organizing pages for printing."
-        ],
-        steps: [
-            "Upload your PDF file.",
-            "Select pages to rotate or choose 'All'.",
-            "Set rotation angle (90°, 180°, 270°).",
-            "Download the corrected PDF."
-        ],
-        limitsText: "Processing happens in-browser, ensuring privacy."
+        description: "Permanently rotate individual pages or the entire PDF document.",
+        useCases: ["Fixing orientation.", "Rotating scans.", "Correcting layouts.", "Adjusting pages."],
+        steps: ["Upload PDF.", "Select rotation.", "Apply.", "Download."],
+        limitsText: "Safe and private."
     },
     pdfSign: {
-        toolName: "Sign PDF Online",
-        description: "Add your electronic signature to any PDF document. Draw, type, or upload a signature image and place it anywhere.",
-        useCases: [
-            "Signing contracts and agreements.",
-            "Completing application forms.",
-            "Approving documents digitally.",
-            "Adding initials to pages."
-        ],
-        steps: [
-            "Upload the PDF you need to sign.",
-            "Create your signature (Draw, Type, or Upload).",
-            "Drag and drop the signature onto the page.",
-            "Download the signed PDF document."
-        ],
-        limitsText: "Adds a visual image signature. Not a certified digital signature (e-sign). Files processed locally."
+        toolName: "Sign PDF",
+        description: "Add your electronic signature to any PDF document.",
+        useCases: ["Signing contracts.", "Approving forms.", "Adding initials.", "Digital signatures."],
+        steps: ["Upload PDF.", "Create signature.", "Place on page.", "Download."],
+        limitsText: "Visual signature only."
     },
-    pdfToImage: {
-        toolName: "PDF to Image",
-        description: "Convert PDF pages into high-quality images (PNG/JPG) for easy sharing or embedding.",
-        useCases: [
-            "Turning a PDF flyer into an image for social media.",
-            "Extracting charts or diagrams from reports.",
-            "Making PDF content viewable on devices without PDF readers.",
-            "Creating thumbnails for document previews."
-        ],
-        steps: [
-            "Upload your PDF document.",
-            "Choose the output format (PNG or JPG).",
-            "Process the file to convert pages.",
-            "Download individual images or a ZIP archive."
-        ],
-        limitsText: "High-resolution conversions work best with standard document sizes."
+    pdfCompress: {
+        toolName: "Compress PDF",
+        description: "Reduce PDF file size while maintaining quality for emailing or uploading.",
+        useCases: ["Shrinking email attachments.", "Optimizing storage.", "Faster uploads.", "Web publishing."],
+        steps: ["Upload PDF.", "Wait for compression.", "Check size savings.", "Download."],
+        limitsText: "Browser-based compression."
     },
-    imageToPdf: {
-        toolName: "Image to PDF",
-        description: "Convert images (JPG, PNG) into a single PDF document. Perfect for creating portfolios or reports from photos.",
-        useCases: [
-            "Creating a PDF portfolio from image files.",
-            "Compiling scanned photos into a document.",
-            "Sending multiple receipts as one PDF.",
-            "Converting screenshots into a readable report."
-        ],
-        steps: [
-            "Upload your image files (JPG, PNG).",
-            "Reorder images if necessary.",
-            "Click 'Convert' to create the PDF.",
-            "Download your new PDF document."
-        ],
-        limitsText: "Supports standard image formats. Very large images may be resized."
+    pdfUnlock: {
+        toolName: "Unlock PDF",
+        description: "Remove owner passwords and restrictions from PDF files instantly.",
+        useCases: ["Printing restricted PDFs.", "Copying text.", "Editing locked files.", "Recovering access."],
+        steps: ["Upload locked PDF.", "Enter password if known.", "Remove restrictions.", "Download."],
+        limitsText: "Can remove restrictions if content is accessible."
+    },
+    pdfAddText: {
+        toolName: "Add Text to PDF",
+        description: "Insert text, notes, or captions anywhere on your PDF pages.",
+        useCases: ["Filling headers.", "Adding comments.", "Labeling pages.", "Inserting info."],
+        steps: ["Upload PDF.", "Type text.", "Position it.", "Download."],
+        limitsText: "Simple text overlay."
+    },
+    pdfAddDate: {
+        toolName: "Add Date to PDF",
+        description: "Stamp your PDF with the current date or a custom timestamp.",
+        useCases: ["Dating forms.", "Timestamping receipts.", "Marking versions.", "Legal dating."],
+        steps: ["Upload PDF.", "Select date format.", "Stamp page.", "Download."],
+        limitsText: "Customizable formats."
+    },
+    pdfAddImage: {
+        toolName: "Add Image to PDF",
+        description: "Insert logos, watermarks, or photos into your PDF document.",
+        useCases: ["Adding company logos.", "Inserting photos.", "Watermarking.", "Stamping seals."],
+        steps: ["Upload PDF.", "Upload Image.", "Resize and place.", "Download."],
+        limitsText: "Supports JPG/PNG."
+    },
+    pdfFillForm: {
+        toolName: "Fill PDF Form",
+        description: "Type directly onto PDF forms that are not interactive.",
+        useCases: ["Filling applications.", "Completing surveys.", "Typing on scans.", "Digital paperwork."],
+        steps: ["Upload PDF.", "Click to type.", "Fill fields.", "Download."],
+        limitsText: "Text input only."
+    },
+    pdfHighlight: {
+        toolName: "Highlight PDF",
+        description: "Highlight important text or areas on your PDF pages.",
+        useCases: ["Reviewing drafts.", "Marking key points.", "Studying notes.", "Emphasizing text."],
+        steps: ["Upload PDF.", "Select highlight area.", "Apply color.", "Download."],
+        limitsText: "Visual overlay."
+    },
+    pdfToJpg: {
+        toolName: "PDF to JPG",
+        description: "Convert PDF pages to JPG images.",
+        useCases: ["Social media sharing.", "Extracting images.", "Thumbnail creation.", "Web usage."],
+        steps: ["Upload PDF.", "Convert pages.", "Download images.", "Save as ZIP."],
+        limitsText: "High quality output."
+    },
+    pdfToPng: {
+        toolName: "PDF to PNG",
+        description: "Convert PDF pages to PNG images.",
+        useCases: ["High res graphics.", "Transparent conversion.", "Design assets.", "Lossless extraction."],
+        steps: ["Upload PDF.", "Convert.", "Download PNGs.", "Save as ZIP."],
+        limitsText: "Lossless quality."
+    },
+    jpgToPdf: {
+        toolName: "JPG to PDF",
+        description: "Convert JPGs to a single PDF.",
+        useCases: ["Photo albums.", "Receipt compilation.", "Scanned docs.", "Portfolios."],
+        steps: ["Upload JPGs.", "Order them.", "Convert.", "Download PDF."],
+        limitsText: "Unlimited pages."
+    },
+    pngToPdf: {
+        toolName: "PNG to PDF",
+        description: "Convert PNGs to PDF.",
+        useCases: ["Graphic portfolios.", "Screenshot docs.", "Design presentations.", "Archiving."],
+        steps: ["Upload PNGs.", "Order them.", "Convert.", "Download PDF."],
+        limitsText: "Maintains aspect ratio."
+    },
+    pdfToWord: {
+        toolName: "PDF to Word",
+        description: "Convert PDF documents to editable Microsoft Word (DOCX) files.",
+        useCases: ["Editing contracts.", "Recovering content.", "Repurposing docs.", "Formatting text."],
+        steps: ["Upload PDF.", "Convert to DOCX.", "Download file.", "Edit in Word."],
+        limitsText: "Text-based PDFs work best."
+    },
+    pdfToExcel: {
+        toolName: "PDF to Excel",
+        description: "Extract tables from PDF to Excel spreadsheets.",
+        useCases: ["Financial analysis.", "Data extraction.", "Inventory lists.", "Table recovery."],
+        steps: ["Upload PDF.", "Extract tables.", "Download XLSX.", "Open in Excel."],
+        limitsText: "Tabular data only."
+    },
+    pdfToCsv: {
+        toolName: "PDF to CSV",
+        description: "Convert PDF tables to CSV format.",
+        useCases: ["Database import.", "Data analysis.", "Spreadsheet work.", "Raw data access."],
+        steps: ["Upload PDF.", "Convert.", "Download CSV.", "Import data."],
+        limitsText: "Best for simple tables."
     },
     pdfToText: {
         toolName: "PDF to Text",
-        description: "Extract plain text from your PDF documents for editing or analysis. Copy content easily.",
-        useCases: [
-            "Copying text from a read-only PDF.",
-            "Extracting data for spreadsheets or analysis.",
-            "Editing content from an old PDF document.",
-            "Recovering text from uneditable files."
-        ],
-        steps: [
-            "Upload your PDF file.",
-            "Wait for the text extraction process.",
-            "Review the extracted text preview.",
-            "Copy to clipboard or download as a text file."
-        ],
-        limitsText: "Works best with text-based PDFs. Scanned PDFs without OCR may yield no text."
+        description: "Extract raw text from PDF files.",
+        useCases: ["Copying content.", "Data mining.", "Text analysis.", "Reading."],
+        steps: ["Upload PDF.", "Extract text.", "Copy or Download.", "Use text."],
+        limitsText: "Extracts readable text."
     },
-
-    // --- UTILITY TOOLS ---
-    compareText: {
-        toolName: "Compare Text",
-        description: "Find differences between two text blocks instantly. Highlight added, removed, and changed lines.",
-        useCases: [
-            "Comparing code versions or snippets.",
-            "Checking differences between two document drafts.",
-            "Verifying data consistency.",
-            "Spotting changes in log files."
-        ],
-        steps: [
-            "Paste the original text on the left.",
-            "Paste the new text on the right.",
-            "View the highlighted differences automatically.",
-            "Copy snippets if needed."
-        ],
-        limitsText: "Designed for effective comparison of text snippets and code blocks."
-    },
-    commaSeparator: {
-        toolName: "Comma Separator",
-        description: "Convert lists into comma-separated values (CSV) or other formats instantly.",
-        useCases: [
-            "Formatting data for Excel or SQL queries.",
-            "Converting a column of emails for bulk sending.",
-            "Preparing lists for API payloads.",
-            "Cleaning up raw data lists."
-        ],
-        steps: [
-            "Paste your list of items.",
-            "Select the desired separator (comma, new line, etc.).",
-            "See the formatted text instantly.",
-            "Copy the result to your clipboard."
-        ],
-        limitsText: "Handles standard text lists effectively."
-    },
-    textCleaner: {
-        toolName: "Text Cleaner",
-        description: "Remove robust formatting, extra spaces, and unwanted characters from your text efficiently.",
-        useCases: [
-            "Cleaning up text copied from a website.",
-            "Removing extra spaces from a document.",
-            "Normalization of text for database entry.",
-            "Preparing content for clean pasting."
-        ],
-        steps: [
-            "Paste your messy text.",
-            "Select cleaning options (trim spaces, remove lines).",
-            "View the cleaned text instantly.",
-            "Copy the result."
-        ],
-        limitsText: "Text processing happens instantly in the browser."
+    pdfToHtml: {
+        toolName: "PDF to HTML",
+        description: "Convert PDF to HTML web pages.",
+        useCases: ["Web publishing.", "Blog posts.", "Online viewing.", "Accessibility."],
+        steps: ["Upload PDF.", "Convert.", "Get HTML code.", "Publish."],
+        limitsText: "Basic layout preservation."
     },
 
     // --- DEVELOPER TOOLS ---
     jsonFormatter: {
         toolName: "JSON Formatter",
-        description: "Format, validate, and beautify JSON data. Make minimized JSON readable.",
-        useCases: [
-            "Debugging API responses.",
-            "Formatting configuration files.",
-            "Validating JSON structure.",
-            "Beautifying minimized JSON code."
-        ],
-        steps: [
-            "Paste your raw JSON string.",
-            "View the formatted and colored output.",
-            "Check for validation errors if any.",
-            "Copy the beautified JSON."
-        ],
-        limitsText: "Handles standard JSON payloads efficiently."
+        description: "Format and validate JSON data.",
+        useCases: ["Debugging.", "Pretty printing.", "Validation.", "Learning."],
+        steps: ["Paste JSON.", "Format.", "Check errors.", "Copy."],
+        limitsText: "Instant validation."
     },
     jsonValidator: {
         toolName: "JSON Validator",
-        description: "Check if your JSON data represents a valid object. Find syntax errors quickly.",
-        useCases: [
-            "Troubleshooting API errors.",
-            "Validating config files before deployment.",
-            "Checking raw data consistency.",
-            "Learning valid JSON syntax."
-        ],
-        steps: [
-            "Paste your JSON data.",
-            "See instant validation status.",
-            "Locate syntax errors highlighted.",
-            "Fix and re-validate."
-        ],
-        limitsText: "Focused on syntax validation for standard JSON."
+        description: "Validate JSON syntax errors.",
+        useCases: ["Debugging API.", "Checking config.", "Fixing syntax.", "Verification."],
+        steps: ["Paste JSON.", "Validate.", "See errors.", "Fix."],
+        limitsText: "Strict syntax check."
     },
-    regexTester: {
-        toolName: "Regex Tester",
-        description: "Test your Regular Expressions against text strings in real-time. Debug patterns easily.",
-        useCases: [
-            "Testing email validation patterns.",
-            "Debugging data extraction regex.",
-            "Learning regex matching behavior.",
-            "Verifying string search patterns."
-        ],
-        steps: [
-            "Enter your Regex pattern.",
-            "Enter the text to test against.",
-            "See matches highlighted instantly.",
-            "Check captured groups and flags."
-        ],
-        limitsText: "Supports JavaScript RegExp syntax."
+    jwtDecoder: {
+        toolName: "JWT Decoder",
+        description: "Decode and verify JSON Web Tokens.",
+        useCases: ["Debugging Auth.", "Checking claims.", "Verifying expiration.", "Inspecting tokens."],
+        steps: ["Paste Token.", "View Header/Payload.", "Verify Signature.", "Check Expiry."],
+        limitsText: "Client-side decoding."
+    },
+    base64: {
+        toolName: "Base64 Tool",
+        description: "Encode and Decode Base64 strings.",
+        useCases: ["Data encoding.", "URL safety.", "Obfuscation.", "Debugging."],
+        steps: ["Enter text.", "Encode/Decode.", "View result.", "Copy."],
+        limitsText: "UTF-8 support."
+    },
+    urlEncoder: {
+        toolName: "URL Encoder",
+        description: "Encode and Decode URLs.",
+        useCases: ["Safe links.", "Query params.", "API debugging.", "Fixing URLs."],
+        steps: ["Enter URL.", "Encode/Decode.", "Result.", "Copy."],
+        limitsText: "Standard URI encoding."
+    },
+    htmlEncoder: {
+        toolName: "HTML Encoder",
+        description: "Escape HTML entities.",
+        useCases: ["XSS prevention.", "Code snipping.", "Displaying code.", "Safety."],
+        steps: ["Enter HTML.", "Encode.", "Get entities.", "Copy."],
+        limitsText: "Standard entities."
     },
     uuidGenerator: {
         toolName: "UUID Generator",
-        description: "Generate standard UUIDs (v4) instantly for your applications and databases.",
-        useCases: [
-            "Creating unique IDs for database records.",
-            "Generating API keys or session identifiers.",
-            "Mocking data for development.",
-            "Testing ID handling in applications."
-        ],
-        steps: [
-            "Select the number of UUIDs to generate.",
-            "Click to generate.",
-            "Copy a single ID or the whole list.",
-            "Use in your project."
-        ],
-        limitsText: "Generates standard random (v4) UUIDs."
+        description: "Generate random UUIDs.",
+        useCases: ["Database IDs.", "Session keys.", "Unique tokens.", "Testing."],
+        steps: ["Select count.", "Generate.", "Copy IDs.", "Use."],
+        limitsText: "V4 UUIDs."
     },
-    base64: {
-        toolName: "Base64 Encoder/Decoder",
-        description: "Encode text to Base64 or decode Base64 strings back to text instantly.",
-        useCases: [
-            "Encoding credentials for basic auth headers.",
-            "Decoding data embedded in URLs.",
-            "Inspecting Base64 encoded payloads.",
-            "Data obfuscation tasks."
-        ],
-        steps: [
-            "Choose Encode or Decode mode.",
-            "Paste your input string.",
-            "View the result immediately.",
-            "Copy the output."
-        ],
-        limitsText: "Works with UTF-8 text strings."
+    regexTester: {
+        toolName: "Regex Tester",
+        description: "Test regular expressions.",
+        useCases: ["Pattern matching.", "Validation.", "Search/Replace.", "Learning."],
+        steps: ["Enter Regex.", "Enter Text.", "See matches.", "Debug."],
+        limitsText: "JS RegExp."
     },
-    urlEncoder: {
-        toolName: "URL Encoder/Decoder",
-        description: "Encode or decode URLs to ensure they are safe for browser address bars and APIs.",
-        useCases: [
-            "Debugging query parameters.",
-            "Encoding special characters in URLs.",
-            "Reading decoded API requests.",
-            "Fixing broken link formats."
-        ],
-        steps: [
-            "Choose Encode or Decode mode.",
-            "Paste the URL string.",
-            "Get the safe/readable URL instantly.",
-            "Copy only what you need."
-        ],
-        limitsText: "Follows standard URI encoding rules."
+    cronGenerator: {
+        toolName: "Cron Generator",
+        description: "Create Cron schedule expressions graphically.",
+        useCases: ["Scheduling tasks.", "Server jobs.", "Automation.", "Learning Cron."],
+        steps: ["Select intervals.", "View expression.", "Copy.", "Implement."],
+        limitsText: "Standard Cron syntax."
+    },
+    cronExplainer: {
+        toolName: "Cron Explainer",
+        description: "Explain Cron expressions in English.",
+        useCases: ["Understanding schedules.", "Debugging.", "Verification.", "Learning."],
+        steps: ["Paste Cron.", "Read explanation.", "Verify.", "Use."],
+        limitsText: "Standard syntax."
+    },
+    chmodCalc: {
+        toolName: "Chmod Calculator",
+        description: "Calculate Linux file permissions.",
+        useCases: ["Server admin.", "File security.", "Script setup.", "Learning permissions."],
+        steps: ["Select permissions.", "Get code (755).", "Copy.", "Apply."],
+        limitsText: "Octal and Symbolic."
+    },
+    sshGenerator: {
+        toolName: "SSH Key Gen",
+        description: "Generate SSH key pairs.",
+        useCases: ["Server access.", "Git auth.", "Secure shell.", "Encryption."],
+        steps: ["Generate.", "Copy Private/Public.", "Save secure.", "Use."],
+        limitsText: "Client-side generation."
+    },
+    sqlRunner: {
+        toolName: "SQL Runner",
+        description: "Run SQL on CSV files.",
+        useCases: ["Data analysis.", "Querying CSV.", "Reporting.", "Filtering."],
+        steps: ["Upload CSV.", "Write SQL.", "Run query.", "See results."],
+        limitsText: "In-browser SQLite."
+    },
+    timestampConverter: {
+        toolName: "Timestamp Converter",
+        description: "Convert Unix timestamps.",
+        useCases: ["Date debugging.", "Log analysis.", "Time conversion.", "Epoch time."],
+        steps: ["Enter timestamp.", "See date.", "Convert back.", "Copy."],
+        limitsText: "Seconds/Millis."
+    },
+    baseConverter: {
+        toolName: "Base Converter",
+        description: "Convert numbers between bases.",
+        useCases: ["Binary/Hex/Decimal.", "Low-level coding.", "Math.", "Networking."],
+        steps: ["Enter number.", "Select bases.", "Convert.", "Copy."],
+        limitsText: "Bin/Oct/Dec/Hex."
+    },
+    dataSizeConverter: {
+        toolName: "Data Converter",
+        description: "Convert byte sizes.",
+        useCases: ["Storage calc.", "Bandwidth.", "File sizes.", "Engineering."],
+        steps: ["Enter size.", "Convert.", "See units.", "Copy."],
+        limitsText: "B/KB/MB/GB/TB."
+    },
+    ipSubnetCalculator: {
+        toolName: "Subnet Calculator",
+        description: "Calculate subnets and IP ranges.",
+        useCases: ["Networking.", "CIDR.", "IP planning.", "Config."],
+        steps: ["Enter IP/CIDR.", "Calculate.", "See info.", "Copy."],
+        limitsText: "IPv4."
+    },
+    cidrOverlap: {
+        toolName: "CIDR Overlap",
+        description: "Check if two CIDR ranges overlap.",
+        useCases: ["Network planning.", "Avoiding conflicts.", "Security rules.", "AWS VPC."],
+        steps: ["Enter CIDR 1.", "Enter CIDR 2.", "Check.", "Result."],
+        limitsText: "IPv4."
+    },
+    publicIp: {
+        toolName: "What is My IP",
+        description: "Check your public IP address.",
+        useCases: ["Connectivity.", "VPN check.", "Whitelisting.", "Info."],
+        steps: ["Open page.", "See IP.", "Copy.", "Done."],
+        limitsText: "IPv4/IPv6."
+    },
+    portLookup: {
+        toolName: "Port Lookup",
+        description: "Find service by port number.",
+        useCases: ["Firewall config.", "Debugging.", "Security.", "Learning."],
+        steps: ["Enter port.", "Search.", "See service.", "Copy."],
+        limitsText: "Common ports."
     },
     hashGenerator: {
         toolName: "Hash Generator",
-        description: "Create SHA-1 and SHA-256 hashes from any text using secure browser APIs.",
-        useCases: [
-            "Verifying file integrity checks.",
-            "Hashing passwords for testing (never production!).",
-            "Creating digital fingerprints of text.",
-            "Learning about cryptographic hashes."
-        ],
-        steps: [
-            "Enter your text input.",
-            "View generated SHA-1 and SHA-256 hashes.",
-            "Copy the specific hash you need.",
-            "Clear to start over."
-        ],
-        limitsText: "Uses secure local browser crypto APIs. Does not support MD5."
+        description: "Generate SHA/MD5 hashes.",
+        useCases: ["Integrity check.", "Security.", "Fingerprinting.", "Comparisons."],
+        steps: ["Enter text.", "Generate.", "Copy hash.", "Verify."],
+        limitsText: "SHA-1/256."
     },
 
-    // --- NETWORK & SYSTEM ---
-    publicIp: {
-        toolName: "What is My IP",
-        description: "Instantly check your public IPv4 or IPv6 address directly from your browser.",
-        useCases: [
-            "Checking network configuration.",
-            "Verifying VPN connection status.",
-            "Whitelisting your IP for firewalls.",
-            "Troubleshooting connectivity issues."
-        ],
-        steps: [
-            "Open the page to see your IP.",
-            "Identify if it is IPv4 or IPv6.",
-            "Copy the address with one click.",
-            "Refresh to check again."
-        ],
-        limitsText: "Detects the IP address visible to the public internet."
+    // --- UTILITY & OTHER ---
+    qrCode: {
+        toolName: "QR Generator",
+        description: "Create QR codes.",
+        useCases: ["Sharing URLs.", "Wifi login.", "Contacts.", "Marketing."],
+        steps: ["Enter text.", "Generate.", "Download URL.", "Print."],
+        limitsText: "PNG output."
     },
-    portLookup: {
-        toolName: "Port Number Lookup",
-        description: "Find out what common service runs on a specific network port number.",
-        useCases: [
-            "Identifying unknown traffic on a port.",
-            "Configuring firewall rules.",
-            "Debugging service connections.",
-            "Learning standard registered ports."
-        ],
-        steps: [
-            "Enter a port number (e.g. 80, 443).",
-            "See the associated service name.",
-            "Read brief details about the protocol.",
-            "Clear to calculate another."
-        ],
-        limitsText: "Covers standard and common registered ports."
+    imageResizer: {
+        toolName: "Image Resizer",
+        description: "Resize images to specific dimensions.",
+        useCases: ["Web optimization.", "Social media.", "Thumbnails.", "Email."],
+        steps: ["Upload.", "Set size.", "Resize.", "Download."],
+        limitsText: "JPG/PNG."
     },
-    subnetCalc: {
-        toolName: "Subnet Calculator",
-        description: "Calculate network ranges, broadcast addresses, and netmasks from IP and CIDR.",
-        useCases: [
-            "Planning network infrastructure.",
-            "Configuring router subnets.",
-            "Calculating usable IP addresses.",
-            "Learning CIDR notation."
-        ],
-        steps: [
-            "Enter an IP address.",
-            "Select the CIDR mask bit.",
-            "View generated network details instantly.",
-            "Copy necessary configuration data."
-        ],
-        limitsText: "Standard IPv4 subnet calculations."
+    imageCompressor: {
+        toolName: "Image Compressor",
+        description: "Compress images to save space.",
+        useCases: ["Web speed.", "Storage.", "Emailing.", "Performance."],
+        steps: ["Upload.", "Compress.", "Compare.", "Download."],
+        limitsText: "Lossy/Lossless."
     },
-
-    // --- EXCEL & DATA TOOLS ---
+    commaSeparator: {
+        toolName: "Comma Separator",
+        description: "Convert column to comma separated list.",
+        useCases: ["SQL IN clauses.", "CSV generation.", "Data formatting.", "Lists."],
+        steps: ["Paste column.", "Select delimiter.", "Convert.", "Copy."],
+        limitsText: "Text processing."
+    },
+    compareText: {
+        toolName: "Diff Checker",
+        description: "Compare two text blocks.",
+        useCases: ["Code diffs.", "Version check.", "Drafts.", "Changes."],
+        steps: ["Paste Left.", "Paste Right.", "Compare.", "View diff."],
+        limitsText: "Line by line."
+    },
+    textCleaner: {
+        toolName: "Text Cleaner",
+        description: "Clean and format text.",
+        useCases: ["Removing format.", "Trimming.", "Deduping.", "Cleaning."],
+        steps: ["Paste text.", "Clean.", "View.", "Copy."],
+        limitsText: "Auto-format."
+    },
     excelToJson: {
-        toolName: "Excel to JSON Converter",
-        description: "Convert Excel or CSV spreadsheets into clean JSON format for use in applications.",
-        useCases: [
-            "Importing spreadsheet data into a web app.",
-            "Converting configs for developers.",
-            "Migrating legacy data to modern formats.",
-            "Quickly visualizing Excel data as code."
-        ],
-        steps: [
-            "Upload your Excel or CSV file.",
-            "Preview the data structure.",
-            "See the generated JSON output.",
-            "Copy or Download the JSON file."
-        ],
-        limitsText: "Optimized for single-sheet files and standard data sizes."
+        toolName: "Excel to JSON",
+        description: "Convert Excel/CSV to JSON.",
+        useCases: ["Data migration.", "Dev config.", "Importing.", "Web apps."],
+        steps: ["Upload.", "Convert.", "Download.", "Copy."],
+        limitsText: "Standard sheets."
     },
     jsonToExcel: {
-        toolName: "JSON to Excel Converter",
-        description: "Transform JSON data arrays into downloadable Excel or CSV spreadsheets.",
-        useCases: [
-            "Exporting database records to Excel.",
-            "Converting API responses for reporting.",
-            "Analyzing JSON data in a spreadsheet.",
-            "Creating reports from data dumps."
-        ],
-        steps: [
-            "Paste your JSON array of objects.",
-            "Preview the table representation.",
-            "Click on 'Download Excel' or 'CSV'.",
-            "Open file in your spreadsheet software."
-        ],
-        limitsText: "Requires a flat JSON array of objects for best results."
+        toolName: "JSON to Excel",
+        description: "Convert JSON to Excel/CSV.",
+        useCases: ["Reporting.", "Data export.", "Spreadsheets.", "Analysis."],
+        steps: ["Paste JSON.", "Convert.", "Download.", "Open."],
+        limitsText: "Flat objects."
     },
     csvCleaner: {
         toolName: "CSV Cleaner",
-        description: "Clean messy CSV files by trimming spaces, fixing headers, and removing empty rows.",
-        useCases: [
-            "Preparing data for database import.",
-            "Cleaning up manual data entry errors.",
-            "Standardizing files from different sources.",
-            "Removing blank rows automatically."
-        ],
-        steps: [
-            "Upload your messy CSV file.",
-            "View the cleaning statistics.",
-            "Preview the cleaned data.",
-            "Download the optimized CSV file."
-        ],
-        limitsText: "Processing is done locally in browser. Best for mid-sized CSVs."
+        description: "Clean CSV files.",
+        useCases: ["Data prep.", "Fixing formats.", "Removing empty.", "Standardizing."],
+        steps: ["Upload.", "Clean.", "Preview.", "Download."],
+        limitsText: "Browser processing."
     },
     duplicateFinder: {
         toolName: "Duplicate Finder",
-        description: "Identify and remove duplicate rows from your Excel or CSV files instantly.",
-        useCases: [
-            "Cleaning mailing lists.",
-            "Removing redundant database entries.",
-            "Sanitizing survey responses.",
-            "Ensuring data uniqueness."
-        ],
-        steps: [
-            "Upload your data file.",
-            "See the count of unique vs duplicate rows.",
-            "Preview unique data.",
-            "Download the deduplicated file."
-        ],
-        limitsText: "Detects exact row matches. Limit of 5000 rows for browser performance."
+        description: "Remove duplicates from data.",
+        useCases: ["Mailing lists.", "Data hygiene.", "Uniqueness.", "Filtering."],
+        steps: ["Upload.", "Find dupes.", "Remove.", "Download."],
+        limitsText: "Exact match."
     },
     formulaExplainer: {
         toolName: "Excel Formula Explainer",
-        description: "Paste an Excel formula and get a simple English explanation of what it does.",
-        useCases: [
-            "Understanding inherited spreadsheets.",
-            "Debugging complex nested formulas.",
-            "Learning how Excel functions work.",
-            "Documenting spreadsheet logic."
-        ],
-        steps: [
-            "Paste your Excel formula.",
-            "Click 'Explain'.",
-            "Read the breakdown of the logic.",
-            "Use the knowledge to fix or improve it."
-        ],
-        limitsText: "Supports common logic, lookup, and math functions."
+        description: "Explain Excel formulas in English.",
+        useCases: ["Learning.", "Debugging.", "Documentation.", "Understanding."],
+        steps: ["Paste formula.", "Explain.", "Read.", "Understand."],
+        limitsText: "Common functions."
     },
 
-    // --- TIME TOOLS ---
-    timestampConverter: {
-        toolName: "Unix Timestamp Converter",
-        description: "Convert Unix timestamps to human-readable dates and vice versa.",
-        useCases: [
-            "Debugging server logs.",
-            "Setting database query timeframes.",
-            "converting API date formats.",
-            "Checking epoch times."
-        ],
-        steps: [
-            "Enter a timestamp or a date.",
-            "See the converted equivalent instantly.",
-            "Copy the result.",
-            "Switch formats if needed."
-        ],
-        limitsText: "Outputs standard ISO and local date formats."
-    },
-    cronExplainer: {
-        toolName: "Cron Expression Explainer",
-        description: "Translate cryptic cron schedule expressions into clear English sentences.",
-        useCases: [
-            "Verifying server job schedules.",
-            "Setting up automated tasks.",
-            "Debugging cron syntax errors.",
-            "Understanding legacy crontab entries."
-        ],
-        steps: [
-            "Enter your Cron expression (e.g. * * * * *).",
-            "Read the human-readable explanation.",
-            "Check expected run times.",
-            "Adjust expression as needed."
-        ],
-        limitsText: "Supports standard 5-part cron syntax."
-    },
-
-    // --- PLACEHOLDERS FOR OTHERS TO USE GENERIC ---
+    // --- GENERIC FALLBACK ---
     generic: {
         toolName: "Developer Tool",
-        description: "A useful utility for developers and professionals to simplify daily tasks.",
-        useCases: ["Simplifying complex tasks.", "Converting data formats.", "Debugging code.", "Improving productivity."],
-        steps: ["Input your data.", "Process with the tool.", "View the result.", "Copy or download output."],
-        limitsText: "Designed for speed and privacy."
+        description: "A useful utility for developers and professionals.",
+        useCases: ["Productivity.", "Conversion.", "Calculation.", "Automation."],
+        steps: ["Input data.", "Process.", "View result.", "Download/Copy."],
+        limitsText: "Private and secure."
     }
 };
 

@@ -19,6 +19,7 @@ const About = lazy(() => import('./pages/About').then(module => ({ default: modu
 const Contact = lazy(() => import('./pages/Contact').then(module => ({ default: module.Contact })));
 const Disclaimer = lazy(() => import('./pages/Disclaimer').then(module => ({ default: module.Disclaimer })));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })));
+const Documentation = lazy(() => import('./pages/Documentation').then(module => ({ default: module.Documentation })));
 
 // Tools
 const CompareText = lazy(() => import('./pages/CompareText').then(module => ({ default: module.CompareText })));
@@ -120,6 +121,18 @@ const HttpStatus = lazy(() => import('./pages/devtools/NetworkRefTools').then(mo
 
 // Security (Request 411)
 const HashGenerator = lazy(() => import('./pages/devtools/SecurityTools').then(module => ({ default: module.HashGenerator })));
+const JwtDecoder = lazy(() => import('./pages/devtools/JwtDecoder').then(module => ({ default: module.JwtDecoder })));
+const SshGenerator = lazy(() => import('./pages/devtools/SshGenerator').then(module => ({ default: module.SshGenerator })));
+const SqlRunner = lazy(() => import('./pages/data/SqlRunner').then(module => ({ default: module.SqlRunner })));
+// Financial & Wealth Tools
+const LoanCalculator = lazy(() => import('./pages/financial/LoanCalculator').then(module => ({ default: module.LoanCalculator })));
+const SipCalculator = lazy(() => import('./pages/financial/SipCalculator').then(module => ({ default: module.SipCalculator })));
+const FixedIncome = lazy(() => import('./pages/financial/FixedIncome').then(module => ({ default: module.FixedIncome })));
+const TaxPlanner = lazy(() => import('./pages/financial/TaxPlanner').then(module => ({ default: module.TaxPlanner })));
+const RetirementPlanner = lazy(() => import('./pages/financial/RetirementPlanner').then(module => ({ default: module.RetirementPlanner })));
+const InvestmentPlanner = lazy(() => import('./pages/financial/InvestmentPlanner').then(module => ({ default: module.InvestmentPlanner })));
+const InflationCalculator = lazy(() => import('./pages/financial/Inflation').then(module => ({ default: module.Inflation })));
+const NetWorth = lazy(() => import('./pages/financial/NetWorth').then(module => ({ default: module.NetWorth })));
 
 // Time & Schedule (Request 411)
 const TimezoneConverter = lazy(() => import('./pages/devtools/TimeTools').then(module => ({ default: module.TimezoneConverter })));
@@ -191,6 +204,27 @@ function App() {
                 <Route path="/hash-generator" element={<HashGenerator />} />
                 <Route path="/timezone-converter" element={<TimezoneConverter />} />
                 <Route path="/cron-explainer" element={<CronExplainer />} />
+                <Route path="/jwt-decoder" element={<JwtDecoder />} />
+                <Route path="/ssh-generator" element={<SshGenerator />} />
+                <Route path="/sql-runner" element={<SqlRunner />} />
+                <Route path="/loan-calculator" element={<LoanCalculator />} />
+
+                {/* Financial & Wealth Tools */}
+                <Route path="/sip-calculator" element={<SipCalculator />} />
+                <Route path="/fixed-income-calculator" element={<FixedIncome />} />
+                <Route path="/tax-planner" element={<TaxPlanner />} />
+                <Route path="/retirement-planner" element={<RetirementPlanner />} />
+                <Route path="/investment-planner" element={<InvestmentPlanner />} />
+                <Route path="/inflation-calculator" element={<InflationCalculator />} />
+                <Route path="/net-worth-tracker" element={<NetWorth />} />
+
+                {/* Legacy Redirects (Optional: handling old links if needed) */}
+                <Route path="/home-loan-emi" element={<Navigate to="/loan-calculator" replace />} />
+                <Route path="/loan-prepayment-calculator" element={<Navigate to="/loan-calculator" replace />} />
+                <Route path="/income-tax-calculator" element={<Navigate to="/tax-planner" replace />} />
+                <Route path="/fd-calculator" element={<Navigate to="/fixed-income-calculator" replace />} />
+                <Route path="/ppf-calculator" element={<Navigate to="/fixed-income-calculator" replace />} />
+                <Route path="/retirement-calculator" element={<Navigate to="/retirement-planner" replace />} />
 
 
                 {/* DevOps Tools */}
@@ -260,6 +294,8 @@ function App() {
                 <Route path="/pdf-to-zip" element={<PdfToOther mode="zip" />} />
 
                 <Route path="/text-to-pdf" element={<TextToPdf />} />
+
+                <Route path="/documentation" element={<Documentation />} />
 
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>

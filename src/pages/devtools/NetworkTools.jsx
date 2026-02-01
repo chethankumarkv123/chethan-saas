@@ -1,3 +1,4 @@
+
 import { useState, useMemo } from 'react';
 import { DevToolLayout } from '../../components/DevToolLayout';
 import { toast } from '../../components/Toast';
@@ -80,33 +81,26 @@ function getIpClass(ipLong) {
 }
 
 function getIpType(ipLong) {
-    // Private ranges:
-    // 10.0.0.0/8     -> 167772160 to 184549375
-    // 172.16.0.0/12  -> 2886729728 to 2887778303
-    // 192.168.0.0/16 -> 3232235520 to 3232301055
-    // 127.0.0.0/8 (Loopback) -> 2130706432 to 2147483647
-
-    // Unsigned conversion for safe comparison
     const unsigned = ipLong >>> 0;
-
+    // Private ranges
     if ((unsigned >= 167772160 && unsigned <= 184549375) ||
         (unsigned >= 2886729728 && unsigned <= 2887778303) ||
         (unsigned >= 3232235520 && unsigned <= 3232301055)) {
         return 'Private';
     }
+    // Loopback
     if (unsigned >= 2130706432 && unsigned <= 2147483647) return 'Loopback';
-
     return 'Public';
 }
 
-const ResultRow = ({ label, value, sub }) => (
+const ResultRow = ({ label, value, sub, font = "font-bold text-lg" }) => (
     <div className="flex justify-between items-start py-3 border-b border-gray-100 dark:border-slate-700 last:border-0">
-        <div>
+        <div className="flex flex-col">
             <span className="text-gray-500 dark:text-gray-400 font-bold text-xs uppercase tracking-wider block pt-1">{label}</span>
-            {sub && <span className="text-xs text-gray-400 font-medium">{sub}</span>}
+            {sub && <span className="text-xs text-gray-400 font-medium mt-0.5">{sub}</span>}
         </div>
         <div className="flex items-center gap-3">
-            <span className="font-mono font-bold text-lg text-gray-800 dark:text-gray-100 break-all text-right">{value}</span>
+            <span className={`font-mono ${font} text-gray-800 dark:text-gray-100 break-all text-right`}>{value}</span>
             <button
                 onClick={() => {
                     navigator.clipboard.writeText(value);
@@ -142,8 +136,15 @@ export function IpSubnetCalculator() {
                         start: parts[0],
                         end: parts[1],
                         total,
-                        // Rough logic to guess equivalent CIDR if aligned?
-                        // For now just basic range logic as requested.
+                        network: parts[0], // fallback
+                        mask: '255.255.255.255',
+                        cidr: 32,
+                        total: total,
+                        usable: total,
+                        first: parts[0],
+                        last: parts[1],
+                        ipClass: getIpClass(s),
+                        ipType: getIpType(s)
                     };
                 }
             }
@@ -169,17 +170,23 @@ export function IpSubnetCalculator() {
 
     }, [input]);
 
+    const getTypeColor = (type) => {
+        if (type === 'Private') return 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 border-amber-200 dark:border-amber-800';
+        if (type === 'Loopback') return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-700';
+        return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800';
+    };
+
     return (
         <DevToolLayout featureKey="ipSubnetCalculator">
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-3xl mx-auto pb-12">
                 {/* Input */}
-                <div className="bg-white dark:bg-slate-800 p-1 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm mb-8">
+                <div className="bg-white dark:bg-slate-800 p-1 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm mb-8 transition-shadow focus-within:ring-2 ring-blue-500/20">
                     <input
                         type="text"
                         value={input}
                         onChange={e => setInput(e.target.value)}
-                        placeholder="192.168.1.1/24  OR  10.0.0.1 255.0.0.0  OR  1.1.1.1 - 1.1.1.5"
-                        className="w-full p-4 bg-transparent font-mono text-lg outline-none text-center font-bold text-gray-800 dark:text-white placeholder:font-normal placeholder:text-gray-300 dark:placeholder:text-slate-600"
+                        placeholder="192.168.1.1/24  OR  10.0.0.1 255.0.0.0"
+                        className="w-full p-4 bg-transparent font-mono text-xl outline-none text-center font-bold text-gray-800 dark:text-white placeholder:font-normal placeholder:text-gray-300 dark:placeholder:text-slate-600"
                         autoFocus
                     />
                 </div>
@@ -187,58 +194,63 @@ export function IpSubnetCalculator() {
                 {data ? (
                     <div className="space-y-6 animate-fade-in-up">
 
-                        {/* SECTION 1: SUMMARY */}
-                        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
-                            <div className="bg-blue-50 dark:bg-blue-900/20 px-6 py-4 border-b border-blue-100 dark:border-blue-900/30 flex justify-between items-center">
-                                <h3 className="text-blue-800 dark:text-blue-300 font-bold text-lg">Subnet Summary</h3>
-                                {data.cidr && <span className="font-mono text-sm bg-white dark:bg-slate-900 px-3 py-1 rounded-full text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900">/{data.cidr}</span>}
+                        {/* SECTION 1: HEADER & TYPE */}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <span className={`px-4 py-1.5 rounded-full text-sm font-bold border ${getTypeColor(data.ipType)}`}>
+                                    {data.ipType} Network
+                                </span>
+                                <span className="px-3 py-1.5 rounded-full text-sm font-mono font-bold bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
+                                    Class {data.ipClass.split(' ')[0]}
+                                </span>
                             </div>
-                            <div className="p-6 space-y-1">
-                                <ResultRow label="Network Address" value={data.network} />
-                                <ResultRow label="Subnet Mask" value={data.mask} />
-                                <ResultRow label="CIDR" value={`/${data.cidr}`} />
-                                <ResultRow label="Total IPs" value={data.total.toLocaleString()} />
-                                <ResultRow label="Usable IPs" value={data.usable.toLocaleString()} />
-                            </div>
+                            {data.cidr && <span className="font-mono text-2xl font-bold text-gray-400">/{data.cidr}</span>}
                         </div>
 
-                        {/* SECTION 2: USABLE RANGE */}
-                        {data.usable > 0 && (
-                            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
-                                <div className="px-6 py-4 border-b border-gray-100 dark:border-slate-700">
-                                    <h3 className="text-gray-800 dark:text-gray-200 font-bold text-lg">Usable IP Range</h3>
-                                    <p className="text-xs text-gray-400 mt-1">IPs that can be assigned to devices</p>
+                        {/* SECTION 2: MAIN GRID */}
+                        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
+                            <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x border-gray-100 dark:border-slate-700">
+                                <div className="p-6 space-y-2">
+                                    <ResultRow label="Network Address" value={data.network} />
+                                    <ResultRow label="Subnet Mask" value={data.mask} />
                                 </div>
-                                <div className="p-6">
+                                <div className="p-6 space-y-2">
                                     <ResultRow label="First Usable IP" value={data.first} />
                                     <ResultRow label="Last Usable IP" value={data.last} />
                                 </div>
                             </div>
-                        )}
+                            <div className="bg-gray-50 dark:bg-slate-900/50 p-6 border-t border-gray-100 dark:border-slate-700 flex justify-between items-center">
+                                <div>
+                                    <div className="text-xs font-bold text-gray-400 uppercase">Total Hosts</div>
+                                    <div className="text-xl font-mono font-bold text-gray-700 dark:text-gray-300">{data.total.toLocaleString()}</div>
+                                </div>
+                                <div className="text-right">
+                                    <div className="text-xs font-bold text-gray-400 uppercase">Usable Hosts</div>
+                                    <div className="text-xl font-mono font-bold text-green-600 dark:text-green-400">{data.usable.toLocaleString()}</div>
+                                </div>
+                            </div>
+                        </div>
 
                         {/* SECTION 3: ADVANCED DETAILS (COLLAPSIBLE) */}
                         <details className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden group">
-                            <summary className="px-6 py-4 cursor-pointer flex justify-between items-center hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
-                                <h3 className="text-gray-600 dark:text-gray-300 font-bold text-lg select-none">Advanced Network Details</h3>
-                                <div className="text-blue-500 transform transition-transform group-open:rotate-180">
+                            <summary className="px-6 py-4 cursor-pointer flex justify-between items-center hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors list-none">
+                                <h3 className="text-gray-600 dark:text-gray-300 font-bold text-sm uppercase tracking-wide">Advanced Details</h3>
+                                <div className="text-gray-400 transform transition-transform group-open:rotate-180">
                                     <i className="fa-solid fa-chevron-down"></i>
                                 </div>
                             </summary>
                             <div className="p-6 border-t border-gray-100 dark:border-slate-700 space-y-1 bg-gray-50/50 dark:bg-slate-900/20">
                                 <ResultRow label="Broadcast Address" value={data.broadcast} />
-                                <ResultRow label="Wildcard Mask (ACL)" value={longToIp(~ipToLong(data.mask) & 0xFFFFFFFF)} />
-                                <ResultRow label="Address Class" value={data.ipClass} />
-                                <ResultRow label="Network Type" value={data.ipType} />
-                                <ResultRow label="Binary Subnet Mask" value={data.binaryMask} font="text-xs" />
+                                <ResultRow label="Wildcard Mask" value={longToIp(~ipToLong(data.mask) & 0xFFFFFFFF)} />
+                                <ResultRow label="Binary Mask" value={data.binaryMask} font="text-sm" />
+                                <ResultRow label="Integer ID" value={ipToLong(data.network)} font="text-sm" />
                             </div>
                         </details>
-
                     </div>
                 ) : (
                     input && (
-                        <div className="text-center py-12 opacity-50">
-                            <i className="fa-solid fa-circle-question text-4xl mb-4 text-gray-300"></i>
-                            <p className="text-gray-400">Enter a valid IP, CIDR, or Range to see details.</p>
+                        <div className="text-center py-12 opacity-50 animate-pulse">
+                            <p className="text-gray-400">Typing...</p>
                         </div>
                     )
                 )}
@@ -254,7 +266,7 @@ export function IpSubnetCalculator() {
                             <div className="font-mono text-sm text-gray-600 dark:text-gray-400">10.0.0.1 255.0.0.0</div>
                         </div>
                         <div className="p-4">
-                            <div className="text-xs font-bold text-gray-400 uppercase mb-2">IP Range</div>
+                            <div className="text-xs font-bold text-gray-400 uppercase mb-2">IP Ranges</div>
                             <div className="font-mono text-sm text-gray-600 dark:text-gray-400">10.1.1.5 - 10.1.1.20</div>
                         </div>
                     </div>
@@ -264,15 +276,11 @@ export function IpSubnetCalculator() {
     );
 }
 
-// Keep old exports so we don't break App.jsx imports before update
-// But these can now be just placeholders or removed if we update App.jsx immediately
+// Keep old exports so we don't break App.jsx imports
 export function IpCalculator() { return null; }
 export function SubnetCalculator() { return null; }
 export function UsableIpCalc() { return null; }
 export function IpRangeCalc() { return null; }
-
-// Restore CidrOverlap functionality independently
-function getCidrData(input) { return calculateCidrData(input.split('/')[0], input.split('/')[1] || 32); }
 
 const IpInput = ({ value, onChange, placeholder, label }) => (
     <div>

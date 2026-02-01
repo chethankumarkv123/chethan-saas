@@ -15,7 +15,7 @@ import { FEATURES } from '../config/FEATURE_CONFIG';
 import * as pdfjsLib from 'pdfjs-dist';
 
 // Worker setup
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
 
 export function PdfToOther({ mode }) { // json, text, html, zip
     const featureName = mode === 'text' ? 'pdfToText' :
@@ -154,7 +154,7 @@ export function PdfToOther({ mode }) { // json, text, html, zip
 
                 <RelatedTools toolKeys={feature.related} />
 
-                <SeoContent feature={feature} />
+                <SeoContent featureKey={featureName} />
             </div>
         </div>
     );

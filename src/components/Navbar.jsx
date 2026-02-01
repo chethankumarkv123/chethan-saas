@@ -40,7 +40,7 @@ export function Navbar() {
                 <div className="flex justify-between h-20 items-center">
                     {/* Logo & Privacy Badge */}
                     <div className="flex items-center gap-6">
-                        <Link to="/" className="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
+                        <Link to="/" className="flex-shrink-0 flex items-center gap-1 cursor-pointer group">
                             <img
                                 src="/logo.png"
                                 alt="EasyConvert"
@@ -61,6 +61,7 @@ export function Navbar() {
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center space-x-8">
                         <a href="/#tools" className={navLinkClass('/#tools')}>Tools</a>
+                        <Link to="/documentation" className={navLinkClass('/documentation')}>Services</Link>
                         <Link to="/about" className={navLinkClass('/about')}>About</Link>
                         <Link to="/contact" className={navLinkClass('/contact')}>Contact</Link>
 
@@ -102,6 +103,7 @@ export function Navbar() {
                 <div className="md:hidden bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800 absolute w-full shadow-xl">
                     <div className="px-4 pt-2 pb-6 space-y-2">
                         <a href="/#tools" className="block px-3 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-slate-800/50">All Tools</a>
+                        <Link to="/documentation" className="block px-3 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-slate-800/50">Services</Link>
                         <Link to="/about" className="block px-3 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-slate-800/50">About Us</Link>
                         <Link to="/contact" className="block px-3 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-slate-800/50">Contact</Link>
                         <div className="px-3 py-3 flex items-center gap-2">

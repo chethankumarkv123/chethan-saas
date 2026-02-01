@@ -132,16 +132,11 @@ export function CommaSeparator() {
                     {/* Main Split View */}
                     <div className="flex-grow grid md:grid-cols-2 gap-3 md:gap-4 min-h-0 mb-3 md:mb-4">
                         {/* Input */}
-                        <div className="flex flex-col bg-white dark:bg-slate-800 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 h-[45vh] md:h-full overflow-hidden">
-                            <div className="p-2.5 md:p-3 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-gray-50 dark:bg-slate-900/50 shrink-0">
-                                <h3 className="font-bold text-xs uppercase tracking-wide text-gray-500">Input Data</h3>
-                                <div className="flex gap-1">
-                                    <button
-                                        onClick={() => setInput('')}
-                                        className="text-xs text-red-500 hover:text-red-600 font-medium px-2.5 py-1.5 rounded hover:bg-red-50 dark:hover:bg-red-900/20 min-h-[36px]"
-                                    >
-                                        Clear
-                                    </button>
+
+                        <div className="flex flex-col bg-slate-800 rounded-2xl shadow-lg border border-slate-700 h-[40vh] md:h-[450px] overflow-hidden relative group transition-all hover:border-slate-600">
+                            <div className="px-4 py-3 border-b border-slate-700 flex justify-between items-center bg-slate-900/50 shrink-0">
+                                <h3 className="text-sm font-bold tracking-wider text-slate-200 pl-1">INPUT DATA</h3>
+                                <div className="flex items-center gap-2">
                                     <button
                                         onClick={async () => {
                                             try {
@@ -150,37 +145,75 @@ export function CommaSeparator() {
                                                 toast.success("Pasted!");
                                             } catch (e) { toast.error("Clipboard permission denied"); }
                                         }}
-                                        className="text-xs text-blue-500 hover:text-blue-600 font-medium px-2.5 py-1.5 rounded hover:bg-blue-50 dark:hover:bg-blue-900/20 min-h-[36px]"
+                                        className="text-xs text-slate-400 hover:text-white font-medium px-3 py-1.5 rounded-lg hover:bg-slate-700 transition-colors"
                                     >
+                                        <i className="fa-regular fa-paste mr-1.5"></i>
                                         Paste
+                                    </button>
+                                    <div className="w-px h-4 bg-slate-700"></div>
+                                    <button
+                                        onClick={() => setInput('')}
+                                        className="text-xs text-red-400 hover:text-red-300 font-medium px-3 py-1.5 rounded-lg hover:bg-red-900/20 transition-colors"
+                                    >
+                                        Clear
                                     </button>
                                 </div>
                             </div>
-                            <textarea
-                                className="flex-grow p-3 md:p-4 resize-none outline-none dark:bg-slate-800 dark:text-gray-200 text-base md:text-sm font-google-sans leading-relaxed"
-                                placeholder="Paste values here (one per line)"
-                                value={input}
-                                onChange={(e) => setInput(e.target.value)}
-                            ></textarea>
+                            <div className="relative flex-grow">
+                                <textarea
+                                    className="w-full h-full p-5 resize-none outline-none bg-transparent text-slate-300 text-sm font-mono leading-relaxed placeholder:text-slate-600"
+                                    placeholder={`Paste values here (one per line)\n\nExample:\napple\nbanana\norange`}
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    spellCheck={false}
+                                ></textarea>
+
+                                {/* Primary CTA in Input Panel */}
+                                <div className="absolute bottom-4 right-4 z-10">
+                                    <button
+                                        onClick={convert}
+                                        className="px-6 py-2.5 bg-green-600 hover:bg-green-500 text-white font-bold rounded-xl shadow-lg hover:shadow-green-900/30 transition-all active:scale-95 flex items-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                        disabled={!input}
+                                    >
+                                        <i className="fa-solid fa-arrow-right-long"></i>
+                                        Convert
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
                         {/* Output */}
-                        <div ref={resultRef} className={`flex-col bg-white dark:bg-slate-800 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 h-[45vh] md:h-full overflow-hidden ${!hasConverted ? 'hidden md:flex' : 'flex animate-fade-in-up'}`}>
-                            <div className="p-2.5 md:p-3 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-green-50 dark:bg-green-900/10 shrink-0">
-                                <h3 className="font-bold text-xs uppercase tracking-wide text-green-700 dark:text-green-400">Result</h3>
+
+                        <div ref={resultRef} className={`flex flex-col bg-slate-800 rounded-2xl shadow-lg border border-slate-700 h-[40vh] md:h-[450px] overflow-hidden relative transition-all ${hasConverted ? 'border-green-500/30 shadow-[0_0_30px_-10px_rgba(34,197,94,0.15)]' : ''}`}>
+                            <div className="px-4 py-3 border-b border-slate-700 flex justify-between items-center bg-slate-900/50 shrink-0">
+                                <h3 className="text-sm font-bold tracking-wider text-green-400 pl-1">RESULT</h3>
                                 <button
-                                    onClick={() => { navigator.clipboard.writeText(output); toast.success("Copied!"); }}
-                                    className="text-xs bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 font-bold px-3 py-1.5 rounded-lg shadow-sm border border-gray-100 dark:border-slate-700 min-h-[36px]"
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(output);
+                                        toast.success("Copied ✓");
+                                    }}
+                                    disabled={!output}
+                                    className="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-bold px-3 py-1.5 rounded-lg border border-slate-600 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2"
                                 >
-                                    <i className="fa-regular fa-copy mr-1"></i> Copy
+                                    <i className="fa-regular fa-copy"></i> Copy
                                 </button>
                             </div>
-                            <textarea
-                                className="flex-grow p-3 md:p-4 resize-none outline-none dark:bg-slate-800 dark:text-gray-200 bg-gray-50/30 text-base md:text-sm font-google-sans leading-relaxed"
-                                placeholder="Result will appear here..."
-                                readOnly
-                                value={output}
-                            ></textarea>
+
+                            <div className="relative flex-grow bg-slate-900/30">
+                                {output ? (
+                                    <textarea
+                                        className="w-full h-full p-5 resize-none outline-none bg-transparent text-green-300 text-sm font-mono leading-relaxed"
+                                        readOnly
+                                        value={output}
+                                        onClick={(e) => e.target.select()}
+                                    ></textarea>
+                                ) : (
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-600 select-none pointer-events-none">
+                                        <i className="fa-solid fa-arrow-right-arrow-left text-3xl mb-3 opacity-20"></i>
+                                        <p className="text-sm font-medium">Converted values will appear here</p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
 
@@ -189,17 +222,21 @@ export function CommaSeparator() {
                         <div className="flex items-center gap-6">
                             <div className="flex items-center gap-3">
                                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.15em]">Delimiter</span>
-                                <select
-                                    className="bg-slate-800 dark:bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-blue-500/50 transition-all cursor-pointer hover:border-slate-600 font-medium min-w-[140px]"
-                                    value={settings.delimiter}
-                                    onChange={handleDelimiterChange}
-                                >
-                                    <option value=",">Comma (,)</option>
-                                    <option value=";">Semicolon (;)</option>
-                                    <option value="|">Pipe (|)</option>
-                                    <option value=" ">Space</option>
-                                    <option value="\n">New Line</option>
-                                </select>
+                                <div className="flex gap-1 bg-slate-800 dark:bg-slate-900/50 p-1 rounded-xl border border-slate-700">
+                                    {QUICK_DELIMITERS.map(d => (
+                                        <button
+                                            key={d.value}
+                                            onClick={() => setSettings(s => ({ ...s, delimiter: d.value }))}
+                                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${settings.delimiter === d.value
+                                                ? 'bg-blue-600 text-white shadow-sm'
+                                                : 'text-slate-400 hover:text-white hover:bg-slate-700'
+                                                }`}
+                                            title={d.label}
+                                        >
+                                            {d.value === ' ' ? 'SPC' : d.value === '\n' ? '↵' : d.value}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
 
                             <div className="h-6 w-px bg-slate-700/50"></div>
@@ -223,14 +260,8 @@ export function CommaSeparator() {
                             </div>
                         </div>
 
-                        <button
-                            onClick={convert}
-                            className="px-10 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black rounded-xl shadow-[0_4px_20px_rgba(37,99,235,0.3)] hover:shadow-[0_6px_25px_rgba(37,99,235,0.4)] transition-all active:scale-[0.97] flex items-center gap-3 text-sm"
-                        >
-                            <i className="fa-solid fa-bolt-lightning text-yellow-400"></i>
-                            CONVERT NOW
-                        </button>
                     </div>
+
 
                     {/* Mobile Sticky Action Bar */}
                     <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-slate-900 border-t border-slate-800 z-40 safe-area-bottom flex flex-col gap-4 shadow-[0_-8px_20px_-4px_rgba(0,0,0,0.3)]">
@@ -296,152 +327,154 @@ export function CommaSeparator() {
             <div className="max-w-6xl mx-auto px-4 mt-8 pb-20 md:pb-0">
                 <TrustBar />
                 <RelatedTools toolKeys={feature.related} />
-                <SeoContent feature={feature} />
+                <SeoContent featureKey="commaSeparator" />
             </div>
 
             {/* Settings Modal (Bottom Sheet on Mobile) */}
-            {isSettingsOpen && (
-                <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-                    <div className="bg-white dark:bg-slate-800 w-full md:max-w-3xl rounded-t-3xl md:rounded-2xl shadow-2xl overflow-hidden animate-slide-up md:animate-scale-up max-h-[85vh] flex flex-col">
-                        <div className="flex justify-between items-center px-6 py-5 border-b border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shrink-0">
-                            <h2 className="text-xl font-medium text-[#008eb0] dark:text-sky-400 flex items-center gap-3">
-                                <i className="fa-solid fa-gear"></i> Converter Settings
-                            </h2>
-                            <button onClick={() => setIsSettingsOpen(false)} className="text-gray-400 hover:text-gray-600 transition p-2">
-                                <i className="fa-solid fa-times text-xl"></i>
-                            </button>
-                        </div>
+            {
+                isSettingsOpen && (
+                    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+                        <div className="bg-white dark:bg-slate-800 w-full md:max-w-3xl rounded-t-3xl md:rounded-2xl shadow-2xl overflow-hidden animate-slide-up md:animate-scale-up max-h-[85vh] flex flex-col">
+                            <div className="flex justify-between items-center px-6 py-5 border-b border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800 shrink-0">
+                                <h2 className="text-xl font-medium text-[#008eb0] dark:text-sky-400 flex items-center gap-3">
+                                    <i className="fa-solid fa-gear"></i> Converter Settings
+                                </h2>
+                                <button onClick={() => setIsSettingsOpen(false)} className="text-gray-400 hover:text-gray-600 transition p-2">
+                                    <i className="fa-solid fa-times text-xl"></i>
+                                </button>
+                            </div>
 
-                        <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto">
-                            {/* LEFT COLUMN */}
-                            <div className="space-y-5">
-                                {/* Tidy Up */}
-                                <div>
-                                    <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
-                                        Tidy Up <span className="font-normal text-gray-400 text-xs ml-1">Remove new lines?</span>
-                                    </label>
-                                    <div className="flex gap-2 p-1 bg-gray-100 dark:bg-slate-900/50 rounded-xl">
-                                        <button onClick={() => setSettings(s => ({ ...s, tidy: true }))} className={`flex-1 py-2 rounded-lg font-bold text-xs transition ${settings.tidy ? 'bg-white shadow text-blue-600 dark:bg-slate-700 dark:text-white' : 'text-gray-500 hover:text-gray-700'}`}>Yes</button>
-                                        <button onClick={() => setSettings(s => ({ ...s, tidy: false }))} className={`flex-1 py-2 rounded-lg font-bold text-xs transition ${!settings.tidy ? 'bg-white shadow text-blue-600 dark:bg-slate-700 dark:text-white' : 'text-gray-500 hover:text-gray-700'}`}>No</button>
+                            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-y-auto">
+                                {/* LEFT COLUMN */}
+                                <div className="space-y-5">
+                                    {/* Tidy Up */}
+                                    <div>
+                                        <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
+                                            Tidy Up <span className="font-normal text-gray-400 text-xs ml-1">Remove new lines?</span>
+                                        </label>
+                                        <div className="flex gap-2 p-1 bg-gray-100 dark:bg-slate-900/50 rounded-xl">
+                                            <button onClick={() => setSettings(s => ({ ...s, tidy: true }))} className={`flex-1 py-2 rounded-lg font-bold text-xs transition ${settings.tidy ? 'bg-white shadow text-blue-600 dark:bg-slate-700 dark:text-white' : 'text-gray-500 hover:text-gray-700'}`}>Yes</button>
+                                            <button onClick={() => setSettings(s => ({ ...s, tidy: false }))} className={`flex-1 py-2 rounded-lg font-bold text-xs transition ${!settings.tidy ? 'bg-white shadow text-blue-600 dark:bg-slate-700 dark:text-white' : 'text-gray-500 hover:text-gray-700'}`}>No</button>
+                                        </div>
+                                    </div>
+
+                                    {/* Attack the clones */}
+                                    <div>
+                                        <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
+                                            Attack the clones <span className="font-normal text-gray-400 text-xs ml-1">Remove duplicates</span>
+                                        </label>
+                                        <div className="flex gap-2 p-1 bg-gray-100 dark:bg-slate-900/50 rounded-xl">
+                                            <button onClick={() => setSettings(s => ({ ...s, dedup: true }))} className={`flex-1 py-2 rounded-lg font-bold text-xs transition ${settings.dedup ? 'bg-white shadow text-blue-600 dark:bg-slate-700 dark:text-white' : 'text-gray-500 hover:text-gray-700'}`}>Yes</button>
+                                            <button onClick={() => setSettings(s => ({ ...s, dedup: false }))} className={`flex-1 py-2 rounded-lg font-bold text-xs transition ${!settings.dedup ? 'bg-white shadow text-blue-600 dark:bg-slate-700 dark:text-white' : 'text-gray-500 hover:text-gray-700'}`}>No</button>
+                                        </div>
+                                    </div>
+
+                                    {/* Explode */}
+                                    <div>
+                                        <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
+                                            Explode <span className="font-normal text-gray-400 text-xs ml-1">Split records by</span>
+                                        </label>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            {['newlines', 'spaces', 'commas', 'semicolons'].map(opt => (
+                                                <button
+                                                    key={opt}
+                                                    onClick={() => setSettings(s => ({ ...s, explode: opt }))}
+                                                    className={`py-2 rounded-lg font-bold text-xs capitalize transition border ${settings.explode === opt ? 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/30 dark:border-blue-800 dark:text-blue-300' : 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-400'}`}
+                                                >
+                                                    {opt.replace('newlines', 'New Lines')}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Quotes */}
+                                    <div>
+                                        <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
+                                            Quotes <span className="font-normal text-gray-400 text-xs ml-1">Add quotes</span>
+                                        </label>
+                                        <div className="flex gap-2">
+                                            {['none', 'double', 'single'].map(opt => (
+                                                <button
+                                                    key={opt}
+                                                    onClick={() => setSettings(s => ({ ...s, quotes: opt }))}
+                                                    className={`flex-1 py-2 rounded-lg font-bold text-xs capitalize transition border ${settings.quotes === opt ? 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/30 dark:border-blue-800 dark:text-blue-300' : 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-400'}`}
+                                                >
+                                                    {opt === 'none' ? 'No' : opt}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
 
-                                {/* Attack the clones */}
-                                <div>
-                                    <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
-                                        Attack the clones <span className="font-normal text-gray-400 text-xs ml-1">Remove duplicates</span>
-                                    </label>
-                                    <div className="flex gap-2 p-1 bg-gray-100 dark:bg-slate-900/50 rounded-xl">
-                                        <button onClick={() => setSettings(s => ({ ...s, dedup: true }))} className={`flex-1 py-2 rounded-lg font-bold text-xs transition ${settings.dedup ? 'bg-white shadow text-blue-600 dark:bg-slate-700 dark:text-white' : 'text-gray-500 hover:text-gray-700'}`}>Yes</button>
-                                        <button onClick={() => setSettings(s => ({ ...s, dedup: false }))} className={`flex-1 py-2 rounded-lg font-bold text-xs transition ${!settings.dedup ? 'bg-white shadow text-blue-600 dark:bg-slate-700 dark:text-white' : 'text-gray-500 hover:text-gray-700'}`}>No</button>
+                                {/* RIGHT COLUMN */}
+                                <div className="space-y-5">
+                                    {/* Delimiter */}
+                                    <div>
+                                        <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
+                                            Delimiter <span className="font-normal text-gray-400 text-xs ml-1">Separator char</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="w-full p-3 border border-gray-200 rounded-xl text-base dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition"
+                                            value={settings.delimiter}
+                                            onChange={(e) => setSettings(s => ({ ...s, delimiter: e.target.value }))}
+                                        />
+                                        <div className="flex gap-2 mt-2">
+                                            {[',', ';', '|', ' '].map(char => (
+                                                <button key={char} onClick={() => setSettings(s => ({ ...s, delimiter: char }))} className="px-3 py-1 bg-gray-100 dark:bg-slate-700 rounded text-xs font-mono hover:bg-gray-200">{char === ' ' ? 'Space' : char}</button>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Explode */}
-                                <div>
-                                    <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
-                                        Explode <span className="font-normal text-gray-400 text-xs ml-1">Split records by</span>
-                                    </label>
-                                    <div className="grid grid-cols-2 gap-2">
-                                        {['newlines', 'spaces', 'commas', 'semicolons'].map(opt => (
-                                            <button
-                                                key={opt}
-                                                onClick={() => setSettings(s => ({ ...s, explode: opt }))}
-                                                className={`py-2 rounded-lg font-bold text-xs capitalize transition border ${settings.explode === opt ? 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/30 dark:border-blue-800 dark:text-blue-300' : 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-400'}`}
-                                            >
-                                                {opt.replace('newlines', 'New Lines')}
-                                            </button>
-                                        ))}
+                                    {/* Tags */}
+                                    <div>
+                                        <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
+                                            Tags <span className="font-normal text-gray-400 text-xs ml-1">Wrap records (e.g. &lt;li&gt;)</span>
+                                        </label>
+                                        <div className="flex gap-2">
+                                            <input placeholder="Prefix (e.g. <li>)" className="w-1/2 p-3 border border-gray-200 rounded-xl text-sm dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition" value={settings.tags.open} onChange={e => setSettings(s => ({ ...s, tags: { ...s.tags, open: e.target.value } }))} />
+                                            <input placeholder="Suffix" className="w-1/2 p-3 border border-gray-200 rounded-xl text-sm dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition" value={settings.tags.close} onChange={e => setSettings(s => ({ ...s, tags: { ...s.tags, close: e.target.value } }))} />
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Quotes */}
-                                <div>
-                                    <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
-                                        Quotes <span className="font-normal text-gray-400 text-xs ml-1">Add quotes</span>
-                                    </label>
-                                    <div className="flex gap-2">
-                                        {['none', 'double', 'single'].map(opt => (
-                                            <button
-                                                key={opt}
-                                                onClick={() => setSettings(s => ({ ...s, quotes: opt }))}
-                                                className={`flex-1 py-2 rounded-lg font-bold text-xs capitalize transition border ${settings.quotes === opt ? 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/30 dark:border-blue-800 dark:text-blue-300' : 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-400'}`}
-                                            >
-                                                {opt === 'none' ? 'No' : opt}
-                                            </button>
-                                        ))}
+                                    {/* Interval */}
+                                    <div>
+                                        <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
+                                            Interval <span className="font-normal text-gray-400 text-xs ml-1">New line after X items</span>
+                                        </label>
+                                        <input
+                                            type="number"
+                                            className="w-full p-3 border border-gray-200 rounded-xl text-sm dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition"
+                                            value={settings.interval}
+                                            onChange={(e) => setSettings(s => ({ ...s, interval: e.target.value }))}
+                                        />
+                                    </div>
+
+                                    {/* Interval Wrap */}
+                                    <div>
+                                        <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
+                                            Interval Wrap <span className="font-normal text-gray-400 text-xs ml-1">Wrap interval chunks</span>
+                                        </label>
+                                        <div className="flex gap-2">
+                                            <input placeholder="Open" className="w-1/2 p-3 border border-gray-200 rounded-xl text-sm dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition" value={settings.intervalWrap.open} onChange={e => setSettings(s => ({ ...s, intervalWrap: { ...s.intervalWrap, open: e.target.value } }))} />
+                                            <input placeholder="Close" className="w-1/2 p-3 border border-gray-200 rounded-xl text-sm dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition" value={settings.intervalWrap.close} onChange={e => setSettings(s => ({ ...s, intervalWrap: { ...s.intervalWrap, close: e.target.value } }))} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* RIGHT COLUMN */}
-                            <div className="space-y-5">
-                                {/* Delimiter */}
-                                <div>
-                                    <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
-                                        Delimiter <span className="font-normal text-gray-400 text-xs ml-1">Separator char</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className="w-full p-3 border border-gray-200 rounded-xl text-base dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition"
-                                        value={settings.delimiter}
-                                        onChange={(e) => setSettings(s => ({ ...s, delimiter: e.target.value }))}
-                                    />
-                                    <div className="flex gap-2 mt-2">
-                                        {[',', ';', '|', ' '].map(char => (
-                                            <button key={char} onClick={() => setSettings(s => ({ ...s, delimiter: char }))} className="px-3 py-1 bg-gray-100 dark:bg-slate-700 rounded text-xs font-mono hover:bg-gray-200">{char === ' ' ? 'Space' : char}</button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Tags */}
-                                <div>
-                                    <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
-                                        Tags <span className="font-normal text-gray-400 text-xs ml-1">Wrap records (e.g. &lt;li&gt;)</span>
-                                    </label>
-                                    <div className="flex gap-2">
-                                        <input placeholder="Prefix (e.g. <li>)" className="w-1/2 p-3 border border-gray-200 rounded-xl text-sm dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition" value={settings.tags.open} onChange={e => setSettings(s => ({ ...s, tags: { ...s.tags, open: e.target.value } }))} />
-                                        <input placeholder="Suffix" className="w-1/2 p-3 border border-gray-200 rounded-xl text-sm dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition" value={settings.tags.close} onChange={e => setSettings(s => ({ ...s, tags: { ...s.tags, close: e.target.value } }))} />
-                                    </div>
-                                </div>
-
-                                {/* Interval */}
-                                <div>
-                                    <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
-                                        Interval <span className="font-normal text-gray-400 text-xs ml-1">New line after X items</span>
-                                    </label>
-                                    <input
-                                        type="number"
-                                        className="w-full p-3 border border-gray-200 rounded-xl text-sm dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition"
-                                        value={settings.interval}
-                                        onChange={(e) => setSettings(s => ({ ...s, interval: e.target.value }))}
-                                    />
-                                </div>
-
-                                {/* Interval Wrap */}
-                                <div>
-                                    <label className="block font-bold text-sm text-gray-700 dark:text-gray-200 mb-2">
-                                        Interval Wrap <span className="font-normal text-gray-400 text-xs ml-1">Wrap interval chunks</span>
-                                    </label>
-                                    <div className="flex gap-2">
-                                        <input placeholder="Open" className="w-1/2 p-3 border border-gray-200 rounded-xl text-sm dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition" value={settings.intervalWrap.open} onChange={e => setSettings(s => ({ ...s, intervalWrap: { ...s.intervalWrap, open: e.target.value } }))} />
-                                        <input placeholder="Close" className="w-1/2 p-3 border border-gray-200 rounded-xl text-sm dark:bg-slate-900 dark:border-slate-600 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition" value={settings.intervalWrap.close} onChange={e => setSettings(s => ({ ...s, intervalWrap: { ...s.intervalWrap, close: e.target.value } }))} />
-                                    </div>
-                                </div>
+                            <div className="px-6 py-4 border-t border-gray-100 dark:border-slate-700 flex justify-end bg-gray-50/50 dark:bg-slate-900/20 shrink-0 safe-area-bottom">
+                                <button
+                                    onClick={() => setIsSettingsOpen(false)}
+                                    className="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transition-transform active:scale-95 text-base"
+                                >
+                                    Done
+                                </button>
                             </div>
-                        </div>
-
-                        <div className="px-6 py-4 border-t border-gray-100 dark:border-slate-700 flex justify-end bg-gray-50/50 dark:bg-slate-900/20 shrink-0 safe-area-bottom">
-                            <button
-                                onClick={() => setIsSettingsOpen(false)}
-                                className="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg transition-transform active:scale-95 text-base"
-                            >
-                                Done
-                            </button>
                         </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     );
 }

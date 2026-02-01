@@ -80,108 +80,136 @@ export function CompareText() {
             />
 
             {/* Tool Area */}
-            <div className="h-[calc(100vh-100px)] px-4 pb-4 flex flex-col">
+            <div className="px-4 pb-8 flex flex-col">
                 <div className="max-w-7xl mx-auto w-full flex-grow flex flex-col min-h-0">
                     {/* Header */}
-                    <div className="flex justify-between items-center mb-4 shrink-0 px-1">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400">
-                                <i className="fa-solid fa-code-compare text-xl"></i>
-                            </div>
-                            <h1 className="text-xl font-bold text-gray-900 dark:text-white leading-tight">
-                                {feature.title}
-                            </h1>
-                        </div>
-
-                        <button
-                            onClick={() => setIsSettingsOpen(true)}
-                            className="group flex items-center gap-2.5 text-xs md:text-sm bg-slate-900 dark:bg-slate-800 text-white font-black py-2.5 px-4 md:px-6 rounded-xl shadow-lg hover:shadow-blue-500/20 hover:scale-[1.02] transition-all border border-slate-700 active:scale-[0.98] min-h-[44px]"
-                        >
-                            <i className="fa-solid fa-sliders-h text-blue-400 group-hover:rotate-180 transition-transform duration-500"></i>
-                            <span>Settings</span>
-                        </button>
+                    <div className="text-center mb-6 shrink-0">
+                        <h1 className="text-2xl font-bold text-white mb-2 flex items-center justify-center gap-3">
+                            <i className="fa-solid fa-code-compare text-teal-500"></i>
+                            {feature.title}
+                        </h1>
+                        <p className="text-slate-400">Compare text differences and highlight changes.</p>
                     </div>
 
                     {/* Main Content */}
-                    <div className="flex-grow flex flex-col gap-4 min-h-0">
+                    <div className="flex-grow flex flex-col gap-6 min-h-0">
 
                         {/* Inputs Row */}
-                        <div className={`grid md:grid-cols-2 gap-4 ${result ? 'h-1/2' : 'flex-grow'} transition-all duration-300 min-h-[200px]`}>
-                            <div className="flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow border border-gray-100 dark:border-slate-700 overflow-hidden">
-                                <div className="p-3 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-gray-50 dark:bg-slate-900/50 shrink-0">
-                                    <h3 className="font-bold text-sm text-gray-700 dark:text-gray-200">Source Text</h3>
-                                    <button onClick={() => setSourceText('')} className="text-xs text-red-500 hover:text-red-600 font-medium px-2 py-1 rounded hover:bg-red-50">Clear</button>
+                        <div className={`grid md:grid-cols-2 gap-4 transition-all duration-300`}>
+                            {/* Source Input */}
+                            <div className="flex flex-col bg-slate-800 rounded-2xl shadow-lg border border-slate-700 h-[40vh] md:h-[450px] overflow-hidden relative group transition-all hover:border-slate-600">
+                                <div className="px-4 py-3 border-b border-slate-700 flex justify-between items-center bg-slate-900/50 shrink-0">
+                                    <h3 className="text-sm font-bold tracking-wider text-slate-200 pl-1">SOURCE TEXT</h3>
+                                    <div className="flex items-center gap-2">
+                                        <button onClick={async () => {
+                                            try {
+                                                const text = await navigator.clipboard.readText();
+                                                setSourceText(text);
+                                                toast.success("Pasted!");
+                                            } catch (e) { toast.error("Clipboard permission denied"); }
+                                        }} className="text-xs text-slate-400 hover:text-white font-medium px-3 py-1.5 rounded-lg hover:bg-slate-700 transition-colors"><i className="fa-regular fa-paste mr-1.5"></i>Paste</button>
+                                        <div className="w-px h-4 bg-slate-700"></div>
+                                        <button onClick={() => setSourceText('')} className="text-xs text-red-400 hover:text-red-300 font-medium px-3 py-1.5 rounded-lg hover:bg-red-900/20 transition-colors">Clear</button>
+                                    </div>
                                 </div>
                                 <textarea
-                                    className="flex-grow p-4 resize-none outline-none dark:bg-slate-900 dark:text-gray-200 text-sm"
+                                    className="w-full h-full p-5 resize-none outline-none bg-transparent text-slate-300 text-sm font-mono leading-relaxed placeholder:text-slate-600"
                                     placeholder="Paste original text..."
                                     value={sourceText}
                                     onChange={e => setSourceText(e.target.value)}
+                                    spellCheck={false}
                                 ></textarea>
                             </div>
 
-                            <div className="flex flex-col bg-white dark:bg-slate-800 rounded-xl shadow border border-gray-100 dark:border-slate-700 overflow-hidden">
-                                <div className="p-3 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-gray-50 dark:bg-slate-900/50 shrink-0">
-                                    <h3 className="font-bold text-sm text-gray-700 dark:text-gray-200">Target Text</h3>
-                                    <button onClick={() => setTargetText('')} className="text-xs text-red-500 hover:text-red-600 font-medium px-2 py-1 rounded hover:bg-red-50">Clear</button>
+                            {/* Target Input */}
+                            <div className="flex flex-col bg-slate-800 rounded-2xl shadow-lg border border-slate-700 h-[40vh] md:h-[450px] overflow-hidden relative group transition-all hover:border-slate-600">
+                                <div className="px-4 py-3 border-b border-slate-700 flex justify-between items-center bg-slate-900/50 shrink-0">
+                                    <h3 className="text-sm font-bold tracking-wider text-teal-400 pl-1">TARGET TEXT</h3>
+                                    <div className="flex items-center gap-2">
+                                        <button onClick={async () => {
+                                            try {
+                                                const text = await navigator.clipboard.readText();
+                                                setTargetText(text);
+                                                toast.success("Pasted!");
+                                            } catch (e) { toast.error("Clipboard permission denied"); }
+                                        }} className="text-xs text-slate-400 hover:text-white font-medium px-3 py-1.5 rounded-lg hover:bg-slate-700 transition-colors"><i className="fa-regular fa-paste mr-1.5"></i>Paste</button>
+                                        <div className="w-px h-4 bg-slate-700"></div>
+                                        <button onClick={() => setTargetText('')} className="text-xs text-red-400 hover:text-red-300 font-medium px-3 py-1.5 rounded-lg hover:bg-red-900/20 transition-colors">Clear</button>
+                                    </div>
                                 </div>
-                                <textarea
-                                    className="flex-grow p-4 resize-none outline-none dark:bg-slate-900 dark:text-gray-200 text-sm"
-                                    placeholder="Paste modified text..."
-                                    value={targetText}
-                                    onChange={e => setTargetText(e.target.value)}
-                                ></textarea>
+                                <div className="relative flex-grow">
+                                    <textarea
+                                        className="w-full h-full p-5 resize-none outline-none bg-transparent text-slate-300 text-sm font-mono leading-relaxed placeholder:text-slate-600"
+                                        placeholder="Paste modified text..."
+                                        value={targetText}
+                                        onChange={e => setTargetText(e.target.value)}
+                                        spellCheck={false}
+                                    ></textarea>
+
+                                    {/* Primary CTA */}
+                                    <div className="absolute bottom-4 right-4 z-10">
+                                        <button
+                                            onClick={compare}
+                                            disabled={!sourceText || !targetText}
+                                            className="px-6 py-2.5 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-xl shadow-lg hover:shadow-teal-900/30 transition-all active:scale-95 flex items-center gap-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            <i className="fa-solid fa-code-compare"></i>
+                                            Compare
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         {/* Results Row (conditionally rendered) */}
+                        {/* Results Row (conditionally rendered) */}
                         {result && (
-                            <div className="flex-grow h-1/2 bg-white dark:bg-slate-800 rounded-xl shadow border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col animate-slide-up">
-                                <div className="p-3 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-gray-50 dark:bg-slate-900/50 shrink-0">
-                                    <h3 className="font-bold text-sm text-gray-700 dark:text-gray-200">Comparison Results</h3>
-                                    <button onClick={() => setResult(null)} className="text-xs text-gray-500 hover:text-gray-700"><i className="fa-solid fa-times"></i> Close</button>
+                            <div className="flex-grow h-[50vh] min-h-[500px] bg-slate-800 rounded-2xl shadow-xl border border-teal-500/30 overflow-hidden flex flex-col animate-slide-up">
+                                <div className="px-4 py-3 border-b border-slate-700 flex justify-between items-center bg-slate-900/50 shrink-0">
+                                    <h3 className="text-sm font-bold tracking-wider text-teal-400 pl-1">DIFFERENCE REPORT</h3>
+                                    <button onClick={() => setResult(null)} className="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 px-2 py-1 hover:bg-slate-700 rounded transition"><i className="fa-solid fa-times"></i> Close Report</button>
                                 </div>
-                                <div className="flex-grow overflow-y-auto p-4 custom-scrollbar">
+                                <div className="flex-grow overflow-y-auto p-6 custom-scrollbar bg-slate-900/30">
                                     {/* Stats Cards */}
-                                    <div className="grid grid-cols-4 gap-4 mb-6">
-                                        <div className="p-3 bg-teal-50 dark:bg-teal-900/20 rounded-lg text-center">
-                                            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Similarity</p>
-                                            <p className="text-xl font-bold text-teal-600">{result.commonPercent}%</p>
+                                    <div className="grid grid-cols-4 gap-4 mb-8">
+                                        <div className="p-4 bg-teal-900/20 rounded-xl border border-teal-500/20 text-center">
+                                            <p className="text-xs text-teal-400 uppercase tracking-widest font-bold mb-1">Similarity</p>
+                                            <p className="text-2xl font-black text-teal-500">{result.commonPercent}%</p>
                                         </div>
-                                        <div className="p-3 bg-red-50 dark:bg-red-900/20 rounded-lg text-center">
-                                            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Difference</p>
-                                            <p className="text-xl font-bold text-red-600">{result.diffPercent}%</p>
+                                        <div className="p-4 bg-red-900/20 rounded-xl border border-red-500/20 text-center">
+                                            <p className="text-xs text-red-400 uppercase tracking-widest font-bold mb-1">Difference</p>
+                                            <p className="text-2xl font-black text-red-500">{result.diffPercent}%</p>
                                         </div>
-                                        <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg text-center">
-                                            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Distance</p>
-                                            <p className="text-xl font-bold text-gray-700 dark:text-gray-200">{result.distance}</p>
+                                        <div className="p-4 bg-slate-700/30 rounded-xl border border-slate-600/50 text-center">
+                                            <p className="text-xs text-slate-400 uppercase tracking-widest font-bold mb-1">Distance</p>
+                                            <p className="text-2xl font-black text-slate-300">{result.distance}</p>
                                         </div>
-                                        <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg text-center">
-                                            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Changes</p>
-                                            <p className="text-xl font-bold text-gray-700 dark:text-gray-200">{result.diffCount}</p>
+                                        <div className="p-4 bg-slate-700/30 rounded-xl border border-slate-600/50 text-center">
+                                            <p className="text-xs text-slate-400 uppercase tracking-widest font-bold mb-1">Changes</p>
+                                            <p className="text-2xl font-black text-slate-300">{result.diffCount}</p>
                                         </div>
                                     </div>
 
                                     {/* Lists */}
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                        <div className="p-4 bg-red-50 dark:bg-red-900/10 rounded-xl border border-red-100 dark:border-red-900/30">
-                                            <h4 className="font-bold text-red-700 text-sm mb-3 flex items-center gap-2">
+                                    <div className="grid md:grid-cols-2 gap-8">
+                                        <div className="p-5 bg-red-950/20 rounded-2xl border border-red-500/20">
+                                            <h4 className="font-bold text-red-400 text-sm mb-4 flex items-center gap-2 pb-2 border-b border-red-500/20">
                                                 <i className="fa-solid fa-minus-circle"></i> Removed (Unique to Source)
                                             </h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {result.removed.length > 0 ? result.removed.map((w, i) => (
-                                                    <span key={i} className="px-2 py-0.5 bg-white dark:bg-slate-800 text-red-600 text-xs rounded border border-red-200 dark:border-red-900">{w}</span>
-                                                )) : <span className="text-gray-400 italic text-xs">No unique words</span>}
+                                                    <span key={i} className="px-2.5 py-1 bg-red-900/30 text-red-300 text-xs font-mono rounded-md border border-red-500/30">{w}</span>
+                                                )) : <span className="text-slate-500 italic text-sm">No unique words found</span>}
                                             </div>
                                         </div>
-                                        <div className="p-4 bg-green-50 dark:bg-green-900/10 rounded-xl border border-green-100 dark:border-green-900/30">
-                                            <h4 className="font-bold text-green-700 text-sm mb-3 flex items-center gap-2">
+                                        <div className="p-5 bg-teal-950/20 rounded-2xl border border-teal-500/20">
+                                            <h4 className="font-bold text-teal-400 text-sm mb-4 flex items-center gap-2 pb-2 border-b border-teal-500/20">
                                                 <i className="fa-solid fa-plus-circle"></i> Added (Unique to Target)
                                             </h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {result.added.length > 0 ? result.added.map((w, i) => (
-                                                    <span key={i} className="px-2 py-0.5 bg-white dark:bg-slate-800 text-green-600 text-xs rounded border border-green-200 dark:border-green-900">{w}</span>
-                                                )) : <span className="text-gray-400 italic text-xs">No unique words</span>}
+                                                    <span key={i} className="px-2.5 py-1 bg-teal-900/30 text-teal-300 text-xs font-mono rounded-md border border-teal-500/30">{w}</span>
+                                                )) : <span className="text-slate-500 italic text-sm">No unique words found</span>}
                                             </div>
                                         </div>
                                     </div>
@@ -190,71 +218,20 @@ export function CompareText() {
                         )}
                     </div>
 
-                    {/* Desktop Toolbar */}
-                    <div className="hidden md:flex mt-4 bg-slate-900/90 dark:bg-slate-800/90 backdrop-blur-md p-3 rounded-2xl shadow-xl border border-slate-700/50 shrink-0 items-center justify-between gap-6 px-6">
-                        <div className="flex flex-wrap gap-4">
+                    {/* Settings & Toolbar (Below Inputs) */}
+                    <div className="mt-6 flex flex-col md:flex-row gap-4 justify-between items-center bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
+                        <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                             {Object.keys(options).map(key => (
-                                <label key={key} className="group flex items-center gap-2.5 cursor-pointer text-sm bg-slate-800/50 dark:bg-slate-900/50 px-4 py-2 rounded-xl border border-slate-700/50 hover:bg-slate-800 hover:border-slate-600 transition-all active:scale-95 select-none">
+                                <label key={key} className="group flex items-center gap-2 cursor-pointer text-sm select-none">
                                     <input
                                         type="checkbox"
                                         checked={options[key]}
                                         onChange={e => setOptions({ ...options, [key]: e.target.checked })}
-                                        className="hidden"
+                                        className="rounded bg-slate-700 border-slate-600 text-teal-500 focus:ring-teal-500 focus:ring-offset-slate-800"
                                     />
-                                    <div className={`w-5 h-5 rounded-md flex items-center justify-center transition-all ${options[key] ? 'bg-teal-600 shadow-[0_0_12px_rgba(20,184,166,0.4)]' : 'bg-slate-700'}`}>
-                                        <i className={`fa-solid fa-check text-[10px] text-white transition-opacity ${options[key] ? 'opacity-100' : 'opacity-0'}`}></i>
-                                    </div>
-                                    <span className="text-slate-300 font-bold tracking-tight capitalize">{key.replace(/([A-Z])/g, ' $1').replace('ignore', '').trim()}</span>
+                                    <span className="text-slate-300 font-medium capitalize">{key.replace(/([A-Z])/g, ' $1').replace('ignore', '').trim()}</span>
                                 </label>
                             ))}
-                        </div>
-                        <button
-                            onClick={compare}
-                            className="px-10 py-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-black rounded-xl shadow-[0_4px_20px_rgba(20,184,166,0.3)] hover:shadow-[0_6px_25px_rgba(20,184,166,0.4)] transition-all active:scale-[0.97] flex items-center gap-3 text-sm"
-                        >
-                            <i className="fa-solid fa-code-compare"></i>
-                            COMPARE NOW
-                        </button>
-                    </div>
-
-                    {/* Mobile Sticky Action Bar */}
-                    <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-slate-900 border-t border-slate-800 z-40 safe-area-bottom flex flex-col gap-4 shadow-[0_-8px_20px_-4px_rgba(0,0,0,0.3)]">
-                        {/* Quick Selection Options */}
-                        <div className="flex flex-col gap-3">
-                            <div className="flex items-center justify-between px-1">
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Quick Config</span>
-                            </div>
-                            <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar scroll-smooth">
-                                {Object.keys(options).map(key => (
-                                    <button
-                                        key={key}
-                                        onClick={() => setOptions(prev => ({ ...prev, [key]: !prev[key] }))}
-                                        className={`px-5 py-2.5 rounded-xl text-xs font-black whitespace-nowrap transition-all border min-h-[42px] flex items-center justify-center tracking-tight ${options[key]
-                                            ? 'bg-teal-600 border-teal-500 text-white shadow-lg scale-105'
-                                            : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-600'
-                                            }`}
-                                    >
-                                        {key.replace('ignore', '').toUpperCase()} {options[key] ? 'ON' : 'OFF'}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="flex gap-3">
-                            <button
-                                onClick={() => setIsSettingsOpen(true)}
-                                className="w-14 h-14 bg-slate-800 text-teal-400 rounded-2xl font-black border border-slate-700 active:scale-90 transition-all flex items-center justify-center shadow-lg"
-                            >
-                                <i className="fa-solid fa-sliders-h text-xl"></i>
-                            </button>
-                            <button
-                                onClick={compare}
-                                disabled={!sourceText || !targetText}
-                                className="flex-1 h-14 bg-gradient-to-r from-teal-600 to-emerald-600 active:scale-[0.98] disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-600 text-white font-black rounded-2xl shadow-[0_4px_15px_rgba(20,184,166,0.3)] flex items-center justify-center gap-2 text-base transition-all"
-                            >
-                                <i className="fa-solid fa-code-compare"></i>
-                                COMPARE NOW
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -264,7 +241,7 @@ export function CompareText() {
             <div className="max-w-6xl mx-auto px-4 pb-20 mt-8">
                 <TrustBar />
                 <RelatedTools toolKeys={feature.related} />
-                <SeoContent feature={feature} />
+                <SeoContent featureKey="compareText" />
             </div>
 
             {/* Settings Modal */}

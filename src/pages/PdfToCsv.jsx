@@ -15,7 +15,7 @@ import { SeoContent } from '../components/SeoContent';
 import { FEATURES } from '../config/FEATURE_CONFIG';
 
 // Worker setup
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
 
 export function PdfToCsv() {
     const [files, setFiles] = useState([]);
@@ -236,7 +236,7 @@ export function PdfToCsv() {
 
                 <div className="mt-12">
                     <RelatedTools toolKeys={feature.related} />
-                    <SeoContent feature={feature} />
+                    <SeoContent featureKey="pdfToCsv" />
                 </div>
             </div>
         </div>

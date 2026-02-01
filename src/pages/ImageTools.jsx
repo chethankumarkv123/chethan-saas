@@ -19,6 +19,13 @@ export function ImageTools({ initialMode = 'resizer' }) {
     const [isProcessing, setIsProcessing] = useState(false);
     const [previewUrl, setPreviewUrl] = useState(null);
 
+    // Advanced State
+    const [outputFormat, setOutputFormat] = useState('original'); // original, image/jpeg, image/png, image/webp
+    const [rotation, setRotation] = useState(0);
+    const [flipH, setFlipH] = useState(false);
+    const [flipV, setFlipV] = useState(false);
+    const [grayscale, setGrayscale] = useState(false);
+
     // Resize State
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
@@ -54,6 +61,12 @@ export function ImageTools({ initialMode = 'resizer' }) {
                 setHeight(img.height);
                 setAspectRatio(img.width / img.height);
                 setPreviewUrl(img.src);
+                // Reset transformations
+                setRotation(0);
+                setFlipH(false);
+                setFlipV(false);
+                setGrayscale(false);
+                setOutputFormat('original');
             };
             img.src = URL.createObjectURL(file);
         }
@@ -92,22 +105,68 @@ export function ImageTools({ initialMode = 'resizer' }) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
 
-            // Set dimensions
-            if (mode === 'resizer') {
-                canvas.width = width;
-                canvas.height = height;
-            } else {
-                canvas.width = originalDimensions.w;
-                canvas.height = originalDimensions.h;
+            // Determine target dimensions
+            let targetWidth = mode === 'resizer' ? width : originalDimensions.w;
+            let targetHeight = mode === 'resizer' ? height : originalDimensions.h;
+
+            // Swap dimensions if rotated 90 or 270 degrees
+            if ((rotation / 90) % 2 !== 0) {
+                [targetWidth, targetHeight] = [targetHeight, targetWidth];
             }
 
-            // Draw image
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+
+            // Apply transformations
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate((rotation * Math.PI) / 180);
+
+            // Screen-relative flipping logic
+            // If rotated 90/270 (sideways), Horizontal Flip on screen = Vertical Flip on Image, and vice-versa.
+            let effectiveFlipH = flipH;
+            let effectiveFlipV = flipV;
+
+            if ((rotation / 90) % 2 !== 0) {
+                // Swapped orientation
+                effectiveFlipH = flipV;
+                effectiveFlipV = flipH;
+            }
+
+            ctx.scale(effectiveFlipH ? -1 : 1, effectiveFlipV ? -1 : 1);
+
+            // Draw image centered (handling logic to draw correctly after rotation)
+            // When rotated 90/270, the "draw" width/height are the *original* orientation's target W/H, 
+            // but we swapped canvas W/H above. Drawing centered works.
+            const drawWidth = (rotation / 90) % 2 !== 0 ? targetHeight : targetWidth;
+            const drawHeight = (rotation / 90) % 2 !== 0 ? targetWidth : targetHeight;
+
+            ctx.drawImage(img, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
+
+            // Apply Grayscale
+            if (grayscale) {
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+                for (let i = 0; i < data.length; i += 4) {
+                    const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                    data[i] = avg; // red
+                    data[i + 1] = avg; // green
+                    data[i + 2] = avg; // blue
+                }
+                ctx.putImageData(imageData, 0, 0);
+            }
 
             // Export
-            const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
-            const q = mode === 'compressor' ? quality : 0.92;
+            let mimeType = outputFormat;
+            if (outputFormat === 'original') {
+                mimeType = file.type;
+            }
 
+            // Fallback if original type is null/empty or unsupported in toDataURL sometimes
+            if (!['image/png', 'image/jpeg', 'image/webp'].includes(mimeType)) {
+                mimeType = 'image/jpeg';
+            }
+
+            const q = quality;
             const dataUrl = canvas.toDataURL(mimeType, q);
 
             setProcessedImage(dataUrl);
@@ -137,13 +196,62 @@ export function ImageTools({ initialMode = 'resizer' }) {
 
     const downloadImage = () => {
         if (!processedImage) return;
-        const link = document.createElement('a');
-        link.href = processedImage;
-        const ext = files[0].type === 'image/png' ? 'png' : 'jpg';
-        link.download = `processed_image.${ext}`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+
+        try {
+            // Convert base64 to blob to avoid URL length limits
+            const byteString = atob(processedImage.split(',')[1]);
+            const mimeString = processedImage.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            const blob = new Blob([ab], { type: mimeString });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+
+            // Generate meaningful filename
+            const originalName = files[0]?.name || 'image';
+            let namePart;
+            const lastDotIndex = originalName.lastIndexOf('.');
+
+            if (lastDotIndex !== -1) {
+                namePart = originalName.substring(0, lastDotIndex);
+            } else {
+                namePart = originalName;
+            }
+
+            // Fallback if namePart is empty
+            if (!namePart) namePart = 'image';
+
+            let ext = 'jpg';
+            if (mimeString === 'image/png') ext = 'png';
+            if (mimeString === 'image/webp') ext = 'webp';
+
+            const suffix = mode === 'resizer' ? '-resized' : '-compressed';
+            const finalFilename = `${namePart}${suffix}.${ext}`;
+
+            link.download = finalFilename;
+
+            console.log('DEBUG: Download initiated', {
+                originalName,
+                finalFilename,
+                blobUrl: url,
+                mime: mimeString
+            });
+
+            document.body.appendChild(link);
+            link.click();
+
+            // Cleanup
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(url), 100);
+        } catch (err) {
+            console.error("Download failed:", err);
+            toast.error("Failed to download image.");
+        }
     };
 
     return (
@@ -261,27 +369,78 @@ export function ImageTools({ initialMode = 'resizer' }) {
                                         </>
                                     )}
 
-                                    {mode === 'compressor' && (
-                                        <div className="bg-gray-50 dark:bg-slate-700/30 p-4 rounded-2xl space-y-4 border border-gray-100 dark:border-slate-600/50">
-                                            <div className="flex justify-between items-center">
-                                                <label className="text-xs font-bold text-gray-700 dark:text-gray-300">Quality Level</label>
-                                                <span className="text-xs font-bold text-teal-600 bg-teal-50 dark:bg-teal-900/30 px-2 py-0.5 rounded border border-teal-100 dark:border-teal-800">{Math.round(quality * 100)}%</span>
-                                            </div>
-                                            <input
-                                                type="range"
-                                                min="0.1"
-                                                max="1.0"
-                                                step="0.05"
-                                                value={quality}
-                                                onChange={(e) => setQuality(parseFloat(e.target.value))}
-                                                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-teal-600 dark:bg-slate-600"
-                                            />
-                                            <div className="flex justify-between text-[10px] text-gray-400 uppercase font-bold tracking-wider">
-                                                <span>Max Compression</span>
-                                                <span>Best Quality</span>
-                                            </div>
+                                    {/* Universal Quality Setting */}
+                                    <div className="bg-gray-50 dark:bg-slate-700/30 p-4 rounded-2xl space-y-4 border border-gray-100 dark:border-slate-600/50">
+                                        <div className="flex justify-between items-center">
+                                            <label className="text-xs font-bold text-gray-700 dark:text-gray-300">Quality Level</label>
+                                            <span className="text-xs font-bold text-teal-600 bg-teal-50 dark:bg-teal-900/30 px-2 py-0.5 rounded border border-teal-100 dark:border-teal-800">{Math.round(quality * 100)}%</span>
                                         </div>
-                                    )}
+                                        <input
+                                            type="range"
+                                            min="0.1"
+                                            max="1.0"
+                                            step="0.05"
+                                            value={quality}
+                                            onChange={(e) => setQuality(parseFloat(e.target.value))}
+                                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-teal-600 dark:bg-slate-600"
+                                        />
+                                        <div className="flex justify-between text-[10px] text-gray-400 uppercase font-bold tracking-wider">
+                                            <span>Max Compression</span>
+                                            <span>Best Quality</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Advanced Settings Section */}
+                                    <div className="border-t border-gray-100 dark:border-slate-700 pt-4 space-y-4">
+                                        <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Advanced Options</h4>
+
+                                        {/* Output Format */}
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-medium text-gray-700 dark:text-gray-300">Output Format</label>
+                                            <select
+                                                value={outputFormat}
+                                                onChange={(e) => setOutputFormat(e.target.value)}
+                                                className="w-full p-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-xl text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none text-gray-700 dark:text-white"
+                                            >
+                                                <option value="original">Original Format</option>
+                                                <option value="image/jpeg">JPG / JPEG</option>
+                                                <option value="image/png">PNG</option>
+                                                <option value="image/webp">WEBP</option>
+                                            </select>
+                                        </div>
+
+                                        {/* Rotation & Flip */}
+                                        <div className="grid grid-cols-4 gap-2">
+                                            <button onClick={() => setRotation(r => (r - 90) % 360)} className="aspect-square bg-gray-50 dark:bg-slate-700/50 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-300 transition-colors" title="Rotate Left">
+                                                <i className="fa-solid fa-rotate-left"></i>
+                                            </button>
+                                            <button onClick={() => setRotation(r => (r + 90) % 360)} className="aspect-square bg-gray-50 dark:bg-slate-700/50 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-300 transition-colors" title="Rotate Right">
+                                                <i className="fa-solid fa-rotate-right"></i>
+                                            </button>
+                                            <button onClick={() => setFlipH(!flipH)} className={`aspect-square rounded-lg flex items-center justify-center transition-colors ${flipH ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' : 'bg-gray-50 dark:bg-slate-700/50 hover:bg-gray-100 dark:hover:bg-slate-700 text-gray-600 dark:text-gray-300'}`} title="Flip Horizontal">
+                                                <i className="fa-solid fa-arrows-left-right"></i>
+                                            </button>
+                                            <button onClick={() => setFlipV(!flipV)} className={`aspect-square rounded-lg flex items-center justify-center transition-colors ${flipV ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400' : 'bg-gray-50 dark:bg-slate-700/50 hover:bg-gray-100 dark:hover:bg-slate-700 text-gray-600 dark:text-gray-300'}`} title="Flip Vertical">
+                                                <i className="fa-solid fa-arrows-up-down"></i>
+                                            </button>
+                                        </div>
+
+                                        {/* Grayscale */}
+                                        <label className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-slate-700/30 rounded-xl cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors border border-transparent hover:border-gray-200 dark:hover:border-slate-600">
+                                            <div className="relative flex items-center">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={grayscale}
+                                                    onChange={(e) => setGrayscale(e.target.checked)}
+                                                    className="peer h-4 w-4 cursor-pointer appearance-none rounded border border-gray-300 transition-all checked:border-gray-600 checked:bg-gray-600"
+                                                />
+                                                <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white opacity-0 peer-checked:opacity-100">
+                                                    <i className="fa-solid fa-check text-[10px]"></i>
+                                                </div>
+                                            </div>
+                                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Convert to Grayscale</span>
+                                        </label>
+                                    </div>
 
                                     <div className="pt-2">
                                         <button
@@ -317,7 +476,11 @@ export function ImageTools({ initialMode = 'resizer' }) {
                                     <img
                                         src={processedImage || previewUrl}
                                         alt="Preview"
-                                        className="max-w-full max-h-[500px] object-contain shadow-2xl rounded-lg transform transition-transform duration-300"
+                                        style={{
+                                            transform: `rotate(${rotation}deg) scale(${flipH ? -1 : 1}, ${flipV ? -1 : 1})`,
+                                            transition: 'transform 0.3s ease'
+                                        }}
+                                        className="max-w-full max-h-[500px] object-contain shadow-2xl rounded-lg"
                                     />
 
                                     {/* Badge */}
@@ -371,7 +534,7 @@ export function ImageTools({ initialMode = 'resizer' }) {
                 <div className="mt-16">
                     <TrustBar />
                     <RelatedTools toolKeys={feature.related} />
-                    <SeoContent feature={feature} />
+                    <SeoContent featureKey={featureName} />
                 </div>
             </div>
         </div>

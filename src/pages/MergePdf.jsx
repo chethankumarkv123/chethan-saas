@@ -181,7 +181,7 @@ export function MergePdf() {
 
                 <div className="mt-12">
                     <RelatedTools toolKeys={feature.related} />
-                    <SeoContent feature={feature} />
+                    <SeoContent featureKey="pdfMerge" />
                 </div>
             </div>
         </div>
