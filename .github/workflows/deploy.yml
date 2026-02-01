@@ -35,16 +35,15 @@ jobs:
       
       # Step 6: Deploy to Hostinger via FTP
       - name: 🚀 Deploy to Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftp
-          local-dir: ./dist/
-          server-dir: /public_html/
-          dangerous-clean-slate: true
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+          lftp -c "
+          set ftp:ssl-allow no;
+          open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }};
+          mirror -Rev ./dist /public_html --ignore-time --parallel=10 --verbose;
+          bye
+          "
       
       # Step 7: Deployment success notification
       - name: ✅ Deployment complete
