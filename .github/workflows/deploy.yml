@@ -40,9 +40,11 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
           local-dir: ./dist/
-          server-dir: ./public_html/
-          dangerous-clean-slate: true  # Clears old files before uploading
+          server-dir: /public_html/
+          dangerous-clean-slate: true
       
       # Step 7: Deployment success notification
       - name: ✅ Deployment complete
