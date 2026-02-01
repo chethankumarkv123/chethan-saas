@@ -1,4 +1,4 @@
-
+// Test: Auto-deployment verification - 2026-02-01
 import { SEO } from '../components/SEO';
 
 export function About() {
