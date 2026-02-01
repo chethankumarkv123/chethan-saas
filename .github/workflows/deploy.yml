@@ -35,12 +35,16 @@ jobs:
       
       # Step 6: Deploy to Hostinger via FTP
       - name: 🚀 Deploy to Hostinger
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           sudo apt-get update
           sudo apt-get install -y lftp
           lftp -c "
           set ftp:ssl-allow no;
-          open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }};
+          open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
           mirror -Rev ./dist /public_html --ignore-time --parallel=10 --verbose;
           bye
           "
