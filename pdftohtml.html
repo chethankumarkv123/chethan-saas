@@ -3,8 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF to HTML Converter Online - Free Tool to Extract PDF Content</title>
-  <meta name="description" content="Convert PDF to HTML online for free with our advanced PDF to HTML converter. Extract text, images, and layouts from PDFs into web-ready HTML format for websites and applications.">
+  <title>PDF to HTML Converter — Extract HTML & Code from PDF | OnePageTools</title>
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chethan-saas.netlify.app/pdftohtml.html">
+  <meta property="og:title" content="PDF to HTML Converter — Extract HTML & Code from PDF | OnePageTools">
+  <meta property="og:description" content="Extract HTML elements, formatting, and assets from PDF documents online for free.">
+  <meta property="og:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PDF to HTML Converter — Extract HTML & Code from PDF | OnePageTools">
+  <meta name="twitter:description" content="Extract HTML elements, formatting, and assets from PDF documents online for free.">
+  <meta name="twitter:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+  <link rel="canonical" href="https://chethan-saas.netlify.app/pdftohtml.html">
+  <meta name="description" content="Extract HTML elements, formatting, and assets from PDF documents online for free.">
   <meta name="keywords" content="PDF to HTML converter, convert PDF to HTML online, free PDF to HTML tool, extract PDF to HTML, PDF to HTML free, PDF web conversion">
   <meta name="robots" content="index, follow">
   <meta name="author" content="PDF Converter Team">
@@ -38,6 +50,7 @@
     .html-editor { min-height: 200px; border: 1px solid #e5e7eb; padding: 1rem; }
     .gradient-bg { background: linear-gradient(135deg, #f3f4f6, #e0e7ff); }
   </style>
+  <script src="./js/menu.js"></script>
 </head>
 <body class="gradient-bg">
   <!-- Navigation -->
@@ -439,7 +452,19 @@
             const arrayBuffer = new Uint8Array(this.result);
             const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
             const pagesToProcess = pageRange ? parsePageRange(pageRange, pdf.numPages) : Array.from({ length: pdf.numPages }, (_, i) => i + 1);
-            let htmlContent = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="${encoding === 'utf-8' ? 'UTF-8' : 'UTF-16LE'}">\n<title>${fileData.name.replace('.pdf', '')}</title>\n`;
+            let htmlContent = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="${encoding === 'utf-8' ? 'UTF-8' : 'UTF-16LE'}">\n<title>PDF to HTML Converter — Extract HTML & Code from PDF | OnePageTools</title>
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chethan-saas.netlify.app/pdftohtml.html">
+  <meta property="og:title" content="PDF to HTML Converter — Extract HTML & Code from PDF | OnePageTools">
+  <meta property="og:description" content="Extract HTML elements, formatting, and assets from PDF documents online for free.">
+  <meta property="og:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PDF to HTML Converter — Extract HTML & Code from PDF | OnePageTools">
+  <meta name="twitter:description" content="Extract HTML elements, formatting, and assets from PDF documents online for free.">
+  <meta name="twitter:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+  <link rel="canonical" href="https://chethan-saas.netlify.app/pdftohtml.html">\n`;
             
             if (htmlStructure === 'styled') {
               htmlContent += `<style>
@@ -449,7 +474,8 @@
                 img { max-width: 100%; height: auto; }
               </style>\n`;
             }
-            htmlContent += `</head>\n<body>\n`;
+            htmlContent += `  <script src="./js/menu.js"></script>
+</head>\n<body>\n`;
 
             for (const pageNum of pagesToProcess) {
               const page = await pdf.getPage(pageNum);

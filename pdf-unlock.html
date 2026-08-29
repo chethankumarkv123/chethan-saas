@@ -1,191 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Unlock - Remove PDF Password Protection</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="./js/menu.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-        }
-        .drop-zone {
-            border: 2px dashed #e5322d;
-            transition: all 0.3s ease;
-        }
-        .drop-zone:hover {
-            border-color: #dc2626;
-            background-color: #fef2f2;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unlock PDF — Remove PDF Password Protection Online Free | OnePageTools</title>
+  <meta name="description" content="Unlock password-protected PDF files online for free. Instantly decrypt and remove permission restrictions from PDFs directly in your browser with 100% client-side privacy.">
+  <meta name="keywords" content="unlock PDF, remove password from PDF, PDF password remover, decrypt PDF, remove PDF security, unlock PDF online free, client side PDF unlock">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://chethan-saas.netlify.app/pdf-unlock.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chethan-saas.netlify.app/pdf-unlock.html">
+  <meta property="og:title" content="Unlock PDF — Remove PDF Password Protection Online Free | OnePageTools">
+  <meta property="og:description" content="Instantly remove password encryption and permission restrictions from PDF files. 100% in-browser privacy with zero server uploads.">
+  <meta property="og:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unlock PDF — Remove PDF Password Protection Online Free">
+  <meta name="twitter:description" content="Decrypt and unlock protected PDF documents directly in your browser.">
+  <meta name="twitter:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PDF Password Remover & Unlocker",
+    "url": "https://chethan-saas.netlify.app/pdf-unlock.html",
+    "description": "Decrypt and remove password protection from PDF documents in browser memory.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All modern browsers",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://chethan-saas.netlify.app/" },
+      { "@type": "ListItem", "position": 2, "name": "PDF Tools", "item": "https://chethan-saas.netlify.app/#toollists" },
+      { "@type": "ListItem", "position": 3, "name": "PDF Unlock", "item": "https://chethan-saas.netlify.app/pdf-unlock.html" }
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/menu.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body class="min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-3xl mx-auto">
-            <h1 class="text-3xl font-bold text-center mb-8">PDF Unlock</h1>
-            
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <div class="drop-zone rounded-lg p-8 text-center cursor-pointer" id="dropZone">
-                    <i class="fas fa-lock text-4xl text-red-500 mb-4"></i>
-                    <p class="text-lg mb-2">Drag & Drop your password-protected PDF here</p>
-                    <p class="text-sm text-gray-500 mb-4">or</p>
-                    <input type="file" id="fileInput" accept=".pdf" class="hidden">
-                    <button class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors" onclick="document.getElementById('fileInput').click()">
-                        Choose File
-                    </button>
-                </div>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased">
 
-                <div id="passwordSection" class="mt-6 hidden">
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">PDF Password</label>
-                            <input type="password" id="pdfPassword" class="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Enter PDF password">
-                        </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" id="showPassword" class="mr-2">
-                            <label for="showPassword" class="text-sm">Show password</label>
-                        </div>
-                    </div>
-                </div>
+  <!-- Breadcrumb Bar -->
+  <div class="bg-white dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 py-2.5 px-4">
+    <div class="max-w-5xl mx-auto flex items-center justify-between text-xs">
+      <div class="flex items-center space-x-2 text-slate-500 dark:text-slate-400">
+        <a href="./index.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Home</a>
+        <span>/</span>
+        <a href="./index.html#toollists" class="hover:text-indigo-600 dark:hover:text-indigo-400">PDF Tools</a>
+        <span>/</span>
+        <span class="text-slate-800 dark:text-slate-200 font-semibold">Unlock PDF</span>
+      </div>
+      <div class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
+        <i class="fas fa-lock text-[10px]"></i>
+        <span>100% In-Browser Privacy</span>
+      </div>
+    </div>
+  </div>
 
-                <div id="fileInfo" class="mt-6 hidden">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                        <div>
-                            <p class="font-medium" id="fileName">filename.pdf</p>
-                            <p class="text-sm text-gray-500" id="fileSize">0 MB</p>
-                        </div>
-                        <button class="text-red-500 hover:text-red-600" onclick="removeFile()">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
+  <!-- Main Container -->
+  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <div class="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8 mb-12">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">Instant PDF Decryption</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1 mb-2">
+          PDF Password Remover & Unlocker
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+          Remove password restrictions and owner locks from protected PDFs directly in your browser memory.
+        </p>
+      </div>
 
-                <div class="mt-6">
-                    <button id="unlockBtn" class="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                        Unlock PDF
-                    </button>
-                </div>
+      <!-- Upload Area -->
+      <div class="upload-dropzone mb-6" id="dropZone">
+        <i class="fas fa-unlock-alt text-5xl text-rose-500 mb-3"></i>
+        <h2 class="text-base font-bold text-slate-800 dark:text-slate-200 mb-1">Drag & Drop your protected PDF here</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">or click to browse from your device</p>
+        <input type="file" id="fileInput" accept=".pdf" class="hidden">
+        <button type="button" class="btn-primary bg-rose-600 hover:bg-rose-700 text-xs px-6 py-2.5" onclick="document.getElementById('fileInput').click()">
+          <i class="fas fa-folder-open"></i> Choose PDF File
+        </button>
+      </div>
 
-                <div id="progressBar" class="mt-6 hidden">
-                    <div class="w-full bg-gray-200 rounded-full h-2.5">
-                        <div class="bg-red-500 h-2.5 rounded-full" style="width: 0%"></div>
-                    </div>
-                    <p class="text-sm text-center mt-2" id="progressText">Unlocking...</p>
-                </div>
+      <!-- File Details & Password Prompt -->
+      <div id="fileInfo" class="hidden bg-slate-50 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-200 dark:border-slate-700 mb-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <i class="fas fa-file-pdf text-2xl text-rose-500"></i>
+            <div>
+              <p id="fileName" class="font-bold text-xs sm:text-sm text-slate-900 dark:text-white truncate max-w-xs"></p>
+              <p id="fileSize" class="text-xs text-slate-500 dark:text-slate-400"></p>
             </div>
+          </div>
+          <button onclick="removeFile()" class="text-slate-400 hover:text-rose-500 transition text-sm">
+            <i class="fas fa-times-circle"></i>
+          </button>
         </div>
+
+        <div id="passwordSection" class="hidden pt-3 border-t border-slate-200 dark:border-slate-700 text-xs space-y-2">
+          <label class="block font-semibold text-slate-700 dark:text-slate-300">Enter PDF Password (if required)</label>
+          <div class="relative">
+            <input type="password" id="pdfPassword" placeholder="Enter document password..." class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-900 dark:text-white focus:ring-2 focus:ring-rose-500 focus:outline-none">
+          </div>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">If the document has only owner/permission restrictions, leave blank.</p>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div id="progressBar" class="hidden mb-6">
+        <div class="flex justify-between text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">
+          <span id="progressText">Decrypting PDF...</span>
+        </div>
+        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
+          <div id="progressFill" class="bg-rose-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="flex justify-center">
+        <button id="unlockBtn" disabled class="btn-primary bg-rose-600 hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed px-8 py-3 text-sm font-bold shadow-md">
+          <i class="fas fa-unlock"></i>
+          <span>Unlock & Download PDF</span>
+        </button>
+      </div>
     </div>
 
-    <script>
-        const dropZone = document.getElementById('dropZone');
-        const fileInput = document.getElementById('fileInput');
-        const fileInfo = document.getElementById('fileInfo');
-        const fileName = document.getElementById('fileName');
-        const fileSize = document.getElementById('fileSize');
-        const unlockBtn = document.getElementById('unlockBtn');
-        const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progressText');
-        const passwordSection = document.getElementById('passwordSection');
-        const pdfPassword = document.getElementById('pdfPassword');
-        const showPassword = document.getElementById('showPassword');
-        let currentFile = null;
+    <!-- SEO Content Section -->
+    <div class="space-y-12 text-slate-700 dark:text-slate-300">
+      
+      <!-- How to Unlock -->
+      <section class="bg-white dark:bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-4">How to Unlock Password-Protected PDF Files</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
+            <span class="w-6 h-6 rounded-full bg-rose-600 text-white font-bold inline-flex items-center justify-center text-xs mb-2">1</span>
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Upload Locked PDF</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Select your protected PDF file from your computer or phone.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
+            <span class="w-6 h-6 rounded-full bg-rose-600 text-white font-bold inline-flex items-center justify-center text-xs mb-2">2</span>
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Provide Password</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Type the known password to decrypt the file security permanently.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
+            <span class="w-6 h-6 rounded-full bg-rose-600 text-white font-bold inline-flex items-center justify-center text-xs mb-2">3</span>
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Download Unlocked PDF</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Save your new unlocked document with no password prompt needed to open it.</p>
+          </div>
+        </div>
+      </section>
 
-        // Show/hide password
-        showPassword.addEventListener('change', () => {
-            pdfPassword.type = showPassword.checked ? 'text' : 'password';
-        });
+      <!-- Key Features & Privacy -->
+      <section class="bg-white dark:bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Why Use OnePageTools PDF Unlocker?</h2>
+        <p class="text-sm leading-relaxed">
+          Unlock confidential salary slips, bank statements, and legal contracts without transmitting your sensitive files or passwords over the internet.
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-sm ml-2">
+          <li><strong>100% Client-Side Decryption:</strong> Password verification and encryption stripping execute exclusively on your local CPU.</li>
+          <li><strong>Removes Edit & Print Restrictions:</strong> Instantly remove permissions preventing copying or printing text.</li>
+          <li><strong>Zero Data Transmission:</strong> Passwords and documents are never sent across the network.</li>
+          <li><strong>Free & Unlimited:</strong> Decrypt as many files as you need without signup or subscriptions.</li>
+        </ul>
+      </section>
 
-        // Drag and drop handlers
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('border-red-500', 'bg-red-50');
-        });
+      <!-- FAQ -->
+      <section class="bg-white dark:bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-4 text-sm">
+          <details class="group bg-slate-50 dark:bg-slate-900/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700 cursor-pointer" open>
+            <summary class="font-bold text-slate-900 dark:text-white flex justify-between items-center">
+              <span>Is my PDF password sent to your servers?</span>
+              <i class="fas fa-chevron-down text-xs text-slate-400 group-open:-rotate-180 transition"></i>
+            </summary>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Never. All decryption runs locally in your browser memory using `pdf-lib`. Neither your password nor your document ever leaves your computer.
+            </p>
+          </details>
 
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('border-red-500', 'bg-red-50');
-        });
+          <details class="group bg-slate-50 dark:bg-slate-900/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700 cursor-pointer">
+            <summary class="font-bold text-slate-900 dark:text-white flex justify-between items-center">
+              <span>Do I need to enter the password every time I open the unlocked PDF?</span>
+              <i class="fas fa-chevron-down text-xs text-slate-400 group-open:-rotate-180 transition"></i>
+            </summary>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              No. Once unlocked, the new PDF file has all password protection removed permanently.
+            </p>
+          </details>
+        </div>
+      </section>
 
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('border-red-500', 'bg-red-50');
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                handleFile(files[0]);
-            }
-        });
+    </div>
+  </main>
 
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                handleFile(e.target.files[0]);
-            }
-        });
+  <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 text-center">
+    <p>&copy; 2026 OnePageTools. 100% Client-Side Privacy Guaranteed.</p>
+  </footer>
 
-        function handleFile(file) {
-            if (file.type !== 'application/pdf') {
-                alert('Please upload a PDF file');
-                return;
-            }
+  <script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const passwordSection = document.getElementById('passwordSection');
+    const pdfPassword = document.getElementById('pdfPassword');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const progressBar = document.getElementById('progressBar');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
 
-            currentFile = file;
-            fileName.textContent = file.name;
-            fileSize.textContent = formatFileSize(file.size);
-            fileInfo.classList.remove('hidden');
-            passwordSection.classList.remove('hidden');
-            unlockBtn.disabled = false;
+    let currentFile = null;
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleFile(files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    function handleFile(file) {
+      if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
+        Swal.fire({ icon: 'warning', title: 'Invalid File', text: 'Please select a PDF document.' });
+        return;
+      }
+
+      currentFile = file;
+      fileName.textContent = file.name;
+      fileSize.textContent = formatFileSize(file.size);
+      fileInfo.classList.remove('hidden');
+      passwordSection.classList.remove('hidden');
+      unlockBtn.disabled = false;
+      pdfPassword.focus();
+    }
+
+    function removeFile() {
+      currentFile = null;
+      fileInput.value = '';
+      fileInfo.classList.add('hidden');
+      passwordSection.classList.add('hidden');
+      unlockBtn.disabled = true;
+      pdfPassword.value = '';
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    unlockBtn.addEventListener('click', async () => {
+      if (!currentFile) return;
+      const password = pdfPassword.value;
+
+      progressBar.classList.remove('hidden');
+      progressFill.style.width = '30%';
+      progressText.textContent = 'Verifying password and decrypting...';
+      unlockBtn.disabled = true;
+
+      try {
+        const arrayBuffer = await currentFile.arrayBuffer();
+        progressFill.style.width = '60%';
+
+        const { PDFDocument } = PDFLib;
+        let pdfDoc;
+
+        try {
+          pdfDoc = await PDFDocument.load(arrayBuffer, { password: password, ignoreEncryption: false });
+        } catch (loadErr) {
+          if (!password) {
+            throw new Error('This PDF is password protected. Please enter the correct password.');
+          }
+          throw new Error('Incorrect password or unsupported encryption format.');
         }
 
-        function removeFile() {
-            currentFile = null;
-            fileInput.value = '';
-            fileInfo.classList.add('hidden');
-            passwordSection.classList.add('hidden');
-            unlockBtn.disabled = true;
-            pdfPassword.value = '';
-        }
+        progressFill.style.width = '85%';
+        progressText.textContent = 'Generating unlocked PDF...';
 
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
+        const unlockedBytes = await pdfDoc.save();
+        progressFill.style.width = '100%';
 
-        unlockBtn.addEventListener('click', async () => {
-            if (!currentFile || !pdfPassword.value) return;
+        const blob = new Blob([unlockedBytes], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `unlocked_${currentFile.name}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-            progressBar.classList.remove('hidden');
-            unlockBtn.disabled = true;
-
-            try {
-                // Simulate unlocking process
-                for (let i = 0; i <= 100; i += 10) {
-                    await new Promise(resolve => setTimeout(resolve, 200));
-                    progressBar.querySelector('div').style.width = `${i}%`;
-                    progressText.textContent = `Unlocking... ${i}%`;
-                }
-
-                // Create download link
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(currentFile); // In real implementation, this would be the unlocked file
-                link.download = `unlocked_${currentFile.name}`;
-                link.click();
-
-                // Reset UI
-                progressBar.classList.add('hidden');
-                unlockBtn.disabled = false;
-                removeFile();
-            } catch (error) {
-                console.error('Unlocking failed:', error);
-                alert('Failed to unlock PDF. Please check your password and try again.');
-                progressBar.classList.add('hidden');
-                unlockBtn.disabled = false;
-            }
+        Swal.fire({
+          icon: 'success',
+          title: 'PDF Unlocked!',
+          text: 'The password protection has been successfully removed and your file downloaded.'
         });
-    </script>
+
+        progressBar.classList.add('hidden');
+        unlockBtn.disabled = false;
+      } catch (error) {
+        console.error('Unlock error:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Decryption Failed',
+          text: error.message || 'Failed to unlock PDF. Please check the password.'
+        });
+        progressBar.classList.add('hidden');
+        unlockBtn.disabled = false;
+      }
+    });
+  </script>
 </body>
-</html> 
+</html>

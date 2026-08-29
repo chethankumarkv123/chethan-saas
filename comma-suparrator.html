@@ -3,238 +3,487 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comma Separator - Simple Delimiter Tool</title>
+    <title>Comma Separator Online — Convert Column Lists, SQL IN & Qualys Queries | OnePageTools</title>
+    <meta name="description" content="Free online Comma Separator, Duplicate Finder, and Delimiter tool. Convert Excel columns into comma-separated lists, find duplicate items, generate SQL IN clauses and Qualys queries with 100% in-browser privacy.">
+    <meta name="keywords" content="comma separator, find duplicates in list, display duplicates online, list to comma, column to comma, excel column to comma separated, sql in clause generator, qualys query generator, splunk in clause, text delimiter tool, add quotes to list, remove duplicate lines online, format text list">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://chethan-saas.netlify.app/comma-suparrator.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chethan-saas.netlify.app/comma-suparrator.html">
+    <meta property="og:title" content="Comma Separator Online — Convert Column Lists, SQL IN & Qualys Queries | OnePageTools">
+    <meta property="og:description" content="Free online Comma Separator and Delimiter tool. Convert Excel columns into comma-separated lists, find duplicates, SQL IN clauses, and Qualys queries in 1 click.">
+    <meta property="og:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Comma Separator Online — Fast List to Comma Converter">
+    <meta name="twitter:description" content="Convert Excel column lists into comma-separated values, find duplicate values, SQL IN queries, and Qualys search filters online for free.">
+    <meta name="twitter:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Online Comma Separator & Duplicate Finder Tool",
+      "url": "https://chethan-saas.netlify.app/comma-suparrator.html",
+      "description": "Convert column lists into comma-separated text, find duplicate entries, Qualys queries, and SQL IN clauses with 100% client-side security.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All modern browsers",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://chethan-saas.netlify.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Data Tools", "item": "https://chethan-saas.netlify.app/#toollists" },
+        { "@type": "ListItem", "position": 3, "name": "Comma Separator", "item": "https://chethan-saas.netlify.app/comma-suparrator.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I find and display only duplicates in my list?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Paste your list into the Input Data box and switch on the 'Only duplicates' toggle. The tool will immediately isolate and display only the items that appear more than once in your input."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I convert an Excel column to a comma-separated list?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Copy the column cells directly from Microsoft Excel or Google Sheets, paste them into the Input Data box, choose the Comma preset or dropdown option, and click Copy Output."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I format a list for Qualys VMDR vulnerability searches?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Paste your list of QIDs, CVEs, or hostnames and click the Qualys ('a' or 'b') quick preset button. It automatically encloses each value in single quotes with lowercase 'or' operators."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data secure when using this tool?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, 100%. All processing runs locally in your browser JavaScript memory. No data, files, text, or query parameters are ever uploaded or transmitted to any external server."
+          }
+        }
+      ]
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class'
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/menu.js"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .toggle-switch { position: relative; display: inline-block; width: 40px; height: 22px; }
+        .toggle-switch { position: relative; display: inline-block; width: 38px; height: 20px; }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; transition: .4s; border-radius: 22px; }
-        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background: #6366f1; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #cbd5e1; transition: .3s; border-radius: 20px; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background: white; transition: .3s; border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+        input:checked + .slider { background: #4f46e5; }
         input:checked + .slider:before { transform: translateX(18px); }
+        .dark .slider { background: #475569; }
+        
+        .opt-btn {
+            background-color: #3b82f6;
+            color: #ffffff;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .opt-btn:hover {
+            background-color: #2563eb;
+        }
+        .opt-btn.active {
+            background-color: #1d4ed8 !important;
+            box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.4);
+        }
+
+        .preset-pill {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            color: #475569;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .dark .preset-pill {
+            background: #1e293b;
+            border-color: #334155;
+            color: #cbd5e1;
+        }
+        .preset-pill:hover {
+            border-color: #6366f1;
+            color: #4f46e5;
+            background: #f5f3ff;
+        }
+        .dark .preset-pill:hover {
+            border-color: #818cf8;
+            color: #818cf8;
+            background: rgba(99, 102, 241, 0.15);
+        }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
-    <header class="bg-white shadow p-4 flex items-center justify-between">
-        <h1 class="text-2xl font-bold text-indigo-600 flex items-center">
-            <i class="fas fa-ellipsis-h mr-2"></i> Comma Separator
-        </h1>
-        <button id="themeToggle" class="rounded-full p-2 bg-gray-200 hover:bg-gray-300" title="Toggle theme">
-            <span id="themeIcon">🌙</span>
-        </button>
-    </header>
-    <div class="flex flex-col items-center min-h-screen bg-gray-50">
-        <div class="w-full max-w-4xl mx-auto mt-8">
-            <div class="flex justify-end mb-4">
-                <button id="openSettingsBtn" class="flex items-center text-indigo-700 hover:underline font-medium"><i class="fas fa-cog mr-2"></i>Converter Settings</button>
-            </div>
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Input -->
-                <section class="flex-1 bg-white rounded-lg shadow-md p-6 flex flex-col">
-                    <label for="inputText" class="font-semibold text-gray-700 mb-2">Input Data</label>
-                    <textarea id="inputText" rows="10" class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:ring-indigo-500 focus:border-indigo-500 resize-y" placeholder="Paste or type your data here..."></textarea>
-                    <div class="flex flex-wrap gap-4 mb-2">
-                        <div>
-                            <label class="font-medium text-gray-600 mr-2">Delimiter:</label>
-                            <select id="delimiter" class="border border-gray-300 rounded px-2 py-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                <option value=",">Comma (,)</option>
-                                <option value=";">Semicolon (;)</option>
-                                <option value="|">Pipe (|)</option>
-                                <option value=" ">Space ( )</option>
-                                <option value="\n">New Line</option>
-                            </select>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <label class="font-medium text-gray-600">Remove newlines</label>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="removeNewlines">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <label class="font-medium text-gray-600">Remove duplicates</label>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="removeDuplicates">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <label class="font-medium text-gray-600">Add quotes</label>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="addQuotes">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <button id="convertBtn" class="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg shadow transition">Convert</button>
-                </section>
-                <!-- Output -->
-                <section class="flex-1 bg-white rounded-lg shadow-md p-6 flex flex-col">
-                    <label for="outputText" class="font-semibold text-gray-700 mb-2">Output</label>
-                    <textarea id="outputText" rows="10" class="w-full border border-gray-300 rounded-md p-3 mb-4 bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 resize-y" readonly placeholder="Your comma separated data will appear here..."></textarea>
-                    <button id="copyBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg shadow transition">Copy Output</button>
-                    <div id="messageArea" class="mt-4 p-3 rounded-lg text-center text-sm hidden"></div>
-                </section>
-            </div>
-        </div>
-    </div>
-    <!-- Settings Modal -->
-    <div id="settingsModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-4xl relative">
-            <button id="closeSettingsBtn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-            <h2 class="text-xl font-bold text-indigo-700 mb-6 flex items-center"><i class="fas fa-cog mr-2"></i>Converter Settings</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="space-y-4">
-                    <div>
-                        <div class="font-semibold mb-1">Tidy Up <span class="text-xs text-gray-500 font-normal">Remove the new lines from output?</span></div>
-                        <div class="flex gap-2">
-                            <button type="button" class="tidy-btn px-4 py-2 rounded bg-blue-600 text-white font-bold" data-value="yes">Yes</button>
-                            <button type="button" class="tidy-btn px-4 py-2 rounded bg-blue-500 text-white font-bold" data-value="no">No</button>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="font-semibold mb-1">Attack the clones <span class="text-xs text-gray-500 font-normal">Remove the duplicates from the result set</span></div>
-                        <div class="flex gap-2">
-                            <button type="button" class="dedup-btn px-4 py-2 rounded bg-blue-600 text-white font-bold" data-value="yes">Yes</button>
-                            <button type="button" class="dedup-btn px-4 py-2 rounded bg-blue-500 text-white font-bold" data-value="no">No</button>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="font-semibold mb-1">Explode <span class="text-xs text-gray-500 font-normal">Explode your records using this</span></div>
-                        <div class="flex gap-2 flex-wrap">
-                            <button type="button" class="explode-btn px-4 py-2 rounded bg-blue-600 text-white font-bold" data-value="newlines">New Lines</button>
-                            <button type="button" class="explode-btn px-4 py-2 rounded bg-blue-500 text-white font-bold" data-value="spaces">Spaces</button>
-                            <button type="button" class="explode-btn px-4 py-2 rounded bg-blue-500 text-white font-bold" data-value="commas">Commas</button>
-                            <button type="button" class="explode-btn px-4 py-2 rounded bg-blue-500 text-white font-bold" data-value="semicolons">Semicolons</button>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="font-semibold mb-1">Quotes <span class="text-xs text-gray-500 font-normal">Add quotes to each record</span></div>
-                        <div class="flex gap-2">
-                            <button type="button" class="quotes-btn px-4 py-2 rounded bg-blue-600 text-white font-bold" data-value="no">No</button>
-                            <button type="button" class="quotes-btn px-4 py-2 rounded bg-blue-500 text-white font-bold" data-value="double">Double</button>
-                            <button type="button" class="quotes-btn px-4 py-2 rounded bg-blue-500 text-white font-bold" data-value="single">Single</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="space-y-4">
-                    <div>
-                        <div class="font-semibold mb-1">Delimiter <span class="text-xs text-gray-500 font-normal">Character used between records</span></div>
-                        <input id="modalDelimiter" type="text" class="w-full border border-gray-300 rounded px-3 py-2" value=",">
-                    </div>
-                    <div>
-                        <div class="font-semibold mb-1">Tags <span class="text-xs text-gray-500 font-normal">Use Tags to wrap your records. EX: &lt;strong&gt;</span></div>
-                        <div class="flex gap-2">
-                            <input id="openTag" type="text" class="w-1/2 border border-gray-300 rounded px-3 py-2" placeholder="Open Tag">
-                            <input id="closeTag" type="text" class="w-1/2 border border-gray-300 rounded px-3 py-2" placeholder="Close Tag">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="font-semibold mb-1">Interval <span class="text-xs text-gray-500 font-normal">Add a new line after x amount</span></div>
-                        <input id="interval" type="number" min="0" class="w-full border border-gray-300 rounded px-3 py-2" value="0">
-                    </div>
-                    <div>
-                        <div class="font-semibold mb-1">Interval Wrap <span class="text-xs text-gray-500 font-normal">Wrap your intervals with tags</span></div>
-                        <div class="flex gap-2">
-                            <input id="intervalOpenTag" type="text" class="w-1/2 border border-gray-300 rounded px-3 py-2" placeholder="Open Tag">
-                            <input id="intervalCloseTag" type="text" class="w-1/2 border border-gray-300 rounded px-3 py-2" placeholder="Close Tag">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flex justify-end mt-8">
-                <button id="applySettingsBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg shadow">Apply Settings</button>
-            </div>
-        </div>
-    </div>
-    <!-- Modern Responsive Footer Start -->
-    <footer class="bg-gray-900 text-white mt-12">
-      <!-- Accent Bar -->
-      <div class="h-1 w-full bg-gradient-to-r from-[#e5322d] via-pink-500 to-purple-600"></div>
-      <div class="max-w-screen-xl mx-auto px-4 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-        <!-- Logo and Name -->
-        <div class="flex items-center space-x-4 mb-6 md:mb-0">
-          <img src="./chethan-saas.png" alt="chethan-saas logo" class="h-12 rounded-lg shadow-lg bg-white p-1" />
-          <span class="font-extrabold text-2xl tracking-tight">chethan-saas.com</span>
-        </div>
-        <!-- Quick Links -->
-        <nav class="flex flex-wrap gap-4 justify-center md:justify-start">
-          <a href="./index.html" class="hover:text-[#e5322d] transition-colors font-medium">Home</a>
-          <a href="./about.html" class="hover:text-[#e5322d] transition-colors font-medium">About</a>
-          <a href="./contact.html" class="hover:text-[#e5322d] transition-colors font-medium">Contact</a>
-          <a href="./privacy-policy.html" class="hover:text-[#e5322d] transition-colors font-medium">Privacy Policy</a>
-        </nav>
-        <!-- Contact & Social -->
-        <div class="flex flex-col items-center md:items-end gap-3">
-          <div class="text-gray-300 text-sm">
-            <span class="font-bold text-[#e5322d]">Contact:</span> Chethankumarkv123@gmail.com
-          </div>
-          <div class="flex space-x-3 mt-2">
-            <a href="#" class="bg-white/10 hover:bg-[#e5322d] text-white rounded-full p-2 transition-colors" aria-label="Twitter">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557a9.93 9.93 0 0 1-2.828.775 4.932 4.932 0 0 0 2.165-2.724c-.951.564-2.005.974-3.127 1.195A4.92 4.92 0 0 0 16.616 3c-2.73 0-4.942 2.21-4.942 4.936 0 .39.045.765.127 1.124C7.728 8.89 4.1 6.89 1.671 3.905c-.427.722-.666 1.561-.666 2.475 0 1.708.87 3.216 2.188 4.099a4.904 4.904 0 0 1-2.237-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.936 4.936 0 0 1-2.224.084c.627 1.956 2.444 3.377 4.6 3.417A9.867 9.867 0 0 1 0 21.543a13.94 13.94 0 0 0 7.548 2.209c9.057 0 14.009-7.496 14.009-13.986 0-.21 0-.423-.016-.634A9.936 9.936 0 0 0 24 4.557z"/></svg>
-            </a>
-            <a href="#" class="bg-white/10 hover:bg-[#e5322d] text-white rounded-full p-2 transition-colors" aria-label="Facebook">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.597 0 0 .592 0 1.326v21.348C0 23.408.597 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.403 24 24 23.408 24 22.674V1.326C24 .592 23.403 0 22.675 0"/></svg>
-            </a>
-            <a href="#" class="bg-white/10 hover:bg-[#e5322d] text-white rounded-full p-2 transition-colors" aria-label="LinkedIn">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.841-1.563 3.039 0 3.6 2.001 3.6 4.601v5.595z"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="border-t border-gray-800 py-4 text-center text-gray-400 text-sm">
-        © 2025 chethan-saas.com. All rights reserved. Created by Chethan Kumar
-      </div>
-    </footer>
-    <!-- Modern Responsive Footer End -->
-    <script>
-        // Theme toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        function setTheme(isDark) {
-            document.body.classList.toggle('dark', isDark);
-            themeIcon.textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
-        const saved = localStorage.getItem('theme');
-        setTheme(saved === 'dark');
-        themeToggle.addEventListener('click', () => setTheme(!document.body.classList.contains('dark')));
+<body class="bg-gray-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased">
 
-        // Main logic
+    <!-- Breadcrumb Bar -->
+    <div class="bg-white dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 py-2.5 px-4">
+      <div class="max-w-5xl mx-auto flex items-center justify-between text-xs">
+        <div class="flex items-center space-x-2 text-slate-500 dark:text-slate-400">
+          <a href="./index.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Home</a>
+          <span>/</span>
+          <a href="./index.html#toollists" class="hover:text-indigo-600 dark:hover:text-indigo-400">Data Tools</a>
+          <span>/</span>
+          <span class="text-slate-800 dark:text-slate-200 font-semibold">Comma Separator</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
+          <i class="fas fa-lock text-[10px]"></i>
+          <span>100% In-Browser Privacy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Header Row -->
+        <div class="flex justify-between items-center mb-3">
+            <div>
+                <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fas fa-ellipsis-h text-indigo-600"></i> Comma Separator & List Delimiter Tool
+                </h1>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    Convert Excel columns, lists, and raw data into comma-separated values, SQL IN queries, and Qualys search filters.
+                </p>
+            </div>
+            <button id="openSettingsBtn" class="flex items-center text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+                <i class="fas fa-cog mr-1.5"></i> Converter Settings
+            </button>
+        </div>
+
+        <!-- Quick Presets Bar -->
+        <div class="bg-white dark:bg-slate-800/90 p-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm mb-5 flex flex-wrap items-center gap-2 text-xs">
+            <span class="font-bold text-slate-500 dark:text-slate-400 uppercase text-[10px] tracking-wider mr-1 flex items-center gap-1">
+                <i class="fas fa-bolt text-amber-500"></i> Quick Presets:
+            </span>
+            <button onclick="applyPreset('qualys')" class="preset-pill border-indigo-200 text-indigo-600 dark:text-indigo-400 bg-indigo-50/70 dark:bg-indigo-950/40">
+                🛡️ Qualys ('a' or 'b')
+            </button>
+            <button onclick="applyPreset('comma')" class="preset-pill">
+                Comma (a, b)
+            </button>
+            <button onclick="applyPreset('quoted_comma')" class="preset-pill">
+                'a', 'b', 'c'
+            </button>
+            <button onclick="applyPreset('sqlin')" class="preset-pill">
+                SQL IN ('a', 'b')
+            </button>
+            <button onclick="applyPreset('splunk')" class="preset-pill">
+                Splunk IN ("a", "b")
+            </button>
+            <button onclick="applyPreset('regex')" class="preset-pill">
+                Regex (a|b|c)
+            </button>
+            <button onclick="applyPreset('or')" class="preset-pill">
+                'a' OR 'b'
+            </button>
+            <button onclick="applyPreset('and')" class="preset-pill">
+                'a' AND 'b'
+            </button>
+            <button onclick="applyPreset('json')" class="preset-pill">
+                JSON ["a", "b"]
+            </button>
+            <button onclick="applyPreset('semicolon')" class="preset-pill">
+                Semicolon (;)
+            </button>
+            <button onclick="applyPreset('pipe')" class="preset-pill">
+                Pipe (|)
+            </button>
+        </div>
+
+        <!-- Two Card Workspace -->
+        <div class="flex flex-col md:flex-row gap-6 mb-12">
+            
+            <!-- Left Card: Input -->
+            <section class="flex-1 bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 flex flex-col">
+                <div class="flex justify-between items-center mb-2">
+                    <label for="inputText" class="font-bold text-sm text-gray-700 dark:text-gray-200">Input Data</label>
+                    <div class="flex items-center gap-3">
+                        <label for="fileUploadInput" class="cursor-pointer text-xs text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+                            <i class="fas fa-file-upload"></i> Upload File
+                        </label>
+                        <input type="file" id="fileUploadInput" accept=".txt,.csv,.log" class="hidden">
+                        <button onclick="loadSampleData()" class="text-xs text-slate-500 dark:text-slate-400 hover:underline">Sample</button>
+                    </div>
+                </div>
+                <textarea id="inputText" rows="10" class="w-full border border-gray-300 dark:border-slate-600 rounded-xl p-3.5 mb-4 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white font-mono text-xs resize-y" placeholder="Paste or type your data here..."></textarea>
+                
+                <div class="space-y-3 mb-4 text-xs">
+                    <!-- Delimiter selection -->
+                    <div class="flex items-center gap-3">
+                        <label for="delimiter" class="font-semibold text-gray-600 dark:text-gray-300">Delimiter:</label>
+                        <select id="delimiter" class="border border-gray-300 dark:border-slate-600 dark:bg-slate-900 rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-xs font-medium">
+                            <option value="qualys" selected>Qualys ('a' or 'b')</option>
+                            <option value=",">Comma (,)</option>
+                            <option value=", ">Comma with space (, )</option>
+                            <option value=" OR ">Logical OR ('a' OR 'b')</option>
+                            <option value=" AND ">Logical AND ('a' AND 'b')</option>
+                            <option value="sqlin">SQL IN ('a', 'b')</option>
+                            <option value="splunk">Splunk IN ("a", "b")</option>
+                            <option value="regex">Regex (a|b|c)</option>
+                            <option value=";">Semicolon (;)</option>
+                            <option value="|">Pipe (|)</option>
+                            <option value=" ">Space ( )</option>
+                            <option value="\n">New Line (\n)</option>
+                        </select>
+                    </div>
+
+                    <!-- Clean Toggles Row with 'Only duplicates' -->
+                    <div class="flex flex-wrap items-center gap-4 pt-1">
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-medium text-gray-600 dark:text-gray-300">Remove newlines</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="removeNewlines" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-medium text-gray-600 dark:text-gray-300">Remove duplicates</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="removeDuplicates" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="flex items-center gap-1.5 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded-lg border border-amber-200 dark:border-amber-800/60">
+                            <span class="font-semibold text-amber-800 dark:text-amber-300">Only duplicates</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="showOnlyDuplicates">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-medium text-gray-600 dark:text-gray-300">Add quotes</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="addQuotes" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="convertBtn" class="mt-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-6 rounded-xl shadow-sm transition flex items-center justify-center gap-2 text-sm">
+                    <i class="fas fa-sync-alt text-xs"></i>
+                    <span>Convert</span>
+                </button>
+            </section>
+
+            <!-- Right Card: Output -->
+            <section class="flex-1 bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 flex flex-col">
+                <div class="flex justify-between items-center mb-2">
+                    <label for="outputText" class="font-bold text-sm text-gray-700 dark:text-gray-200">Output</label>
+                    <span id="itemCount" class="text-xs text-gray-500 dark:text-gray-400">0 items</span>
+                </div>
+                <textarea id="outputText" rows="10" class="w-full border border-gray-300 dark:border-slate-600 rounded-xl p-3.5 mb-4 bg-gray-50 dark:bg-slate-900/60 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-slate-900 dark:text-white font-mono text-xs resize-y" readonly placeholder="Your comma separated data will appear here..."></textarea>
+                
+                <button id="copyBtn" class="mt-auto bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-100 font-bold py-2.5 px-6 rounded-xl shadow-sm transition flex items-center justify-center gap-2 text-sm">
+                    <i class="fas fa-copy mr-1.5"></i>
+                    <span id="copyBtnText">Copy Output</span>
+                </button>
+            </section>
+
+        </div>
+
+        <!-- SEO Content Sections -->
+        <div class="space-y-8 text-slate-700 dark:text-slate-300 text-xs sm:text-sm">
+            <section class="bg-white dark:bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+                <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-3">
+                    How to Convert Lists & Find Duplicates Online
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
+                        <span class="w-6 h-6 rounded-full bg-indigo-600 text-white font-bold inline-flex items-center justify-center mb-2">1</span>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">Paste Your List</h3>
+                        <p class="text-slate-500 dark:text-slate-400">Copy cells directly from Excel, CSV, or text and paste them into the box.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
+                        <span class="w-6 h-6 rounded-full bg-indigo-600 text-white font-bold inline-flex items-center justify-center mb-2">2</span>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">Choose Presets or Find Duplicates</h3>
+                        <p class="text-slate-500 dark:text-slate-400">Toggle <strong>Only duplicates</strong> to isolate repeated items, or select <strong>Qualys</strong>, <strong>Comma</strong>, or <strong>SQL IN</strong>.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
+                        <span class="w-6 h-6 rounded-full bg-indigo-600 text-white font-bold inline-flex items-center justify-center mb-2">3</span>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">1-Click Copy</h3>
+                        <p class="text-slate-500 dark:text-slate-400">Click <strong>Copy Output</strong> to copy the clean list straight to your clipboard.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Converter Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-3xl relative border border-slate-200 dark:border-slate-700">
+            <button id="closeSettingsBtn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-white text-2xl font-bold">&times;</button>
+            
+            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-400 mb-6 flex items-center gap-2">
+                <i class="fas fa-cog"></i> Converter Settings
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+                <!-- Left Column -->
+                <div class="space-y-5">
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-slate-200">
+                            Tidy Up <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">Remove the new lines from output?</span>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <button type="button" class="opt-btn tidy-btn active" data-group="tidy" data-value="yes">Yes</button>
+                            <button type="button" class="opt-btn tidy-btn" data-group="tidy" data-value="no">No</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-slate-200">
+                            Attack the clones <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">Remove the duplicates from the result set</span>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <button type="button" class="opt-btn dedup-btn active" data-group="dedup" data-value="yes">Yes</button>
+                            <button type="button" class="opt-btn dedup-btn" data-group="dedup" data-value="no">No</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-slate-200">
+                            Explode <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">Explode your records using this</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <button type="button" class="opt-btn explode-btn active" data-group="explode" data-value="newlines">New Lines</button>
+                            <button type="button" class="opt-btn explode-btn" data-group="explode" data-value="spaces">Spaces</button>
+                            <button type="button" class="opt-btn explode-btn" data-group="explode" data-value="commas">Commas</button>
+                            <button type="button" class="opt-btn explode-btn" data-group="explode" data-value="semicolons">Semicolons</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-slate-200">
+                            Quotes <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">Add quotes to each record</span>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <button type="button" class="opt-btn quotes-btn" data-group="quotes" data-value="no">No</button>
+                            <button type="button" class="opt-btn quotes-btn" data-group="quotes" data-value="double">Double</button>
+                            <button type="button" class="opt-btn quotes-btn active" data-group="quotes" data-value="single">Single</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-4">
+                    <div>
+                        <label for="modalDelimiter" class="block font-bold text-slate-800 dark:text-slate-200">
+                            Delimiter <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">Character used between records</span>
+                        </label>
+                        <input type="text" id="modalDelimiter" value=" or " class="w-full border border-gray-300 dark:border-slate-600 rounded-lg p-2.5 mt-1 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-800 dark:text-slate-200">
+                            Tags <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">Use Tags to wrap your records. EX: &lt;strong&gt;</span>
+                        </label>
+                        <div class="grid grid-cols-2 gap-3 mt-1">
+                            <input type="text" id="openTag" placeholder="Open Tag" class="w-full border border-gray-300 dark:border-slate-600 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm">
+                            <input type="text" id="closeTag" placeholder="Close Tag" class="w-full border border-gray-300 dark:border-slate-600 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="interval" class="block font-bold text-slate-800 dark:text-slate-200">
+                            Interval <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">Add a new line after x amount</span>
+                        </label>
+                        <input type="number" id="interval" value="0" min="0" class="w-full border border-gray-300 dark:border-slate-600 rounded-lg p-2.5 mt-1 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-800 dark:text-slate-200">
+                            Interval Wrap <span class="text-xs text-gray-500 dark:text-gray-400 font-normal">Wrap your intervals with tags</span>
+                        </label>
+                        <div class="grid grid-cols-2 gap-3 mt-1">
+                            <input type="text" id="intervalOpenTag" placeholder="Open Tag" class="w-full border border-gray-300 dark:border-slate-600 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm">
+                            <input type="text" id="intervalCloseTag" placeholder="Close Tag" class="w-full border border-gray-300 dark:border-slate-600 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white dark:bg-slate-900 text-slate-900 dark:text-white text-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Apply Button -->
+            <div class="flex justify-end mt-8">
+                <button id="applySettingsBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-8 rounded-xl shadow-md transition text-sm">
+                    Apply Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 text-center">
+        <p>&copy; 2026 OnePageTools. 100% Client-Side Privacy Guaranteed.</p>
+    </footer>
+
+    <script>
         const inputText = document.getElementById('inputText');
         const outputText = document.getElementById('outputText');
         const delimiter = document.getElementById('delimiter');
         const removeNewlines = document.getElementById('removeNewlines');
         const removeDuplicates = document.getElementById('removeDuplicates');
+        const showOnlyDuplicates = document.getElementById('showOnlyDuplicates');
         const addQuotes = document.getElementById('addQuotes');
         const convertBtn = document.getElementById('convertBtn');
         const copyBtn = document.getElementById('copyBtn');
-        const messageArea = document.getElementById('messageArea');
+        const copyBtnText = document.getElementById('copyBtnText');
+        const itemCount = document.getElementById('itemCount');
+        const fileUploadInput = document.getElementById('fileUploadInput');
 
-        function showMessage(msg, type = 'info') {
-            messageArea.textContent = msg;
-            messageArea.className = 'mt-4 p-3 rounded-lg text-center text-sm';
-            if (type === 'success') {
-                messageArea.classList.add('bg-green-100', 'text-green-800');
-            } else if (type === 'error') {
-                messageArea.classList.add('bg-red-100', 'text-red-800');
-            } else {
-                messageArea.classList.add('bg-blue-100', 'text-blue-800');
-            }
-            messageArea.classList.remove('hidden');
-            setTimeout(() => messageArea.classList.add('hidden'), 2500);
-        }
+        // Settings modal elements
+        const openSettingsBtn = document.getElementById('openSettingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+        const applySettingsBtn = document.getElementById('applySettingsBtn');
 
-        // Settings state
+        const modalDelimiter = document.getElementById('modalDelimiter');
+        const openTag = document.getElementById('openTag');
+        const closeTag = document.getElementById('closeTag');
+        const interval = document.getElementById('interval');
+        const intervalOpenTag = document.getElementById('intervalOpenTag');
+        const intervalCloseTag = document.getElementById('intervalCloseTag');
+
+        // Settings State
         let settings = {
             tidy: 'yes',
             dedup: 'yes',
             explode: 'newlines',
-            quotes: 'no',
-            delimiter: ',',
+            quotes: 'single',
+            delimiter: ' or ',
             openTag: '',
             closeTag: '',
             interval: 0,
@@ -242,102 +491,369 @@
             intervalCloseTag: ''
         };
 
-        // Modal logic
-        const openSettingsBtn = document.getElementById('openSettingsBtn');
-        const settingsModal = document.getElementById('settingsModal');
-        const closeSettingsBtn = document.getElementById('closeSettingsBtn');
-        const applySettingsBtn = document.getElementById('applySettingsBtn');
+        function updateModalButtonStates() {
+            document.querySelectorAll('.tidy-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.value === settings.tidy));
+            document.querySelectorAll('.dedup-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.value === settings.dedup));
+            document.querySelectorAll('.explode-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.value === settings.explode));
+            document.querySelectorAll('.quotes-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.value === settings.quotes));
+            modalDelimiter.value = settings.delimiter;
+            openTag.value = settings.openTag;
+            closeTag.value = settings.closeTag;
+            interval.value = settings.interval;
+            intervalOpenTag.value = settings.intervalOpenTag;
+            intervalCloseTag.value = settings.intervalCloseTag;
+        }
 
-        openSettingsBtn.onclick = () => {
-            // Set modal values from settings
-            document.querySelectorAll('.tidy-btn').forEach(btn => btn.classList.toggle('bg-blue-600', btn.dataset.value === settings.tidy));
-            document.querySelectorAll('.tidy-btn').forEach(btn => btn.classList.toggle('bg-blue-500', btn.dataset.value !== settings.tidy));
-            document.querySelectorAll('.dedup-btn').forEach(btn => btn.classList.toggle('bg-blue-600', btn.dataset.value === settings.dedup));
-            document.querySelectorAll('.dedup-btn').forEach(btn => btn.classList.toggle('bg-blue-500', btn.dataset.value !== settings.dedup));
-            document.querySelectorAll('.explode-btn').forEach(btn => btn.classList.toggle('bg-blue-600', btn.dataset.value === settings.explode));
-            document.querySelectorAll('.explode-btn').forEach(btn => btn.classList.toggle('bg-blue-500', btn.dataset.value !== settings.explode));
-            document.querySelectorAll('.quotes-btn').forEach(btn => btn.classList.toggle('bg-blue-600', btn.dataset.value === settings.quotes));
-            document.querySelectorAll('.quotes-btn').forEach(btn => btn.classList.toggle('bg-blue-500', btn.dataset.value !== settings.quotes));
-            document.getElementById('modalDelimiter').value = settings.delimiter;
-            document.getElementById('openTag').value = settings.openTag;
-            document.getElementById('closeTag').value = settings.closeTag;
-            document.getElementById('interval').value = settings.interval;
-            document.getElementById('intervalOpenTag').value = settings.intervalOpenTag;
-            document.getElementById('intervalCloseTag').value = settings.intervalCloseTag;
-            settingsModal.classList.remove('hidden');
-        };
-        closeSettingsBtn.onclick = () => settingsModal.classList.add('hidden');
-        settingsModal.onclick = e => { if (e.target === settingsModal) settingsModal.classList.add('hidden'); };
+        // Attach modal button click handlers
+        document.querySelectorAll('.opt-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const group = this.dataset.group;
+                const val = this.dataset.value;
+                if (group === 'tidy') settings.tidy = val;
+                else if (group === 'dedup') settings.dedup = val;
+                else if (group === 'explode') settings.explode = val;
+                else if (group === 'quotes') settings.quotes = val;
 
-        // Button group logic
-        [...document.querySelectorAll('.tidy-btn')].forEach(btn => btn.onclick = () => { settings.tidy = btn.dataset.value; openSettingsBtn.onclick(); });
-        [...document.querySelectorAll('.dedup-btn')].forEach(btn => btn.onclick = () => { settings.dedup = btn.dataset.value; openSettingsBtn.onclick(); });
-        [...document.querySelectorAll('.explode-btn')].forEach(btn => btn.onclick = () => { settings.explode = btn.dataset.value; openSettingsBtn.onclick(); });
-        [...document.querySelectorAll('.quotes-btn')].forEach(btn => btn.onclick = () => { settings.quotes = btn.dataset.value; openSettingsBtn.onclick(); });
+                // Sync main page toggles
+                removeNewlines.checked = (settings.tidy === 'yes');
+                removeDuplicates.checked = (settings.dedup === 'yes');
+                addQuotes.checked = (settings.quotes !== 'no');
 
-        // Sync dropdown to settings
-        delimiter.addEventListener('change', () => {
-            settings.delimiter = delimiter.value;
+                updateModalButtonStates();
+            });
         });
 
-        applySettingsBtn.onclick = () => {
-            settings.delimiter = document.getElementById('modalDelimiter').value || ',';
-            delimiter.value = settings.delimiter; // sync dropdown
-            settings.openTag = document.getElementById('openTag').value;
-            settings.closeTag = document.getElementById('closeTag').value;
-            settings.interval = parseInt(document.getElementById('interval').value) || 0;
-            settings.intervalOpenTag = document.getElementById('intervalOpenTag').value;
-            settings.intervalCloseTag = document.getElementById('intervalCloseTag').value;
-            settingsModal.classList.add('hidden');
-        };
+        function convert() {
+            let val = inputText.value;
+            if (!val) {
+                outputText.value = '';
+                itemCount.textContent = '0 items';
+                return;
+            }
 
-        // Update convert logic to use settings
-        convertBtn.addEventListener('click', () => {
-            let values = inputText.value;
-            // Explode
-            if (settings.explode === 'spaces') values = values.split(/\s+/).filter(Boolean);
-            else if (settings.explode === 'commas') values = values.split(/,+/).filter(Boolean);
-            else if (settings.explode === 'semicolons') values = values.split(/;+|\n/).filter(Boolean);
-            else values = values.split(/\r?\n/).filter(Boolean); // newlines
-            // Tidy
-            if (settings.tidy === 'yes') values = values.map(v => v.trim());
-            // Dedup
-            if (settings.dedup === 'yes') values = [...new Set(values)];
+            // Explode input
+            let values = [];
+            if (settings.explode === 'spaces') {
+                values = val.split(/\s+/).filter(Boolean);
+            } else if (settings.explode === 'commas') {
+                values = val.split(/,+/).filter(Boolean);
+            } else if (settings.explode === 'semicolons') {
+                values = val.split(/;+|\n/).filter(Boolean);
+            } else {
+                // newlines (default)
+                values = val.split(/\r?\n/).filter(Boolean);
+                if (values.length === 1 && val.includes(',')) {
+                    values = val.split(',').filter(Boolean);
+                }
+            }
+
+            // Tidy Up
+            if (settings.tidy === 'yes' || removeNewlines.checked) {
+                values = values.map(v => v.trim()).filter(v => v.length > 0);
+            }
+
+            // Mode: Only Duplicates vs Normal Deduplicate
+            if (showOnlyDuplicates.checked) {
+                // Count frequencies
+                const counts = {};
+                values.forEach(item => {
+                    counts[item] = (counts[item] || 0) + 1;
+                });
+                // Extract only items that appeared 2 or more times
+                values = Object.keys(counts).filter(item => counts[item] > 1);
+                
+                if (values.length === 0) {
+                    outputText.value = '';
+                    itemCount.textContent = '0 duplicates found';
+                    return;
+                }
+            } else if (settings.dedup === 'yes' || removeDuplicates.checked) {
+                values = Array.from(new Set(values));
+            }
+
             // Quotes
-            if (settings.quotes === 'double') values = values.map(v => '"' + v.replace(/"/g, '""') + '"');
-            else if (settings.quotes === 'single') values = values.map(v => "'" + v.replace(/'/g, "''") + "'");
+            const dVal = delimiter.value;
+            let quoteMode = settings.quotes;
+            if (!addQuotes.checked && quoteMode === 'single' && dVal === ',') {
+                quoteMode = 'no';
+            }
+
+            if (dVal === 'splunk') {
+                values = values.map(v => `"${v.replace(/"/g, '\"')}"`);
+            } else if (dVal === 'regex') {
+                // no quotes for regex
+            } else if (quoteMode === 'double') {
+                values = values.map(v => `"${v.replace(/"/g, '""')}"`);
+            } else if (quoteMode === 'single' || addQuotes.checked || dVal === 'qualys' || dVal === 'sqlin' || dVal === ' OR ' || dVal === ' AND ') {
+                values = values.map(v => `'${v.replace(/'/g, "''")}'`);
+            }
+
             // Tags
-            if (settings.openTag && settings.closeTag) values = values.map(v => settings.openTag + v + settings.closeTag);
-            // Interval wrap
+            if (settings.openTag || settings.closeTag) {
+                values = values.map(v => `${settings.openTag}${v}${settings.closeTag}`);
+            }
+
+            // Separator
+            let sep = settings.delimiter;
+            if (dVal === 'qualys') sep = ' or ';
+            else if (dVal === 'sqlin' || dVal === 'splunk') sep = ', ';
+            else if (dVal === 'regex') sep = '|';
+            else if (dVal === ' OR ') sep = ' OR ';
+            else if (dVal === ' AND ') sep = ' AND ';
+            else if (dVal === ', ') sep = ', ';
+            else if (dVal === ',') sep = ',';
+            else if (dVal === ';') sep = '; ';
+            else if (dVal === '|') sep = '|';
+            else if (dVal === ' ') sep = ' ';
+            else if (dVal === '\n') sep = '\n';
+
+            // Interval wrapping
             let output = '';
-            if (settings.interval > 0) {
-                for (let i = 0; i < values.length; i += settings.interval) {
-                    let group = values.slice(i, i + settings.interval);
-                    if (settings.intervalOpenTag && settings.intervalCloseTag) output += settings.intervalOpenTag;
-                    output += group.join(settings.delimiter === '\\n' ? '\n' : settings.delimiter);
-                    if (settings.intervalOpenTag && settings.intervalCloseTag) output += settings.intervalCloseTag;
-                    if (i + settings.interval < values.length) output += '\n';
+            const intervalCount = parseInt(settings.interval, 10) || 0;
+            if (intervalCount > 0) {
+                for (let i = 0; i < values.length; i += intervalCount) {
+                    let group = values.slice(i, i + intervalCount);
+                    if (settings.intervalOpenTag) output += settings.intervalOpenTag;
+                    output += group.join(sep);
+                    if (settings.intervalCloseTag) output += settings.intervalCloseTag;
+                    if (i + intervalCount < values.length) output += '\n';
                 }
             } else {
-                output = values.join(settings.delimiter === '\\n' ? '\n' : settings.delimiter);
+                output = values.join(sep);
             }
+
+            if (dVal === 'sqlin' || dVal === 'splunk' || dVal === 'regex') {
+                output = `(${output})`;
+            }
+
             outputText.value = output;
-            if (values.length > 0) {
-                showMessage('Converted successfully!', 'success');
+            if (showOnlyDuplicates.checked) {
+                itemCount.textContent = `${values.length} duplicates found`;
             } else {
-                showMessage('Please enter some values to convert.', 'error');
+                itemCount.textContent = `${values.length} items`;
             }
+        }
+
+        // Quick Preset Applicator
+        function applyPreset(type) {
+            showOnlyDuplicates.checked = false;
+            if (type === 'qualys') {
+                delimiter.value = 'qualys';
+                settings.delimiter = ' or ';
+                settings.quotes = 'single';
+                addQuotes.checked = true;
+            } else if (type === 'comma') {
+                delimiter.value = ', ';
+                settings.delimiter = ', ';
+                settings.quotes = 'no';
+                addQuotes.checked = false;
+            } else if (type === 'quoted_comma') {
+                delimiter.value = ', ';
+                settings.delimiter = ', ';
+                settings.quotes = 'single';
+                addQuotes.checked = true;
+            } else if (type === 'sqlin') {
+                delimiter.value = 'sqlin';
+                settings.delimiter = ', ';
+                settings.quotes = 'single';
+                addQuotes.checked = true;
+            } else if (type === 'splunk') {
+                delimiter.value = 'splunk';
+                settings.delimiter = ', ';
+                settings.quotes = 'double';
+                addQuotes.checked = true;
+            } else if (type === 'regex') {
+                delimiter.value = 'regex';
+                settings.delimiter = '|';
+                settings.quotes = 'no';
+                addQuotes.checked = false;
+            } else if (type === 'or') {
+                delimiter.value = ' OR ';
+                settings.delimiter = ' OR ';
+                settings.quotes = 'single';
+                addQuotes.checked = true;
+            } else if (type === 'and') {
+                delimiter.value = ' AND ';
+                settings.delimiter = ' AND ';
+                settings.quotes = 'single';
+                addQuotes.checked = true;
+            } else if (type === 'json') {
+                delimiter.value = ', ';
+                settings.delimiter = ', ';
+                settings.quotes = 'double';
+                addQuotes.checked = true;
+            } else if (type === 'semicolon') {
+                delimiter.value = ';';
+                settings.delimiter = '; ';
+                settings.quotes = 'no';
+                addQuotes.checked = false;
+            } else if (type === 'pipe') {
+                delimiter.value = '|';
+                settings.delimiter = '|';
+                settings.quotes = 'no';
+                addQuotes.checked = false;
+            } else if (type === 'newlines') {
+                delimiter.value = '\n';
+                settings.delimiter = '\n';
+                settings.quotes = 'no';
+                addQuotes.checked = false;
+            }
+            updateModalButtonStates();
+            convert();
+        }
+
+        // Dropdown synchronization
+        delimiter.addEventListener('change', () => {
+            const v = delimiter.value;
+            if (v === 'qualys') {
+                settings.delimiter = ' or ';
+                settings.quotes = 'single';
+                addQuotes.checked = true;
+            } else if (v === 'sqlin') {
+                settings.delimiter = ', ';
+                settings.quotes = 'single';
+                addQuotes.checked = true;
+            } else if (v === 'splunk') {
+                settings.delimiter = ', ';
+                settings.quotes = 'double';
+                addQuotes.checked = true;
+            } else if (v === 'regex') {
+                settings.delimiter = '|';
+                settings.quotes = 'no';
+                addQuotes.checked = false;
+            } else if (v === ' OR ') {
+                settings.delimiter = ' OR ';
+                settings.quotes = 'single';
+                addQuotes.checked = true;
+            } else if (v === ' AND ') {
+                settings.delimiter = ' AND ';
+                settings.quotes = 'single';
+                addQuotes.checked = true;
+            } else if (v === ',') {
+                settings.delimiter = ',';
+            } else {
+                settings.delimiter = v;
+            }
+            updateModalButtonStates();
+            convert();
+        });
+
+        // Main screen toggles sync
+        removeNewlines.addEventListener('change', () => {
+            settings.tidy = removeNewlines.checked ? 'yes' : 'no';
+            updateModalButtonStates();
+            convert();
+        });
+
+        removeDuplicates.addEventListener('change', () => {
+            if (removeDuplicates.checked) {
+                showOnlyDuplicates.checked = false;
+            }
+            settings.dedup = removeDuplicates.checked ? 'yes' : 'no';
+            updateModalButtonStates();
+            convert();
+        });
+
+        showOnlyDuplicates.addEventListener('change', () => {
+            if (showOnlyDuplicates.checked) {
+                removeDuplicates.checked = false;
+            }
+            convert();
+        });
+
+        addQuotes.addEventListener('change', () => {
+            settings.quotes = addQuotes.checked ? 'single' : 'no';
+            updateModalButtonStates();
+            convert();
+        });
+
+        inputText.addEventListener('input', convert);
+        convertBtn.addEventListener('click', convert);
+
+        // File Uploader
+        fileUploadInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (evt) => {
+                inputText.value = evt.target.result;
+                convert();
+            };
+            reader.readAsText(file);
         });
 
         copyBtn.addEventListener('click', () => {
-            if (outputText.value.length === 0) {
-                showMessage('Nothing to copy!', 'error');
+            if (!outputText.value) {
                 return;
             }
-            outputText.select();
-            document.execCommand('copy');
-            showMessage('Output copied to clipboard!', 'success');
+            
+            function showCopiedState() {
+                copyBtn.classList.remove('bg-slate-200', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-slate-100', 'hover:bg-slate-300', 'dark:hover:bg-slate-600');
+                copyBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700', 'text-white');
+                copyBtn.innerHTML = '<i class="fas fa-check mr-1.5"></i> <span>Copied!</span>';
+                
+                setTimeout(() => {
+                    copyBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700', 'text-white');
+                    copyBtn.classList.add('bg-slate-200', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-slate-100', 'hover:bg-slate-300', 'dark:hover:bg-slate-600');
+                    copyBtn.innerHTML = '<i class="fas fa-copy mr-1.5"></i> <span id="copyBtnText">Copy Output</span>';
+                }, 2000);
+            }
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(outputText.value).then(showCopiedState).catch(() => {
+                    outputText.select();
+                    document.execCommand('copy');
+                    showCopiedState();
+                });
+            } else {
+                outputText.select();
+                document.execCommand('copy');
+                showCopiedState();
+            }
         });
+
+        // Modal Open/Close/Apply Handlers
+        openSettingsBtn.onclick = () => {
+            updateModalButtonStates();
+            settingsModal.classList.remove('hidden');
+        };
+
+        closeSettingsBtn.onclick = () => {
+            settingsModal.classList.add('hidden');
+        };
+
+        settingsModal.onclick = (e) => {
+            if (e.target === settingsModal) settingsModal.classList.add('hidden');
+        };
+
+        applySettingsBtn.onclick = () => {
+            settings.delimiter = modalDelimiter.value || ',';
+            settings.openTag = openTag.value;
+            settings.closeTag = closeTag.value;
+            settings.interval = parseInt(interval.value, 10) || 0;
+            settings.intervalOpenTag = intervalOpenTag.value;
+            settings.intervalCloseTag = intervalCloseTag.value;
+            settingsModal.classList.add('hidden');
+            convert();
+        };
+
+        function loadSampleData() {
+            inputText.value = ['apple', 'banana', 'orange', 'apple', 'grapes', 'mango', 'strawberry', 'banana'].join('\n');
+            settings.tidy = 'yes';
+            settings.dedup = 'yes';
+            settings.quotes = 'single';
+            settings.delimiter = ' or ';
+            delimiter.value = 'qualys';
+            removeNewlines.checked = true;
+            removeDuplicates.checked = true;
+            showOnlyDuplicates.checked = false;
+            addQuotes.checked = true;
+            updateModalButtonStates();
+            convert();
+        }
+
+        // Initialize on load
+        loadSampleData();
     </script>
 </body>
 </html>

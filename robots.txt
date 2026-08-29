@@ -1,0 +1,6 @@
+# robots.txt for OnePageTools (chethan-saas.netlify.app)
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://chethan-saas.netlify.app/sitemap.xml

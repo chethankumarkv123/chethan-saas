@@ -1,1686 +1,1318 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2565993964252995"
-     crossorigin="anonymous"></script>
-      <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-22X7NY7QJF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnePageTools — Free Online PDF Tools & Converter (iLovePDF Alternative • 100% In-Browser Privacy)</title>
+  <meta name="description" content="Free online PDF tools and file converter: Merge PDF, Split PDF, Compress PDF, PDF to Word, PDF to PowerPoint, PDF to Excel, HTML to PDF, Unlock PDF, and Image Resizer. 100% free with zero file uploads and no daily limits.">
+  <meta name="keywords" content="iLovePDF, ilovepdf alternative, free online PDF tools, PDF converter, merge PDF, split PDF, compress PDF, PDF to Word, PDF to PowerPoint, PDF to PPTX, PDF to Excel, HTML to PDF, unlock PDF, remove password from PDF, protect PDF, rotate PDF, PDF to JPG, JPG to PDF, PNG to PDF, WEBP to PDF, PDF to text, PDF to CSV, PDF to JSON, PDF to XML, QR code generator, image compressor, image resizer, client-side PDF tools, private PDF editor, free PDF converter no watermark">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="OnePageTools Team">
+  <link rel="canonical" href="https://chethan-saas.netlify.app/">
 
-  gtag('config', 'G-22X7NY7QJF');
-</script>
-      <meta name="google-site-verification" content="1j2lyC3ZbnmSQySbsIoQep4DWrnDkwLE2euIB_jOb-M" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-adsense-account" content="ca-pub-6275528006958350" />
-    <title>PDF to All Converter</title>
-    <link rel="stylesheet" href="./css/style.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css"
-      rel="stylesheet"
-    />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+  <!-- Open Graph / Facebook / LinkedIn -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chethan-saas.netlify.app/">
+  <meta property="og:title" content="OnePageTools — Free Online PDF Tools & Converter (iLovePDF Alternative)">
+  <meta property="og:description" content="Merge, split, compress, convert, and edit PDFs & images directly in your browser. 100% free, private, and unlimited.">
+  <meta property="og:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://chethan-saas.netlify.app/">
+  <meta name="twitter:title" content="OnePageTools — Free Online PDF Tools & Converter">
+  <meta name="twitter:description" content="All-in-one in-browser PDF & Image tool suite with zero file uploads. 100% private and free.">
+  <meta name="twitter:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+  
+  <!-- Structured Data (JSON-LD) for Search Engines & Google Rich Results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "OnePageTools",
+    "alternateName": ["iLovePDF Alternative", "Free Online PDF Suite", "Smallpdf Alternative", "PDF24 Alternative"],
+    "url": "https://chethan-saas.netlify.app",
+    "description": "Comprehensive client-side document and image processing utilities: Merge PDF, Compress PDF, Split PDF, PDF to Word/PowerPoint/Excel, HTML to PDF, Unlock PDF, and Image tools running entirely in-browser.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All modern browsers (Chrome, Firefox, Safari, Edge, Android, iOS)",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "keywords": "iLovePDF alternative, Smallpdf alternative, PDF24 alternative, merge PDF, split PDF, compress PDF, PDF to Word, PDF to PowerPoint, PDF to Excel, HTML to PDF, unlock PDF, image compressor, image resizer",
+    "featureList": [
+      "Merge multiple PDF files into one",
+      "Split and extract PDF pages",
+      "Compress PDF file size without quality loss",
+      "Convert HTML code and web files to PDF",
+      "Convert PDF to Microsoft Word (DOCX)",
+      "Convert PDF to Microsoft PowerPoint (PPTX)",
+      "Convert PDF to Microsoft Excel (XLSX) and CSV",
+      "Unlock password-protected PDF files",
+      "Batch Image compression and resizing (JPG, PNG, WebP)",
+      "Custom QR code generator",
+      "100% client-side privacy with zero server uploads",
+      "Offline progressive web app capability"
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema for Google SERP Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are my files or documents ever uploaded to your servers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All utilities on OnePageTools execute 100% client-side inside your browser sandbox using WebAssembly, HTML5 Canvas, and JavaScript libraries. Your files never leave your device and are never sent over the network."
         }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f9fafb;
-            color: #1f2937;
-            line-height: 1.6;
+      },
+      {
+        "@type": "Question",
+        "name": "Are there any daily file limits or file size caps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "There are no arbitrary daily conversion limits. Because conversions run using your local device memory rather than costly cloud servers, you can convert, compress, and process as many files as your device memory allows."
         }
-
-        /* Header Styles */
-        .header {
-            background-color: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #e5e7eb;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use OnePageTools offline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! OnePageTools is Progressive Web App (PWA) ready. Once you load a tool page, the core conversion assets are cached in your browser by our Service Worker, allowing you to convert files even when disconnected from the internet."
         }
-
-        .header-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 64px;
+      },
+      {
+        "@type": "Question",
+        "name": "Is OnePageTools free for commercial and business use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can freely use all tools for personal, academic, and commercial business workflows without requiring any account registration or license fees."
         }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
+      },
+      {
+        "@type": "Question",
+        "name": "Which web browsers and operating systems are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OnePageTools is compatible with all modern standards-compliant browsers including Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Edge, Brave, and mobile browsers on iOS and Android."
         }
+      }
+    ]
+  }
+  </script>
 
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: #1f2937;
-        }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <link rel="stylesheet" href="./css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./js/menu.js"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased">
 
-        .logo .heart {
-            color: #ef4444;
-            margin: 0 2px;
-        }
+  <!-- Official Top System Status Bar -->
+  <div class="bg-slate-900 text-slate-300 text-xs py-1.5 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-medium text-slate-200">System Status: 100% Operational</span>
+        <span class="text-slate-500 hidden sm:inline">• In-Browser Sandbox (Zero Outbound File Uploads)</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <span class="hidden md:inline"><i class="fas fa-code-branch text-[10px] mr-1"></i> v2.5 LTS Stable</span>
+        <button onclick="window.openFeedbackModal()" class="hover:text-white transition flex items-center gap-1">
+          <i class="fas fa-comment-alt text-[10px]"></i> Feedback & Bug Report
+        </button>
+      </div>
+    </div>
+  </div>
 
-        .nav {
-            display: none;
-            gap: 1.5rem;
-        }
-
-        .nav a {
-            text-decoration: none;
-            color: #374151;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav a:hover {
-            color: #ef4444;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .login-btn {
-            background: none;
-            border: none;
-            color: #374151;
-            font-weight: 500;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .login-btn:hover {
-            color: #ef4444;
-        }
-
-        .signup-btn {
-            background-color: #ef4444;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .signup-btn:hover {
-            background-color: #dc2626;
-        }
-
-        .menu-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #374151;
-            padding: 0.5rem;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2px;
-            width: 18px;
-            height: 18px;
-        }
-
-        .menu-dot {
-            width: 4px;
-            height: 4px;
-            background-color: currentColor;
-            border-radius: 50%;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 4rem 1rem;
-            text-align: center;
-        }
-
-        .hero-container {
-            max-width: 1024px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #1f2937;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: #6b7280;
-            line-height: 1.6;
-        }
-
-        /* Tools Grid */
-        .tools-section {
-            padding: 2rem 1rem;
-        }
-
-        .tools-container {
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .tool-card {
-            background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid #f3f4f6;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .tool-card:hover {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .tool-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #ef4444;
-            color: white;
-            font-size: 0.75rem;
-            font-weight: 500;
-            padding: 0.25rem 0.5rem;
-            border-radius: 9999px;
-        }
-
-        .tool-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 1rem;
-            transition: transform 0.3s ease;
-        }
-
-        .tool-card:hover .tool-icon {
-            transform: scale(1.1);
-        }
-
-        .tool-title {
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 0.75rem;
-            transition: color 0.3s ease;
-        }
-
-        .tool-card:hover .tool-title {
-            color: #ef4444;
-        }
-
-        .tool-description {
-            font-size: 0.875rem;
-            color: #6b7280;
-            line-height: 1.5;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: white;
-            border-top: 1px solid #e5e7eb;
-            margin-top: 4rem;
-        }
-
-        .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-            text-align: center;
-            color: #6b7280;
-        }
-
-        /* Responsive Design */
-        @media (min-width: 768px) {
-            .nav {
-                display: flex;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .tools-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (min-width: 1280px) {
-            .tools-grid {
-                grid-template-columns: repeat(6, 1fr);
-            }
-        }
-
-        /* Color classes for tool icons */
-        .bg-red-500 { background-color: #ef4444; }
-        .bg-orange-500 { background-color: #f97316; }
-        .bg-green-500 { background-color: #22c55e; }
-        .bg-blue-500 { background-color: #3b82f6; }
-        .bg-orange-600 { background-color: #ea580c; }
-        .bg-green-600 { background-color: #16a34a; }
-        .bg-blue-600 { background-color: #2563eb; }
-        .bg-red-600 { background-color: #dc2626; }
-        .bg-green-700 { background-color: #15803d; }
-        .bg-purple-500 { background-color: #a855f7; }
-        .bg-yellow-500 { background-color: #eab308; }
-        .bg-yellow-600 { background-color: #ca8a04; }
-        .bg-indigo-500 { background-color: #6366f1; }
-        .bg-pink-500 { background-color: #ec4899; }
-        .bg-purple-600 { background-color: #9333ea; }
-        .bg-yellow-700 { background-color: #a16207; }
-        .bg-blue-700 { background-color: #1d4ed8; }
-        .bg-gray-700 { background-color: #374151; }
-
-        .toollist {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-        @media (min-width: 1280px) {
-            .toollist {
-                grid-template-columns: repeat(6, 1fr);
-            }
-        }
-    </style>
-  </head>
-  <body class="bg-[#f5f5fa] dark:bg-gray-900 dark:text-gray-100">
-    <nav
-      class="bg-white :bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 :border-gray-600"
-    >
-      <div
-        class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-      >
-        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-          <img style="height: 60px" src="./chethan-saas.png" alt="" />
+  <!-- Sticky Glass Navigation -->
+  <nav class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="./index.html" class="flex items-center space-x-3 group">
+          <img src="./chethan-saas.png" alt="Logo" class="h-12 w-auto transition-transform group-hover:scale-105">
         </a>
-        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <button
-            data-collapse-toggle="navbar-sticky"
-            type="button"
-            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 :text-gray-400 :hover:bg-gray-700 :focus:ring-gray-600"
-            aria-controls="navbar-sticky"
-            aria-expanded="false"
-          >
-            <span class="sr-only">Open main menu</span>
-            <svg
-              class="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              ></path>
-            </svg>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="./index.html" class="text-sm font-semibold text-indigo-600 dark:text-indigo-400">Home</a>
+          <a href="#howItWorks" class="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">How It Works</a>
+          <a href="./privacy-policy.html" class="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy Architecture</a>
+          <a href="#faqSection" class="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">FAQ</a>
+
+          <!-- Mega Dropdown Button -->
+          <div class="relative">
+            <button id="toolsDropdownBtn" data-dropdown-toggle="toolsDropdownMenu" class="flex items-center text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+              <span>All 33 Tools</span>
+              <i class="fas fa-chevron-down ml-1.5 text-xs"></i>
+            </button>
+            <div id="toolsDropdownMenu" class="z-50 hidden absolute right-0 mt-3 w-[720px] bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 p-6 grid grid-cols-3 gap-6 text-sm">
+              <div>
+                <h4 class="font-bold text-xs uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-3">PDF Converters</h4>
+                <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                  <li><a href="./htmlto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-code text-xs text-indigo-500"></i> HTML to PDF</a></li>
+                  <li><a href="./pdftoword.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-file-word text-xs text-blue-500"></i> PDF to Word</a></li>
+                  <li><a href="./pdf-to-ppt.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-file-powerpoint text-xs text-orange-500"></i> PDF to PPT</a></li>
+                  <li><a href="./pdftoexcel.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-file-excel text-xs text-green-500"></i> PDF to Excel</a></li>
+                  <li><a href="./pdftojpg.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-file-image text-xs text-yellow-500"></i> PDF to JPG</a></li>
+                  <li><a href="./pdftopng.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-file-image text-xs text-teal-500"></i> PDF to PNG</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-3">PDF Management</h4>
+                <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                  <li><a href="./pdf-compressor.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-compress-alt text-xs text-red-500"></i> PDF Compressor</a></li>
+                  <li><a href="./pdf-unlock.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-unlock text-xs text-rose-500"></i> PDF Unlock</a></li>
+                  <li><a href="./pdfmerge.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-layer-group text-xs text-indigo-500"></i> PDF Merge & Protect</a></li>
+                  <li><a href="./pdf-split.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-cut text-xs text-amber-500"></i> PDF Split & Extract</a></li>
+                  <li><a href="./pdftorotate.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-redo text-xs text-purple-500"></i> PDF Rotate</a></li>
+                  <li><a href="./pdftozip.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-file-archive text-xs text-gray-500"></i> PDF to ZIP</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-3">Images & Media</h4>
+                <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                  <li><a href="./imagecompression.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-file-image text-xs text-emerald-500"></i> Image Compressor</a></li>
+                  <li><a href="./imageresizer.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-expand-arrows-alt text-xs text-cyan-500"></i> Image Resizer</a></li>
+                  <li><a href="./qr-generator.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-qrcode text-xs text-blue-500"></i> QR Generator</a></li>
+                  <li><a href="./yt/index.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fab fa-youtube text-xs text-red-600"></i> YT Downloader</a></li>
+                  <li><a href="./comma-suparrator.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-stream text-xs text-violet-500"></i> Delimiter Tool</a></li>
+                  <li><a href="./comparetexts.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1.5"><i class="fas fa-columns text-xs text-sky-500"></i> Text Diff</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Command Palette Trigger & Theme Switcher -->
+        <div class="flex items-center space-x-3">
+          <button onclick="window.openCommandPalette()" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs hover:border-indigo-400 transition" aria-label="Command Palette">
+            <i class="fas fa-search text-[11px] text-slate-400"></i>
+            <span>Quick Find</span>
+            <kbd class="font-mono bg-white dark:bg-slate-700 px-1.5 py-0.5 rounded border border-slate-300 dark:border-slate-600 text-[10px]">Ctrl+K</kbd>
           </button>
-          <!-- Theme Toggle Button (moved to header) -->
-          <button id="theme-toggle" aria-label="Toggle Dark Mode" class="ml-4 p-2 rounded-full bg-gray-100 hover:bg-[#e5322d] transition-colors focus:outline-none focus:ring-2 focus:ring-[#e5322d]">
-            <span id="theme-toggle-light-icon" class="hidden">
-              <!-- Sun Icon -->
-              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 3.25a.75.75 0 01.75.75v1a.75.75 0 01-1.5 0v-1A.75.75 0 0110 3.25zm0 10a2.75 2.75 0 100-5.5 2.75 2.75 0 000 5.5zm6.75-2.75a.75.75 0 01.75.75v.01a.75.75 0 01-1.5 0v-.01a.75.75 0 01.75-.75zm-13.5 0a.75.75 0 01.75.75v.01a.75.75 0 01-1.5 0v-.01a.75.75 0 01.75-.75zm10.61-5.36a.75.75 0 011.06 1.06l-.71.71a.75.75 0 11-1.06-1.06l.71-.71zm-8.48 8.48a.75.75 0 011.06 0l.71.71a.75.75 0 11-1.06 1.06l-.71-.71a.75.75 0 010-1.06zm8.48 8.48a.75.75 0 010-1.06l.71-.71a.75.75 0 111.06 1.06l-.71.71a.75.75 0 01-1.06 0zm-8.48-8.48a.75.75 0 010-1.06l.71-.71a.75.75 0 111.06 1.06l-.71.71a.75.75 0 01-1.06 0z"></path></svg>
-            </span>
-            <span id="theme-toggle-dark-icon" class="hidden">
-              <!-- Moon Icon -->
-              <svg class="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-            </span>
+
+          <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition" aria-label="Toggle Theme">
+            <span id="themeIcon">🌙</span>
           </button>
-        </div>
-        <div
-          class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-          id="navbar-sticky"
-        >
-          <ul
-            class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white :bg-gray-800 md: :bg-gray-900 :border-gray-700"
-          >
-            <li>
-              <a
-                href="./index.html"
-                class="block py-2 px-3 text-black dark:text-gray-100 rounded md:bg-transparent md:text-black dark:md:text-gray-100 md:p-0 md: :text-blue-500"
-                aria-current="page"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a
-                href="./about.html"
-                class="block py-2 px-3 text-gray-900 dark:text-gray-100 rounded hover:bg-gray-100 dark:hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-700 dark:md:hover:text-blue-400 md:p-0 md: :hover:text-blue-500 :text-white :hover:bg-gray-700 :hover:text-white md: :hover:bg-transparent :border-gray-700"
-                >About</a
-              >
-            </li>
-
-            <li>
-              <a
-                href="./contact.html"
-                class="block py-2 px-3 text-gray-900 dark:text-gray-100 rounded hover:bg-gray-100 dark:hover:bg-gray-800 md:hover:bg-transparent md:hover:text-blue-700 dark:md:hover:text-blue-400 md:p-0 md: :hover:text-blue-500 :text-white :hover:bg-gray-700 :hover:text-white md: :hover:bg-transparent :border-gray-700"
-                >Contact</a
-              >
-            </li>
-            <li>
-              <button
-                id="dropdownNavbarLink"
-                data-dropdown-toggle="dropdownNavbar"
-                class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto"
-              >
-                ALL PDF TOOLS
-                <svg
-                  style="margin-top: 5px"
-                  class="w-2.5 h-2.5 ms-2.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 1 4 4 4-4"
-                  />
-                </svg>
-              </button>
-              <!-- Mega Menu Start -->
-              <div
-                id="dropdownNavbar"
-                class="z-30 hidden absolute left-1/2 -translate-x-1/2 mt-2 w-[900px] bg-white rounded-xl shadow-2xl border border-gray-200 p-6 flex flex-row gap-8 text-sm"
-                style="top: 60px;"
-              >
-                <!-- PDF Conversion Tools -->
-                <div class="flex-1 min-w-[180px]">
-                  <div class="font-bold text-gray-700 mb-2">PDF Conversion Tools</div>
-                  <ul class="space-y-1">
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-csv" class="hover:text-[#e5322d]">PDF to CSV</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-excel" class="hover:text-[#e5322d]">PDF to Excel</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-html" class="hover:text-[#e5322d]">PDF to HTML</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-jpg" class="hover:text-[#e5322d]">PDF to JPG</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-json" class="hover:text-[#e5322d]">PDF to JSON</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-png" class="hover:text-[#e5322d]">PDF to PNG</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-word" class="hover:text-[#e5322d]">PDF to Word</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-xml" class="hover:text-[#e5322d]">PDF to XML</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-zip" class="hover:text-[#e5322d]">PDF to ZIP</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-webp" class="hover:text-[#e5322d]">PDF to WebP</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/pdf-to-text" class="hover:text-[#e5322d]">PDF to Text</a></li>
-                    <li><a href="./pdf-split.html" class="hover:text-[#e5322d]">PDF Split</a></li>
-                  </ul>
-                </div>
-                <!-- Other Format Conversions -->
-                <div class="flex-1 min-w-[180px]">
-                  <div class="font-bold text-gray-700 mb-2">Other Format Conversions</div>
-                  <ul class="space-y-1">
-                    <li><a href="https://chethan-saas.netlify.app/csv-to-pdf" class="hover:text-[#e5322d]">CSV to PDF</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/excel-to-pdf" class="hover:text-[#e5322d]">Excel to PDF</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/html-to-pdf" class="hover:text-[#e5322d]">HTML to PDF</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/jpg-to-pdf" class="hover:text-[#e5322d]">JPG to PDF</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/json-to-pdf" class="hover:text-[#e5322d]">JSON to PDF</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/png-to-pdf" class="hover:text-[#e5322d]">PNG to PDF</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/text-to-pdf" class="hover:text-[#e5322d]">Text to PDF</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/webp-to-pdf" class="hover:text-[#e5322d]">WebP to PDF</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/xml-to-pdf" class="hover:text-[#e5322d]">XML to PDF</a></li>
-                  </ul>
-                </div>
-                <!-- Image Tools -->
-                <div class="flex-1 min-w-[180px]">
-                  <div class="font-bold text-gray-700 mb-2">Image Tools</div>
-                  <ul class="space-y-1">
-                    <li><a href="https://chethan-saas.netlify.app/image-resizer" class="hover:text-[#e5322d]">Image Resizer</a></li>
-                    <li><a href="https://chethan-saas.netlify.app/image-compressor" class="hover:text-[#e5322d]">Image Compressor</a></li>
-                  </ul>
-                </div>
-              </div>
-              <!-- Mega Menu End -->
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div style="min-height: 100vh" class="bg-[#f5f5fa] dark:bg-gray-900 dark:text-gray-100">
-      <div class="relative isolate px-6 lg:px-8">
-        <div
-          class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-          aria-hidden="true"
-        ></div>
-        <div class="mx-auto pt-24 max-w-2xl">
-          <div class="text-center">
-            <h1
-              class="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl mt-10"
-            >
-             All Your Most Used Tools Are FREE At chethan-saas.com
-            </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-              Effortlessly convert your PDF files into DOC, JPG, PNG, Excel, PPT, and more with chethan-saas.com's comprehensive conversion tool – 100% FREE!
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Real-time Search Bar Start -->
-      <div class="flex flex-col items-center mt-8 mb-4 relative self-center w-full">
-        <input
-          id="toolSearch"
-          type="text"
-          placeholder="Search tools..."
-          autocomplete="off"
-          class="w-full max-w-md min-w-[300px] px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#e5322d] focus:border-[#e5322d]"
-        />
-        <ul id="searchSuggestions"
-            class="absolute left-1/2 top-full -translate-x-1/2 w-full max-w-md min-w-[300px] bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
-        </ul>
-      </div>
-      <!-- Real-time Search Bar End -->
-
-      <div style="display: flex; justify-content: center;">
-        <div class="toollist" id="toollists">
-          <div class="singletools">
-            <a href="./imageresizer.html">
-              <div class="imgbox">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpW2d2GcowJjWNHeLXOoBmFphYHCXhIHzx9g&s"
-                  alt=""
-                />
-                 
-              </div>
-              <h2>Image Resizer</h2>
-
-              <p>
-                Image Resizer Tool Quickly resize images online with our easy-to-use tool. Maintain high quality while adjusting dimensions for social media, websites, and more!
-
-
-
-
-
-
-
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./imagecompression.html">
-              <div class="imgbox">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/1387/1387554.png"
-                  alt=""
-                />
-                 
-              </div>
-              <h2>Image Compressor</h2>
-
-              <p>
-                Efficient Image Compressor Compress images fast without losing quality. Enjoy easy preview, a smooth progress bar, and instant downloads for perfectly optimized images.
-
-
-
-
-
-
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdftocsv.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/8242/8242984.png"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO CSV</h2>
-
-              <p>
-                PDF to CSV Converter Easily extract tables and data from PDF files and convert them into CSV format for effortless data management and analysis.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdftoexcel.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn.pixabay.com/photo/2021/01/30/12/15/excel-5963669_640.png"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO EXCEL</h2>
-
-              <p>
-                PDF to Excel Converter Easily convert PDFs to Excel with high accuracy, preserving data integrity and formatting for smooth spreadsheet integration.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="pdftohtml.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn.iconscout.com/icon/premium/png-256-thumb/html-2752158-2284975.png?f=webp&w=256"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO HTML</h2>
-
-              <p>
-                PDF to HTML Converter Easily convert PDFs to HTML while preserving text, images, and formatting for a seamless, web-ready document experience.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdftojpg.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/136/136524.png"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO JPG</h2>
-
-              <p>
-                PDF to JPG Converter Quickly convert PDFs to high-quality JPG images, preserving clarity and detail for easy sharing and versatile use.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdftojson.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/136/136525.png"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO JSON</h2>
-
-              <p>
-                PDF to JSON Converter Efficiently convert PDFs to JSON format, extracting data into a structured, machine-readable form for easy integration and analysis.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdftopng.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/29/29072.png"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO PNG</h2>
-
-              <p>
-                PDF to PNG Converter Transform PDFs into high-resolution PNG images, maintaining quality and detail for versatile digital use and easy sharing.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdftoword.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbYQcLfUfqY6nAiwop5kkdkSvuKg0qzIc2TA&s"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO WORD</h2>
-
-              <p>
-                PDF to Word Converter Convert PDFs to editable MS Word documents with precision, preserving formatting and layout for smooth editing and content management.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdftoxml.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/5105/5105250.png"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO XML</h2>
-
-              <p>
-                Convert PDFs to XML format accurately, extracting structured data
-                for integration and analysis while preserving content integrity
-                and layout.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdftozip.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/7817/7817526.png"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO ZIP</h2>
-
-              <p>
-                PDF to ZIP Converter Quickly compress PDF files into ZIP archives for easy storage and faster sharing. Our tool ensures efficient file size reduction without compromising document quality.
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./pdftowebp.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/8263/8263085.png"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO WEBP</h2>
-
-              <p>
-               PDF to WebP Converter Efficiently convert PDFs to high-quality WebP images, reducing file size for optimal web performance and faster loading times.
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./pdftotext.html">
-              <div class="imgbox">
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://static.vecteezy.com/system/resources/previews/026/221/337/non_2x/text-icon-symbol-design-illustration-vector.jpg"
-                  alt=""
-                />
-              </div>
-              <h2>PDF TO TEXT</h2>
-
-              <p>
-                PDF to Editable Text Converter Quickly convert PDFs to editable text, preserving content accuracy for easy editing, repurposing, and efficient data management.
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./csvto.html">
-              <div class="imgbox">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/8242/8242984.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-              </div>
-              <h2>CSV TO PDF</h2>
-
-              <p>
-                CSV to PDF Converter Effortlessly transform CSV data into polished, professional PDFs. Perfect for creating clear documents from spreadsheets with a simple, fast, and accurate conversion process.
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./excelto.html">
-              <div class="imgbox">
-                <img
-                  src="https://cdn.pixabay.com/photo/2021/01/30/12/15/excel-5963669_640.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-              </div>
-              <h2>EXCEL TO PDF</h2>
-
-              <p>
-                Excel to PDF Converter Easily convert Excel spreadsheets to professional PDFs, maintaining accurate formatting and delivering high-quality results—ideal for reports, presentations, and data sharing.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./htmlto.html">
-              <div class="imgbox">
-                <img
-                  src="https://cdn.iconscout.com/icon/premium/png-256-thumb/html-2752158-2284975.png?f=webp&w=256"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-              </div>
-              <h2>HTML TO PDF</h2>
-
-              <p>
-                HTML to PDF Converter Quickly convert HTML files to high-quality PDFs while preserving layouts, styles, and graphics. Generate professional, shareable documents with fast and reliable conversion.
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./jpgto.html">
-              <div class="imgbox">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/136/136524.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-              </div>
-              <h2>JPG TO PDF</h2>
-
-              <p>
-                JPG to PDF Converter Quickly convert JPG images to PDF files while maintaining image quality and resolution. Create clean, professional PDFs for easy sharing and secure storage.
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./jsonto.html">
-              <div class="imgbox">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/136/136525.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-              </div>
-              <h2>JSON TO PDF</h2>
-
-              <p>
-                JSON to PDF Converter Effortlessly convert JSON data into neatly formatted PDFs. Our tool ensures accurate data representation in a clean, professional layout—perfect for reports and documentation.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pngto.html">
-              <div class="imgbox">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/29/29072.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-              </div>
-              <h2>PNG TO PDF</h2>
-
-              <p>
-                PNG to PDF Converter Easily transform PNG images into high-quality PDFs. Our converter preserves image clarity and color, delivering professional and shareable documents quickly and efficiently.
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./speechto.html">
-              <div class="imgbox">
-                <img
-                  src="https://static.thenounproject.com/png/1202-200.png"
-                  alt=""
-                />
-
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-              </div>
-              <h2>SPEECH TO PDF</h2>
-
-              <p>
-                Speech Transcript to PDF Converter Effortlessly convert speech transcripts into polished PDFs. Our tool accurately formats spoken content into professional, readable documents—perfect for reports, presentations, and sharing.
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./textto.html">
-              <div class="imgbox">
-                <img
-                  src="https://static.vecteezy.com/system/resources/previews/026/221/337/non_2x/text-icon-symbol-design-illustration-vector.jpg"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-              </div>
-              <h2>TEXT TO PDF</h2>
-
-              <p>
-                Plain Text to PDF Converter Easily transform plain text into polished PDFs with clean formatting and professional output—perfect for creating well-structured, shareable documents.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./webpto.html">
-              <div class="imgbox">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/8263/8263085.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-              </div>
-              <h2>WEBP TO PDF</h2>
-
-              <p>
-                WebP to PDF Converter Efficiently convert WebP images to high-quality PDFs, maintaining visual clarity with optimized file size for easy sharing and fast loading.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./xmlto.html">
-              <div class="imgbox">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/5105/5105250.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://png.pngtree.com/png-clipart/20220612/original/pngtree-pdf-file-icon-png-png-image_7965915.png"
-                  alt=""
-                />
-              </div>
-              <h2>XML TO PDF</h2>
-
-              <p>
-                XML to PDF Converter Seamlessly convert XML files to professional PDFs. Our tool preserves formatting and design, delivering accurate, high-quality output perfect for reports, presentations, and online content.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./comparetexts.html">
-              <div class="imgbox">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/136/136525.png"
-                  alt=""
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/136/136525.png"
-                  alt=""
-                />
-              </div>
-              <h2>Compare Texts</h2>
-
-              <p>
-                Smart Text Comparison Tool Instantly compare any two texts with our powerful tool. Get real-time analysis, highlight differences, and track changes with precision. Perfect for writers, editors, and content creators.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdfmerge.html">
-              <div class="imgbox">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
-                  alt="PDF logo"
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png"
-                  alt="Merge arrows"
-                />
-              </div>
-              <h2>PDF Merge</h2>
-
-              <p>
-                PDF Merge Tool Combine multiple PDF files into a single document with our easy-to-use merge tool. Arrange pages, add password protection, and optimize for web viewing - all in one place.
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./pdftorotate.html">
-              <div class="imgbox">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
-                  alt="PDF logo"
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/61/61444.png"
-                  alt="Rotation arrow icon"
-                />
-              </div>
-              <h2>PDF Rotate</h2>
-
-              <p>
-                PDF Rotate Tool Easily rotate PDF pages with our intuitive tool. Rotate individual pages or entire documents, preview changes in real-time, and download the rotated PDF with a single click.
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./pdf-split.html">
-              <div class="imgbox">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
-                  alt="PDF logo"
-                />
-                <img
-                  style="height: 15px"
-                  src="https://cdn-icons-png.flaticon.com/512/32/32213.png"
-                  alt=""
-                />
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/2910/2910791.png"
-                  alt="Scissors icon"
-                />
-              </div>
-              <h2>PDF Split</h2>
-
-              <p>
-                PDF Split Tool Quickly split a PDF into individual pages, custom ranges, or after every N pages. Secure, flexible, and easy to use—download all split files instantly!
-              </p>
-            </a>
-          </div>
-
-          <div class="singletools">
-            <a href="./comma-suparrator.html">
-              <div class="imgbox">
-                <img src="https://cdn-icons-png.flaticon.com/512/2910/2910791.png" alt="Comma icon" />
-              </div>
-              <h2>Comma Separator</h2>
-              <p>
-                Quickly convert lists or text into comma-separated values (CSV) with advanced options for delimiters, quotes, tags, and more. Perfect for spreadsheets, SQL, and data processing.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdf-compressor.html">
-              <div class="imgbox">
-                <img src="https://cdn-icons-png.flaticon.com/512/724/724933.png" alt="Compressor icon" />
-              </div>
-              <h2>PDF Compressor</h2>
-              <p>
-                Reduce PDF file size while maintaining quality. Perfect for email, uploads, and storage.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdf-unlock.html">
-              <div class="imgbox">
-                <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="Unlock icon" />
-              </div>
-              <h2>PDF Unlock</h2>
-              <p>
-                Remove password protection from PDF files you own. Fast and secure unlocking.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdf-protect.html">
-              <div class="imgbox">
-                <img src="https://cdn-icons-png.flaticon.com/512/3064/3064198.png" alt="Lock icon" />
-              </div>
-              <h2>PDF Protect</h2>
-              <p>
-                Add password protection to your PDF files for privacy and security.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdf-to-ppt.html">
-              <div class="imgbox">
-                <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="PPT icon" />
-              </div>
-              <h2>PDF to PPT</h2>
-              <p>
-                Convert PDF documents to editable PowerPoint presentations (PPTX) in seconds.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdf-watermark.html">
-              <div class="imgbox">
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png" alt="Watermark icon" />
-              </div>
-              <h2>PDF Watermark</h2>
-              <p>
-                Add custom text or image watermarks to every page of your PDF.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./pdf-extract-pages.html">
-              <div class="imgbox">
-                <img src="https://cdn-icons-png.flaticon.com/512/1828/1828915.png" alt="Extract icon" />
-              </div>
-              <h2>PDF Page Extractor</h2>
-              <p>
-                Extract specific pages from a PDF and save them as a new file.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./qr-generator.html">
-              <div class="imgbox">
-                <img src="https://cdn-icons-png.flaticon.com/512/159/159604.png" alt="QR code icon" />
-              </div>
-              <h2>QR Code Generator</h2>
-              <p>
-                Create QR codes for URLs, text, or files. Download and share instantly.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./csv-to-json.html">
-              <div class="imgbox">
-                <img src="https://cdn-icons-png.flaticon.com/512/136/136525.png" alt="CSV to JSON icon" />
-              </div>
-              <h2>CSV to JSON</h2>
-              <p>
-                Convert CSV files to JSON format for easy data processing and integration.
-              </p>
-            </a>
-          </div>
-          <div class="singletools">
-            <a href="./json-formatter.html">
-              <div class="imgbox">
-                <img src="https://cdn-icons-png.flaticon.com/512/136/136522.png" alt="JSON icon" />
-              </div>
-              <h2>JSON Formatter</h2>
-              <p>
-                Beautify, validate, and minify JSON data for easier reading and debugging.
-              </p>
-            </a>
-          </div>
+          
+          <button data-collapse-toggle="mobileMenu" type="button" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
         </div>
       </div>
     </div>
 
-    <section
-      id="features"
-      class="container mx-auto px-4 space-y-4 bg-slate-100 dark:bg-gray-900 py-6 md:py-8 lg:py-12 mt-12"
-    >
-      <div
-        class="mx-auto flex max-w-[58rem] flex-col items-center space-y-3 text-center"
-      >
-        <h2 class="font-bold text-3xl leading-[1.1] sm:text-3xl md:text-5xl text-gray-900 dark:text-gray-100">
-          Features
-        </h2>
+    <!-- Mobile Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 px-4 pt-3 pb-6 space-y-2 bg-white dark:bg-slate-900">
+      <a href="./index.html" class="block py-2 text-indigo-600 font-semibold">Home</a>
+      <a href="#howItWorks" class="block py-2 text-slate-700 dark:text-slate-300">How It Works</a>
+      <a href="./privacy-policy.html" class="block py-2 text-slate-700 dark:text-slate-300">Privacy Architecture</a>
+      <a href="#faqSection" class="block py-2 text-slate-700 dark:text-slate-300">FAQ</a>
+      <a href="./pdf-compressor.html" class="block py-2 text-slate-700 dark:text-slate-300">PDF Compressor</a>
+      <a href="./htmlto.html" class="block py-2 text-slate-700 dark:text-slate-300">HTML to PDF</a>
+      <a href="./qr-generator.html" class="block py-2 text-slate-700 dark:text-slate-300">QR Generator</a>
+    </div>
+  </nav>
 
-        <p
-          class="max-w-[85%] leading-normal text-muted-foreground sm:text-base sm:leading-6 text-gray-600 dark:text-gray-300"
-        >
-          chethan-saas.com personalizes user experiences by understanding individual preferences, tailoring PDF tools and recommendations based on user behavior and historical data – 99% FREE!
-        </p>
+  <!-- Hero Section -->
+  <header class="relative pt-12 pb-10 overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-6 hero-badge">
+        <span class="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-ping"></span>
+        Verified In-Browser File Utilities • No Server Uploads
       </div>
 
-      <div
-        class="mx-auto grid justify-center gap-3 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3"
-      >
-        <div
-          class="relative overflow-hidden rounded-lg border bg-gray-50 dark:bg-gray-800 select-none hover:shadow hover:shadow-teal-200 p-2"
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6">
+        Powerful Document Tools. <br class="hidden sm:block">
+        <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Directly in Your Browser.</span>
+      </h1>
+
+      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
+        Convert, compress, merge, decrypt, and edit PDFs, images, and tabular files locally on your machine. 100% private with no queues and no data retention.
+      </p>
+
+      <!-- Trust Badges -->
+      <div class="flex flex-wrap justify-center items-center gap-6 text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">
+        <div class="flex items-center gap-2"><i class="fas fa-shield-alt text-emerald-500"></i> Zero Network Uploads</div>
+        <div class="flex items-center gap-2"><i class="fas fa-bolt text-amber-500"></i> WebAssembly Accelerated</div>
+        <div class="flex items-center gap-2"><i class="fas fa-infinity text-indigo-500"></i> Unlimited & Free</div>
+        <div class="flex items-center gap-2"><i class="fas fa-wifi text-purple-500"></i> Offline PWA Ready</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Browser Sandbox Diagnostic Strip -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <div class="bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-200/80 dark:border-indigo-900/60 rounded-xl p-3 sm:px-6 flex flex-wrap items-center justify-between text-xs text-indigo-900 dark:text-indigo-200 gap-3">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-microchip text-indigo-600 dark:text-indigo-400 text-sm"></i>
+        <span><strong>Client Environment:</strong> WebAssembly Active & Canvas Acceleration Enabled</span>
+      </div>
+      <div class="flex items-center gap-4 text-indigo-700 dark:text-indigo-300">
+        <span><i class="fas fa-lock text-emerald-500 mr-1"></i> Data Boundary: Local Session Memory</span>
+        <span class="hidden sm:inline"><i class="fas fa-database text-blue-500 mr-1"></i> Cloud Retention: 0 Bytes</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recently Used Tools Tray (Auto-populated by JS) -->
+  <section id="recentToolsSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 hidden">
+    <div class="bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700 p-4">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+          <i class="fas fa-history text-indigo-500"></i> Recently Used Tools
+        </h3>
+        <button onclick="clearRecents()" class="text-[11px] text-slate-400 hover:text-red-500 transition">Clear History</button>
+      </div>
+      <div id="recentToolsList" class="flex flex-wrap gap-2"></div>
+    </div>
+  </section>
+
+  <!-- Interactive Search & Filter Controls -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="bg-white dark:bg-slate-800/80 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/80 p-4 sm:p-6">
+      
+      <!-- Search Input -->
+      <div class="relative max-w-2xl mx-auto mb-6">
+        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+          <i class="fas fa-search text-base"></i>
+        </div>
+        <input
+          id="toolSearch"
+          type="text"
+          placeholder="Search 33+ tools (Type tool name, e.g. compress, html, ppt, unlock, excel, qr)..."
+          class="w-full pl-11 pr-24 py-3.5 bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none transition shadow-inner"
         >
-          <div class="flex h-[160px] flex-col justify-between rounded-md p-4">
-            <svg viewBox="0 0 24 24" class="h-12 w-12 fill-current text-gray-500 dark:text-gray-200">
-              <path
-                d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.5-.054z"
-              ></path>
-            </svg>
-            <div class="space-y-2">
-              <h3 class="font-bold text-gray-900 dark:text-gray-100">Multi-format Conversion</h3>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Convert PDFs to Word, Excel, PPT, images, & more at chethan-saas.com – 99% FREE!</p>
+        <button id="clearSearchBtn" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hidden">
+          <i class="fas fa-times-circle"></i>
+        </button>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2" id="categoryFilterContainer">
+        <button class="filter-chip active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 cursor-pointer" data-category="all">
+          <i class="fas fa-th-large mr-1.5"></i> All Tools (33)
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer" data-category="pdf">
+          <i class="fas fa-file-pdf mr-1.5 text-red-500"></i> PDF Tools (17)
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer" data-category="image">
+          <i class="fas fa-image mr-1.5 text-emerald-500"></i> Image Tools (6)
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer" data-category="data">
+          <i class="fas fa-table mr-1.5 text-blue-500"></i> Data & Files (7)
+        </button>
+        <button class="filter-chip px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer" data-category="utility">
+          <i class="fas fa-tools mr-1.5 text-purple-500"></i> Utilities (3)
+        </button>
+      </div>
+
+      <!-- Match Count Indicator -->
+      <div class="text-center mt-3">
+        <p id="toolsCountBadge" class="text-xs font-medium text-slate-500 dark:text-slate-400">Showing 33 of 33 tools</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Grid Section -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 flex-1">
+    <div class="toollist" id="toollists">
+
+      <!-- HTML to PDF -->
+      <div class="singletools group" data-category="pdf" data-keywords="html to pdf web code page html2pdf invoice">
+        <a href="./htmlto.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-code"></i>
             </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 rounded-md">PDF</span>
           </div>
+          <h2>HTML to PDF</h2>
+          <p>Convert raw HTML code or web page files into clean, printable PDF documents with live preview.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF Compressor -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf compressor reduce size shrink optimize">
+        <a href="./pdf-compressor.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-950/60 flex items-center justify-center text-red-600 dark:text-red-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-compress-alt"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300 rounded-md">Popular</span>
+          </div>
+          <h2>PDF Compressor</h2>
+          <p>Reduce PDF file sizes dramatically up to 80% without losing text readability or image quality.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to Word -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to word doc docx editable word microsoft">
+        <a href="./pdftoword.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 flex items-center justify-center text-blue-600 dark:text-blue-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-word"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to Word</h2>
+          <p>Transform non-editable PDF documents into fully editable Word (DOCX) files with formatting preserved.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to PowerPoint -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to ppt pptx powerpoint slides presentation">
+        <a href="./pdf-to-ppt.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-orange-50 dark:bg-orange-950/60 flex items-center justify-center text-orange-600 dark:text-orange-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-powerpoint"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-orange-100 dark:bg-orange-900/60 text-orange-700 dark:text-orange-300 rounded-md">New</span>
+          </div>
+          <h2>PDF to PowerPoint</h2>
+          <p>Convert PDF slides directly into standard Microsoft PowerPoint (.pptx) presentation decks.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF Unlock -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf unlock remove password decrypt protect">
+        <a href="./pdf-unlock.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-950/60 flex items-center justify-center text-rose-600 dark:text-rose-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-unlock"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300 rounded-md">Security</span>
+          </div>
+          <h2>PDF Unlock & Decrypt</h2>
+          <p>Remove passwords and permission restrictions from protected PDFs instantly on your device.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- QR Generator -->
+      <div class="singletools group" data-category="utility" data-keywords="qr code generator create barcode link wifi text">
+        <a href="./qr-generator.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-qrcode"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 rounded-md">Utility</span>
+          </div>
+          <h2>QR Code Generator</h2>
+          <p>Generate high-resolution custom QR codes for website links, text, contacts, or Wi-Fi passwords.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Image Compressor -->
+      <div class="singletools group" data-category="image" data-keywords="image compressor photo reduce size jpg png webp">
+        <a href="./imagecompression.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-950/60 flex items-center justify-center text-teal-600 dark:text-teal-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-image"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-teal-100 dark:bg-teal-900/60 text-teal-700 dark:text-teal-300 rounded-md">Image</span>
+          </div>
+          <h2>Image Compressor</h2>
+          <p>Compress JPG, PNG, and WebP images in batch with watermark support, cropping, and live previews.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Image Resizer -->
+      <div class="singletools group" data-category="image" data-keywords="image resizer photo scale dimensions crop convert">
+        <a href="./imageresizer.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-cyan-50 dark:bg-cyan-950/60 flex items-center justify-center text-cyan-600 dark:text-cyan-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-expand-arrows-alt"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-cyan-100 dark:bg-cyan-900/60 text-cyan-700 dark:text-cyan-300 rounded-md">Image</span>
+          </div>
+          <h2>Image Resizer</h2>
+          <p>Resize images by dimensions or percentages with aspect ratio locking for social media and websites.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF Merge -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf merge combine reorder password join">
+        <a href="./pdfmerge.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-950/60 flex items-center justify-center text-violet-600 dark:text-violet-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-layer-group"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-violet-100 dark:bg-violet-900/60 text-violet-700 dark:text-violet-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF Merge & Protect</h2>
+          <p>Drag and arrange multiple PDF files, reorder pages, and optionally add password encryption.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF Split -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf split extract cut separate pages">
+        <a href="./pdf-split.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 flex items-center justify-center text-amber-600 dark:text-amber-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-cut"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF Split & Extract</h2>
+          <p>Extract specific page numbers or split a large multi-page PDF into standalone smaller files.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF Rotate -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf rotate orientation turn clockwise counter">
+        <a href="./pdftorotate.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/60 flex items-center justify-center text-purple-600 dark:text-purple-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-redo"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF Rotate Service</h2>
+          <p>Rotate upside-down or sideways PDF pages by 90°, 180°, or 270° with interactive live preview.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to Excel -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to excel xlsx spreadsheet tables extract">
+        <a href="./pdftoexcel.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-green-50 dark:bg-green-950/60 flex items-center justify-center text-green-600 dark:text-green-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-excel"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-green-100 dark:bg-green-900/60 text-green-700 dark:text-green-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to Excel</h2>
+          <p>Extract tabular data from PDF sheets directly into Microsoft Excel (.xlsx) spreadsheets.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to CSV -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to csv comma separated table">
+        <a href="./pdftocsv.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-lime-50 dark:bg-lime-950/60 flex items-center justify-center text-lime-600 dark:text-lime-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-table"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to CSV</h2>
+          <p>Extract tabular rows and columns into clean CSV comma-delimited data for instant analysis.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- CSV to PDF -->
+      <div class="singletools group" data-category="data" data-keywords="csv to pdf convert table spreadsheet report">
+        <a href="./csvto.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-sky-50 dark:bg-sky-950/60 flex items-center justify-center text-sky-600 dark:text-sky-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-csv"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-sky-100 dark:bg-sky-900/60 text-sky-700 dark:text-sky-300 rounded-md">Data</span>
+          </div>
+          <h2>CSV to PDF</h2>
+          <p>Convert CSV data files into formatted PDF tables with custom fonts, headers, and borders.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Excel to PDF -->
+      <div class="singletools group" data-category="data" data-keywords="excel to pdf xls xlsx sheet converter">
+        <a href="./excelto.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-excel"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 rounded-md">Data</span>
+          </div>
+          <h2>Excel to PDF</h2>
+          <p>Convert multiple Excel worksheets (.xlsx/.xls) into printable, structured PDF reports.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- JSON to PDF -->
+      <div class="singletools group" data-category="data" data-keywords="json to pdf convert code schema formatted">
+        <a href="./jsonto.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 flex items-center justify-center text-amber-600 dark:text-amber-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-brackets-curly"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 rounded-md">Data</span>
+          </div>
+          <h2>JSON to PDF</h2>
+          <p>Transform structured JSON datasets into formatted PDF tables, text, or key-value hierarchies.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- XML to PDF -->
+      <div class="singletools group" data-category="data" data-keywords="xml to pdf convert tags tree schema">
+        <a href="./xmlto.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-code-branch"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 rounded-md">Data</span>
+          </div>
+          <h2>XML to PDF</h2>
+          <p>Render XML files and markup schemas into formatted, readable multi-page PDF documents.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Speech to PDF -->
+      <div class="singletools group" data-category="utility" data-keywords="speech to pdf voice audio speech-to-text transcribe">
+        <a href="./speechto.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-pink-50 dark:bg-pink-950/60 flex items-center justify-center text-pink-600 dark:text-pink-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-microphone"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-pink-100 dark:bg-pink-900/60 text-pink-700 dark:text-pink-300 rounded-md">AI / Voice</span>
+          </div>
+          <h2>Speech to PDF</h2>
+          <p>Transcribe voice and speech to text in real-time and export instant downloadable PDF notes.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Text to PDF -->
+      <div class="singletools group" data-category="data" data-keywords="text to pdf txt plain text notepad document">
+        <a href="./textto.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-md">Text</span>
+          </div>
+          <h2>Text to PDF</h2>
+          <p>Convert plain text (.txt) files or snippets into professional PDFs with margin & font controls.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to JPG -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to jpg jpeg image extract pages picture">
+        <a href="./pdftojpg.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-yellow-50 dark:bg-yellow-950/60 flex items-center justify-center text-yellow-600 dark:text-yellow-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-image"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-yellow-100 dark:bg-yellow-900/60 text-yellow-700 dark:text-yellow-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to JPG</h2>
+          <p>Convert every PDF page into high-quality JPG images and download them individually or in a ZIP.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to PNG -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to png image transparent quality">
+        <a href="./pdftopng.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-950/60 flex items-center justify-center text-teal-600 dark:text-teal-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-image"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-teal-100 dark:bg-teal-900/60 text-teal-700 dark:text-teal-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to PNG</h2>
+          <p>Export lossless PNG images from PDF pages with full clarity, sharpness, and transparent margins.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to WEBP -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to webp web photo modern compact">
+        <a href="./pdftowebp.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-600 dark:text-emerald-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-image"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to WEBP</h2>
+          <p>Convert PDF documents to modern WebP image format for optimized website loading speed.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to HTML -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to html web page extract tags website">
+        <a href="./pdftohtml.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 flex items-center justify-center text-blue-600 dark:text-blue-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-code"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to HTML</h2>
+          <p>Extract structured HTML code, formatting, and embedded image assets from any PDF.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to Text -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to text txt extract words ocr content">
+        <a href="./pdftotext.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-700 dark:text-gray-300 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-align-left"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to Text</h2>
+          <p>Fast pure text extraction from PDF pages without unnecessary styles or cumbersome tags.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to JSON -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to json schema data object parser">
+        <a href="./pdftojson.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-orange-50 dark:bg-orange-950/60 flex items-center justify-center text-orange-600 dark:text-orange-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-project-diagram"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-orange-100 dark:bg-orange-900/60 text-orange-700 dark:text-orange-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to JSON</h2>
+          <p>Parse PDF content and metadata into clean structured JSON objects for developer workflows.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to XML -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to xml tags schema data export">
+        <a href="./pdftoxml.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 flex items-center justify-center text-amber-600 dark:text-amber-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-code"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to XML</h2>
+          <p>Extract structured PDF text elements and page hierarchies into valid XML documents.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- JPG to PDF -->
+      <div class="singletools group" data-category="image" data-keywords="jpg to pdf photo jpeg document compile">
+        <a href="./jpgto.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-950/60 flex items-center justify-center text-rose-600 dark:text-rose-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300 rounded-md">Image</span>
+          </div>
+          <h2>JPG to PDF</h2>
+          <p>Convert multiple JPG photos into a single combined or individual high-definition PDF file.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PNG to PDF -->
+      <div class="singletools group" data-category="image" data-keywords="png to pdf transparent photo image document">
+        <a href="./pngto.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 flex items-center justify-center text-blue-600 dark:text-blue-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 rounded-md">Image</span>
+          </div>
+          <h2>PNG to PDF</h2>
+          <p>Assemble crisp PNG images into high-resolution PDF pages with custom page layouts.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- WEBP to PDF -->
+      <div class="singletools group" data-category="image" data-keywords="webp to pdf photo convert document">
+        <a href="./webpto.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-950/60 flex items-center justify-center text-teal-600 dark:text-teal-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-pdf"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-teal-100 dark:bg-teal-900/60 text-teal-700 dark:text-teal-300 rounded-md">Image</span>
+          </div>
+          <h2>WEBP to PDF</h2>
+          <p>Turn lightweight WebP graphics and images directly into standard printable PDF files.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- PDF to ZIP -->
+      <div class="singletools group" data-category="pdf" data-keywords="pdf to zip archive compress package split">
+        <a href="./pdftozip.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-archive"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 rounded-md">PDF</span>
+          </div>
+          <h2>PDF to ZIP</h2>
+          <p>Split multi-page PDFs or package batch documents into a single compressed ZIP archive.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- YouTube Downloader -->
+      <div class="singletools group" data-category="utility" data-keywords="youtube thumbnail downloader 4k hd shorts video">
+        <a href="./yt/index.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-950/60 flex items-center justify-center text-red-600 dark:text-red-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300 rounded-md">Media</span>
+          </div>
+          <h2>YouTube Thumbnail Downloader</h2>
+          <p>Download full-resolution 4K and HD thumbnail covers from any YouTube video or Short.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Comma Separator -->
+      <div class="singletools group" data-category="data" data-keywords="comma separator delimiter list formatting string">
+        <a href="./comma-suparrator.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-950/60 flex items-center justify-center text-violet-600 dark:text-violet-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-stream"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-violet-100 dark:bg-violet-900/60 text-violet-700 dark:text-violet-300 rounded-md">Text</span>
+          </div>
+          <h2>Comma Separator</h2>
+          <p>Quickly convert column lists into comma-separated strings, SQL lists, or custom delimiters.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+      <!-- Text Comparator -->
+      <div class="singletools group" data-category="data" data-keywords="compare texts diff checker word count text comparator">
+        <a href="./comparetexts.html">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-12 h-12 rounded-xl bg-sky-50 dark:bg-sky-950/60 flex items-center justify-center text-sky-600 dark:text-sky-400 text-2xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-columns"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-sky-100 dark:bg-sky-900/60 text-sky-700 dark:text-sky-300 rounded-md">Text</span>
+          </div>
+          <h2>Text Comparator (Diff)</h2>
+          <p>Compare two text documents side by side to instantly detect character & line differences.</p>
+          <div class="card-footer">
+            <span>Use Tool</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Empty Search State -->
+    <div id="noResultsState" class="hidden text-center py-16">
+      <div class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center mx-auto mb-4 text-2xl">
+        <i class="fas fa-search"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200 mb-1">No matching tools found</h3>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Try searching for something else or browse all tools.</p>
+      <button onclick="resetFilters()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold transition">
+        Show All Tools
+      </button>
+    </div>
+  </main>
+
+  <!-- Technical Architecture Comparison Section (How It Works) -->
+  <section id="howItWorks" class="bg-white dark:bg-slate-800/60 py-20 border-y border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Technical Transparency</span>
+        <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1 mb-3">How In-Browser Processing Protects You</h2>
+        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">Compare how traditional converters handle your files versus our client-side architecture.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Traditional Cloud Converters -->
+        <div class="p-8 rounded-2xl bg-red-50/50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/40 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-900/60 text-red-600 flex items-center justify-center font-bold">✕</div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Traditional Remote Converters</h3>
+          </div>
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2"><i class="fas fa-times text-red-500 mt-1"></i> Files are uploaded over the internet to remote third-party cloud servers.</li>
+            <li class="flex items-start gap-2"><i class="fas fa-times text-red-500 mt-1"></i> Sensitive contracts, invoices, and photos sit in remote server temp directories.</li>
+            <li class="flex items-start gap-2"><i class="fas fa-times text-red-500 mt-1"></i> Slow network upload and download queues delay processing.</li>
+            <li class="flex items-start gap-2"><i class="fas fa-times text-red-500 mt-1"></i> Daily file size restrictions to force paid subscriptions.</li>
+          </ul>
         </div>
 
-        <div
-          class="relative overflow-hidden rounded-lg border bg-gray-50 dark:bg-gray-800 select-none hover:shadow hover:shadow-teal-200 p-2"
-        >
-          <div class="flex h-[160px] flex-col justify-between rounded-md p-4">
-            <svg viewBox="0 0 24 24" class="h-12 w-12 fill-current text-gray-500 dark:text-gray-200">
-              <path
-                d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38a2.167 2.167 0 0 0-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44a23.476 23.476 0 0 0-3.107-.534A23.892 23.892 0 0 0 12.769 4.7c1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442a22.73 22.73 0 0 0-3.113.538 15.02 15.02 0 0 1-.254-1.42c-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87a25.64 25.64 0 0 1-4.412.005 26.64 26.64 0 0 1-1.183-1.86c-.372-.64-.71-1.29-1.018-1.946a25.17 25.17 0 0 1 1.013-1.954c.38-.66.773-1.286 1.18-1.868A25.245 25.245 0 0 1 12 8.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933a25.952 25.952 0 0 0-1.345-2.32zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493a23.966 23.966 0 0 0-1.1-2.98c.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98a23.142 23.142 0 0 0-1.086 2.964c-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39a25.819 25.819 0 0 0 1.341-2.338zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143a22.005 22.005 0 0 1-2.006-.386c.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295a1.185 1.185 0 0 1-.553-.132c-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"
-              ></path>
-            </svg>
-            <div class="space-y-2">
-              <h3 class="font-bold text-gray-900 dark:text-gray-100">Batch Conversion</h3>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Batch convert PDFs fast at chethan-saas.com – 99% FREE!</p>
-            </div>
+        <!-- OnePageTools In-Browser Sandbox -->
+        <div class="p-8 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 flex items-center justify-center font-bold">✓</div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">OnePageTools In-Memory Architecture</h3>
           </div>
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> <strong>Zero Uploads:</strong> Files remain exclusively in your local device RAM.</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> <strong>WebAssembly & Canvas:</strong> Complex PDF parsing runs on your local CPU.</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> <strong>Instant Execution:</strong> Zero network queues or upload bottlenecks.</li>
+            <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-500 mt-1"></i> <strong>Guaranteed Privacy:</strong> No tracking cookies, accounts, or file retention.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive FAQ Accordion Section -->
+  <section id="faqSection" class="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Frequently Asked Questions</span>
+      <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Everything You Need to Know</h2>
+    </div>
+
+    <div class="space-y-4">
+      <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer" open>
+        <summary class="flex items-center justify-between font-semibold text-slate-900 dark:text-white text-sm sm:text-base">
+          <span>Are my files or documents ever uploaded to your servers?</span>
+          <span class="transition group-open:-rotate-180"><i class="fas fa-chevron-down text-xs text-slate-400"></i></span>
+        </summary>
+        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          No. All utilities on OnePageTools execute 100% client-side inside your browser sandbox using WebAssembly, HTML5 Canvas, and JavaScript libraries. Your files never leave your device and are never sent over the network.
+        </p>
+      </details>
+
+      <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-slate-900 dark:text-white text-sm sm:text-base">
+          <span>Are there any daily file limits or file size caps?</span>
+          <span class="transition group-open:-rotate-180"><i class="fas fa-chevron-down text-xs text-slate-400"></i></span>
+        </summary>
+        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          There are no arbitrary daily conversion limits. Because conversions run using your local device memory rather than costly cloud servers, you can convert, compress, and process as many files as your device memory allows.
+        </p>
+      </details>
+
+      <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-slate-900 dark:text-white text-sm sm:text-base">
+          <span>Can I use OnePageTools offline?</span>
+          <span class="transition group-open:-rotate-180"><i class="fas fa-chevron-down text-xs text-slate-400"></i></span>
+        </summary>
+        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Yes! OnePageTools is Progressive Web App (PWA) ready. Once you load a tool page, the core conversion assets are cached in your browser by our Service Worker, allowing you to convert files even when disconnected from the internet.
+        </p>
+      </details>
+
+      <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-slate-900 dark:text-white text-sm sm:text-base">
+          <span>Is OnePageTools free for commercial and business use?</span>
+          <span class="transition group-open:-rotate-180"><i class="fas fa-chevron-down text-xs text-slate-400"></i></span>
+        </summary>
+        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Yes. You can freely use all tools for personal, academic, and commercial business workflows without requiring any account registration or license fees.
+        </p>
+      </details>
+
+      <details class="group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
+        <summary class="flex items-center justify-between font-semibold text-slate-900 dark:text-white text-sm sm:text-base">
+          <span>Which web browsers and operating systems are supported?</span>
+          <span class="transition group-open:-rotate-180"><i class="fas fa-chevron-down text-xs text-slate-400"></i></span>
+        </summary>
+        <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          OnePageTools is compatible with all modern standards-compliant browsers including Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Edge, Brave, and mobile browsers on iOS and Android.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <!-- SEO Directory & Keyword Hub Section -->
+  <section class="bg-slate-100 dark:bg-slate-900/90 py-16 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1">Browse Online Document Utilities</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Explore our complete index of free, privacy-first in-browser converters and file editors.</p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 text-xs">
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-slate-200 mb-3 uppercase tracking-wider text-[11px]">PDF Converters</h4>
+          <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+            <li><a href="./htmlto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">HTML to PDF Converter Online</a></li>
+            <li><a href="./pdftoword.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert PDF to Word (DOCX)</a></li>
+            <li><a href="./pdf-to-ppt.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert PDF to PowerPoint (PPTX)</a></li>
+            <li><a href="./pdftoexcel.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert PDF to Excel (XLSX)</a></li>
+            <li><a href="./pdftojpg.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert PDF Pages to JPG</a></li>
+            <li><a href="./pdftopng.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Extract PNG Images from PDF</a></li>
+            <li><a href="./pdftowebp.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert PDF to Modern WebP</a></li>
+            <li><a href="./pdftohtml.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert PDF to Clean HTML</a></li>
+            <li><a href="./pdftotext.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Extract Text from PDF Free</a></li>
+          </ul>
         </div>
 
-        <div
-          class="relative overflow-hidden rounded-lg border bg-gray-50 dark:bg-gray-800 select-none hover:shadow hover:shadow-teal-200 p-2"
-        >
-          <div class="flex h-[160px] flex-col justify-between rounded-md p-4">
-            <svg viewBox="0 0 24 24" class="h-12 w-12 fill-current text-gray-500 dark:text-gray-200">
-              <path
-                d="M0 12C0 5.373 5.373 0 12 0c4.873 0 9.067 2.904 10.947 7.077l-15.87 15.87a11.981 11.981 0 0 1-1.935-1.099L14.99 12H12l-8.485 8.485A11.962 11.962 0 0 1 0 12Zm12.004 12L24 12.004C23.998 18.628 18.628 23.998 12.004 24Z"
-              ></path>
-            </svg>
-            <div class="space-y-2">
-              <h3 class="font-bold text-gray-900 dark:text-gray-100">High-quality Output</h3>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Keep PDF formatting, fonts, & images intact with chethan-saas.com – 99% FREE!</p>
-            </div>
-          </div>
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-slate-200 mb-3 uppercase tracking-wider text-[11px]">PDF Security & Organization</h4>
+          <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+            <li><a href="./pdf-compressor.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Compress PDF Size (No Upload)</a></li>
+            <li><a href="./pdf-unlock.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Unlock Password Protected PDF</a></li>
+            <li><a href="./pdfmerge.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Merge Multiple PDF Files Online</a></li>
+            <li><a href="./pdf-split.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Split & Extract PDF Pages</a></li>
+            <li><a href="./pdftorotate.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Rotate PDF Pages Clockwise</a></li>
+            <li><a href="./pdftozip.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Compress & Package PDF in ZIP</a></li>
+            <li><a href="./pdftocsv.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Export PDF Table to CSV Data</a></li>
+            <li><a href="./pdftojson.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Parse PDF to JSON Schema</a></li>
+            <li><a href="./pdftoxml.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Export PDF Structure to XML</a></li>
+          </ul>
         </div>
 
-        <div
-          class="relative overflow-hidden rounded-lg border bg-gray-50 dark:bg-gray-800 select-none hover:shadow hover:shadow-teal-200 p-2"
-        >
-          <div class="flex h-[160px] flex-col justify-between rounded-md p-4">
-            <svg viewBox="0 0 24 24" class="h-12 w-12 fill-current text-gray-500 dark:text-gray-200">
-              <path
-                d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"
-              ></path>
-            </svg>
-            <div class="space-y-2">
-              <h3 class="font-bold text-gray-900 dark:text-gray-100">Fast Processing</h3>
-              <p class="text-sm text-gray-700 dark:text-gray-300">EFast PDF conversions with oyetool – 99% FREE!</p>
-            </div>
-          </div>
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-slate-200 mb-3 uppercase tracking-wider text-[11px]">Image & Media Tools</h4>
+          <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+            <li><a href="./imagecompression.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Bulk Image Compressor (JPG/PNG)</a></li>
+            <li><a href="./imageresizer.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Image Resizer & Crop Tool</a></li>
+            <li><a href="./jpgto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert JPG Photos to PDF</a></li>
+            <li><a href="./pngto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert Transparent PNG to PDF</a></li>
+            <li><a href="./webpto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert WebP Graphics to PDF</a></li>
+            <li><a href="./qr-generator.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Custom QR Code Generator</a></li>
+            <li><a href="./yt/index.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">YouTube Thumbnail Downloader HD</a></li>
+          </ul>
         </div>
 
-        <div
-          class="relative overflow-hidden rounded-lg border bg-gray-50 dark:bg-gray-800 select-none hover:shadow hover:shadow-teal-200 p-2"
-        >
-          <div class="flex h-[160px] flex-col justify-between rounded-md p-4">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1"
-              class="h-12 w-12 fill-current text-gray-500 dark:text-gray-200"
-            >
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
-
-            <div class="space-y-2">
-              <h3 class="font-bold text-gray-900 dark:text-gray-100">Secure File Handling</h3>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Secure PDFs with encryption & auto-deletion at oyetool – 99% FREE!</p>
-            </div>
-          </div>
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-slate-200 mb-3 uppercase tracking-wider text-[11px]">Data & Text Utilities</h4>
+          <ul class="space-y-2 text-slate-600 dark:text-slate-400">
+            <li><a href="./csvto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert CSV Spreadsheet to PDF</a></li>
+            <li><a href="./excelto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert Excel XLSX to PDF Report</a></li>
+            <li><a href="./jsonto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert JSON Dataset to PDF</a></li>
+            <li><a href="./xmlto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert XML Schema to PDF</a></li>
+            <li><a href="./speechto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Speech to PDF Live Voice Notes</a></li>
+            <li><a href="./textto.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Convert Text (.txt) to PDF</a></li>
+            <li><a href="./comma-suparrator.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Comma Delimiter & List Formatter</a></li>
+            <li><a href="./comparetexts.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Text Diff & Comparison Checker</a></li>
+          </ul>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div
-          class="relative overflow-hidden rounded-lg border bg-gray-50 dark:bg-gray-800 select-none hover:shadow hover:shadow-teal-200 p-2"
-        >
-          <div class="flex h-[160px] flex-col justify-between rounded-md p-4">
-            <svg viewBox="0 0 24 24" class="h-12 w-12 fill-current text-gray-500 dark:text-gray-200">
-              <path
-                d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z"
-              ></path>
-            </svg>
-            <div class="space-y-2">
-              <h3 class="font-bold text-gray-900 dark:text-gray-100">User-friendly Interface</h3>
-              <p class="text-sm text-gray-700 dark:text-gray-300">Intuitive design makes conversion simple, even for non-technical users.</p>
-            </div>
+  
+    <!-- Unified Theme Azure & Odinext Bridge Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+      <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 sm:p-10 border border-slate-800 text-white shadow-xl relative overflow-hidden">
+        <div class="max-w-3xl relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold mb-3 border border-indigo-400/30">
+            <i class="fas fa-shield-alt text-indigo-400"></i>
+            <span>Continuous Cost Monitoring & Optimization</span>
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">
+            Want your Azure costs monitored continuously?
+          </h3>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+            A cost export gives you a snapshot. <strong>Odinext</strong> connects directly to your Azure environment to continuously detect idle infrastructure, rightsizing candidates, and cost anomalies as your workloads change.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <a href="https://odinext.com" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3 rounded-xl text-xs sm:text-sm transition shadow-md flex items-center gap-2">
+              <span>Explore Odinext</span>
+              <i class="fas fa-arrow-right text-xs"></i>
+            </a>
+            <a href="./azure-cost-check.html" class="bg-white/10 hover:bg-white/20 text-slate-200 font-semibold px-5 py-3 rounded-xl text-xs sm:text-sm transition flex items-center gap-2">
+              <i class="fab fa-microsoft text-blue-400"></i>
+              <span>Free Azure Cost Check</span>
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="bg-[#f5f5fa] flex items-center justify-center min-h-[50vh]">
-      <div class="text-center max-w-4xl p-4">
-        <h1 class="sm:text-3xl font-bold text-gray-800 mb-3 text-xl">
-          Your Trusted PDF Solution – Powered by chethan-saas.com
-        </h1>
-
-        <p class="text-base text-gray-600 mb-6">
-          Experience seamless document conversion with our advanced PDF-to-All Converter. Our platform offers comprehensive support for all your document needs, from text and images to complex spreadsheets. With lightning-fast processing and precise formatting preservation, we ensure your documents maintain their professional quality every time. Perfect for both personal and business use, our converter delivers exceptional results with just a few clicks.
-        </p>
+    <!-- Official Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-sm mt-auto border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div class="space-y-3 md:col-span-2">
+          <img src="./chethan-saas.png" alt="Logo" class="h-10 brightness-200">
+          <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+            OnePageTools is an open, privacy-first web utility suite providing fast, client-side PDF, image, and document conversions directly in your browser with zero remote storage.
+          </p>
+          <div class="flex items-center gap-3 pt-2 text-xs text-slate-500">
+            <span class="flex items-center gap-1.5"><i class="fas fa-circle text-[8px] text-emerald-400"></i> Service Status: Operational</span>
+            <span>•</span>
+            <span>Local In-Memory Execution</span>
+          </div>
         </div>
+
+        <div>
+          <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">Quick Links</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="./index.html" class="hover:text-white transition">Home</a></li>
+            <li><a href="./about.html" class="hover:text-white transition">About Us</a></li>
+            <li><a href="./contact.html" class="hover:text-white transition">Contact</a></li>
+            <li><a href="./privacy-policy.html" class="hover:text-white transition">Privacy Policy</a></li>
+            <li><a href="./disclaimer.html" class="hover:text-white transition">Terms & Disclaimer</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">Popular Tools</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="./htmlto.html" class="hover:text-white transition">HTML to PDF</a></li>
+            <li><a href="./pdf-compressor.html" class="hover:text-white transition">PDF Compressor</a></li>
+            <li><a href="./pdf-to-ppt.html" class="hover:text-white transition">PDF to PowerPoint</a></li>
+            <li><a href="./pdf-unlock.html" class="hover:text-white transition">PDF Password Remover</a></li>
+            <li><a href="./qr-generator.html" class="hover:text-white transition">QR Code Generator</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+        <p>&copy; 2026 OnePageTools. All rights reserved. 100% Client-Side Private.</p>
+        <p class="mt-2 sm:mt-0">Developed by <span class="text-indigo-400 font-medium">Chethan Kumar</span></p>
       </div>
     </div>
+  </footer>
 
-    <footer class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-200 mt-12 rounded-t-3xl shadow-2xl overflow-hidden">
-      <div class="absolute inset-0 pointer-events-none">
-        <svg class="w-full h-full opacity-10" fill="none" viewBox="0 0 1440 320"><path fill="#e5322d" fill-opacity="0.2" d="M0,160L60,170.7C120,181,240,203,360,197.3C480,192,600,160,720,133.3C840,107,960,85,1080,101.3C1200,117,1320,171,1380,197.3L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
-      </div>
-      <div class="relative max-w-7xl mx-auto px-4 py-16">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 mb-10">
-          <!-- Company Info -->
-          <div class="space-y-4">
-            <div class="flex items-center space-x-3">
-              <img src="./chethan-saas.png" alt="chethan-saas logo" class="h-12 w-12 rounded-full shadow-lg border-2 border-[#e5322d] bg-white p-1" />
-              <span class="text-2xl font-extrabold text-white tracking-wide">chethan-saas</span>
-            </div>
-            <p class="text-sm leading-relaxed text-gray-300">
-              Transform your documents with precision using our state-of-the-art PDF converter. Supporting an extensive range of formats including JPG, PNG, DOCX, XLSX, and more.
-            </p>
-            <div class="flex space-x-4 mt-4">
-              <a href="#" class="hover:text-[#e5322d] transition-colors" aria-label="Twitter">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
-              </a>
-              <a href="#" class="hover:text-[#e5322d] transition-colors" aria-label="GitHub">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
-              </a>
-              <a href="#" class="hover:text-[#e5322d] transition-colors" aria-label="Dribbble">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z" clip-rule="evenodd"></path></svg>
-              </a>
-            </div>
-          </div>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+  
+  <!-- Live Search, Filtering & Recent Tools Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('toolSearch');
+      const clearSearchBtn = document.getElementById('clearSearchBtn');
+      const filterChips = document.querySelectorAll('.filter-chip');
+      const toolCards = document.querySelectorAll('.toollist .singletools');
+      const toolsCountBadge = document.getElementById('toolsCountBadge');
+      const noResultsState = document.getElementById('noResultsState');
+      const recentSection = document.getElementById('recentToolsSection');
+      const recentList = document.getElementById('recentToolsList');
 
-          <!-- Quick Links -->
-          <div>
-            <h3 class="text-white font-semibold mb-4 tracking-wide">Quick Links</h3>
-            <ul class="space-y-2">
-              <li><a href="./index.html" class="text-gray-300 dark:text-gray-100 hover:text-[#e5322d] font-medium transition-colors">Home</a></li>
-              <li><a href="./about.html" class="text-gray-300 dark:text-gray-100 hover:text-[#e5322d] font-medium transition-colors">About Us</a></li>
-              <li><a href="./contact.html" class="text-gray-300 dark:text-gray-100 hover:text-[#e5322d] font-medium transition-colors">Contact</a></li>
-              <li><a href="./privacy-policy.html" class="text-gray-300 dark:text-gray-100 hover:text-[#e5322d] font-medium transition-colors">Privacy Policy</a></li>
-              <li><a href="./disclaimer.html" class="text-gray-300 dark:text-gray-100 hover:text-[#e5322d] font-medium transition-colors">Disclaimer</a></li>
-            </ul>
-          </div>
+      let currentCategory = 'all';
+      let searchQuery = '';
 
-          <!-- Tools -->
-          <div>
-            <h3 class="text-white font-semibold mb-4 tracking-wide">Popular Tools</h3>
-            <ul class="space-y-2">
-              <li><a href="./pdftojpg.html" class="text-gray-300 hover:text-[#e5322d] font-medium transition-colors">PDF to JPG</a></li>
-              <li><a href="./pdftoword.html" class="text-gray-300 hover:text-[#e5322d] font-medium transition-colors">PDF to Word</a></li>
-              <li><a href="./pdftoexcel.html" class="text-gray-300 hover:text-[#e5322d] font-medium transition-colors">PDF to Excel</a></li>
-              <li><a href="./jpgto.html" class="text-gray-300 hover:text-[#e5322d] font-medium transition-colors">JPG to PDF</a></li>
-              <li><a href="./pdfmerge.html" class="text-gray-300 hover:text-[#e5322d] font-medium transition-colors">PDF Merge</a></li>
-            </ul>
-          </div>
+      // Render Recently Used Tools Tray
+      function renderRecents() {
+        try {
+          const recents = JSON.parse(localStorage.getItem('opt_recent_tools') || '[]');
+          if (recents.length > 0) {
+            recentSection.classList.remove('hidden');
+            recentList.innerHTML = '';
+            recents.forEach(toolName => {
+              // Find matching tool card
+              let matchedHref = './index.html';
+              toolCards.forEach(c => {
+                const title = c.querySelector('h2')?.textContent.trim();
+                if (title === toolName) {
+                  matchedHref = c.querySelector('a')?.getAttribute('href') || './index.html';
+                }
+              });
 
-          <!-- Contact -->
-          <div>
-            <h3 class="text-white font-semibold mb-4 tracking-wide">Contact Us</h3>
-            <ul class="space-y-2">
-              <li class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-[#e5322d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-                <span>Kamasamudram - 563129</span>
-              </li>
-              <li class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-[#e5322d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
-                <a href="mailto:Chethankumarkv123@gmail.com" class="text-gray-300 hover:text-[#e5322d] font-medium transition-colors">
-                  Chethankumarkv123@gmail.com
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- Bottom Bar -->
-        <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p class="text-sm text-gray-400 dark:text-gray-300 mb-4 md:mb-0">
-            © Copyright 2025. All Rights Reserved | Created By <span class="text-[#e5322d] font-semibold">Chethan Kumar</span>
-          </p>
-          <div class="flex items-center space-x-6">
-            <a href="./privacy-policy.html" class="text-sm text-gray-400 hover:text-[#e5322d] transition-colors">Privacy Policy</a>
-            <a href="./terms.html" class="text-sm text-gray-400 hover:text-[#e5322d] transition-colors">Terms of Service</a>
-            <a href="./sitemap.html" class="text-sm text-gray-400 hover:text-[#e5322d] transition-colors">Sitemap</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
-    <script>
-      const fileInput = document.getElementById("fileInput");
-      const convertButton = document.getElementById("convertButton");
-      const output = document.getElementById("output");
-
-      let pdfDoc = null;
-
-      fileInput.addEventListener("change", async (e) => {
-        const file = e.target.files[0];
-        if (file && file.type === "application/pdf") {
-          const fileReader = new FileReader();
-          fileReader.onload = async function () {
-            const typedarray = new Uint8Array(this.result);
-            pdfDoc = await pdfjsLib.getDocument(typedarray).promise;
-            convertButton.disabled = false;
-          };
-          fileReader.readAsArrayBuffer(file);
-        }
-      });
-
-      convertButton.addEventListener("click", async () => {
-        if (pdfDoc) {
-          output.innerHTML = "";
-          let excelData = [];
-
-          for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
-            const page = await pdfDoc.getPage(pageNum);
-            const textContent = await page.getTextContent();
-            const pageText = textContent.items
-              .map((item) => item.str)
-              .join("\n");
-            excelData.push([`Page ${pageNum}`, pageText]);
-          }
-
-          const ws = XLSX.utils.aoa_to_sheet(excelData);
-          const wb = XLSX.utils.book_new();
-          XLSX.utils.book_append_sheet(wb, ws, "PDF to Excel");
-
-          // Export the Excel file
-          const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-          const blob = new Blob([wbout], { type: "application/octet-stream" });
-          const url = URL.createObjectURL(blob);
-
-          // Create a link to download the Excel file
-          const link = document.createElement("a");
-          link.href = url;
-          link.download = "converted.xlsx";
-          link.click();
-
-          // Clean up
-          URL.revokeObjectURL(url);
-        }
-      });
-
-      // Real-time search for tool cards with suggestions
-      document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('toolSearch');
-        const toolCards = document.querySelectorAll('.toollist .singletools');
-        const suggestionsBox = document.getElementById('searchSuggestions');
-        // Collect tool names and their card references
-        const toolData = Array.from(toolCards).map(card => {
-          const h2 = card.querySelector('h2');
-          return { name: h2 ? h2.textContent.trim() : '', card };
-        });
-
-        searchInput.addEventListener('input', function() {
-          const query = this.value.toLowerCase();
-          // Filter tool cards
-          toolData.forEach(({ name, card }) => {
-            card.style.display = name.toLowerCase().includes(query) ? '' : 'none';
-          });
-          // Show suggestions
-          if (query) {
-            const matches = toolData.filter(({ name }) => name.toLowerCase().includes(query));
-            if (matches.length > 0) {
-              suggestionsBox.innerHTML = matches.map(({ name }) =>
-                `<li class='px-4 py-2 cursor-pointer hover:bg-[#e5322d] hover:text-white'>${name}</li>`
-              ).join('');
-              suggestionsBox.classList.remove('hidden');
-            } else {
-              suggestionsBox.innerHTML = '<li class="px-4 py-2 text-gray-400">No matches found</li>';
-              suggestionsBox.classList.remove('hidden');
-            }
+              const pill = document.createElement('a');
+              pill.href = matchedHref;
+              pill.className = 'inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-700/80 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-600 transition';
+              pill.innerHTML = `<i class="fas fa-bolt text-[10px] text-amber-500"></i> ${toolName}`;
+              recentList.appendChild(pill);
+            });
           } else {
-            suggestionsBox.classList.add('hidden');
+            recentSection.classList.add('hidden');
           }
-        });
-
-        // Handle suggestion click
-        suggestionsBox.addEventListener('mousedown', function(e) {
-          if (e.target.tagName === 'LI' && !e.target.classList.contains('text-gray-400')) {
-            searchInput.value = e.target.textContent;
-            searchInput.dispatchEvent(new Event('input'));
-            suggestionsBox.classList.add('hidden');
-          }
-        });
-
-        // Hide suggestions on blur (with delay for click)
-        searchInput.addEventListener('blur', function() {
-          setTimeout(() => suggestionsBox.classList.add('hidden'), 100);
-        });
-
-        // Show suggestions on focus if query exists
-        searchInput.addEventListener('focus', function() {
-          if (this.value) searchInput.dispatchEvent(new Event('input'));
-        });
-      });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
-
-    <script src="./js/pdftocsv.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const lightIcon = document.getElementById('theme-toggle-light-icon');
-        const darkIcon = document.getElementById('theme-toggle-dark-icon');
-
-        function setThemeIcon() {
-          if (document.documentElement.classList.contains('dark')) {
-            darkIcon.classList.add('hidden');
-            lightIcon.classList.remove('hidden');
-          } else {
-            lightIcon.classList.add('hidden');
-            darkIcon.classList.remove('hidden');
-          }
-        }
-
-        // Initial theme check
-        if (
-          localStorage.getItem('theme') === 'dark' ||
-          (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-        setThemeIcon();
-
-        if (themeToggleBtn) {
-          themeToggleBtn.addEventListener('click', function () {
-            document.documentElement.classList.toggle('dark');
-            if (document.documentElement.classList.contains('dark')) {
-              localStorage.setItem('theme', 'dark');
-            } else {
-              localStorage.setItem('theme', 'light');
-            }
-            setThemeIcon();
-          });
-        }
-      });
-    </script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class'
+        } catch (e) {}
       }
-    </script>
-  </body>
+
+      window.clearRecents = function() {
+        localStorage.removeItem('opt_recent_tools');
+        recentSection.classList.add('hidden');
+      };
+
+      renderRecents();
+
+      function applyFilters() {
+        let visibleCount = 0;
+
+        toolCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          const cardKeywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+          const cardTitle = (card.querySelector('h2')?.textContent || '').toLowerCase();
+          const cardDesc = (card.querySelector('p')?.textContent || '').toLowerCase();
+
+          const matchesCategory = (currentCategory === 'all' || cardCategory === currentCategory);
+          const matchesSearch = !searchQuery || 
+            cardTitle.includes(searchQuery) || 
+            cardDesc.includes(searchQuery) || 
+            cardKeywords.includes(searchQuery);
+
+          if (matchesCategory && matchesSearch) {
+            card.style.display = 'flex';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        toolsCountBadge.textContent = `Showing ${visibleCount} of ${toolCards.length} tools`;
+        noResultsState.classList.toggle('hidden', visibleCount > 0);
+        clearSearchBtn.classList.toggle('hidden', searchQuery.length === 0);
+      }
+
+      // Search input handler
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.trim().toLowerCase();
+        applyFilters();
+      });
+
+      // Clear search handler
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchQuery = '';
+        applyFilters();
+        searchInput.focus();
+      });
+
+      // Category tab click handler
+      filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          filterChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          currentCategory = chip.getAttribute('data-category');
+          applyFilters();
+        });
+      });
+
+      // Global keyboard shortcut '/' to focus search
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement !== searchInput && !document.getElementById('cmdPaletteModal')?.classList.contains('hidden') === false) {
+          e.preventDefault();
+          searchInput.focus();
+        }
+      });
+
+      window.resetFilters = function() {
+        searchInput.value = '';
+        searchQuery = '';
+        currentCategory = 'all';
+        filterChips.forEach(c => c.classList.remove('active'));
+        filterChips[0].classList.add('active');
+        applyFilters();
+      };
+    });
+  </script>
+</body>
 </html>

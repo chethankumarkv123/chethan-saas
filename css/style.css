@@ -1,451 +1,312 @@
-/* Import modern font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* ===================================================
+   ONEPAGETOOLS MASTER STYLESHEET (CONSOLIDATED & POLISHED)
+   =================================================== */
 
-/* Global styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: #e0e7ff;
+  --accent: #0070f3;
+  --bg-dark: #030712;
+  --card-dark: #09090b;
+  --border-dark: #27272a;
+}
+
 html {
   scroll-behavior: smooth;
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: linear-gradient(145deg, #e6fffa 0%, #a7f3d0 100%);
-  min-height: 100vh;
   margin: 0;
   padding: 0;
-}
-
-/* Navigation */
-nav {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-
-nav:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 1);
-}
-
-/* Tool Section */
-.toolsection {
   min-height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 30px;
-  background: transparent;
-}
-
-/* Half Section */
-.half-section {
-  width: 80%;
-  max-width: 900px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  padding: 50px;
-  border-radius: 20px;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.half-section:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-}
-
-.half-section:focus-within {
-  outline: 2px solid #2dd4bf;
-  outline-offset: 4px;
-}
-
-/* Tool Heading */
-.toolheading {
-  font-size: clamp(2rem, 5vw, 3.8rem);
-  font-weight: 700;
-  color: #1e3a8a;
-  text-align: center;
-  margin-bottom: 24px;
-  animation: fadeIn 1s ease-in;
-  letter-spacing: -0.5px;
-}
-
-/* Description */
-.description {
-  width: 85%;
-  max-width: 700px;
-  text-align: center;
-  margin: auto;
-  font-size: 1.15rem;
-  color: #4b5563;
-  line-height: 1.7;
-  opacity: 0.9;
-}
-
-/* Tool Box */
-.toolbox {
-  width: 70%;
-  max-width: 800px;
-  margin: 30px auto;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  flex-wrap: wrap;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-  transition: all 0.4s ease;
-}
-
-.toolbox:hover {
-  background: rgba(255, 255, 255, 0.95);
-}
-
-.toolbox:focus-within {
-  outline: 2px solid #2dd4bf;
-}
-
-/* Download Button */
-.downloadbutton {
-  background: linear-gradient(90deg, #2dd4bf, #34d399);
-  color: #ffffff;
-  padding: 14px 36px;
-  border: none;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   position: relative;
-  overflow: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  background-color: #f8fafc;
 }
 
-.downloadbutton::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease;
+/* Touch Targets & Optimization */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+button, a, input, select, textarea {
+  touch-action: manipulation;
 }
 
-.downloadbutton:hover::after {
-  width: 200px;
-  height: 200px;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
 }
 
-.downloadbutton:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+/* Dark Mode Theme */
+html.dark, html.dark body {
+  background-color: #030712 !important;
+  color: #ededed !important;
 }
 
-.downloadbutton:active {
-  transform: scale(0.95);
+html.dark nav, html.dark #masterGlobalNav {
+  background: rgba(0, 0, 0, 0.88) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid #1f1f23 !important;
 }
 
-.downloadbutton:disabled {
-  background: #d1d5db;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-.downloadbutton:focus {
-  outline: 2px solid #1e3a8a;
-  outline-offset: 2px;
-}
-
-/* Dropdown Menu */
-.mydrop {
-  width: 100% !important;
-  padding: 25px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  animation: slideDown 0.4s ease;
-}
-
-.mydrop ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-}
-
-.mydrop ul li a {
-  padding: 12px 24px;
-  border-radius: 50px;
-  background: #f1f5f9;
-  color: #1e3a8a;
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
-  position: relative;
-}
-
-.mydrop ul li a:hover {
-  background: #2dd4bf;
-  color: #ffffff;
-  transform: translateY(-3px);
-}
-
-.mydrop ul li a:focus {
-  outline: 2px solid #1e3a8a;
-  outline-offset: 2px;
-}
-
-/* Tool List */
+/* Tool Grid Layout */
 .toollist {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-  padding: 5%;
-  margin-top: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-/* Single Tool */
+@media (min-width: 1024px) {
+  .toollist {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .toollist {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Modern Tool Cards */
 .singletools {
   background: #ffffff;
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 1.25rem;
+  border: 1px solid #e2e8f0;
+  padding: 1.5rem;
   position: relative;
   overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+}
+
+html.dark .singletools {
+  background: #09090b !important;
+  border-color: #27272a !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7) !important;
 }
 
 .singletools:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  transform: translateY(-4px);
+  border-color: #6366f1;
+  box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.12), 0 8px 10px -6px rgba(79, 70, 229, 0.08);
 }
 
-.singletools:focus-within {
-  outline: 2px solid #2dd4bf;
-  outline-offset: 4px;
+html.dark .singletools:hover {
+  border-color: #0070f3 !important;
+  box-shadow: 0 0 25px rgba(0, 112, 243, 0.2) !important;
 }
 
 .singletools a {
-  display: block;
   text-decoration: none;
-  position: relative;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.singletools a::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1e3a8a;
-  color: #ffffff;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  pointer-events: none;
+/* Card Icons - Polished & Centered with Micro-Interactions */
+.singletools .w-12.h-12 {
+  width: 3rem !important;
+  height: 3rem !important;
+  border-radius: 0.875rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.25rem !important;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-.singletools a:hover::after {
-  opacity: 1;
-  visibility: visible;
+.singletools:hover .w-12.h-12 {
+  transform: scale(1.12);
 }
 
-.singletools a img {
-  height: 55px;
-  transition: transform 0.3s ease;
+.singletools h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0.75rem 0 0.25rem 0;
+  color: #0f172a;
+  transition: color 0.2s ease;
 }
 
-.singletools a:hover img {
-  transform: scale(1.15);
+html.dark .singletools h2 {
+  color: #ffffff !important;
 }
 
-.singletools a h2 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #1e3a8a;
-  margin: 18px 0 12px;
-  line-height: 1.4;
+.singletools:hover h2 {
+  color: #4f46e5;
 }
 
-.singletools a p {
-  font-size: 0.95rem;
-  color: #6b7280;
-  line-height: 1.6;
-  margin: 0;
+html.dark .singletools:hover h2 {
+  color: #38bdf8 !important;
 }
 
-/* Image Box */
-.imgbox {
+.singletools p {
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+html.dark .singletools p {
+  color: #a1a1aa !important;
+}
+
+.singletools .card-footer {
   display: flex;
   align-items: center;
-  gap: 18px;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f1f5f9;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #4f46e5;
 }
 
-/* Features Section */
-#features {
-  padding: 100px 30px;
-  background: #ffffff;
-  margin-top: 0;
+html.dark .singletools .card-footer {
+  border-top-color: #1f1f23 !important;
+  color: #38bdf8 !important;
 }
 
-#features h2 {
-  font-size: clamp(2.2rem, 5vw, 4rem);
+.singletools .card-footer i {
+  transition: transform 0.2s ease;
+}
+
+.singletools:hover .card-footer i {
+  transform: translateX(4px);
+}
+
+/* Category Filter Chips */
+.filter-chip {
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.filter-chip.active {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+  border-color: #4f46e5 !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+}
+
+/* Buttons */
+.btn-primary {
+  background: #4f46e5;
+  color: #ffffff;
   font-weight: 700;
-  color: #1e3a8a;
-  text-align: center;
-  margin-bottom: 50px;
-  animation: fadeIn 1s ease-in;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
 }
 
-#features .relative {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.btn-primary:hover {
+  background: #4338ca;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
 }
 
-#features .relative:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+html.dark .btn-primary {
+  background: #0070f3 !important;
+  box-shadow: 0 4px 14px rgba(0, 112, 243, 0.35) !important;
 }
 
-#features .relative:focus-within {
-  outline: 2px solid #2dd4bf;
+html.dark .btn-primary:hover {
+  background: #0060df !important;
 }
 
-/* Animation Keyframes */
-@keyframes animate {
-  100% {
-    transform: rotate(360deg);
-  }
+.btn-secondary {
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.myanime {
-  animation: animate 5s alternate infinite;
+.btn-secondary:hover {
+  background: #e2e8f0;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+html.dark .btn-secondary {
+  background: #18181b !important;
+  color: #e4e4e7 !important;
+  border-color: #27272a !important;
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+html.dark .btn-secondary:hover {
+  background: #27272a !important;
 }
 
-/* Accessibility Enhancements */
-:focus {
-  outline: 2px solid #2dd4bf;
-  outline-offset: 2px;
-}
-
-/* Media Queries */
-@media (max-width: 1068px) {
+/* Responsive Rules */
+@media (max-width: 480px) {
   .toollist {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 0.5rem !important;
   }
-}
 
-@media (max-width: 710px) {
-  .toolsection {
-    gap: 25px;
-    padding: 20px;
-  }
-  .half-section {
-    width: 95%;
-    padding: 30px;
-  }
-  .toolbox {
-    width: 95%;
-    padding: 25px;
-  }
-  .description {
-    width: 90%;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 568px) {
-  .herobutton {
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-    gap: 12px;
-  }
-  .herobutton a {
-    width: 85%;
-    text-align: center;
-    padding: 12px;
-  }
-  #features {
-    padding: 50px 15px;
-  }
-  .toolheading {
-    font-size: clamp(1.8rem, 4vw, 3rem);
-  }
-}
-
-@media (max-width: 567px) {
-  .mydrop {
-    padding: 15px;
-  }
-  #dropdownNavbar {
-    transform: translate3d(0px, 80px, 0px) !important;
-  }
-  .half-section {
-    width: 100%;
-    margin-top: 20px;
-    padding: 20px;
-  }
-  .toolbox {
-    width: 100%;
-    gap: 8px;
-    padding: 20px;
-  }
-  .mydrop ul li a {
-    padding: 10px 18px;
-    font-size: 0.85rem;
-  }
-  .MYIMG {
-    width: 100% !important;
-  }
   .singletools {
-    padding: 20px;
+    padding: 1.25rem !important;
   }
-  .singletools a h2 {
-    font-size: 1.2rem;
+
+  #masterGlobalNav .h-20 {
+    height: 4rem !important;
   }
-  .singletools a p {
-    font-size: 0.9rem;
+
+  #masterGlobalNav img {
+    height: 2.25rem !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+  .toollist {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem !important;
   }
 }

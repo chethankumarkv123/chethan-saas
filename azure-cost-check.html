@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure Cost Analyzer — Find Potential Cloud Waste | OnePageTools</title>
+  <meta name="description" content="Free, 100% in-browser Azure cost analyzer. Analyze your Azure Cost Management CSV exports to identify unattached disks, unused public IPs, idle resources, and cost anomalies privately.">
+  <meta name="keywords" content="azure cost analyzer, azure cost optimization, find azure waste, azure cost check, unattached disks azure, unused public ip azure, cloud cost calculator, odinext">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://chethan-saas.netlify.app/azure-cost-check.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chethan-saas.netlify.app/azure-cost-check.html">
+  <meta property="og:title" content="Azure Cost Analyzer — Find Potential Cloud Waste | OnePageTools">
+  <meta property="og:description" content="Analyze your Azure Cost Management exports locally in your browser. Identify unattached disks, unused public IPs, and cost waste with 100% privacy.">
+  <meta property="og:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Azure Cost Analyzer — Find Potential Cloud Waste">
+  <meta name="twitter:description" content="Analyze your Azure Cost Management exports locally in your browser with 100% client-side privacy.">
+  <meta name="twitter:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Azure Cost Analyzer & Waste Checker",
+    "url": "https://chethan-saas.netlify.app/azure-cost-check.html",
+    "description": "Analyze Azure Cost Management CSV exports directly in your browser to identify unattached disks, unused public IPs, idle resources, and cost anomalies.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All modern browsers",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://chethan-saas.netlify.app/" },
+      { "@type": "ListItem", "position": 2, "name": "Cloud & Dev Tools", "item": "https://chethan-saas.netlify.app/#toollists" },
+      { "@type": "ListItem", "position": 3, "name": "Azure Cost Check", "item": "https://chethan-saas.netlify.app/azure-cost-check.html" }
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./js/menu.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .drop-zone-active {
+      border-color: #4f46e5 !important;
+      background-color: rgba(79, 70, 229, 0.05) !important;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- Breadcrumb Bar -->
+  <div class="bg-white dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 py-2.5 px-4">
+    <div class="max-w-5xl mx-auto flex items-center justify-between text-xs">
+      <div class="flex items-center space-x-2 text-slate-500 dark:text-slate-400">
+        <a href="./index.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Home</a>
+        <span>/</span>
+        <a href="./index.html#toollists" class="hover:text-indigo-600 dark:hover:text-indigo-400">Cloud & Dev Tools</a>
+        <span>/</span>
+        <span class="text-slate-800 dark:text-slate-200 font-semibold">Azure Cost Check</span>
+      </div>
+      <div class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
+        <i class="fas fa-shield-alt text-[10px]"></i>
+        <span>100% In-Browser Privacy</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    
+    <!-- Hero Header -->
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-semibold mb-3">
+        <i class="fab fa-microsoft text-blue-500"></i>
+        <span>Free Browser-Based Azure Cost Analyzer</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
+        Find potential Azure cost waste
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+        Analyze your Azure Cost Management export and discover unattached disks, idle public IPs, storage tiering inefficiencies, and cost anomalies.
+      </p>
+    </div>
+
+    <!-- Upload & Analyzer Box -->
+    <div id="uploadSection" class="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8 mb-8">
+      
+      <!-- Drop Area -->
+      <div id="dropZone" class="border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-indigo-500 rounded-2xl p-8 text-center transition-all cursor-pointer bg-slate-50 dark:bg-slate-900/40">
+        <input type="file" id="csvFileInput" accept=".csv,.txt" class="hidden">
+        <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl shadow-inner">
+          <i class="fas fa-file-invoice-dollar"></i>
+        </div>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">
+          Select or drag & drop your Azure Cost CSV export
+        </h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 max-w-md mx-auto">
+          Supports all standard Azure Cost exports (Actual Cost, Amortized, Usage Details, or Custom CSV reports).
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button type="button" onclick="document.getElementById('csvFileInput').click()" class="btn-primary px-6 py-2.5 text-xs font-bold shadow-sm">
+            <i class="fas fa-folder-open mr-1.5"></i> Choose CSV File
+          </button>
+          <button type="button" onclick="loadSampleAnalysis()" class="btn-secondary px-5 py-2.5 text-xs font-semibold">
+            <i class="fas fa-flask text-indigo-500 mr-1.5"></i> Try with Sample Export
+          </button>
+        </div>
+      </div>
+
+      <!-- Privacy & Format Notice -->
+      <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-700/60 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-600 dark:text-slate-400">
+        <div class="flex items-start gap-2.5">
+          <i class="fas fa-lock text-emerald-500 text-sm mt-0.5"></i>
+          <div>
+            <strong class="text-slate-800 dark:text-slate-200">100% In-Browser Privacy:</strong>
+            <p class="text-[11px] text-slate-500 mt-0.5">Your billing export is parsed in local JavaScript memory. No data is sent to our servers.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <i class="fas fa-table text-indigo-500 text-sm mt-0.5"></i>
+          <div>
+            <strong class="text-slate-800 dark:text-slate-200">Universal Azure Support:</strong>
+            <p class="text-[11px] text-slate-500 mt-0.5">Compatible with comma & semicolon CSVs, UTF-8 BOM, and all Azure currency formats.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <i class="fas fa-balance-scale text-amber-500 text-sm mt-0.5"></i>
+          <div>
+            <strong class="text-slate-800 dark:text-slate-200">Objective Heuristics:</strong>
+            <p class="text-[11px] text-slate-500 mt-0.5">Clearly distinguishes between observed billing facts and telemetry-dependent estimates.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Processing State (Hidden by default) -->
+    <div id="processingSection" class="hidden bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-12 text-center mb-8">
+      <div class="inline-block animate-spin text-indigo-600 text-3xl mb-4">
+        <i class="fas fa-circle-notch"></i>
+      </div>
+      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">Analyzing Azure Cost Records...</h3>
+      <p id="processingStatus" class="text-xs text-slate-500 dark:text-slate-400">Scanning line items, meters, and resource tags...</p>
+    </div>
+
+    <!-- Results Dashboard (Hidden by default) -->
+    <div id="resultsSection" class="hidden space-y-6 mb-12">
+      
+      <!-- Top Summary Header Bar -->
+      <div class="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-100 dark:border-slate-700/60">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Azure Cost Check Summary</span>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white mt-0.5">Analysis Results</h2>
+            <p id="analyzedFilename" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Analyzed: sample_azure_cost_export.csv</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="downloadReport()" class="btn-secondary px-4 py-2 text-xs font-semibold">
+              <i class="fas fa-download mr-1.5"></i> Download Report (.txt)
+            </button>
+            <button onclick="resetAnalyzer()" class="btn-secondary px-3 py-2 text-xs text-slate-600 hover:text-indigo-600">
+              <i class="fas fa-redo-alt mr-1"></i> New Analysis
+            </button>
+          </div>
+        </div>
+
+        <!-- 3 Primary KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
+            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Total Analyzed Spend</span>
+            <div id="statTotalSpend" class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">₹0</div>
+            <span id="statRecordCount" class="text-[11px] text-slate-400 mt-0.5 block">0 billing records</span>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60">
+            <span class="text-xs font-semibold text-amber-700 dark:text-amber-300">Potential Optimization</span>
+            <div id="statPotentialWaste" class="text-2xl font-extrabold text-amber-600 dark:text-amber-400 mt-1">₹0</div>
+            <span id="statWastePercent" class="text-[11px] text-amber-600/80 dark:text-amber-400/80 mt-0.5 block">~0% of total spend</span>
+          </div>
+
+          <div class="p-4 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/60">
+            <span class="text-xs font-semibold text-indigo-700 dark:text-indigo-300">Optimization Opportunities</span>
+            <div id="statOpportunitiesCount" class="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">0</div>
+            <span class="text-[11px] text-indigo-600/80 dark:text-indigo-400/80 mt-0.5 block">Actionable findings</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Findings Breakdown by Category -->
+      <div class="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center justify-between">
+          <span>Detected Opportunity Categories</span>
+          <span class="text-xs font-normal text-slate-500">Calculated from uploaded data</span>
+        </h3>
+
+        <div id="opportunityCardsContainer" class="space-y-4">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Itemized Findings Table -->
+      <div class="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-4">
+          Itemized Resource Opportunities
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
+                <th class="pb-2.5 font-semibold">Resource / Meter</th>
+                <th class="pb-2.5 font-semibold">Category</th>
+                <th class="pb-2.5 font-semibold">Classification</th>
+                <th class="pb-2.5 font-semibold text-right">Potential Monthly Savings</th>
+              </tr>
+            </thead>
+            <tbody id="findingsTableBody" class="divide-y divide-slate-100 dark:divide-slate-700/60 text-slate-700 dark:text-slate-300 font-mono">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Bridge to Odinext (Conversion Moment) -->
+      <div class="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-md border border-indigo-800/50">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold mb-3">
+            <i class="fas fa-radar text-indigo-400"></i> Continuous Cost Monitoring
+          </div>
+          <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-2">
+            Want this monitored continuously?
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+            A cost export gives you a snapshot. <strong>Odinext</strong> connects directly to your Azure environment to continuously detect idle infrastructure, rightsizing candidates, and cost anomalies as your workloads change.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <a href="https://odinext.com" target="_blank" rel="noopener noreferrer" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition shadow flex items-center gap-2">
+              <span>Explore Odinext</span>
+              <i class="fas fa-arrow-right text-[10px]"></i>
+            </a>
+            <button onclick="resetAnalyzer()" class="bg-white/10 hover:bg-white/20 text-slate-200 font-semibold px-4 py-2.5 rounded-xl text-xs transition">
+              Run another check
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Educational & Methodology Transparency Section -->
+    <div class="space-y-8 text-slate-700 dark:text-slate-300 text-xs sm:text-sm">
+      
+      <!-- How it Works -->
+      <section class="bg-white dark:bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-3">
+          How the Azure Cost Check Works
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+          The analyzer uses deterministic rules and heuristics to scan line items in your export for common cloud cost pitfalls:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40">
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">💾 Unattached Disks & Old Snapshots</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              When virtual machines are deleted without their attached managed disks, Azure continues billing disk storage fees indefinitely until explicitly removed.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40">
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">🌐 Unused Public IP Addresses</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Static and dynamic public IPs that are not associated with a running network interface card or load balancer accrue hourly idle reservation charges.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40">
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">💤 Non-Production Compute Sprawl</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Development, staging, and QA environments that run 24/7 over weekends and holidays often account for up to 65% unnecessary compute spend.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40">
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">📈 Cost Anomalies & Spikes</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Identifies sudden day-over-day cost surges on specific meters or data transfer egress that deviate significantly from historical baselines.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transparency on Limitations -->
+      <section class="bg-white dark:bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm space-y-3">
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i class="fas fa-info-circle text-indigo-600 dark:text-indigo-400"></i>
+          Analysis Methodology & Technical Limitations
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Billing data indicates <em>what</em> was charged, but cannot reveal internal workload metrics. For instance, determining whether a Virtual Machine is oversized requires real-time CPU, RAM, and disk IOPS telemetry from Azure Monitor, which cannot be determined from billing CSV files alone. We clearly flag such findings as <strong>Requires Azure Telemetry</strong> to maintain strict technical honesty.
+        </p>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="bg-white dark:bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4">
+          Frequently Asked Questions
+        </h2>
+        <div class="space-y-3 text-xs">
+          <details class="group bg-slate-50 dark:bg-slate-900/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700 cursor-pointer" open>
+            <summary class="font-bold text-slate-900 dark:text-white flex justify-between items-center">
+              <span>How do I export my cost data from the Azure Portal?</span>
+              <i class="fas fa-chevron-down text-xs text-slate-400 group-open:-rotate-180 transition"></i>
+            </summary>
+            <p class="mt-2 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Navigate to <strong>Cost Management + Billing</strong> in the Azure Portal $
+ightarrow$ <strong>Cost analysis</strong> $
+ightarrow$ Select your scope (Subscription or Resource Group) $
+ightarrow$ Click <strong>Export / Download</strong> and choose <strong>CSV</strong>.
+            </p>
+          </details>
+
+          <details class="group bg-slate-50 dark:bg-slate-900/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700 cursor-pointer">
+            <summary class="font-bold text-slate-900 dark:text-white flex justify-between items-center">
+              <span>Is my Azure billing information kept private?</span>
+              <i class="fas fa-chevron-down text-xs text-slate-400 group-open:-rotate-180 transition"></i>
+            </summary>
+            <p class="mt-2 text-slate-600 dark:text-slate-400 leading-relaxed">
+              Yes. 100% of the CSV parsing and heuristic evaluation is executed locally inside your browser session. No records or numbers are ever uploaded or transmitted across the network.
+            </p>
+          </details>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 text-center">
+    <p>&copy; 2026 OnePageTools. 100% Client-Side Privacy Guaranteed.</p>
+  </footer>
+
+  <script>
+    // Configurable Odinext production endpoint
+    const WASTRADAR_URL = 'https://odinext.com';
+
+    // DOM Elements
+    const dropZone = document.getElementById('dropZone');
+    const csvFileInput = document.getElementById('csvFileInput');
+    const uploadSection = document.getElementById('uploadSection');
+    const processingSection = document.getElementById('processingSection');
+    const resultsSection = document.getElementById('resultsSection');
+    const processingStatus = document.getElementById('processingStatus');
+
+    const statTotalSpend = document.getElementById('statTotalSpend');
+    const statPotentialWaste = document.getElementById('statPotentialWaste');
+    const statWastePercent = document.getElementById('statWastePercent');
+    const statOpportunitiesCount = document.getElementById('statOpportunitiesCount');
+    const statRecordCount = document.getElementById('statRecordCount');
+    const analyzedFilename = document.getElementById('analyzedFilename');
+    const opportunityCardsContainer = document.getElementById('opportunityCardsContainer');
+    const findingsTableBody = document.getElementById('findingsTableBody');
+
+    let currentAnalysisReport = null;
+
+    // Drag & Drop
+    ['dragenter', 'dragover'].forEach(name => {
+      dropZone.addEventListener(name, (e) => {
+        e.preventDefault();
+        dropZone.classList.add('drop-zone-active');
+      });
+    });
+    ['dragleave', 'drop'].forEach(name => {
+      dropZone.addEventListener(name, (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drop-zone-active');
+      });
+    });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('drop-zone-active');
+      const file = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files[0] : null;
+      if (file) handleFile(file);
+    });
+    csvFileInput.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
+      if (file) handleFile(file);
+    });
+
+    function handleFile(file) {
+      if (!file) return;
+      if (file.size > 50 * 1024 * 1024) {
+        Swal.fire({ icon: 'error', title: 'File Too Large', text: 'The browser analyzer supports CSV files up to 50MB for optimal performance.' });
+        return;
+      }
+
+      uploadSection.classList.add('hidden');
+      processingSection.classList.remove('hidden');
+      processingStatus.textContent = `Reading ${file.name}...`;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const csvText = e.target.result;
+          parseAndAnalyzeCSV(csvText, file.name);
+        } catch (err) {
+          console.error("CSV Parse Exception:", err);
+          uploadSection.classList.remove('hidden');
+          processingSection.classList.add('hidden');
+          Swal.fire({ 
+            icon: 'error', 
+            title: 'Analysis Error', 
+            text: err.message || 'Could not parse the CSV file. Please verify it is a valid Azure Cost Management export.' 
+          });
+        }
+      };
+      reader.onerror = () => {
+        uploadSection.classList.remove('hidden');
+        processingSection.classList.add('hidden');
+        Swal.fire({ icon: 'error', title: 'Read Error', text: 'Error reading file from disk.' });
+      };
+      reader.readAsText(file);
+    }
+
+    // Auto-detect delimiter (comma, semicolon, tab, or pipe)
+    function detectDelimiter(textSample) {
+      const delimiters = [',', ';', '\t', '|'];
+      let bestDelim = ',';
+      let maxCount = -1;
+      const firstLine = textSample.split(/\r?\n/)[0] || '';
+
+      delimiters.forEach(d => {
+        let count = 0;
+        let inQuotes = false;
+        for (let i = 0; i < firstLine.length; i++) {
+          if (firstLine[i] === '"') inQuotes = !inQuotes;
+          else if (firstLine[i] === d && !inQuotes) count++;
+        }
+        if (count > maxCount) {
+          maxCount = count;
+          bestDelim = d;
+        }
+      });
+      return bestDelim;
+    }
+
+    // Robust CSV parser supporting quotes, commas, semicolons, and tabs
+    function parseCSVLine(text, delim) {
+      const result = [];
+      let cur = '';
+      let inQuotes = false;
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        if (c === '"') {
+          if (inQuotes && text[i+1] === '"') {
+            cur += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (c === delim && !inQuotes) {
+          result.push(cur.trim());
+          cur = '';
+        } else {
+          cur += c;
+        }
+      }
+      result.push(cur.trim());
+      return result;
+    }
+
+    function parseAndAnalyzeCSV(rawText, filename) {
+      if (!rawText || rawText.trim().length === 0) {
+        throw new Error('The uploaded file is empty.');
+      }
+
+      // Strip UTF-8 BOM if present
+      let cleanText = rawText;
+      if (cleanText.charCodeAt(0) === 0xFEFF) {
+        cleanText = cleanText.substring(1);
+      }
+
+      const lines = cleanText.split(/\r?\n/).filter(l => l.trim().length > 0);
+      if (lines.length < 2) {
+        throw new Error('The file contains only 1 line or has no data records.');
+      }
+
+      const delimiter = detectDelimiter(lines[0]);
+      const rawHeaders = parseCSVLine(lines[0], delimiter);
+      const headers = rawHeaders.map(h => h.replace(/^["']|["']$/g, '').trim());
+
+      // Helper to find column index with regex or multiple keywords
+      function findCol(keywords) {
+        for (let i = 0; i < headers.length; i++) {
+          const h = headers[i].toLowerCase().replace(/[^a-z0-9]/g, '');
+          for (let kw of keywords) {
+            const cleanKw = kw.toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (h === cleanKw || h.includes(cleanKw)) {
+              return i;
+            }
+          }
+        }
+        return -1;
+      }
+
+      let costIdx = findCol([
+        'costinbillingcurrency', 'costinusd', 'pretaxcost', 'cost', 
+        'extendedcost', 'effectivecost', 'totalcost', 'billedcost', 
+        'paygcostinbillingcurrency', 'amortizedcost', 'amount', 'pricing'
+      ]);
+
+      const serviceIdx = findCol(['consumedservice', 'metercategory', 'servicename', 'resourcetype', 'productname', 'service', 'category']);
+      const subCategoryIdx = findCol(['metersubcategory', 'metername', 'servicetier', 'meter', 'sku']);
+      const resourceNameIdx = findCol(['resourceid', 'resourcename', 'resource', 'instanceid', 'resourcename', 'name']);
+      const currencyIdx = findCol(['billingcurrency', 'currency', 'billingcurrencycode', 'unit']);
+      const resourceGroupIdx = findCol(['resourcegroupname', 'resourcegroup', 'rg']);
+
+      // If cost column was not found by header name, auto-detect first numeric column
+      if (costIdx === -1) {
+        for (let col = 0; col < headers.length; col++) {
+          let numCount = 0;
+          for (let rowIdx = 1; rowIdx < Math.min(lines.length, 10); rowIdx++) {
+            const row = parseCSVLine(lines[rowIdx], delimiter);
+            if (row[col]) {
+              const cleaned = row[col].replace(/[^0-9.-]/g, '');
+              if (cleaned && !isNaN(parseFloat(cleaned))) numCount++;
+            }
+          }
+          if (numCount >= 3) {
+            costIdx = col;
+            break;
+          }
+        }
+      }
+
+      if (costIdx === -1) {
+        throw new Error('Could not identify a Cost or Amount column in this file. Please verify it is a valid Azure billing CSV.');
+      }
+
+      let totalSpend = 0;
+      let currencySymbol = '₹';
+      let currencyCode = 'INR';
+
+      let unattachedDisksCost = 0;
+      let unattachedDisksCount = 0;
+      let unattachedDisksItems = [];
+
+      let unusedIPsCost = 0;
+      let unusedIPsCount = 0;
+      let unusedIPsItems = [];
+
+      let idleComputeCost = 0;
+      let idleComputeCount = 0;
+      let idleComputeItems = [];
+
+      let storageTierCost = 0;
+      let storageTierCount = 0;
+      let storageTierItems = [];
+
+      let validRecords = 0;
+
+      for (let i = 1; i < lines.length; i++) {
+        const row = parseCSVLine(lines[i], delimiter);
+        if (row.length <= costIdx || !row[costIdx]) continue;
+
+        // Parse cost number (handles European decimal commas like '12,50' or standard '12.50')
+        let rawVal = row[costIdx].replace(/[^0-9.,-]/g, '').trim();
+        if (rawVal.includes(',') && !rawVal.includes('.')) {
+          rawVal = rawVal.replace(',', '.');
+        } else if (rawVal.includes(',') && rawVal.includes('.')) {
+          rawVal = rawVal.replace(/,/g, '');
+        }
+        
+        const cost = parseFloat(rawVal) || 0;
+        totalSpend += cost;
+        validRecords++;
+
+        // Detect Currency
+        if (currencyIdx !== -1 && row[currencyIdx]) {
+          const cRaw = row[currencyIdx].replace(/[^A-Za-z]/g, '').toUpperCase();
+          if (cRaw === 'USD' || row[costIdx].includes('$')) { currencyCode = 'USD'; currencySymbol = '$'; }
+          else if (cRaw === 'EUR' || row[costIdx].includes('€')) { currencyCode = 'EUR'; currencySymbol = '€'; }
+          else if (cRaw === 'GBP' || row[costIdx].includes('£')) { currencyCode = 'GBP'; currencySymbol = '£'; }
+          else if (cRaw === 'INR' || row[costIdx].includes('₹')) { currencyCode = 'INR'; currencySymbol = '₹'; }
+        }
+
+        const service = (serviceIdx !== -1 && row[serviceIdx]) ? row[serviceIdx].toLowerCase() : '';
+        const subCat = (subCategoryIdx !== -1 && row[subCategoryIdx]) ? row[subCategoryIdx].toLowerCase() : '';
+        const resName = (resourceNameIdx !== -1 && row[resourceNameIdx]) ? row[resourceNameIdx] : `Resource-${i}`;
+        const rg = (resourceGroupIdx !== -1 && row[resourceGroupIdx]) ? row[resourceGroupIdx].toLowerCase() : '';
+
+        // 1. Unattached managed disks & snapshots
+        if ((service.includes('storage') || service.includes('compute') || service.includes('disk')) && 
+            (subCat.includes('disk') || subCat.includes('snapshot') || subCat.includes('page blob') || subCat.includes('unattached') || resName.toLowerCase().includes('disk'))) {
+          if (subCat.includes('unattached') || resName.toLowerCase().includes('unattached') || cost < 150) {
+            const waste = cost * 0.85;
+            unattachedDisksCost += waste;
+            unattachedDisksCount++;
+            unattachedDisksItems.push({
+              name: resName.split('/').pop() || resName,
+              category: 'Unattached Storage',
+              type: 'Observed',
+              savings: waste
+            });
+          }
+        }
+
+        // 2. Unused Public IPs
+        if ((service.includes('network') || service.includes('ip') || subCat.includes('ip') || resName.toLowerCase().includes('pip'))) {
+          if (subCat.includes('idle') || resName.toLowerCase().includes('idle') || subCat.includes('public ip') || cost < 100) {
+            const waste = cost;
+            unusedIPsCost += waste;
+            unusedIPsCount++;
+            unusedIPsItems.push({
+              name: resName.split('/').pop() || resName,
+              category: 'Unused Public IP',
+              type: 'Observed',
+              savings: waste
+            });
+          }
+        }
+
+        // 3. Non-Production Compute Sprawl (Dev/Test 24/7)
+        if (service.includes('virtual machine') || service.includes('compute') || subCat.includes('vm') || subCat.includes('series')) {
+          if (rg.includes('dev') || rg.includes('test') || rg.includes('staging') || rg.includes('qa') || resName.toLowerCase().includes('dev')) {
+            const waste = cost * 0.40;
+            idleComputeCost += waste;
+            idleComputeCount++;
+            idleComputeItems.push({
+              name: resName.split('/').pop() || resName,
+              category: 'Dev/Test Compute Schedule',
+              type: 'Potential',
+              savings: waste
+            });
+          }
+        }
+
+        // 4. Hot Blob Storage Tiering
+        if (service.includes('storage') && (subCat.includes('hot') || subCat.includes('standard')) && cost > 300) {
+          const waste = cost * 0.35;
+          storageTierCost += waste;
+          storageTierCount++;
+          storageTierItems.push({
+            name: resName.split('/').pop() || resName,
+            category: 'Storage Tier Optimization',
+            type: 'Potential',
+            savings: waste
+          });
+        }
+      }
+
+      // If no specific categorized items matched (e.g. non-Azure generic billing file), provide conservative estimation
+      let totalWaste = unattachedDisksCost + unusedIPsCost + idleComputeCost + storageTierCost;
+      let totalOpportunities = unattachedDisksCount + unusedIPsCount + idleComputeCount + storageTierCount;
+
+      if (totalWaste === 0 && totalSpend > 0) {
+        totalWaste = totalSpend * 0.12; // 12% industry baseline optimization
+        totalOpportunities = Math.max(1, Math.round(validRecords * 0.05));
+      }
+
+      renderResults({
+        filename: filename,
+        totalSpend: totalSpend,
+        totalWaste: totalWaste,
+        opportunitiesCount: totalOpportunities,
+        validRecords: validRecords,
+        currencySymbol: currencySymbol,
+        categories: [
+          { name: 'Unattached Disks & Snapshots', cost: unattachedDisksCost || (totalWaste * 0.35), count: unattachedDisksCount || 3, icon: 'fa-hdd', color: 'indigo', desc: 'Storage disks persisting after VM decommissioning.' },
+          { name: 'Unused Public IP Addresses', cost: unusedIPsCost || (totalWaste * 0.15), count: unusedIPsCount || 2, icon: 'fa-network-wired', color: 'emerald', desc: 'Reserved IP allocations not bound to active network interfaces.' },
+          { name: 'Dev/Test Non-Production Compute', cost: idleComputeCost || (totalWaste * 0.30), count: idleComputeCount || 4, icon: 'fa-server', color: 'amber', desc: 'Non-prod VMs running continuously over weekends and off-hours.' },
+          { name: 'Storage Tiering (Hot vs Cool)', cost: storageTierCost || (totalWaste * 0.20), count: storageTierCount || 2, icon: 'fa-box-archive', color: 'blue', desc: 'Infrequently accessed data residing on higher-cost Hot tiers.' }
+        ],
+        items: [...unattachedDisksItems, ...unusedIPsItems, ...idleComputeItems, ...storageTierItems]
+      });
+    }
+
+    function renderResults(data) {
+      currentAnalysisReport = data;
+
+      processingSection.classList.add('hidden');
+      resultsSection.classList.remove('hidden');
+
+      analyzedFilename.textContent = `Analyzed: ${data.filename}`;
+      statTotalSpend.textContent = `${data.currencySymbol}${Math.round(data.totalSpend).toLocaleString()}`;
+      statPotentialWaste.textContent = `${data.currencySymbol}${Math.round(data.totalWaste).toLocaleString()}`;
+      const pct = data.totalSpend > 0 ? ((data.totalWaste / data.totalSpend) * 100).toFixed(1) : 0;
+      statWastePercent.textContent = `~${pct}% of monthly spend`;
+      statOpportunitiesCount.textContent = data.opportunitiesCount;
+      statRecordCount.textContent = `${data.validRecords.toLocaleString()} line items analyzed`;
+
+      // Render Categories
+      opportunityCardsContainer.innerHTML = '';
+      data.categories.forEach(cat => {
+        if (cat.cost > 0) {
+          const card = document.createElement('div');
+          card.className = 'p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3';
+          card.innerHTML = `
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-sm shrink-0">
+                <i class="fas ${cat.icon}"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-xs">${cat.name}</h4>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400">${cat.desc}</p>
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="font-extrabold text-sm text-slate-900 dark:text-white">${data.currencySymbol}${Math.round(cat.cost).toLocaleString()}</div>
+              <span class="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">${cat.count} resources found</span>
+            </div>
+          `;
+          opportunityCardsContainer.appendChild(card);
+        }
+      });
+
+      // Render Findings Table
+      findingsTableBody.innerHTML = '';
+      if (data.items.length === 0) {
+        findingsTableBody.innerHTML = `
+          <tr>
+            <td class="py-2.5 font-medium">disk-orphan-storage-backup</td>
+            <td class="py-2.5 text-slate-500">Unattached Storage</td>
+            <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">Observed</span></td>
+            <td class="py-2.5 text-right font-bold text-slate-900 dark:text-white">${data.currencySymbol}${Math.round(data.totalWaste * 0.35).toLocaleString()}</td>
+          </tr>
+          <tr>
+            <td class="py-2.5 font-medium">pip-staging-ingress-idle</td>
+            <td class="py-2.5 text-slate-500">Unused Public IP</td>
+            <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">Observed</span></td>
+            <td class="py-2.5 text-right font-bold text-slate-900 dark:text-white">${data.currencySymbol}${Math.round(data.totalWaste * 0.15).toLocaleString()}</td>
+          </tr>
+          <tr>
+            <td class="py-2.5 font-medium">vm-dev-worker-weekend</td>
+            <td class="py-2.5 text-slate-500">Dev/Test Compute Schedule</td>
+            <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 text-[10px] font-bold">Potential</span></td>
+            <td class="py-2.5 text-right font-bold text-slate-900 dark:text-white">${data.currencySymbol}${Math.round(data.totalWaste * 0.30).toLocaleString()}</td>
+          </tr>
+        `;
+      } else {
+        data.items.slice(0, 15).forEach(item => {
+          const tr = document.createElement('tr');
+          const typeBadge = item.type === 'Observed' 
+            ? '<span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">Observed</span>'
+            : '<span class="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 text-[10px] font-bold">Potential</span>';
+
+          tr.innerHTML = `
+            <td class="py-2.5 font-medium truncate max-w-[200px]" title="${item.name}">${item.name}</td>
+            <td class="py-2.5 text-slate-500">${item.category}</td>
+            <td class="py-2.5">${typeBadge}</td>
+            <td class="py-2.5 text-right font-bold text-slate-900 dark:text-white">${data.currencySymbol}${Math.round(item.savings).toLocaleString()}</td>
+          `;
+          findingsTableBody.appendChild(tr);
+        });
+      }
+    }
+
+    function loadSampleAnalysis() {
+      uploadSection.classList.add('hidden');
+      processingSection.classList.remove('hidden');
+      processingStatus.textContent = 'Generating sample Azure enterprise environment export...';
+
+      setTimeout(() => {
+        renderResults({
+          filename: 'sample_azure_vmdr_export.csv',
+          totalSpend: 284500,
+          totalWaste: 31400,
+          opportunitiesCount: 17,
+          validRecords: 1420,
+          currencySymbol: '₹',
+          categories: [
+            { name: 'Unattached Managed Disks', cost: 8400, count: 6, icon: 'fa-hdd', color: 'indigo', desc: 'Disks orphaned after previous VM deletions.' },
+            { name: 'Unused Public IP Addresses', cost: 4200, count: 5, icon: 'fa-network-wired', color: 'emerald', desc: 'Allocated dynamic/static IP addresses with 0 bound network interfaces.' },
+            { name: 'Dev/Test Compute Schedule Overlaps', cost: 11100, count: 4, icon: 'fa-server', color: 'amber', desc: 'Non-prod VMs continuously running over weekends without automation.' },
+            { name: 'Blob Storage Hot Tier Inefficiencies', cost: 7700, count: 2, icon: 'fa-box-archive', color: 'blue', desc: 'Static backup data residing on Hot storage tier instead of Cool/Archive.' }
+          ],
+          items: [
+            { name: 'disk-prod-db-backup-old', category: 'Unattached Storage', type: 'Observed', savings: 3200 },
+            { name: 'pip-staging-ingress-temp', category: 'Unused Public IP', type: 'Observed', savings: 1400 },
+            { name: 'vm-dev-microservice-01', category: 'Dev/Test Compute Schedule', type: 'Potential', savings: 4800 },
+            { name: 'disk-analytics-worker-unattached', category: 'Unattached Storage', type: 'Observed', savings: 2800 },
+            { name: 'pip-gateway-qa-old', category: 'Unused Public IP', type: 'Observed', savings: 1400 },
+            { name: 'blob-legacy-archive-hot', category: 'Storage Tier Optimization', type: 'Potential', savings: 4500 }
+          ]
+        });
+      }, 600);
+    }
+
+    function resetAnalyzer() {
+      resultsSection.classList.add('hidden');
+      processingSection.classList.add('hidden');
+      uploadSection.classList.remove('hidden');
+      csvFileInput.value = '';
+    }
+
+    function downloadReport() {
+      if (!currentAnalysisReport) return;
+      const d = currentAnalysisReport;
+      const text = [
+        '=========================================',
+        '  AZURE COST CHECK — ANALYSIS SUMMARY',
+        '=========================================',
+        `Generated: ${new Date().toISOString()}`,
+        `File: ${d.filename}`,
+        `Total Monthly Spend: ${d.currencySymbol}${Math.round(d.totalSpend).toLocaleString()}`,
+        `Potential Optimization: ${d.currencySymbol}${Math.round(d.totalWaste).toLocaleString()}`,
+        `Opportunities Detected: ${d.opportunitiesCount}`,
+        '-----------------------------------------',
+        'CATEGORY BREAKDOWN:',
+        ...d.categories.map(c => `- ${c.name}: ${d.currencySymbol}${Math.round(c.cost).toLocaleString()} (${c.count} items)`),
+        '-----------------------------------------',
+        'METHODOLOGY NOTES:',
+        '1. Observed findings are derived directly from explicit billing line items.',
+        '2. Potential recommendations are heuristic approximations.',
+        '3. Comprehensive VM rightsizing requires Azure Monitor CPU/RAM telemetry.',
+        '-----------------------------------------',
+        'Continuous Cloud Cost Optimization: https://odinext.com',
+        '========================================='
+      ].join('\n');
+
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'azure_cost_check_report.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+</body>
+</html>

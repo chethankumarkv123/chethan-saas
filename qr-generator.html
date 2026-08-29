@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator — Create Free Custom QR Codes Online | OnePageTools</title>
+  <meta name="description" content="Generate high-resolution custom QR codes for URLs, text, Wi-Fi, and contacts online for free. Customize colors, size, and download instant PNG barcodes with 100% privacy.">
+  <meta name="keywords" content="QR code generator, create QR code, free QR generator, make QR code online, custom QR code, QR code maker, in-browser QR generator">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://chethan-saas.netlify.app/qr-generator.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chethan-saas.netlify.app/qr-generator.html">
+  <meta property="og:title" content="QR Code Generator — Create Free Custom QR Codes Online | OnePageTools">
+  <meta property="og:description" content="Create custom QR codes instantly for links, text, contacts, or Wi-Fi networks. 100% free and client-side private.">
+  <meta property="og:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QR Code Generator — Create Free Custom QR Codes Online">
+  <meta name="twitter:description" content="Create custom QR codes instantly for links, text, contacts, or Wi-Fi networks.">
+  <meta name="twitter:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QR Code Generator",
+    "url": "https://chethan-saas.netlify.app/qr-generator.html",
+    "description": "Create custom high-resolution QR codes with customizable colors and sizes.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All modern browsers",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://chethan-saas.netlify.app/" },
+      { "@type": "ListItem", "position": 2, "name": "Utilities", "item": "https://chethan-saas.netlify.app/#toollists" },
+      { "@type": "ListItem", "position": 3, "name": "QR Generator", "item": "https://chethan-saas.netlify.app/qr-generator.html" }
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/menu.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- Breadcrumb Bar -->
+  <div class="bg-white dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 py-2.5 px-4">
+    <div class="max-w-5xl mx-auto flex items-center justify-between text-xs">
+      <div class="flex items-center space-x-2 text-slate-500 dark:text-slate-400">
+        <a href="./index.html" class="hover:text-indigo-600 dark:hover:text-indigo-400">Home</a>
+        <span>/</span>
+        <a href="./index.html#toollists" class="hover:text-indigo-600 dark:hover:text-indigo-400">Utilities</a>
+        <span>/</span>
+        <span class="text-slate-800 dark:text-slate-200 font-semibold">QR Code Generator</span>
+      </div>
+      <div class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
+        <i class="fas fa-lock text-[10px]"></i>
+        <span>100% In-Browser Privacy</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <div class="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8 mb-12">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Free Utility</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1 mb-2">
+          QR Code Generator
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+          Create high-resolution custom QR codes for website URLs, contact info, text, or Wi-Fi passwords.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <!-- Input Controls -->
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Enter Text or URL</label>
+            <textarea id="qrText" rows="4" class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-900 rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="https://example.com or any text..."></textarea>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">QR Foreground Color</label>
+              <input type="color" id="qrColor" value="#000000" class="w-full h-10 border border-slate-200 dark:border-slate-700 rounded-lg cursor-pointer p-1 bg-white dark:bg-slate-800">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Background Color</label>
+              <input type="color" id="qrBgColor" value="#ffffff" class="w-full h-10 border border-slate-200 dark:border-slate-700 rounded-lg cursor-pointer p-1 bg-white dark:bg-slate-800">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Size (pixels)</label>
+            <select id="qrSize" class="w-full border border-slate-200 dark:border-slate-700 dark:bg-slate-900 rounded-lg p-2.5 text-xs">
+              <option value="180">Small (180 × 180 px)</option>
+              <option value="256" selected>Medium (256 × 256 px)</option>
+              <option value="350">Large (350 × 350 px)</option>
+              <option value="500">HD Print (500 × 500 px)</option>
+            </select>
+          </div>
+
+          <div class="flex gap-3 pt-2">
+            <button onclick="generateQr()" class="btn-primary flex-1 py-2.5 text-xs font-bold">
+              <i class="fas fa-sync-alt"></i> Generate QR
+            </button>
+            <button onclick="downloadQr()" id="downloadBtn" class="btn-secondary flex-1 py-2.5 text-xs font-bold">
+              <i class="fas fa-download"></i> Download PNG
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview Area -->
+        <div class="flex flex-col items-center justify-center p-6 bg-slate-50 dark:bg-slate-900/60 rounded-2xl border border-slate-200 dark:border-slate-700 min-h-[280px]">
+          <div id="qrcode" class="p-3 bg-white rounded-xl shadow-sm flex items-center justify-center"></div>
+          <p id="previewHint" class="text-xs text-slate-400 mt-3 text-center">Type text or link above to generate code</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO Content Section -->
+    <div class="space-y-12 text-slate-700 dark:text-slate-300">
+      
+      <!-- How to Generate -->
+      <section class="bg-white dark:bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-4">How to Generate Custom QR Codes Online</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold inline-flex items-center justify-center text-xs mb-2">1</span>
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Enter Content</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Paste your website URL, contact phone, or text into the input field.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold inline-flex items-center justify-center text-xs mb-2">2</span>
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Customize Design</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Pick custom brand colors, background tones, and resolution sizes.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
+            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold inline-flex items-center justify-center text-xs mb-2">3</span>
+            <h3 class="font-bold text-slate-900 dark:text-white mb-1">Download PNG</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Download high-definition PNG image ready for print menus, flyers, and screens.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Features & Privacy -->
+      <section class="bg-white dark:bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Why Use OnePageTools QR Generator?</h2>
+        <p class="text-sm leading-relaxed">
+          Unlike online QR tools that redirect through tracking links or expire after 14 days, OnePageTools generates permanent, direct QR codes that never expire.
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-sm ml-2">
+          <li><strong>Direct & Permanent:</strong> Embeds your URL or text directly into the barcode matrix with zero redirects or expiration.</li>
+          <li><strong>100% In-Browser Privacy:</strong> The QR matrix is rendered on your device Canvas. No links are logged or stored.</li>
+          <li><strong>High-Resolution PNG Output:</strong> Crisp barcodes suitable for restaurant menus, business cards, and billboards.</li>
+          <li><strong>Free Forever:</strong> Unlimited generation with no signups, paywalls, or scans caps.</li>
+        </ul>
+      </section>
+
+      <!-- FAQ -->
+      <section class="bg-white dark:bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-4 text-sm">
+          <details class="group bg-slate-50 dark:bg-slate-900/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700 cursor-pointer" open>
+            <summary class="font-bold text-slate-900 dark:text-white flex justify-between items-center">
+              <span>Do these QR codes have an expiration date?</span>
+              <i class="fas fa-chevron-down text-xs text-slate-400 group-open:-rotate-180 transition"></i>
+            </summary>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              No. These are static QR codes that contain the data directly and will work forever without expiration.
+            </p>
+          </details>
+
+          <details class="group bg-slate-50 dark:bg-slate-900/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700 cursor-pointer">
+            <summary class="font-bold text-slate-900 dark:text-white flex justify-between items-center">
+              <span>Is there any scan limit on the generated QR codes?</span>
+              <i class="fas fa-chevron-down text-xs text-slate-400 group-open:-rotate-180 transition"></i>
+            </summary>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              No. You can scan them unlimited times forever.
+            </p>
+          </details>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 text-center">
+    <p>&copy; 2026 OnePageTools. 100% Client-Side Privacy Guaranteed.</p>
+  </footer>
+
+  <script>
+    let qrcodeObj = null;
+
+    function generateQr() {
+      const text = document.getElementById('qrText').value.trim();
+      const color = document.getElementById('qrColor').value;
+      const bgColor = document.getElementById('qrBgColor').value;
+      const size = parseInt(document.getElementById('qrSize').value, 10);
+      const container = document.getElementById('qrcode');
+      const hint = document.getElementById('previewHint');
+
+      if (!text) {
+        Swal.fire({ icon: 'warning', title: 'Empty Input', text: 'Please enter a URL or text to generate a QR code.' });
+        return;
+      }
+
+      container.innerHTML = '';
+      qrcodeObj = new QRCode(container, {
+        text: text,
+        width: size,
+        height: size,
+        colorDark: color,
+        colorLight: bgColor,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      hint.textContent = 'QR Code ready for download!';
+    }
+
+    function downloadQr() {
+      const container = document.getElementById('qrcode');
+      const img = container.querySelector('img');
+      const canvas = container.querySelector('canvas');
+
+      let dataUrl = '';
+      if (img && img.src) {
+        dataUrl = img.src;
+      } else if (canvas) {
+        dataUrl = canvas.toDataURL('image/png');
+      }
+
+      if (!dataUrl) {
+        Swal.fire({ icon: 'info', title: 'Generate First', text: 'Please generate a QR code before downloading.' });
+        return;
+      }
+
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = 'qrcode.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    // Default sample QR on load
+    document.getElementById('qrText').value = 'https://chethan-saas.netlify.app';
+    generateQr();
+  </script>
+</body>
+</html>

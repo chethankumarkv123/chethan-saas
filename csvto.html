@@ -3,8 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSV to PDF Converter Online - Free Tool to Convert CSV to PDF</title>
-  <meta name="description" content="Convert CSV to PDF online for free with our advanced CSV to PDF converter. Transform CSV data into professional PDF documents with customizable layouts and styles.">
+  <title>CSV to PDF Converter — Convert CSV Data to Formatted PDF | OnePageTools</title>
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chethan-saas.netlify.app/csvto.html">
+  <meta property="og:title" content="CSV to PDF Converter — Convert CSV Data to Formatted PDF | OnePageTools">
+  <meta property="og:description" content="Convert CSV tabular datasets into structured, printable PDF tables with custom styling.">
+  <meta property="og:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CSV to PDF Converter — Convert CSV Data to Formatted PDF | OnePageTools">
+  <meta name="twitter:description" content="Convert CSV tabular datasets into structured, printable PDF tables with custom styling.">
+  <meta name="twitter:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+  <link rel="canonical" href="https://chethan-saas.netlify.app/csvto.html">
+  <meta name="description" content="Convert CSV tabular datasets into structured, printable PDF tables with custom styling.">
   <meta name="keywords" content="CSV to PDF converter, convert CSV to PDF online, free CSV to PDF tool, CSV to PDF creator, CSV to PDF free, CSV data to PDF">
   <meta name="robots" content="index, follow">
   <meta name="author" content="PDF Converter Team">
@@ -38,6 +50,7 @@
     .preview-table { max-height: 300px; overflow-y: auto; }
     .gradient-bg { background: linear-gradient(135deg, #f3f4f6, #e0e7ff); }
   </style>
+  <script src="./js/menu.js"></script>
 </head>
 <body class="gradient-bg">
   <!-- Navigation -->
@@ -506,30 +519,28 @@
 
           const pdfDoc = await PDFLib.PDFDocument.create();
           const pageDimensions = pageSize === 'A4' ? [595, 842] : pageSize === 'Letter' ? [612, 792] : [612, 1008];
-          const page = pdfDoc.addPage(orientation === 'portrait' ? pageDimensions : [pageDimensions[1], pageDimensions[0]]);
-          const { width, height } = page.getSize();
+          let currentPage = pdfDoc.addPage(orientation === 'portrait' ? pageDimensions : [pageDimensions[1], pageDimensions[0]]);
+          const { width, height } = currentPage.getSize();
           const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
           const boldFont = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
           const margin = 50;
           const cellPadding = 5;
           const rowHeight = fontSize + 10;
           let y = height - margin;
-          const maxRowsPerPage = Math.floor((height - 2 * margin) / rowHeight);
 
           fileData.data.forEach((row, rowIndex) => {
             if (y < margin + rowHeight) {
-              const newPage = pdfDoc.addPage(orientation === 'portrait' ? pageDimensions : [pageDimensions[1], pageDimensions[0]]);
+              currentPage = pdfDoc.addPage(orientation === 'portrait' ? pageDimensions : [pageDimensions[1], pageDimensions[0]]);
               y = height - margin;
-              page.setSize(...newPage.getSize());
             }
 
             const cellWidth = (width - 2 * margin) / row.length;
             let x = margin;
 
             row.forEach((cell, cellIndex) => {
-              const text = cell.toString();
+              const text = cell ? cell.toString() : '';
               const isHeader = rowIndex === 0 && useHeaders;
-              page.drawText(text, {
+              currentPage.drawText(text, {
                 x: x + cellPadding,
                 y,
                 size: fontSize,
@@ -539,7 +550,7 @@
               });
 
               if (drawBorders) {
-                page.drawRectangle({
+                currentPage.drawRectangle({
                   x,
                   y: y - 2,
                   width: cellWidth,

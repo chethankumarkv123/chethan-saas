@@ -3,8 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSON to PDF Converter Online - Free Tool to Convert JSON to PDF</title>
-  <meta name="description" content="Convert JSON to PDF online for free with our advanced JSON to PDF converter. Transform JSON data into professional PDF documents with customizable layouts and formatting.">
+  <title>JSON to PDF Converter — Format JSON Data into PDF | OnePageTools</title>
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chethan-saas.netlify.app/jsonto.html">
+  <meta property="og:title" content="JSON to PDF Converter — Format JSON Data into PDF | OnePageTools">
+  <meta property="og:description" content="Render structured JSON datasets into clean, formatted multi-page PDF documents.">
+  <meta property="og:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JSON to PDF Converter — Format JSON Data into PDF | OnePageTools">
+  <meta name="twitter:description" content="Render structured JSON datasets into clean, formatted multi-page PDF documents.">
+  <meta name="twitter:image" content="https://chethan-saas.netlify.app/chethan-saas.png">
+  <link rel="canonical" href="https://chethan-saas.netlify.app/jsonto.html">
+  <meta name="description" content="Render structured JSON datasets into clean, formatted multi-page PDF documents.">
   <meta name="keywords" content="JSON to PDF converter, convert JSON to PDF online, free JSON to PDF tool, JSON to PDF creator, JSON to PDF free, JSON to PDF generator">
   <meta name="robots" content="index, follow">
   <meta name="author" content="PDF Converter Team">
@@ -39,12 +51,13 @@
     .json-preview { max-height: 400px; overflow-y: auto; font-size: 14px; }
     .gradient-bg { background: linear-gradient(135deg, #f3f4f6, #e0e7ff); }
   </style>
+  <script src="./js/menu.js"></script>
 </head>
 <body class="gradient-bg">
   <!-- Navigation -->
   <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <a href="h./index.html"class="flex items-center space-x-3">
+      <a href="./index.html" class="flex items-center space-x-3">
         <img src="chethan-saas.png" alt="PDF Converter Logo" style="height: 60px" />
       </a>
       <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
@@ -519,13 +532,12 @@
           }
 
           const currentPdfDoc = combinePDF ? pdfDoc : await PDFLib.PDFDocument.create();
-          const page = currentPdfDoc.addPage();
-          const font = await currentPdfDoc.embedFont(fontMap[fontStyle]);
           const pageDimensions = pageSize === 'A4' ? [595, 842] : pageSize === 'Letter' ? [612, 792] : [612, 1008];
           if (orientation === 'landscape') {
             [pageDimensions[0], pageDimensions[1]] = [pageDimensions[1], pageDimensions[0]];
           }
-          page.setSize(pageDimensions[0], pageDimensions[1]);
+          let page = currentPdfDoc.addPage([pageDimensions[0], pageDimensions[1]]);
+          const font = await currentPdfDoc.embedFont(fontMap[fontStyle]);
           let y = pageDimensions[1] - margin;
           const lineHeight = fontSize * lineSpacing;
 
@@ -534,7 +546,7 @@
             const jsonLines = jsonString.split('\n');
             for (const line of jsonLines) {
               if (y - lineHeight < margin) {
-                page = currentPdfDoc.addPage();
+                page = currentPdfDoc.addPage([pageDimensions[0], pageDimensions[1]]);
                 y = pageDimensions[1] - margin;
               }
               page.drawText(line, { x: margin, y, size: fontSize, font });
@@ -542,7 +554,7 @@
             }
           } else if (outputFormat === 'table' && Array.isArray(fileData.jsonData)) {
             const headers = Object.keys(fileData.jsonData[0] || {});
-            const columnWidth = (pageDimensions[0] - 2 * margin) / headers.length;
+            const columnWidth = (pageDimensions[0] - 2 * margin) / (headers.length || 1);
             page.drawText(fileData.name, { x: margin, y, size: fontSize + 2, font });
             y -= lineHeight * 1.5;
             headers.forEach((header, idx) => {
@@ -553,7 +565,7 @@
             y -= lineHeight / 2;
             for (const row of fileData.jsonData) {
               if (y - lineHeight < margin) {
-                page = currentPdfDoc.addPage();
+                page = currentPdfDoc.addPage([pageDimensions[0], pageDimensions[1]]);
                 y = pageDimensions[1] - margin;
                 headers.forEach((header, idx) => {
                   page.drawText(header, { x: margin + idx * columnWidth, y, size: fontSize, font });
@@ -574,7 +586,7 @@
             const renderKeyValue = (obj, indent = 0) => {
               for (const [key, value] of Object.entries(obj)) {
                 if (y - lineHeight < margin) {
-                  page = currentPdfDoc.addPage();
+                  page = currentPdfDoc.addPage([pageDimensions[0], pageDimensions[1]]);
                   y = pageDimensions[1] - margin;
                 }
                 const displayValue = typeof value === 'object' ? '[Object]' : value.toString().substring(0, 50);
