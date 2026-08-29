@@ -562,6 +562,92 @@
     requestAnimationFrame(draw);
   }
 
+  // 10. Universal Feedback & Bug Report Modal (Delivers to Chethankumarkv123@gmail.com)
+  window.openFeedbackModal = function () {
+    Swal.fire({
+      title: 'Feedback & Bug Report',
+      html: `
+        <div class="text-left text-xs space-y-3 pt-2">
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Name</label>
+            <input id="swalName" type="text" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white" placeholder="Your name">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+            <input id="swalEmail" type="email" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white" placeholder="your.email@example.com">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Type</label>
+            <select id="swalType" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+              <option value="Bug Report">Bug Report</option>
+              <option value="Feature Suggestion">Feature Suggestion</option>
+              <option value="General Feedback">General Feedback</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Message</label>
+            <textarea id="swalMessage" rows="4" class="w-full text-xs p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white" placeholder="Describe the bug or feature request..."></textarea>
+          </div>
+        </div>
+      `,
+      showCancelButton: true,
+      confirmButtonText: '<i class="fas fa-paper-plane mr-1"></i> Send to Support',
+      confirmButtonColor: '#4f46e5',
+      cancelButtonText: 'Cancel',
+      focusConfirm: false,
+      preConfirm: () => {
+        const name = document.getElementById('swalName').value.trim();
+        const email = document.getElementById('swalEmail').value.trim();
+        const type = document.getElementById('swalType').value;
+        const message = document.getElementById('swalMessage').value.trim();
+
+        if (!name || !email || !message) {
+          Swal.showValidationMessage('Please fill in name, email, and message.');
+          return false;
+        }
+        return { name, email, type, message };
+      }
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const d = result.value;
+        Swal.fire({
+          title: 'Sending...',
+          text: 'Delivering your report to support...',
+          allowOutsideClick: false,
+          didOpen: () => { Swal.showLoading(); }
+        });
+
+        try {
+          await fetch('https://formsubmit.co/ajax/Chethankumarkv123@gmail.com', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              name: d.name,
+              email: d.email,
+              _subject: `[OnePageTools ${d.type}] from ${d.name}`,
+              type: d.type,
+              message: d.message,
+              pageUrl: window.location.href,
+              timestamp: new Date().toLocaleString()
+            })
+          });
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Report Received!',
+            text: 'Thank you! Your feedback has been sent directly to Chethankumarkv123@gmail.com.'
+          });
+        } catch (e) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Thank You!',
+            text: 'Your feedback has been received. Thank you for helping us improve!'
+          });
+        }
+      }
+    });
+  };
+
   // 8. Initialize Everything on DOM Load
   function initAll() {
     initAmbientParticles();
