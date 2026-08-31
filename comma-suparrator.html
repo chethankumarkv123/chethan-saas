@@ -251,7 +251,7 @@
                         <button onclick="loadSampleData()" class="text-xs text-slate-500 dark:text-slate-400 hover:underline">Sample</button>
                     </div>
                 </div>
-                <textarea id="inputText" rows="10" class="w-full border border-gray-300 dark:border-slate-600 rounded-xl p-3.5 mb-4 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white font-mono text-xs resize-y" placeholder="Paste or type your data here..."></textarea>
+                <textarea id="inputText" rows="10" class="w-full border border-gray-300 dark:border-slate-600 rounded-xl p-3.5 mb-4 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white font-mono text-xs resize-y placeholder:text-slate-400 dark:placeholder:text-slate-500 placeholder:opacity-60" placeholder="apple&#10;banana&#10;orange&#10;apple&#10;grapes&#10;mango&#10;strawberry&#10;banana&#10;&#10;(Paste or type your data here...)"></textarea>
                 
                 <div class="space-y-3 mb-4 text-xs">
                     <!-- Delimiter selection -->
@@ -843,6 +843,21 @@
             convert();
         };
 
+        function initApp() {
+            settings.tidy = 'yes';
+            settings.dedup = 'yes';
+            settings.quotes = 'single';
+            settings.delimiter = ' or ';
+            delimiter.value = 'qualys';
+            removeNewlines.checked = true;
+            removeDuplicates.checked = true;
+            showOnlyDuplicates.checked = false;
+            addQuotes.checked = true;
+            updateModalButtonStates();
+            inputText.value = '';
+            convert();
+        }
+
         function loadSampleData() {
             inputText.value = ['apple', 'banana', 'orange', 'apple', 'grapes', 'mango', 'strawberry', 'banana'].join('\n');
             settings.tidy = 'yes';
@@ -858,8 +873,8 @@
             convert();
         }
 
-        // Initialize on load
-        loadSampleData();
+        // Initialize on load with empty input
+        initApp();
     </script>
 </body>
 </html>
